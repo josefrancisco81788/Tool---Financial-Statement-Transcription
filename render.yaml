@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: financial-statement-transcription
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true --server.fileWatcherType=none
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false 
