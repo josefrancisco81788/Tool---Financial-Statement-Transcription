@@ -667,12 +667,34 @@ def display_single_page_data(data):
                             if isinstance(info, dict) and info.get("value") is not None:
                                 # Prepare year data for display
                                 year_data = {}
+                                main_value = info["value"]
+                                
+                                # Apply correction logic to ensure financial amounts, not years
                                 if "base_year" in info and info["base_year"] is not None:
-                                    year_data[base_year] = info["base_year"]
+                                    base_year_value = info["base_year"]
+                                    # Check if it's a financial amount (not the year number itself)
+                                    if isinstance(base_year_value, (int, float)) and base_year_value != int(base_year):
+                                        year_data[base_year] = base_year_value
+                                    elif base_year_value and str(base_year_value) != str(base_year):
+                                        year_data[base_year] = base_year_value
+                                    else:
+                                        # Use main value if base_year contains year number
+                                        year_data[base_year] = main_value
+                                
                                 for i, year in enumerate(years_detected[1:], 1):
                                     year_key = f"year_{i}"
                                     if year_key in info and info[year_key] is not None:
-                                        year_data[year] = info[year_key]
+                                        year_value = info[year_key]
+                                        # Check if it's a financial amount (not the year number itself)
+                                        if isinstance(year_value, (int, float)) and year_value != int(year):
+                                            year_data[year] = year_value
+                                        elif year_value and str(year_value) != str(year):
+                                            year_data[year] = year_value
+                                        # Skip if it's just the year number
+                                
+                                # Fallback: ensure we have at least the main value for base year
+                                if not year_data and main_value and base_year:
+                                    year_data[base_year] = main_value
                                 
                                 all_line_items.append({
                                     "Category": category.replace("_", " ").title(),
