@@ -1886,9 +1886,10 @@ def process_pdf_with_vector_db(uploaded_file, client, enable_parallel=True):
         
         # Use ThreadPoolExecutor for parallel processing
         with ThreadPoolExecutor(max_workers=5) as executor:
-            # Submit all pages for processing
-            future_to_page = {executor.submit(extract_financial_data_for_page, page_data): page_data[0] 
-                             for page_data in enumerate(selected_pages)}
+            # Submit all pages for processing - FIX: provide 3-tuple format
+            page_data_list = [(page, i, len(selected_pages)) for i, page in enumerate(selected_pages)]
+            future_to_page = {executor.submit(extract_financial_data_for_page, page_data): page_data[1] 
+                             for page_data in page_data_list}
             
             # Collect results as they complete
             results = {}
@@ -1935,7 +1936,42 @@ def process_pdf_with_vector_db(uploaded_file, client, enable_parallel=True):
         extraction_progress.empty()
         extraction_status.empty()
         
-        return images, page_info
+        # Process the extracted results to create consolidated financial data
+        successful_results = []
+        for page_num in sorted(results.keys()):
+            result = results[page_num]
+            if result['success'] and result['data']:
+                successful_results.append(result['data'])
+        
+        if not successful_results:
+            st.error("❌ No successful data extractions from any pages")
+            return None
+        
+        # Consolidate multiple page results if we have more than one
+        if len(successful_results) > 1:
+            st.info(f"🔄 Consolidating data from {len(successful_results)} pages...")
+            consolidated_data = consolidate_financial_data(successful_results)
+            if consolidated_data:
+                consolidated_data['processing_method'] = 'vector_database'
+                consolidated_data['total_pages_processed'] = len(selected_pages)
+                consolidated_data['successful_extractions'] = len(successful_results)
+                st.success(f"✅ Successfully consolidated data from {len(successful_results)} pages using Vector Database approach")
+                return consolidated_data
+            else:
+                st.warning("⚠️ Consolidation failed, returning first successful result")
+                result = successful_results[0]
+                result['processing_method'] = 'vector_database'
+                result['total_pages_processed'] = len(selected_pages)
+                result['successful_extractions'] = len(successful_results)
+                return result
+        else:
+            # Single successful result
+            result = successful_results[0]
+            result['processing_method'] = 'vector_database'
+            result['total_pages_processed'] = len(selected_pages)
+            result['successful_extractions'] = len(successful_results)
+            st.success(f"✅ Successfully extracted data from 1 page using Vector Database approach")
+            return result
         
     except Exception as e:
         st.error(f"Error processing PDF: {str(e)}")
@@ -1993,11 +2029,13 @@ def create_ifrs_csv_export(data):
 
 def consolidate_financial_data(extracted_results):
     """
-    Use LLM to intelligently consolidate multiple financial statement extractions
-    into a single, comprehensive, and accurate financial statement.
+    Consolidate multiple page extraction results into a single comprehensive financial dataset.
+    Uses LLM to intelligently merge and resolve conflicts between different pages.
     """
-    if not extracted_results or len(extracted_results) <= 1:
-        return extracted_results[0] if extracted_results else None
+    import re  # Add import for regex operations
+    
+    if not extracted_results or len(extracted_results) == 0:
+        return None
     
     try:
         st.info(f"🧠 Consolidating data from {len(extracted_results)} pages using AI analysis...")
@@ -2147,10 +2185,44 @@ def consolidate_financial_data(extracted_results):
             else:
                 raise ValueError("No valid JSON found in response")
         
-        consolidated_data = json.loads(json_content)
+        # Add debugging and better error handling for JSON parsing
+        try:
+            extracted_data = json.loads(json_content)
+        except json.JSONDecodeError as e:
+            st.error(f"❌ JSON parsing failed: {str(e)}")
+            st.error(f"📍 Error at line {e.lineno}, column {e.colno}")
+            
+            # Show problematic JSON content for debugging
+            with st.expander("🔍 Debug: Raw JSON Content", expanded=False):
+                st.text_area("JSON Content", json_content, height=200)
+                st.write(f"**Content Length:** {len(json_content)} characters")
+                st.write(f"**Error Position:** Line {e.lineno}, Column {e.colno}")
+                
+                # Show context around error
+                lines = json_content.split('\n')
+                if e.lineno <= len(lines):
+                    error_line = lines[e.lineno - 1] if e.lineno > 0 else ""
+                    st.write(f"**Error Line:** `{error_line}`")
+                    if e.colno <= len(error_line):
+                        st.write(f"**Error Character:** `{error_line[e.colno-1] if e.colno > 0 else 'N/A'}`")
+            
+            # Try to fix common JSON issues
+            st.info("🔧 Attempting to fix common JSON issues...")
+            try:
+                # Remove common problematic characters
+                fixed_json = json_content.replace('\n', ' ').replace('\r', ' ')
+                fixed_json = re.sub(r'\s+', ' ', fixed_json)  # Normalize whitespace
+                fixed_json = fixed_json.strip()
+                
+                # Try parsing the fixed version
+                extracted_data = json.loads(fixed_json)
+                st.success("✅ JSON parsing succeeded after cleanup!")
+            except json.JSONDecodeError as e2:
+                st.error(f"❌ JSON parsing still failed after cleanup: {str(e2)}")
+                return None
         
         # Add metadata about the consolidation process
-        consolidated_data['consolidation_metadata'] = {
+        extracted_data['consolidation_metadata'] = {
             'source_extractions': len(extracted_results),
             'consolidation_timestamp': datetime.now().isoformat(),
             'consolidation_method': 'LLM_GPT4'
@@ -2159,8 +2231,8 @@ def consolidate_financial_data(extracted_results):
         st.success(f"✅ Successfully consolidated data from {len(extracted_results)} pages")
         
         # Show consolidation summary
-        if 'consolidation_info' in consolidated_data:
-            info = consolidated_data['consolidation_info']
+        if 'consolidation_info' in extracted_data:
+            info = extracted_data['consolidation_info']
             with st.expander("📋 Consolidation Summary", expanded=True):
                 col1, col2, col3 = st.columns(3)
                 with col1:
@@ -2184,7 +2256,7 @@ def consolidate_financial_data(extracted_results):
                     st.write("**Consolidation Notes:**")
                     st.write(info['consolidation_notes'])
         
-        return consolidated_data
+        return extracted_data
         
     except Exception as e:
         st.error(f"❌ Consolidation failed: {str(e)}")
@@ -2261,6 +2333,8 @@ def merge_equity_into_balance_sheet(balance_sheet_data, equity_statement_data):
 
 def process_pdf_with_whole_document_context(uploaded_file, client):
     """Process PDF using whole document context approach for comprehensive analysis"""
+    import re  # Add import for regex operations
+    
     try:
         st.info("🌐 Starting Whole Document Context analysis...")
         
@@ -2497,8 +2571,42 @@ def process_pdf_with_whole_document_context(uploaded_file, client):
             else:
                 raise ValueError("No valid JSON found in response")
 
-        extracted_data = json.loads(json_content)
-
+        # Add debugging and better error handling for JSON parsing
+        try:
+            extracted_data = json.loads(json_content)
+        except json.JSONDecodeError as e:
+            st.error(f"❌ JSON parsing failed: {str(e)}")
+            st.error(f"📍 Error at line {e.lineno}, column {e.colno}")
+            
+            # Show problematic JSON content for debugging
+            with st.expander("🔍 Debug: Raw JSON Content", expanded=False):
+                st.text_area("JSON Content", json_content, height=200)
+                st.write(f"**Content Length:** {len(json_content)} characters")
+                st.write(f"**Error Position:** Line {e.lineno}, Column {e.colno}")
+                
+                # Show context around error
+                lines = json_content.split('\n')
+                if e.lineno <= len(lines):
+                    error_line = lines[e.lineno - 1] if e.lineno > 0 else ""
+                    st.write(f"**Error Line:** `{error_line}`")
+                    if e.colno <= len(error_line):
+                        st.write(f"**Error Character:** `{error_line[e.colno-1] if e.colno > 0 else 'N/A'}`")
+            
+            # Try to fix common JSON issues
+            st.info("🔧 Attempting to fix common JSON issues...")
+            try:
+                # Remove common problematic characters
+                fixed_json = json_content.replace('\n', ' ').replace('\r', ' ')
+                fixed_json = re.sub(r'\s+', ' ', fixed_json)  # Normalize whitespace
+                fixed_json = fixed_json.strip()
+                
+                # Try parsing the fixed version
+                extracted_data = json.loads(fixed_json)
+                st.success("✅ JSON parsing succeeded after cleanup!")
+            except json.JSONDecodeError as e2:
+                st.error(f"❌ JSON parsing still failed after cleanup: {str(e2)}")
+                return None
+        
         # Transform the data to match the expected format for display
         if 'consolidated_financial_data' in extracted_data:
             # Create a unified result that matches the display format
@@ -2719,7 +2827,11 @@ def main():
                         other_statements.append(result)
             else:
                 # Single result - categorize it
-                statement_type = st.session_state.extracted_data.get("statement_type", "").lower()
+                if isinstance(st.session_state.extracted_data, dict):
+                    statement_type = st.session_state.extracted_data.get("statement_type", "").lower()
+                else:
+                    st.error(f"❌ Unexpected data format: {type(st.session_state.extracted_data)}")
+                    return
                 if any(bs_term in statement_type for bs_term in ["balance sheet", "financial position", "assets and liabilities"]):
                     balance_sheet_data = st.session_state.extracted_data
                 elif any(is_term in statement_type for is_term in ["income", "profit", "loss", "operations", "earnings"]):
