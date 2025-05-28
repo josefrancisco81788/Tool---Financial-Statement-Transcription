@@ -1,4 +1,4 @@
-import streamlit as st
+﻿import streamlit as st
 import pandas as pd
 import json
 import base64
@@ -548,6 +548,41 @@ def display_extracted_data(data):
         # Handle single page result
         return display_single_page_data(data)
 
+def get_corrected_year_data(item_info, main_value, years_detected, base_year):
+    """Get corrected year data that matches the CSV export format"""
+    year_data = {}
+    
+    # Get the raw year data
+    raw_year_data = {}
+    if "base_year" in item_info and item_info["base_year"] is not None:
+        raw_year_data[base_year] = item_info["base_year"]
+    for i, year in enumerate(years_detected[1:], 1):
+        year_key = f"year_{i}"
+        if year_key in item_info and item_info[year_key] is not None:
+            raw_year_data[year] = item_info[year_key]
+    
+    # Apply the same correction logic as the CSV export
+    if raw_year_data:
+        # Sort years (most recent first)
+        try:
+            sorted_years = sorted(raw_year_data.keys(), key=lambda x: int(x) if str(x).isdigit() else float('inf'), reverse=True)
+        except:
+            sorted_years = sorted(raw_year_data.keys(), reverse=True)
+        
+        for year in sorted_years:
+            year_value = raw_year_data.get(year, "")
+            # Ensure we're putting financial amounts, not years
+            if isinstance(year_value, (int, float)) and year_value != int(year):
+                year_data[year] = year_value
+            elif year_value and str(year_value) != str(year):
+                year_data[year] = year_value
+    
+    # Fallback: if no valid year data but we have a main value, use it for the base year
+    if not year_data and main_value and base_year:
+        year_data[base_year] = main_value
+    
+    return year_data
+
 def display_single_page_data(data):
     """Display comprehensive extracted financial data for a single page"""
     if not data:
@@ -755,18 +790,39 @@ def display_single_page_data(data):
         
         # Export options
         st.subheader("📤 Export Data")
+        
+        # Always use analysis-ready format (fixed columns)
+        analysis_df = transform_to_analysis_ready_format(all_line_items)
+        if not analysis_df.empty:
+            with st.expander("👁️ Preview: Analysis-Ready Format", expanded=False):
+                st.info("🔧 Fixed column structure with header row showing year mapping - perfect for automated analysis and API integration")
+                st.dataframe(analysis_df.head(10), use_container_width=True)
+                if len(analysis_df) > 10:
+                    st.caption(f"Showing first 10 rows of {len(analysis_df)} total rows")
+        
         col1, col2 = st.columns(2)
         
         with col1:
-            # CSV Export
-            detailed_csv = df.to_csv(index=False)
-            st.download_button(
-                label="📄 Download Detailed CSV",
-                data=detailed_csv,
-                file_name=f"financial_data_detailed_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
-                mime="text/csv",
-                key=f"download_detailed_csv_{abs(hash(str(data))) % 10000}"
-            )
+            # Main CSV Export - Analysis-Ready Format
+            if not analysis_df.empty:
+                analysis_csv = analysis_df.to_csv(index=False)
+                st.download_button(
+                    label="📄 Download Financial Data CSV",
+                    data=analysis_csv,
+                    file_name=f"financial_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+                    mime="text/csv",
+                    key=f"download_financial_csv_{abs(hash(str(data))) % 10000}"
+                )
+            else:
+                # Fallback to original format if analysis format fails
+                detailed_csv = df.to_csv(index=False)
+                st.download_button(
+                    label="📄 Download Financial Data CSV",
+                    data=detailed_csv,
+                    file_name=f"financial_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+                    mime="text/csv",
+                    key=f"download_financial_csv_{abs(hash(str(data))) % 10000}"
+                )
         
         with col2:
             # Summary CSV (just key metrics)
@@ -801,7 +857,10 @@ def display_single_page_data(data):
             st.metric("Average Confidence", f"{avg_confidence:.1%}")
         
         st.markdown('</div>', unsafe_allow_html=True)
-        return df
+        
+        # Return the analysis-ready format for export consistency
+        analysis_df = transform_to_analysis_ready_format(all_line_items)
+        return analysis_df if not analysis_df.empty else df
     else:
         st.warning("No financial line items could be extracted from this page.")
         return None
@@ -1379,9 +1438,15 @@ def extract_comprehensive_financial_data(base64_image, statement_type_hint, page
            - 0.1-0.3: Very uncertain or barely visible
 
         6. **MULTI-YEAR DATA**: If multiple years are present:
-           - Identify the base year (usually leftmost or most recent)
-           - Extract data for year_1, year_2, year_3 as available
-           - Only include year fields that have actual data
+           - **CRITICAL**: Year headers (like "2024", "2023", "2022") are COLUMN HEADERS, not financial values
+           - **DO NOT** extract year numbers as financial data values
+           - Look for the actual financial amounts under each year column
+           - Identify the base year (usually leftmost or most recent year column)
+           - Extract the actual financial values for base_year, year_1, year_2, year_3 as available
+           - **EXAMPLE**: If you see "Cash  2024: $1,000,000  2023: $950,000", extract:
+             * base_year: 1000000 (the amount under 2024, not "2024" itself)
+             * year_1: 950000 (the amount under 2023, not "2023" itself)
+           - Only include year fields that have actual financial data (not the year labels)
 
         7. **FALLBACK APPROACH**: If document structure is unusual:
            - Create a "miscellaneous" or "other_items" category
@@ -1398,6 +1463,17 @@ def extract_comprehensive_financial_data(base64_image, statement_type_hint, page
 
         Document shows: "Cost of Sales    (2,000,000)"
         Extract as: "cost_of_sales": {{"value": -2000000, "confidence": 0.95, "base_year": -2000000}}
+
+        **MULTI-YEAR EXAMPLE** - Document shows:
+        "                    2024        2023        2022
+        Cash                40,506,296  14,011,556  12,500,000
+        Accounts Receivable 93,102,625  102,434,862 95,000,000"
+        
+        Extract as:
+        "cash": {{"value": 40506296, "confidence": 0.95, "base_year": 40506296, "year_1": 14011556, "year_2": 12500000}}
+        "accounts_receivable": {{"value": 93102625, "confidence": 0.95, "base_year": 93102625, "year_1": 102434862, "year_2": 95000000}}
+        
+        **WRONG**: Do NOT extract "2024": {{"value": 2024}} - years are headers, not data!
 
         REMEMBER: Your goal is to capture ALL financial data visible in the document while preserving the document's own terminology and organization. Be thorough but accurate.
         """
@@ -1422,7 +1498,7 @@ def extract_comprehensive_financial_data(base64_image, statement_type_hint, page
                 max_tokens=4000
             )
         )
-
+        
         # Parse the JSON response
         content = response.choices[0].message.content or ""
         
@@ -1886,10 +1962,9 @@ def process_pdf_with_vector_db(uploaded_file, client, enable_parallel=True):
         
         # Use ThreadPoolExecutor for parallel processing
         with ThreadPoolExecutor(max_workers=5) as executor:
-            # Submit all pages for processing - FIX: provide 3-tuple format
-            page_data_list = [(page, i, len(selected_pages)) for i, page in enumerate(selected_pages)]
-            future_to_page = {executor.submit(extract_financial_data_for_page, page_data): page_data[1] 
-                             for page_data in page_data_list}
+            # Submit all pages for processing
+            future_to_page = {executor.submit(extract_financial_data_for_page, page_data): page_data[0] 
+                             for page_data in enumerate(selected_pages)}
             
             # Collect results as they complete
             results = {}
@@ -1936,42 +2011,7 @@ def process_pdf_with_vector_db(uploaded_file, client, enable_parallel=True):
         extraction_progress.empty()
         extraction_status.empty()
         
-        # Process the extracted results to create consolidated financial data
-        successful_results = []
-        for page_num in sorted(results.keys()):
-            result = results[page_num]
-            if result['success'] and result['data']:
-                successful_results.append(result['data'])
-        
-        if not successful_results:
-            st.error("❌ No successful data extractions from any pages")
-            return None
-        
-        # Consolidate multiple page results if we have more than one
-        if len(successful_results) > 1:
-            st.info(f"🔄 Consolidating data from {len(successful_results)} pages...")
-            consolidated_data = consolidate_financial_data(successful_results)
-            if consolidated_data:
-                consolidated_data['processing_method'] = 'vector_database'
-                consolidated_data['total_pages_processed'] = len(selected_pages)
-                consolidated_data['successful_extractions'] = len(successful_results)
-                st.success(f"✅ Successfully consolidated data from {len(successful_results)} pages using Vector Database approach")
-                return consolidated_data
-            else:
-                st.warning("⚠️ Consolidation failed, returning first successful result")
-                result = successful_results[0]
-                result['processing_method'] = 'vector_database'
-                result['total_pages_processed'] = len(selected_pages)
-                result['successful_extractions'] = len(successful_results)
-                return result
-        else:
-            # Single successful result
-            result = successful_results[0]
-            result['processing_method'] = 'vector_database'
-            result['total_pages_processed'] = len(selected_pages)
-            result['successful_extractions'] = len(successful_results)
-            st.success(f"✅ Successfully extracted data from 1 page using Vector Database approach")
-            return result
+        return images, page_info
         
     except Exception as e:
         st.error(f"Error processing PDF: {str(e)}")
@@ -2029,13 +2069,11 @@ def create_ifrs_csv_export(data):
 
 def consolidate_financial_data(extracted_results):
     """
-    Consolidate multiple page extraction results into a single comprehensive financial dataset.
-    Uses LLM to intelligently merge and resolve conflicts between different pages.
+    Use LLM to intelligently consolidate multiple financial statement extractions
+    into a single, comprehensive, and accurate financial statement.
     """
-    import re  # Add import for regex operations
-    
-    if not extracted_results or len(extracted_results) == 0:
-        return None
+    if not extracted_results or len(extracted_results) <= 1:
+        return extracted_results[0] if extracted_results else None
     
     try:
         st.info(f"🧠 Consolidating data from {len(extracted_results)} pages using AI analysis...")
@@ -2185,44 +2223,10 @@ def consolidate_financial_data(extracted_results):
             else:
                 raise ValueError("No valid JSON found in response")
         
-        # Add debugging and better error handling for JSON parsing
-        try:
-            extracted_data = json.loads(json_content)
-        except json.JSONDecodeError as e:
-            st.error(f"❌ JSON parsing failed: {str(e)}")
-            st.error(f"📍 Error at line {e.lineno}, column {e.colno}")
-            
-            # Show problematic JSON content for debugging
-            with st.expander("🔍 Debug: Raw JSON Content", expanded=False):
-                st.text_area("JSON Content", json_content, height=200)
-                st.write(f"**Content Length:** {len(json_content)} characters")
-                st.write(f"**Error Position:** Line {e.lineno}, Column {e.colno}")
-                
-                # Show context around error
-                lines = json_content.split('\n')
-                if e.lineno <= len(lines):
-                    error_line = lines[e.lineno - 1] if e.lineno > 0 else ""
-                    st.write(f"**Error Line:** `{error_line}`")
-                    if e.colno <= len(error_line):
-                        st.write(f"**Error Character:** `{error_line[e.colno-1] if e.colno > 0 else 'N/A'}`")
-            
-            # Try to fix common JSON issues
-            st.info("🔧 Attempting to fix common JSON issues...")
-            try:
-                # Remove common problematic characters
-                fixed_json = json_content.replace('\n', ' ').replace('\r', ' ')
-                fixed_json = re.sub(r'\s+', ' ', fixed_json)  # Normalize whitespace
-                fixed_json = fixed_json.strip()
-                
-                # Try parsing the fixed version
-                extracted_data = json.loads(fixed_json)
-                st.success("✅ JSON parsing succeeded after cleanup!")
-            except json.JSONDecodeError as e2:
-                st.error(f"❌ JSON parsing still failed after cleanup: {str(e2)}")
-                return None
+        consolidated_data = json.loads(json_content)
         
         # Add metadata about the consolidation process
-        extracted_data['consolidation_metadata'] = {
+        consolidated_data['consolidation_metadata'] = {
             'source_extractions': len(extracted_results),
             'consolidation_timestamp': datetime.now().isoformat(),
             'consolidation_method': 'LLM_GPT4'
@@ -2231,8 +2235,8 @@ def consolidate_financial_data(extracted_results):
         st.success(f"✅ Successfully consolidated data from {len(extracted_results)} pages")
         
         # Show consolidation summary
-        if 'consolidation_info' in extracted_data:
-            info = extracted_data['consolidation_info']
+        if 'consolidation_info' in consolidated_data:
+            info = consolidated_data['consolidation_info']
             with st.expander("📋 Consolidation Summary", expanded=True):
                 col1, col2, col3 = st.columns(3)
                 with col1:
@@ -2256,7 +2260,7 @@ def consolidate_financial_data(extracted_results):
                     st.write("**Consolidation Notes:**")
                     st.write(info['consolidation_notes'])
         
-        return extracted_data
+        return consolidated_data
         
     except Exception as e:
         st.error(f"❌ Consolidation failed: {str(e)}")
@@ -2333,8 +2337,6 @@ def merge_equity_into_balance_sheet(balance_sheet_data, equity_statement_data):
 
 def process_pdf_with_whole_document_context(uploaded_file, client):
     """Process PDF using whole document context approach for comprehensive analysis"""
-    import re  # Add import for regex operations
-    
     try:
         st.info("🌐 Starting Whole Document Context analysis...")
         
@@ -2526,6 +2528,7 @@ def process_pdf_with_whole_document_context(uploaded_file, client):
         - Include confidence scores based on clarity and consistency
         - Validate relationships between statements
         - Extract ALL available financial data, not just key items
+        - **MULTI-YEAR DATA**: Year headers (2024, 2023, etc.) are COLUMN HEADERS, not financial values. Extract the actual amounts under each year column, not the year numbers themselves.
         - Handle multi-year data appropriately
         - Note any discrepancies or unusual items
         """
@@ -2571,42 +2574,8 @@ def process_pdf_with_whole_document_context(uploaded_file, client):
             else:
                 raise ValueError("No valid JSON found in response")
 
-        # Add debugging and better error handling for JSON parsing
-        try:
-            extracted_data = json.loads(json_content)
-        except json.JSONDecodeError as e:
-            st.error(f"❌ JSON parsing failed: {str(e)}")
-            st.error(f"📍 Error at line {e.lineno}, column {e.colno}")
-            
-            # Show problematic JSON content for debugging
-            with st.expander("🔍 Debug: Raw JSON Content", expanded=False):
-                st.text_area("JSON Content", json_content, height=200)
-                st.write(f"**Content Length:** {len(json_content)} characters")
-                st.write(f"**Error Position:** Line {e.lineno}, Column {e.colno}")
-                
-                # Show context around error
-                lines = json_content.split('\n')
-                if e.lineno <= len(lines):
-                    error_line = lines[e.lineno - 1] if e.lineno > 0 else ""
-                    st.write(f"**Error Line:** `{error_line}`")
-                    if e.colno <= len(error_line):
-                        st.write(f"**Error Character:** `{error_line[e.colno-1] if e.colno > 0 else 'N/A'}`")
-            
-            # Try to fix common JSON issues
-            st.info("🔧 Attempting to fix common JSON issues...")
-            try:
-                # Remove common problematic characters
-                fixed_json = json_content.replace('\n', ' ').replace('\r', ' ')
-                fixed_json = re.sub(r'\s+', ' ', fixed_json)  # Normalize whitespace
-                fixed_json = fixed_json.strip()
-                
-                # Try parsing the fixed version
-                extracted_data = json.loads(fixed_json)
-                st.success("✅ JSON parsing succeeded after cleanup!")
-            except json.JSONDecodeError as e2:
-                st.error(f"❌ JSON parsing still failed after cleanup: {str(e2)}")
-                return None
-        
+        extracted_data = json.loads(json_content)
+
         # Transform the data to match the expected format for display
         if 'consolidated_financial_data' in extracted_data:
             # Create a unified result that matches the display format
@@ -2664,6 +2633,90 @@ def process_pdf_with_whole_document_context(uploaded_file, client):
     except Exception as e:
         st.error(f"❌ Error in whole document context processing: {str(e)}")
         return None
+
+def transform_to_analysis_ready_format(all_line_items):
+    """Transform line items into analysis-ready format with fixed Value_Year_X columns and header row"""
+    if not all_line_items:
+        return pd.DataFrame()
+    
+    # Get all unique years across all items
+    all_years = set()
+    for item in all_line_items:
+        year_data = item.get("Year_Data", {})
+        if isinstance(year_data, dict):
+            all_years.update(year_data.keys())
+    
+    # Sort years (most recent first)
+    try:
+        sorted_years = sorted(all_years, key=lambda x: int(x) if str(x).isdigit() else float('inf'), reverse=True)
+    except:
+        sorted_years = sorted(all_years, reverse=True)
+    
+    # Limit to 4 years maximum
+    sorted_years = sorted_years[:4]
+    
+    # Create header row showing year mapping (NO "Value" column)
+    header_row = {
+        "Category": "Date",
+        "Subcategory": "Year", 
+        "Field": "Year",
+        "Confidence": "",
+        "Confidence_Score": ""
+    }
+    
+    # Add year values to header row - these show which year each Value_Year_X represents
+    for i in range(4):
+        col_name = f"Value_Year_{i+1}"
+        if i < len(sorted_years):
+            header_row[col_name] = sorted_years[i]  # Year goes in header
+        else:
+            header_row[col_name] = ""
+    
+    # Create data rows with fixed Value_Year_X columns (NO "Value" column)
+    transformed_rows = [header_row]  # Start with header row
+    
+    for item in all_line_items:
+        base_row = {
+            "Category": item.get("Category", ""),
+            "Subcategory": item.get("Subcategory", ""),
+            "Field": item.get("Field", ""),
+            "Confidence": item.get("Confidence", ""),
+            "Confidence_Score": item.get("Confidence_Score", 0)
+        }
+        
+        # Add fixed Value_Year_X columns with financial amounts
+        year_data = item.get("Year_Data", {})
+        main_value = item.get("Value", "")
+        
+        # Initialize all Value_Year_X columns
+        for i in range(4):
+            col_name = f"Value_Year_{i+1}"
+            base_row[col_name] = ""
+        
+        if year_data and isinstance(year_data, dict):
+            # Multi-year data: map year_data values to Value_Year_X columns
+            for i, year in enumerate(sorted_years):
+                if i < 4:  # Limit to 4 years
+                    col_name = f"Value_Year_{i+1}"
+                    year_value = year_data.get(year, "")
+                    # Ensure we're putting financial amounts, not years
+                    if isinstance(year_value, (int, float)) and year_value != int(year):
+                        base_row[col_name] = year_value
+                    elif year_value and str(year_value) != str(year):
+                        base_row[col_name] = year_value
+        else:
+            # Single-year data: put main value in Value_Year_1
+            if main_value:
+                base_row["Value_Year_1"] = main_value
+        
+        # Fallback: if Value_Year_1 is empty but we have a main value, use it
+        if not base_row["Value_Year_1"] and main_value:
+            base_row["Value_Year_1"] = main_value
+        
+        transformed_rows.append(base_row)
+    
+    return pd.DataFrame(transformed_rows)
+
 
 def main():
     """Main application function with enhanced processing approaches"""
@@ -2755,6 +2808,7 @@ def main():
                 st.session_state.processing_complete = False
                 st.session_state.uploaded_file_name = None
                 st.session_state.processing_approach = None
+                st.session_state.selected_processing_approach = None
                 st.rerun()
         
         st.header("📈 Usage Statistics")
@@ -2827,11 +2881,7 @@ def main():
                         other_statements.append(result)
             else:
                 # Single result - categorize it
-                if isinstance(st.session_state.extracted_data, dict):
-                    statement_type = st.session_state.extracted_data.get("statement_type", "").lower()
-                else:
-                    st.error(f"❌ Unexpected data format: {type(st.session_state.extracted_data)}")
-                    return
+                statement_type = st.session_state.extracted_data.get("statement_type", "").lower()
                 if any(bs_term in statement_type for bs_term in ["balance sheet", "financial position", "assets and liabilities"]):
                     balance_sheet_data = st.session_state.extracted_data
                 elif any(is_term in statement_type for is_term in ["income", "profit", "loss", "operations", "earnings"]):
@@ -2923,12 +2973,14 @@ def main():
         # Check if this is a new file
         is_new_file = st.session_state.uploaded_file_name != uploaded_file.name
         
-        # Set the uploaded file name immediately and clear state for new files
-        if is_new_file:
-            st.session_state.uploaded_file_name = uploaded_file.name
+        # Clear selected approach ONLY for truly new files AND if no approach is currently selected
+        if is_new_file and st.session_state.selected_processing_approach is None:
+            # Only clear if it's a new file and no approach is selected
+            # This prevents clearing when user has already selected an approach
+            pass  # Don't clear anything
+        elif is_new_file and st.session_state.processing_complete:
+            # Clear approach only if we have completed processing a different file
             st.session_state.selected_processing_approach = None
-            st.session_state.processing_complete = False
-            st.session_state.extracted_data = None
         
         # Display file info and document analysis
         file_details = {
@@ -3050,6 +3102,11 @@ def main():
             # For PDF files, check if user has selected an approach
             processing_approach = st.session_state.selected_processing_approach
             show_button = processing_approach is not None
+            
+            # DEBUG: Force show button if approach is selected (temporary fix)
+            if st.session_state.selected_processing_approach is not None:
+                show_button = True
+                processing_approach = st.session_state.selected_processing_approach
         
         # Show process button if approach is selected or it's a single image
         if show_button:
@@ -3073,6 +3130,7 @@ def main():
                 st.write(f"**Processing approach:** {processing_approach}")
                 st.write(f"**Show button:** {show_button}")
                 st.write(f"**Button disabled:** {button_disabled}")
+                st.write(f"**Session state keys:** {list(st.session_state.keys())}")
                 
                 # Reset session state button for debugging
                 if st.button("🔄 Reset Session State", key="reset_session"):
@@ -3153,11 +3211,16 @@ def main():
                         else:
                             log_processing(uploaded_file.name, processing_time, 0, "failed")
                             st.error("❌ Failed to extract data from the document. Please try with a clearer image or different document.")
-        
+            else:
+                st.info("👆 Please select a processing approach above to continue.")
         else:
-            # Only show message when no approach is selected for PDFs
+            # For PDFs, show message to select approach; for other cases, this shouldn't happen
             if uploaded_file.type == "application/pdf":
                 st.info("👆 Please select a processing approach above to continue.")
+                # DEBUG: Show what's actually happening
+                st.write(f"**DEBUG:** selected_processing_approach = {st.session_state.selected_processing_approach}")
+                st.write(f"**DEBUG:** processing_approach = {processing_approach}")
+                st.write(f"**DEBUG:** show_button = {show_button}")
             else:
                 st.error("❌ Unexpected state: Non-PDF file should always show button")
 
