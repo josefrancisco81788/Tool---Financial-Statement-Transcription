@@ -1985,18 +1985,19 @@ def process_pdf_with_vector_db(uploaded_file, client, enable_parallel=True):
         # Use ThreadPoolExecutor for parallel processing
         with ThreadPoolExecutor(max_workers=5) as executor:
             # Submit all pages for processing
-            future_to_page = {executor.submit(extract_financial_data_for_page, page_data): page_data[0] 
-                             for page_data in enumerate(selected_pages)}
+            page_data_list = [(page, i, total_pages) for i, page in enumerate(selected_pages)]
+            future_to_page = {executor.submit(extract_financial_data_for_page, page_data): page_data[1] 
+                             for page_data in page_data_list}
             
             # Collect results as they complete
             results = {}
             failed_pages = []
             
             for future in as_completed(future_to_page):
-                page_num = future_to_page[future]
+                page_index = future_to_page[future]
                 try:
                     result = future.result()
-                    results[result['page_num']] = result
+                    results[result['index']] = result
                     
                     if result['success']:
                         completed_count += 1
@@ -2008,38 +2009,47 @@ def process_pdf_with_vector_db(uploaded_file, client, enable_parallel=True):
                         st.warning(f"⚠️ Failed to extract data from page {result['page_num']}: {result['error']}")
                         
                 except Exception as e:
-                    failed_pages.append(page_num + 1)
-                    st.error(f"❌ Unexpected error processing page {page_num + 1}: {str(e)}")
+                    failed_pages.append(page_index + 1)
+                    st.error(f"❌ Unexpected error processing page {page_index + 1}: {str(e)}")
         
-        # Sort results by page number and create page_info list
-        for page_num in sorted(results.keys()):
-            result = results[page_num]
-            if result['success']:
-                page_info.append({
-                    'page_num': result['page_num'],
-                    'text': result['text'],
-                    'image': result['image']
-                })
+        # Sort results by page index and collect successful extractions
+        successful_results = []
+        for page_index in sorted(results.keys()):
+            result = results[page_index]
+            if result['success'] and result['data']:
+                successful_results.append(result['data'])
         
         # Final status update
         extraction_progress.progress(1.0)
         if failed_pages:
             st.warning(f"⚠️ Processing completed with {len(failed_pages)} failed pages: {failed_pages}")
-            st.info(f"✅ Successfully processed {len(page_info)}/{total_pages} pages with parallel AI text extraction")
+            st.info(f"✅ Successfully processed {len(successful_results)}/{total_pages} pages with financial data extraction")
         else:
-            st.success(f"✅ Successfully processed all {len(page_info)} pages with parallel AI text extraction")
+            st.success(f"✅ Successfully processed all {len(successful_results)} pages with financial data extraction")
         
         # Clear progress indicators
         extraction_progress.empty()
         extraction_status.empty()
         
-        return images, page_info
+        # Return the consolidated financial data instead of images and page_info
+        if successful_results:
+            if len(successful_results) == 1:
+                # Single page result
+                return successful_results[0]
+            else:
+                # Multiple pages - consolidate them
+                st.info("🧠 Consolidating data from multiple pages...")
+                consolidated_data = consolidate_financial_data(successful_results)
+                return consolidated_data if consolidated_data else successful_results
+        else:
+            st.error("❌ No successful financial data extractions")
+            return None
         
     except Exception as e:
         st.error(f"Error processing PDF: {str(e)}")
         if "poppler" in str(e).lower():
             st.error("💡 This looks like a Poppler installation issue. Please see the instructions above.")
-        return None, None
+        return None
 
 def create_ifrs_csv_export(data):
     """Create comprehensive CSV export for IFRS financial statements"""
@@ -2903,6 +2913,14 @@ def main():
                         other_statements.append(result)
             else:
                 # Single result - categorize it
+                # Add defensive programming to handle unexpected data types
+                if not isinstance(st.session_state.extracted_data, dict):
+                    st.error(f"❌ Unexpected data type: {type(st.session_state.extracted_data)}. Expected dictionary.")
+                    st.error("🔧 This is likely a bug in the vector database processing. Please try the Whole Document approach or report this issue.")
+                    st.session_state.extracted_data = None
+                    st.session_state.processing_complete = False
+                    return
+                
                 statement_type = st.session_state.extracted_data.get("statement_type", "").lower()
                 if any(bs_term in statement_type for bs_term in ["balance sheet", "financial position", "assets and liabilities"]):
                     balance_sheet_data = st.session_state.extracted_data
