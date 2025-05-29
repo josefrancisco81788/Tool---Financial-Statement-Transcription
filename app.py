@@ -2110,7 +2110,7 @@ def consolidate_financial_data(extracted_results):
     try:
         st.info(f"🧠 Consolidating data from {len(extracted_results)} pages using AI analysis...")
         
-        # Prepare the consolidation prompt
+        # Prepare the consolidation prompt to match Whole Document format
         consolidation_prompt = f"""
         You are a financial analysis expert tasked with consolidating multiple financial statement extractions into a single, accurate, and comprehensive financial statement.
 
@@ -2146,70 +2146,143 @@ def consolidate_financial_data(extracted_results):
         {json.dumps(extracted_results, indent=2)}
 
         **REQUIRED OUTPUT FORMAT:**
-        Return a single JSON object with the same structure as the individual extractions, but consolidated and validated:
+        Return a single JSON object matching the comprehensive financial analysis format:
 
         {{
-            "statement_type": "Consolidated Financial Statements",
-            "company_name": "extracted company name",
-            "period": "extracted period/date",
-            "currency": "extracted currency",
-            "years_detected": ["list of all years found"],
-            "base_year": "primary year",
-            "year_ordering": "most_recent_first or chronological",
+            "processing_method": "vector_database_analysis",
+            "document_analysis": {{
+                "total_pages": {len(extracted_results)},
+                "company_name": "extracted company name",
+                "reporting_period": "extracted period",
+                "currency": "extracted currency",
+                "statements_present": ["list of statement types found"],
+                "document_structure": "description of how document is organized",
+                "multi_year_data": true/false,
+                "years_covered": ["list of years if multi-year"]
+            }},
             
-            "line_items": {{
-                // Consolidated line items organized by statement type
+            "consolidated_financial_data": {{
                 "balance_sheet": {{
-                    "current_assets": {{ ... }},
-                    "non_current_assets": {{ ... }},
-                    "current_liabilities": {{ ... }},
-                    "non_current_liabilities": {{ ... }},
-                    "equity": {{ ... }}
+                    "current_assets": {{
+                        "cash_and_equivalents": {{"value": X, "confidence": 0.95, "source_pages": [1,2], "base_year": X, "year_1": Y}},
+                        "accounts_receivable": {{"value": X, "confidence": 0.90, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "inventory": {{"value": X, "confidence": 0.85, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "other_current_assets": {{"value": X, "confidence": 0.80, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_current_assets": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }},
+                    "non_current_assets": {{
+                        "property_plant_equipment": {{"value": X, "confidence": 0.92, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "intangible_assets": {{"value": X, "confidence": 0.88, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "other_non_current_assets": {{"value": X, "confidence": 0.85, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_non_current_assets": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }},
+                    "current_liabilities": {{
+                        "accounts_payable": {{"value": X, "confidence": 0.88, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "short_term_debt": {{"value": X, "confidence": 0.90, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "other_current_liabilities": {{"value": X, "confidence": 0.85, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_current_liabilities": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }},
+                    "non_current_liabilities": {{
+                        "long_term_debt": {{"value": X, "confidence": 0.92, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "other_long_term_liabilities": {{"value": X, "confidence": 0.88, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_non_current_liabilities": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }},
+                    "equity": {{
+                        "share_capital": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "retained_earnings": {{"value": X, "confidence": 0.90, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "other_equity": {{"value": X, "confidence": 0.85, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_equity": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }},
+                    "totals": {{
+                        "total_assets": {{"value": X, "confidence": 0.98, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_liabilities_and_equity": {{"value": X, "confidence": 0.98, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }}
                 }},
+                
                 "income_statement": {{
-                    "revenues": {{ ... }},
-                    "cost_of_sales": {{ ... }},
-                    "operating_expenses": {{ ... }},
-                    "other_income_expenses": {{ ... }}
+                    "revenues": {{
+                        "net_sales": {{"value": X, "confidence": 0.95, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "other_income": {{"value": X, "confidence": 0.80, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "total_revenue": {{"value": X, "confidence": 0.95, "source_pages": [2], "base_year": X, "year_1": Y}}
+                    }},
+                    "cost_of_sales": {{
+                        "cost_of_goods_sold": {{"value": X, "confidence": 0.92, "source_pages": [2], "base_year": X, "year_1": Y}}
+                    }},
+                    "operating_expenses": {{
+                        "selling_expenses": {{"value": X, "confidence": 0.88, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "administrative_expenses": {{"value": X, "confidence": 0.85, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "other_operating_expenses": {{"value": X, "confidence": 0.80, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "total_operating_expenses": {{"value": X, "confidence": 0.90, "source_pages": [2], "base_year": X, "year_1": Y}}
+                    }},
+                    "profitability": {{
+                        "gross_profit": {{"value": X, "confidence": 0.95, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "operating_income": {{"value": X, "confidence": 0.93, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "net_income": {{"value": X, "confidence": 0.95, "source_pages": [2], "base_year": X, "year_1": Y}}
+                    }}
                 }},
+                
                 "cash_flow_statement": {{
-                    "operating_activities": {{ ... }},
-                    "investing_activities": {{ ... }},
-                    "financing_activities": {{ ... }}
+                    "operating_activities": {{
+                        "net_income": {{"value": X, "confidence": 0.95, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "depreciation": {{"value": X, "confidence": 0.90, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "working_capital_changes": {{"value": X, "confidence": 0.85, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "net_cash_from_operations": {{"value": X, "confidence": 0.95, "source_pages": [3], "base_year": X, "year_1": Y}}
+                    }},
+                    "investing_activities": {{
+                        "capital_expenditures": {{"value": X, "confidence": 0.88, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "net_cash_from_investing": {{"value": X, "confidence": 0.90, "source_pages": [3], "base_year": X, "year_1": Y}}
+                    }},
+                    "financing_activities": {{
+                        "dividends_paid": {{"value": X, "confidence": 0.85, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "debt_proceeds": {{"value": X, "confidence": 0.88, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "net_cash_from_financing": {{"value": X, "confidence": 0.90, "source_pages": [3], "base_year": X, "year_1": Y}}
+                    }}
                 }}
             }},
             
             "summary_metrics": {{
-                "total_assets": {{"value": X, "confidence": Y}},
-                "total_liabilities": {{"value": X, "confidence": Y}},
-                "total_equity": {{"value": X, "confidence": Y}},
-                "total_revenue": {{"value": X, "confidence": Y}},
-                "net_income": {{"value": X, "confidence": Y}},
-                "operating_cash_flow": {{"value": X, "confidence": Y}}
+                "total_assets": {{"value": X, "confidence": 0.95}},
+                "total_revenue": {{"value": X, "confidence": 0.95}},
+                "net_income": {{"value": X, "confidence": 0.95}},
+                "operating_cash_flow": {{"value": X, "confidence": 0.88}},
+                "total_equity": {{"value": X, "confidence": 0.92}}
+            }},
+            
+            "validation_results": {{
+                "balance_sheet_balances": true/false,
+                "net_income_consistency": true/false,
+                "cross_statement_checks": ["list of validation results"],
+                "data_quality_score": 0.0-1.0,
+                "completeness_score": 0.0-1.0
             }},
             
             "consolidation_info": {{
                 "source_pages": [list of page numbers processed],
                 "duplicates_removed": number,
                 "conflicts_resolved": number,
-                "data_quality_score": 0.0-1.0,
-                "validation_results": {{
-                    "balance_sheet_balances": true/false,
-                    "income_statement_consistent": true/false,
-                    "cash_flow_consistent": true/false
-                }},
+                "consolidation_method": "vector_database_ai_consolidation",
                 "consolidation_notes": "detailed notes about the consolidation process"
             }},
             
-            "notes": "overall observations about the consolidated financial statements"
+            "comprehensive_analysis": {{
+                "key_insights": ["list of key financial insights"],
+                "unusual_items": ["list of any unusual or noteworthy items"],
+                "data_gaps": ["list of any missing or unclear data"],
+                "recommendations": ["recommendations for data verification"]
+            }},
+            
+            "notes": "comprehensive observations about the consolidated financial statements"
         }}
 
         **CRITICAL INSTRUCTIONS:**
+        - Use STANDARD FINANCIAL TERMINOLOGY: "cash_and_equivalents", "accounts_receivable", "net_sales", "administrative_expenses", etc.
         - Preserve all unique financial line items found across all pages
         - Maintain proper financial statement structure and relationships
         - Include detailed consolidation_info for transparency
+        - **MULTI-YEAR DATA**: Year headers (2024, 2023, etc.) are COLUMN HEADERS, not financial values. Extract the actual amounts under each year column, not the year numbers themselves.
         - If validation fails, note the issues but still provide best consolidated result
         - Use the highest confidence scores and most complete data available
+        - Organize by statement type first, then by category, then by specific line items
         """
 
         # Make API call to consolidate the data
@@ -2221,7 +2294,7 @@ def consolidate_financial_data(extracted_results):
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are a financial data consolidation expert. Analyze multiple financial statement extractions and create a single, accurate, consolidated financial statement."
+                        "content": "You are a financial data consolidation expert. Analyze multiple financial statement extractions and create a single, accurate, consolidated financial statement using standard financial terminology and hierarchical organization."
                     },
                     {
                         "role": "user", 
@@ -2257,42 +2330,59 @@ def consolidate_financial_data(extracted_results):
         
         consolidated_data = json.loads(json_content)
         
-        # Add metadata about the consolidation process
-        consolidated_data['consolidation_metadata'] = {
-            'source_extractions': len(extracted_results),
-            'consolidation_timestamp': datetime.now().isoformat(),
-            'consolidation_method': 'LLM_GPT4'
-        }
-        
-        st.success(f"✅ Successfully consolidated data from {len(extracted_results)} pages")
-        
-        # Show consolidation summary
-        if 'consolidation_info' in consolidated_data:
-            info = consolidated_data['consolidation_info']
-            with st.expander("📋 Consolidation Summary", expanded=True):
-                col1, col2, col3 = st.columns(3)
-                with col1:
-                    st.metric("Source Pages", len(info.get('source_pages', [])))
-                with col2:
-                    st.metric("Duplicates Removed", info.get('duplicates_removed', 0))
-                with col3:
-                    st.metric("Conflicts Resolved", info.get('conflicts_resolved', 0))
-                
-                if 'data_quality_score' in info:
-                    st.metric("Data Quality Score", f"{info['data_quality_score']:.2f}")
-                
-                if 'validation_results' in info:
-                    validation = info['validation_results']
-                    st.write("**Validation Results:**")
-                    for check, result in validation.items():
-                        status = "✅" if result else "⚠️"
-                        st.write(f"{status} {check.replace('_', ' ').title()}: {result}")
-                
-                if 'consolidation_notes' in info:
-                    st.write("**Consolidation Notes:**")
-                    st.write(info['consolidation_notes'])
-        
-        return consolidated_data
+        # Transform the data to match the expected format for display (same as Whole Document approach)
+        if 'consolidated_financial_data' in consolidated_data:
+            # Create a unified result that matches the Whole Document format exactly
+            unified_result = {
+                "statement_type": "Comprehensive Financial Statements",
+                "company_name": consolidated_data.get("document_analysis", {}).get("company_name", "Unknown"),
+                "period": consolidated_data.get("document_analysis", {}).get("reporting_period", "Unknown"),
+                "currency": consolidated_data.get("document_analysis", {}).get("currency", "Unknown"),
+                "years_detected": consolidated_data.get("document_analysis", {}).get("years_covered", []),
+                "base_year": consolidated_data.get("document_analysis", {}).get("years_covered", ["Unknown"])[0] if consolidated_data.get("document_analysis", {}).get("years_covered") else "Unknown",
+                "processing_method": "vector_database_analysis",
+                "line_items": consolidated_data["consolidated_financial_data"],
+                "summary_metrics": consolidated_data.get("summary_metrics", {}),
+                "validation_results": consolidated_data.get("validation_results", {}),
+                "comprehensive_analysis": consolidated_data.get("comprehensive_analysis", {}),
+                "consolidation_info": consolidated_data.get("consolidation_info", {}),
+                "document_analysis": consolidated_data.get("document_analysis", {}),
+                "notes": consolidated_data.get("notes", "")
+            }
+
+            st.success(f"✅ Successfully consolidated data from {len(extracted_results)} pages")
+            
+            # Show consolidation summary
+            if 'consolidation_info' in consolidated_data:
+                info = consolidated_data['consolidation_info']
+                with st.expander("📋 Consolidation Summary", expanded=True):
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.metric("Source Pages", len(info.get('source_pages', [])))
+                    with col2:
+                        st.metric("Duplicates Removed", info.get('duplicates_removed', 0))
+                    with col3:
+                        st.metric("Conflicts Resolved", info.get('conflicts_resolved', 0))
+                    
+                    if 'data_quality_score' in consolidated_data.get('validation_results', {}):
+                        st.metric("Data Quality Score", f"{consolidated_data['validation_results']['data_quality_score']:.2f}")
+                    
+                    if 'validation_results' in consolidated_data:
+                        validation = consolidated_data['validation_results']
+                        st.write("**Validation Results:**")
+                        for check, result in validation.items():
+                            if isinstance(result, bool):
+                                status = "✅" if result else "⚠️"
+                                st.write(f"{status} {check.replace('_', ' ').title()}: {result}")
+                    
+                    if 'consolidation_notes' in info:
+                        st.write("**Consolidation Notes:**")
+                        st.write(info['consolidation_notes'])
+
+            return unified_result
+        else:
+            st.warning("⚠️ Unexpected response format from consolidation analysis")
+            return consolidated_data
         
     except Exception as e:
         st.error(f"❌ Consolidation failed: {str(e)}")
