@@ -499,13 +499,31 @@ def log_processing(filename, processing_time, accuracy_score, status):
         pass
 
 def get_confidence_class(confidence):
-    """Get CSS class based on confidence score"""
-    if confidence >= 0.8:
-        return "confidence-high"
+    """Get CSS class for confidence score styling"""
+    if confidence >= 0.9:
+        return "high-confidence"
+    elif confidence >= 0.7:
+        return "medium-confidence"
     elif confidence >= 0.5:
-        return "confidence-medium"
+        return "low-confidence"
     else:
-        return "confidence-low"
+        return "very-low-confidence"
+
+def ensure_confidence_score(confidence_value):
+    """Ensure confidence score is always a float between 0.0 and 1.0"""
+    if isinstance(confidence_value, (int, float)):
+        return float(max(0.0, min(1.0, confidence_value)))
+    elif isinstance(confidence_value, str):
+        try:
+            # Handle percentage strings like "85%"
+            if '%' in confidence_value:
+                return float(confidence_value.replace('%', '')) / 100.0
+            # Handle decimal strings
+            return float(max(0.0, min(1.0, float(confidence_value))))
+        except (ValueError, TypeError):
+            return 0.0
+    else:
+        return 0.0
 
 def display_extracted_data(data):
     """Display extracted financial data in a user-friendly format"""
@@ -702,7 +720,7 @@ def display_single_page_data(data):
                                     "Field": field.replace("_", " ").title(),
                                     "Value": info["value"],
                                     "Confidence": f"{info['confidence']:.1%}",
-                                    "Confidence_Score": info["confidence"],
+                                    "Confidence_Score": ensure_confidence_score(info["confidence"]),
                                     "Year_Data": year_data
                                 })
                                 
@@ -762,7 +780,7 @@ def display_single_page_data(data):
                             "Field": subcategory.replace("_", " ").title(),
                             "Value": subcategory_data["value"],
                             "Confidence": f"{subcategory_data['confidence']:.1%}",
-                            "Confidence_Score": subcategory_data["confidence"],
+                            "Confidence_Score": ensure_confidence_score(subcategory_data["confidence"]),
                             "Year_Data": year_data
                         })
                         
@@ -871,11 +889,14 @@ def display_single_page_data(data):
             st.metric("Total Line Items", total_fields)
         
         with col2:
-            high_confidence = len([item for item in all_line_items if item["Confidence_Score"] >= 0.8])
+            # Use helper function to ensure consistent confidence score handling
+            high_confidence = len([item for item in all_line_items if ensure_confidence_score(item.get("Confidence_Score", 0)) >= 0.8])
             st.metric("High Confidence Items", f"{high_confidence}/{total_fields}")
         
         with col3:
-            avg_confidence = sum(item["Confidence_Score"] for item in all_line_items) / len(all_line_items)
+            # Use helper function to ensure consistent confidence score handling
+            confidence_scores = [ensure_confidence_score(item.get("Confidence_Score", 0)) for item in all_line_items]
+            avg_confidence = sum(confidence_scores) / len(confidence_scores) if confidence_scores else 0.0
             st.metric("Average Confidence", f"{avg_confidence:.1%}")
         
         st.markdown('</div>', unsafe_allow_html=True)
@@ -1933,7 +1954,7 @@ def process_pdf_with_vector_db(uploaded_file, client, enable_parallel=True):
                 if page_result:
                     # Add metadata to successful result
                     page_result['page_number'] = str(page_num)
-                    page_result['confidence_score'] = confidence
+                    page_result['confidence_score'] = ensure_confidence_score(confidence)
                     page_result['processing_debug'] = debug_info
                     
                     return {
@@ -2783,7 +2804,7 @@ def transform_to_analysis_ready_format(all_line_items):
         "Subcategory": "Year", 
         "Field": "Year",
         "Confidence": "",
-        "Confidence_Score": ""
+        "Confidence_Score": 0.0  # Use float instead of string for consistency
     }
     
     # Add year values to header row - these show which year each Value_Year_X represents
@@ -2798,12 +2819,20 @@ def transform_to_analysis_ready_format(all_line_items):
     transformed_rows = [header_row]  # Start with header row
     
     for item in all_line_items:
+        # Ensure Confidence_Score is always a float
+        confidence_score = item.get("Confidence_Score", 0.0)
+        if isinstance(confidence_score, str):
+            try:
+                confidence_score = float(confidence_score)
+            except (ValueError, TypeError):
+                confidence_score = 0.0
+        
         base_row = {
             "Category": item.get("Category", ""),
             "Subcategory": item.get("Subcategory", ""),
             "Field": item.get("Field", ""),
             "Confidence": item.get("Confidence", ""),
-            "Confidence_Score": item.get("Confidence_Score", 0)
+            "Confidence_Score": confidence_score  # Now guaranteed to be float
         }
         
         # Add fixed Value_Year_X columns with financial amounts
@@ -2837,8 +2866,115 @@ def transform_to_analysis_ready_format(all_line_items):
         
         transformed_rows.append(base_row)
     
-    return pd.DataFrame(transformed_rows)
+    # Create DataFrame and ensure proper data types
+    df = pd.DataFrame(transformed_rows)
+    
+    # Explicitly set data types to prevent Arrow serialization issues
+    if not df.empty:
+        # Ensure Confidence_Score is float
+        df['Confidence_Score'] = pd.to_numeric(df['Confidence_Score'], errors='coerce').fillna(0.0)
+        
+        # Ensure Value_Year_X columns are numeric where possible
+        for i in range(1, 5):
+            col_name = f"Value_Year_{i}"
+            if col_name in df.columns:
+                # Convert to numeric, but keep non-numeric values as strings
+                df[col_name] = pd.to_numeric(df[col_name], errors='ignore')
+    
+    return df
 
+# Enhanced error handling and user feedback utilities
+def show_user_friendly_error(error, context=""):
+    """Display user-friendly error messages with actionable guidance"""
+    error_str = str(error).lower()
+    
+    # API-related errors
+    if '429' in error_str or 'rate limit' in error_str:
+        st.error("🚫 **Rate Limit Exceeded**")
+        st.info("""
+        **What happened:** OpenAI's API is temporarily limiting requests.
+        
+        **Solutions:**
+        - ⏳ Wait 2-3 minutes and try again
+        - 📊 Try with a smaller document
+        - 🔄 Switch to a different processing approach
+        """)
+    elif '401' in error_str or 'invalid api key' in error_str:
+        st.error("🔑 **API Key Issue**")
+        st.info("""
+        **What happened:** Your OpenAI API key is invalid or missing.
+        
+        **Solutions:**
+        - ✅ Check your API key in the sidebar
+        - 🔧 Verify the key is active in your OpenAI account
+        - 📝 Ensure the key has sufficient credits
+        """)
+    elif 'timeout' in error_str or 'connection' in error_str:
+        st.error("🌐 **Connection Issue**")
+        st.info("""
+        **What happened:** Network connection or timeout error.
+        
+        **Solutions:**
+        - 🔄 Check your internet connection
+        - ⏱️ Try again in a few moments
+        - 📄 Try with a smaller document
+        """)
+    elif 'file' in error_str and ('corrupt' in error_str or 'invalid' in error_str):
+        st.error("📄 **File Issue**")
+        st.info("""
+        **What happened:** The uploaded file appears to be corrupted or invalid.
+        
+        **Solutions:**
+        - 📁 Try uploading the file again
+        - 🔄 Convert to a different format (PDF → PNG)
+        - 📝 Ensure the file isn't password-protected
+        """)
+    else:
+        # Generic error with context
+        st.error(f"❌ **Processing Error** {context}")
+        st.info(f"""
+        **What happened:** An unexpected error occurred: {str(error)[:100]}...
+        
+        **Solutions:**
+        - 🔄 Try again with the same document
+        - 📊 Try a different processing approach
+        - 📄 Try with a different document
+        - 🐛 Report this issue if it persists
+        """)
+
+def handle_processing_error(error, uploaded_file, processing_approach):
+    """Centralized error handling for processing failures"""
+    # Log the error for debugging
+    st.error(f"❌ Processing failed: {str(error)}")
+    
+    # Show user-friendly error message
+    show_user_friendly_error(error, f"while processing {uploaded_file.name}")
+    
+    # Log failed processing
+    try:
+        log_processing(uploaded_file.name, 0, 0, f"failed: {str(error)[:100]}")
+    except:
+        pass  # Don't let logging errors compound the issue
+    
+    # Reset session state to allow retry
+    st.session_state.processing_complete = False
+    st.session_state.extracted_data = None
+
+def validate_file_upload(uploaded_file):
+    """Validate uploaded file before processing"""
+    if uploaded_file is None:
+        return False, "No file uploaded"
+    
+    # Check file size (10MB limit)
+    if uploaded_file.size > 10 * 1024 * 1024:  # 10MB
+        return False, "File too large (max 10MB)"
+    
+    # Check file type
+    allowed_types = ["application/pdf", "image/jpeg", "image/jpg", "image/png"]
+    if uploaded_file.type not in allowed_types:
+        return False, f"Unsupported file type: {uploaded_file.type}"
+    
+    return True, "File is valid"
 
 def main():
     """Main application function with enhanced processing approaches"""
@@ -2854,6 +2990,10 @@ def main():
         st.session_state.processing_approach = None
     if 'selected_processing_approach' not in st.session_state:
         st.session_state.selected_processing_approach = None
+    if 'debug_mode' not in st.session_state:
+        st.session_state.debug_mode = False
+    if 'show_onboarding' not in st.session_state:
+        st.session_state.show_onboarding = True
     
     # Initialize database
     init_database()
@@ -2861,6 +3001,39 @@ def main():
     # Header
     st.markdown('<h1 class="main-header">📊 Financial Statement Transcription Tool</h1>', 
                 unsafe_allow_html=True)
+    
+    # Onboarding for new users
+    if st.session_state.show_onboarding:
+        with st.expander("🎯 Welcome! Quick Start Guide", expanded=True):
+            st.markdown("""
+            **Welcome to the Financial Statement Transcription Tool!** 
+            
+            This AI-powered tool automatically extracts financial data from your documents.
+            
+            **📋 How to use:**
+            1. **Upload** your financial statement (PDF, JPG, or PNG)
+            2. **Choose** a processing approach (for PDFs)
+            3. **Extract** data with one click
+            4. **Review** and export your results
+            
+            **💡 Tips for best results:**
+            - Use clear, high-quality documents
+            - Ensure text is readable (not just scanned images)
+            - For large PDFs, try the "Vector Database" approach
+            - For complex layouts, try the "Whole Document" approach
+            
+            **⚠️ Important:** Always verify extracted data before use in financial analysis.
+            """)
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button("✅ Got it!", type="primary"):
+                    st.session_state.show_onboarding = False
+                    st.rerun()
+            with col2:
+                if st.button("📖 Show me more"):
+                    st.session_state.show_onboarding = False
+                    st.rerun()
     
     st.markdown("""
     **Upload your financial statement (PDF or image) and let AI extract the key financial data automatically.**
@@ -2932,6 +3105,68 @@ def main():
                 st.session_state.processing_approach = None
                 st.session_state.selected_processing_approach = None
                 st.rerun()
+        
+        # Help and Support Section
+        st.header("❓ Help & Support")
+        
+        with st.expander("📖 How to Use"):
+            st.markdown("""
+            **Step-by-step guide:**
+            
+            1. **Upload** your financial statement
+            2. **Select** processing approach (PDFs only)
+            3. **Click** "Extract Financial Data"
+            4. **Review** extracted data
+            5. **Export** results if needed
+            
+            **Processing Approaches:**
+            - **Whole Document**: Best for small-medium PDFs, comprehensive analysis
+            - **Vector Database**: Best for large PDFs, faster processing
+            """)
+        
+        with st.expander("🔧 Troubleshooting"):
+            st.markdown("""
+            **Common Issues:**
+            
+            **❌ Rate Limit Error:**
+            - Wait 2-3 minutes and try again
+            - Try with a smaller document
+            
+            **❌ API Key Error:**
+            - Check your OpenAI API key in settings
+            - Ensure you have sufficient credits
+            
+            **❌ File Upload Error:**
+            - Check file size (max 10MB)
+            - Ensure file is PDF, JPG, or PNG
+            - Remove password protection if PDF
+            
+            **❌ Processing Fails:**
+            - Try a different processing approach
+            - Use a clearer image/document
+            - Check document quality
+            """)
+        
+        with st.expander("📞 Contact & Feedback"):
+            st.markdown("""
+            **Need help?**
+            
+            - 📧 Report bugs or issues
+            - 💡 Suggest improvements
+            - ⭐ Rate your experience
+            
+            **For technical support:**
+            - Check the troubleshooting guide above
+            - Try different processing approaches
+            - Verify your API key and credits
+            """)
+        
+        # Developer Mode Toggle
+        st.markdown("---")
+        debug_mode = st.checkbox("🔧 Developer Mode", value=st.session_state.debug_mode)
+        if debug_mode != st.session_state.debug_mode:
+            st.session_state.debug_mode = debug_mode
+            st.rerun()
         
         st.header("📈 Usage Statistics")
         # Get basic stats from database
@@ -3232,11 +3467,6 @@ def main():
             # For PDF files, check if user has selected an approach
             processing_approach = st.session_state.selected_processing_approach
             show_button = processing_approach is not None
-            
-            # DEBUG: Force show button if approach is selected (temporary fix)
-            if st.session_state.selected_processing_approach is not None:
-                show_button = True
-                processing_approach = st.session_state.selected_processing_approach
         
         # Show process button if approach is selected or it's a single image
         if show_button:
@@ -3251,28 +3481,35 @@ def main():
             if button_disabled:
                 button_label = "✅ Already Processed"
             
-            # Debug info
-            with st.expander("🔧 Debug Info", expanded=False):
-                st.write(f"**File:** {uploaded_file.name}")
-                st.write(f"**Is new file:** {is_new_file}")
-                st.write(f"**Processing complete:** {st.session_state.processing_complete}")
-                st.write(f"**Selected approach:** {st.session_state.selected_processing_approach}")
-                st.write(f"**Processing approach:** {processing_approach}")
-                st.write(f"**Show button:** {show_button}")
-                st.write(f"**Button disabled:** {button_disabled}")
-                st.write(f"**Session state keys:** {list(st.session_state.keys())}")
-                
-                # Reset session state button for debugging
-                if st.button("🔄 Reset Session State", key="reset_session"):
-                    st.session_state.extracted_data = None
-                    st.session_state.processing_complete = False
-                    st.session_state.uploaded_file_name = None
-                    st.session_state.processing_approach = None
-                    st.session_state.selected_processing_approach = None
-                    st.success("Session state reset!")
-                    st.rerun()
+            # Developer mode debug info (only show if explicitly enabled)
+            if st.session_state.get('debug_mode', False):
+                with st.expander("🔧 Debug Info", expanded=False):
+                    st.write(f"**File:** {uploaded_file.name}")
+                    st.write(f"**Is new file:** {is_new_file}")
+                    st.write(f"**Processing complete:** {st.session_state.processing_complete}")
+                    st.write(f"**Selected approach:** {st.session_state.selected_processing_approach}")
+                    st.write(f"**Processing approach:** {processing_approach}")
+                    st.write(f"**Show button:** {show_button}")
+                    st.write(f"**Button disabled:** {button_disabled}")
+                    st.write(f"**Session state keys:** {list(st.session_state.keys())}")
+                    
+                    # Reset session state button for debugging
+                    if st.button("🔄 Reset Session State", key="reset_session"):
+                        st.session_state.extracted_data = None
+                        st.session_state.processing_complete = False
+                        st.session_state.uploaded_file_name = None
+                        st.session_state.processing_approach = None
+                        st.session_state.selected_processing_approach = None
+                        st.success("Session state reset!")
+                        st.rerun()
             
             if st.button(button_label, type="primary", disabled=button_disabled):
+                # Validate file before processing
+                is_valid, validation_message = validate_file_upload(uploaded_file)
+                if not is_valid:
+                    st.error(f"❌ {validation_message}")
+                    return
+                
                 # Clear previous results for new file or new approach
                 if is_new_file or st.session_state.processing_approach != str(processing_approach or "Unknown").replace('_', ' ').title():
                     st.session_state.extracted_data = None
@@ -3280,77 +3517,107 @@ def main():
                     
                     start_time = datetime.now()
                     
+                    # Progress tracking
+                    progress_bar = st.progress(0)
+                    status_text = st.empty()
+                    
+                    def update_progress(progress, message):
+                        progress_bar.progress(progress)
+                        status_text.text(message)
+                    
+                    update_progress(10, "🤖 Initializing AI analysis...")
+                    
                     with st.spinner("🤖 AI is analyzing your financial statement..."):
-                        # Determine file type and processing approach
-                        if uploaded_file.type == "application/pdf":
-                            if not pdf_processing_available:
-                                st.error("❌ PDF processing is not available. Please install pdf2image for PDF support.")
+                        try:
+                            # Determine file type and processing approach
+                            if uploaded_file.type == "application/pdf":
+                                if not pdf_processing_available:
+                                    st.error("❌ PDF processing is not available. Please install pdf2image for PDF support.")
+                                    return
+                                
+                                if processing_approach == "whole_document":
+                                    # Use whole document context approach
+                                    update_progress(20, "🌐 Using Whole Document Context approach...")
+                                    extracted_data = process_pdf_with_whole_document_context(uploaded_file, client)
+                                else:
+                                    # Use vector database approach
+                                    update_progress(20, "🗄️ Using Vector Database approach...")
+                                    extracted_data = process_pdf_with_vector_db(uploaded_file, client)
+                            
+                            elif uploaded_file.type in ["image/jpeg", "image/jpg"]:
+                                processing_approach = "single_image"
+                                update_progress(30, "📷 Processing JPEG image...")
+                                extracted_data = extract_financial_data(uploaded_file, "jpeg")
+                            elif uploaded_file.type == "image/png":
+                                processing_approach = "single_image"
+                                update_progress(30, "📷 Processing PNG image...")
+                                extracted_data = extract_financial_data(uploaded_file, "png")
+                            else:
+                                st.error("Unsupported file type. Please upload a PDF, JPG, or PNG file.")
                                 return
                             
-                            if processing_approach == "whole_document":
-                                # Use whole document context approach
-                                st.info("🌐 Using Whole Document Context approach...")
-                                extracted_data = process_pdf_with_whole_document_context(uploaded_file, client)
-                            else:
-                                # Use vector database approach
-                                st.info("🗄️ Using Vector Database approach...")
-                                extracted_data = process_pdf_with_vector_db(uploaded_file, client)
-                        
-                        elif uploaded_file.type in ["image/jpeg", "image/jpg"]:
-                            processing_approach = "single_image"
-                            extracted_data = extract_financial_data(uploaded_file, "jpeg")
-                        elif uploaded_file.type == "image/png":
-                            processing_approach = "single_image"
-                            extracted_data = extract_financial_data(uploaded_file, "png")
-                        else:
-                            st.error("Unsupported file type. Please upload a PDF, JPG, or PNG file.")
-                            return
-                        
-                        processing_time = (datetime.now() - start_time).total_seconds()
-                        
-                        if extracted_data:
-                            # Store results in session state
-                            st.session_state.extracted_data = extracted_data
-                            st.session_state.processing_complete = True
-                            st.session_state.uploaded_file_name = uploaded_file.name
-                            st.session_state.processing_approach = str(processing_approach or "Unknown").replace('_', ' ').title()
+                            update_progress(80, "📊 Finalizing results...")
+                            processing_time = (datetime.now() - start_time).total_seconds()
                             
-                            # Calculate confidence
-                            if isinstance(extracted_data, list):
-                                # Multiple pages
-                                all_confidences = []
-                                for page_data in extracted_data:
-                                    if isinstance(page_data, dict):
-                                        line_items = page_data.get("line_items", {})
-                                        for category in line_items.values():
-                                            if isinstance(category, dict):
-                                                for item in category.values():
-                                                    if isinstance(item, dict) and "confidence" in item:
-                                                        all_confidences.append(item["confidence"])
-                                avg_confidence = sum(all_confidences) / len(all_confidences) if all_confidences else 0.8
-                            else:
-                                # Single result
-                                avg_confidence = 0.8  # Default confidence
+                            if extracted_data:
+                                update_progress(100, "✅ Processing complete!")
+                                # Store results in session state
+                                st.session_state.extracted_data = extracted_data
+                                st.session_state.processing_complete = True
+                                st.session_state.uploaded_file_name = uploaded_file.name
+                                st.session_state.processing_approach = str(processing_approach or "Unknown").replace('_', ' ').title()
+                                
+                                # Calculate confidence
+                                if isinstance(extracted_data, list):
+                                    # Multiple pages
+                                    all_confidences = []
+                                    for page_data in extracted_data:
+                                        if isinstance(page_data, dict):
+                                            line_items = page_data.get("line_items", {})
+                                            for category in line_items.values():
+                                                if isinstance(category, dict):
+                                                    for item in category.values():
+                                                        if isinstance(item, dict) and "confidence" in item:
+                                                            all_confidences.append(item["confidence"])
+                                    avg_confidence = sum(all_confidences) / len(all_confidences) if all_confidences else 0.8
+                                else:
+                                    # Single result
+                                    avg_confidence = 0.8  # Default confidence
+                                
+                                # Log processing
+                                log_processing(uploaded_file.name, processing_time, avg_confidence, "success")
+                                
+                                                            st.success(f"✅ Data extracted successfully in {processing_time:.1f} seconds using {str(processing_approach or 'Unknown').replace('_', ' ').title()} approach!")
                             
-                            # Log processing
-                            log_processing(uploaded_file.name, processing_time, avg_confidence, "success")
+                            # Feedback collection
+                            st.markdown("---")
+                            st.subheader("📝 How was your experience?")
+                            col1, col2, col3 = st.columns(3)
+                            with col1:
+                                if st.button("😊 Great!", key="feedback_great"):
+                                    st.success("Thank you for your feedback!")
+                            with col2:
+                                if st.button("😐 Okay", key="feedback_okay"):
+                                    st.info("Thanks! We're working to improve.")
+                            with col3:
+                                if st.button("😞 Needs work", key="feedback_poor"):
+                                    st.warning("We're sorry! Please use the help section to report issues.")
                             
-                            st.success(f"✅ Data extracted successfully in {processing_time:.1f} seconds using {str(processing_approach or 'Unknown').replace('_', ' ').title()} approach!")
                             st.rerun()  # Refresh to show results
-                            
-                        else:
-                            log_processing(uploaded_file.name, processing_time, 0, "failed")
-                            st.error("❌ Failed to extract data from the document. Please try with a clearer image or different document.")
+                                
+                            else:
+                                log_processing(uploaded_file.name, processing_time, 0, "failed")
+                                st.error("❌ Failed to extract data from the document. Please try with a clearer image or different document.")
+                        
+                        except Exception as e:
+                            # Enhanced error handling
+                            handle_processing_error(e, uploaded_file, processing_approach)
             else:
                 st.info("👆 Please select a processing approach above to continue.")
         else:
             # For PDFs, show message to select approach; for other cases, this shouldn't happen
             if uploaded_file.type == "application/pdf":
                 st.info("👆 Please select a processing approach above to continue.")
-                # DEBUG: Show what's actually happening
-                st.write(f"**DEBUG:** selected_processing_approach = {st.session_state.selected_processing_approach}")
-                st.write(f"**DEBUG:** processing_approach = {processing_approach}")
-                st.write(f"**DEBUG:** show_button = {show_button}")
             else:
                 st.error("❌ Unexpected state: Non-PDF file should always show button")
 
