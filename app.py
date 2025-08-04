@@ -3587,27 +3587,26 @@ def main():
                                 # Log processing
                                 log_processing(uploaded_file.name, processing_time, avg_confidence, "success")
                                 
-                                                            st.success(f"✅ Data extracted successfully in {processing_time:.1f} seconds using {str(processing_approach or 'Unknown').replace('_', ' ').title()} approach!")
-                            
-                            # Feedback collection
-                            st.markdown("---")
-                            st.subheader("📝 How was your experience?")
-                            col1, col2, col3 = st.columns(3)
-                            with col1:
-                                if st.button("😊 Great!", key="feedback_great"):
-                                    st.success("Thank you for your feedback!")
-                            with col2:
-                                if st.button("😐 Okay", key="feedback_okay"):
-                                    st.info("Thanks! We're working to improve.")
-                            with col3:
-                                if st.button("😞 Needs work", key="feedback_poor"):
-                                    st.warning("We're sorry! Please use the help section to report issues.")
-                            
-                            st.rerun()  # Refresh to show results
+                                st.success(f"✅ Data extracted successfully in {processing_time:.1f} seconds using {str(processing_approach or 'Unknown').replace('_', ' ').title()} approach!")
                                 
+                                # Feedback collection
+                                st.markdown("---")
+                                st.subheader("📝 How was your experience?")
+                                col1, col2, col3 = st.columns(3)
+                                with col1:
+                                    if st.button("😊 Great!", key="feedback_great"):
+                                        st.success("Thank you for your feedback!")
+                                with col2:
+                                    if st.button("😐 Okay", key="feedback_okay"):
+                                        st.info("Thanks! We're working to improve.")
+                                with col3:
+                                    if st.button("😞 Needs work", key="feedback_poor"):
+                                        st.warning("We're sorry! Please use the help section to report issues.")
                             else:
                                 log_processing(uploaded_file.name, processing_time, 0, "failed")
                                 st.error("❌ Failed to extract data from the document. Please try with a clearer image or different document.")
+                            
+                            st.rerun()  # Refresh to show results
                         
                         except Exception as e:
                             # Enhanced error handling
