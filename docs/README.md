@@ -166,19 +166,38 @@ streamlit run test_button_isolated.py --server.port 8549
 ```
 financial-statement-transcription/
 ├── app.py                      # Main Streamlit application
-├── app_fixed.py               # Backup/reference version
 ├── requirements.txt           # Python dependencies
 ├── .env                       # Environment variables (create from env_example.txt)
-├── env_example.txt           # Environment template
-├── README.md                 # This file
 ├── render.yaml               # Deployment configuration
-├── start.sh                  # Startup script
-├── troubleshoot_guide.md     # Troubleshooting guide
-├── test_button_logic.py      # Unit tests
-├── test_button_isolated.py   # Isolated button test
-├── chroma_db/                # Vector database storage
 ├── financial_statements.db   # SQLite database (ephemeral)
-└── Full_Version_PRD.md       # Product requirements document
+├── chroma_db/                # Vector database storage
+├── backups/                  # Backup versions of the application
+│   ├── app_backup.py         # Previous working version
+│   ├── app_backup_before_fix.py # Version before fixes
+│   ├── app_fixed.py          # Fixed version reference
+│   └── app_button_fix.py     # Button fix version
+├── tests/                    # Test and debug files
+│   ├── test_button_logic.py  # Unit tests
+│   ├── test_button_isolated.py # Isolated button test
+│   ├── minimal_button_test.py # Minimal test case
+│   ├── debug_button.py       # Button debugging
+│   ├── debug_session_state.py # Session state debugging
+│   ├── debug_test.py         # General debugging
+│   ├── fix_button.py         # Button fix logic
+│   ├── fix_button_clean.py   # Clean button fix
+│   ├── fix_button_final.py   # Final button fix
+│   └── fix_keys.py           # Key fix logic
+├── scripts/                  # Utility and startup scripts
+│   ├── start.ps1            # PowerShell startup script
+│   ├── start.bat            # Windows batch startup
+│   ├── start.sh             # Linux/Mac startup script
+│   └── start-auto.ps1       # Automated startup script
+└── docs/                    # Documentation files
+    ├── README.md            # This file
+    ├── MVP_PRD.md           # Minimum Viable Product requirements
+    ├── Full_Version_PRD.md  # Full product requirements
+    ├── troubleshoot_guide.md # Troubleshooting guide
+    └── env_example.txt      # Environment template
 ```
 
 ## 🔍 Troubleshooting
@@ -198,7 +217,7 @@ financial-statement-transcription/
 1. Check the Debug Info section
 2. Use "Reset Session State" button
 3. Refresh the page
-4. Try the isolated test: `streamlit run test_button_isolated.py`
+4. Try the isolated test: `streamlit run tests/test_button_isolated.py`
 
 #### API Rate Limits
 **Error**: "Rate limit exceeded"
@@ -214,12 +233,37 @@ financial-statement-transcription/
 ### Debug Mode
 Enable debug information by expanding the "🔧 Debug Info" section when the Extract button appears.
 
+### Running Tests
+The project includes various test and debug files in the `tests/` directory:
+
+```bash
+# Run isolated button test
+streamlit run tests/test_button_isolated.py
+
+# Run button logic test
+streamlit run tests/test_button_logic.py
+
+# Run minimal test case
+streamlit run tests/minimal_button_test.py
+```
+
+These tests can help isolate and debug specific issues with the application.
+
 ## 🚀 Deployment
 
 ### Local Development
 ```bash
 streamlit run app.py --server.port 8501
 ```
+
+### Startup Scripts
+The `scripts/` directory contains platform-specific startup scripts:
+
+- **Windows**: Use `scripts/start.bat` or `scripts/start.ps1`
+- **Linux/Mac**: Use `scripts/start.sh`
+- **Automated**: Use `scripts/start-auto.ps1` for automated startup
+
+These scripts handle environment setup and application startup automatically.
 
 ### Production Deployment
 The application includes configuration for deployment on Render.com:
