@@ -13,13 +13,23 @@ from openai import OpenAI
 
 # Add the parent directory to the path to import from streamlit app
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
-from streamlit.app import (
-    convert_pdf_to_images,
-    extract_comprehensive_financial_data,
-    create_ifrs_csv_export,
-    consolidate_financial_data,
-    analyze_document_characteristics
-)
+try:
+    from streamlit.app import (
+        convert_pdf_to_images,
+        extract_comprehensive_financial_data,
+        create_ifrs_csv_export,
+        consolidate_financial_data,
+        analyze_document_characteristics
+    )
+except ImportError:
+    # Fallback: try importing from the main app.py
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+    import app
+    convert_pdf_to_images = app.convert_pdf_to_images
+    extract_comprehensive_financial_data = app.extract_comprehensive_financial_data
+    create_ifrs_csv_export = app.create_ifrs_csv_export
+    consolidate_financial_data = app.consolidate_financial_data
+    analyze_document_characteristics = app.analyze_document_characteristics
 
 class FileProcessor:
     """Handles file processing and financial data extraction"""
