@@ -63,10 +63,8 @@ async def extract_financial_data(
         if not file.filename:
             raise HTTPException(status_code=400, detail="No file provided")
         
-        # Check file size (10MB limit)
+        # Read file content
         file_content = await file.read()
-        if len(file_content) > 10 * 1024 * 1024:  # 10MB
-            raise HTTPException(status_code=400, detail="File too large. Maximum size is 10MB")
         
         # Create job
         job_id = str(uuid.uuid4())
@@ -78,40 +76,23 @@ async def extract_financial_data(
             "status": "processing"
         })
         
-        # For small files, process immediately
-        if len(file_content) < 5 * 1024 * 1024:  # 5MB
-            result = await file_processor.process_file_sync(
-                file_content, 
-                file.filename, 
-                processing_approach,
-                output_format
-            )
-            job_manager.update_job(job_id, {
-                "status": "completed",
-                "result": result,
-                "completed_at": datetime.utcnow().isoformat()
-            })
-            return {
-                "job_id": job_id,
-                "status": "completed",
-                "result": result
-            }
-        else:
-            # For larger files, process in background
-            background_tasks.add_task(
-                file_processor.process_file_async,
-                job_id,
-                file_content,
-                file.filename,
-                processing_approach,
-                output_format
-            )
-            return {
-                "job_id": job_id,
-                "status": "processing",
-                "estimated_time": "30-60 seconds",
-                "message": "File is being processed in the background"
-            }
+        # Process file immediately (no size limits)
+        result = await file_processor.process_file_sync(
+            file_content, 
+            file.filename, 
+            processing_approach,
+            output_format
+        )
+        job_manager.update_job(job_id, {
+            "status": "completed",
+            "result": result,
+            "completed_at": datetime.utcnow().isoformat()
+        })
+        return {
+            "job_id": job_id,
+            "status": "completed",
+            "result": result
+        }
             
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -135,17 +116,11 @@ async def extract_financial_data_sync(
     output_format: Optional[str] = "csv"
 ):
     """
-    Synchronous endpoint for small files (< 5MB)
+    Synchronous endpoint for immediate processing
     Returns results immediately
     """
     try:
         file_content = await file.read()
-        
-        if len(file_content) > 5 * 1024 * 1024:  # 5MB
-            raise HTTPException(
-                status_code=400, 
-                detail="File too large for sync processing. Use async endpoint for files > 5MB"
-            )
         
         result = await file_processor.process_file_sync(
             file_content,

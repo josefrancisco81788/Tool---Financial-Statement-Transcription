@@ -1,35 +1,41 @@
 import os
 import sys
 import base64
-import json
 import time
-from datetime import datetime
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, List
 import io
 from PIL import Image
-import fitz  # PyMuPDF
-import pandas as pd
 from openai import OpenAI
 
 # Add the parent directory to the path to import from streamlit app
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 try:
-    from streamlit.app import (
-        convert_pdf_to_images,
-        extract_comprehensive_financial_data,
-        create_ifrs_csv_export,
-        consolidate_financial_data,
-        analyze_document_characteristics
-    )
-except ImportError:
-    # Fallback: try importing from the main app.py
-    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
     import app
     convert_pdf_to_images = app.convert_pdf_to_images
     extract_comprehensive_financial_data = app.extract_comprehensive_financial_data
     create_ifrs_csv_export = app.create_ifrs_csv_export
     consolidate_financial_data = app.consolidate_financial_data
     analyze_document_characteristics = app.analyze_document_characteristics
+    process_pdf_with_whole_document_context = app.process_pdf_with_whole_document_context
+    process_pdf_with_vector_db = app.process_pdf_with_vector_db
+    transform_to_analysis_ready_format = app.transform_to_analysis_ready_format
+    ensure_confidence_score = app.ensure_confidence_score
+except ImportError:
+    # Fallback: try importing from streamlit app
+    try:
+        from streamlit.app import (
+            convert_pdf_to_images,
+            extract_comprehensive_financial_data,
+            create_ifrs_csv_export,
+            consolidate_financial_data,
+            analyze_document_characteristics,
+            process_pdf_with_whole_document_context,
+            process_pdf_with_vector_db,
+            transform_to_analysis_ready_format,
+            ensure_confidence_score
+        )
+    except ImportError:
+        raise ImportError("Could not import required functions from app.py or streamlit.app")
 
 class FileProcessor:
     """Handles file processing and financial data extraction"""
@@ -47,22 +53,28 @@ class FileProcessor:
         output_format: str = "csv"
     ) -> Dict[str, Any]:
         """Process file synchronously (for small files)"""
+        start_time = time.time()
         try:
-            start_time = time.time()
-            
             # Validate file type
             file_extension = os.path.splitext(filename)[1].lower()
             if file_extension not in ['.pdf', '.jpg', '.jpeg', '.png']:
                 raise ValueError(f"Unsupported file type: {file_extension}")
+            
+            # Preserve what the client requested
+            requested_processing_approach = processing_approach
+            # Normalize
+            processing_approach = str(processing_approach or "auto").strip().lower()
             
             # Analyze document characteristics
             file_obj = io.BytesIO(file_content)
             file_obj.name = filename  # Mock filename for analysis
             characteristics = analyze_document_characteristics(file_obj)
             
-            # Determine processing approach
+            # Determine processing approach only if auto is selected
             if processing_approach == "auto":
-                processing_approach = characteristics.get("recommendation", "whole_document")
+                recommendation = characteristics.get("recommendation", "whole_document")
+                processing_approach = str(recommendation)
+            # If user explicitly chooses an approach, respect that choice
             
             # Process based on file type
             if file_extension == '.pdf':
@@ -73,6 +85,10 @@ class FileProcessor:
             # Format output
             processing_time = time.time() - start_time
             result["processing_time"] = processing_time
+            # Expose both requested and effective approaches
+            result["requested_processing_approach"] = requested_processing_approach
+            result["effective_processing_approach"] = processing_approach
+            # Back-compat: keep processing_approach as the effective one
             result["processing_approach"] = processing_approach
             result["document_characteristics"] = characteristics
             
@@ -82,7 +98,7 @@ class FileProcessor:
             return {
                 "error": str(e),
                 "status": "failed",
-                "processing_time": time.time() - start_time if 'start_time' in locals() else 0
+                "processing_time": time.time() - start_time
             }
     
     async def process_file_async(
@@ -112,40 +128,72 @@ class FileProcessor:
     async def _process_pdf_sync(self, file_content: bytes, processing_approach: str) -> Dict[str, Any]:
         """Process PDF file synchronously"""
         try:
-            # Convert PDF to images
+            # Create file-like object for processing
             pdf_file = io.BytesIO(file_content)
-            images = convert_pdf_to_images(pdf_file)
+            pdf_file.name = "uploaded_file.pdf"  # Mock filename
             
-            if not images:
-                raise ValueError("Failed to convert PDF to images")
-            
-            # Process images
-            extracted_results = []
-            for i, image in enumerate(images):
-                # Convert PIL image to base64
-                img_buffer = io.BytesIO()
-                image.save(img_buffer, format='PNG')
-                img_base64 = base64.b64encode(img_buffer.getvalue()).decode('utf-8')
-                
-                # Extract financial data
-                result = extract_comprehensive_financial_data(
-                    img_base64, 
-                    f"page_{i+1}", 
-                    ""
-                )
-                if result:
-                    extracted_results.append(result)
-            
-            # Consolidate results
-            if len(extracted_results) > 1:
-                consolidated_data = consolidate_financial_data(extracted_results)
+            # Process based on approach
+            if processing_approach == "whole_document":
+                # Use the whole document context approach (same as Streamlit)
+                consolidated_data = process_pdf_with_whole_document_context(pdf_file, self.client)
+                pages_processed = "all"  # Whole document processes all pages
+            elif processing_approach == "vector_database":
+                # Use vector database approach
+                consolidated_data = process_pdf_with_vector_db(pdf_file, self.client)
+                pages_processed = "all"  # Vector approach processes all pages
             else:
-                consolidated_data = extracted_results[0] if extracted_results else {}
+                # Fallback to image-based processing
+                images = convert_pdf_to_images(pdf_file)
+                
+                if not images:
+                    raise ValueError("Failed to convert PDF to images")
+                
+                # Process images
+                extracted_results = []
+                for i, image in enumerate(images):
+                    try:
+                        # Ensure image is a PIL Image object
+                        if hasattr(image, 'save'):
+                            # Convert PIL image to base64
+                            img_buffer = io.BytesIO()
+                            image.save(img_buffer, format='PNG')
+                            img_base64 = base64.b64encode(img_buffer.getvalue()).decode('utf-8')
+                        else:
+                            # If it's not a PIL Image, try to convert it
+                            if isinstance(image, bytes):
+                                img_base64 = base64.b64encode(image).decode('utf-8')
+                            else:
+                                # Try to convert to PIL Image
+                                pil_image = Image.open(io.BytesIO(image))
+                                img_buffer = io.BytesIO()
+                                pil_image.save(img_buffer, format='PNG')
+                                img_base64 = base64.b64encode(img_buffer.getvalue()).decode('utf-8')
+                        
+                        # Extract financial data
+                        result = extract_comprehensive_financial_data(
+                            img_base64, 
+                            f"page_{i+1}", 
+                            ""
+                        )
+                        if result:
+                            extracted_results.append(result)
+                            
+                    except Exception as page_error:
+                        print(f"Warning: Failed to process page {i+1}: {str(page_error)}")
+                        continue
+                
+                # Consolidate results
+                if len(extracted_results) > 1:
+                    consolidated_data = consolidate_financial_data(extracted_results)
+                else:
+                    consolidated_data = extracted_results[0] if extracted_results else {}
+                
+                pages_processed = len(images)
             
             return {
                 "status": "success",
                 "data": consolidated_data,
-                "pages_processed": len(images),
+                "pages_processed": pages_processed,
                 "extraction_method": processing_approach
             }
             
@@ -183,7 +231,7 @@ class FileProcessor:
         data = result.get("data", {})
         
         if output_format == "csv":
-            csv_data = create_ifrs_csv_export(data)
+            csv_data = self._transform_data_for_csv(data)
             return {
                 **result,
                 "csv_data": csv_data,
@@ -196,7 +244,7 @@ class FileProcessor:
                 "output_format": "json"
             }
         elif output_format == "both":
-            csv_data = create_ifrs_csv_export(data)
+            csv_data = self._transform_data_for_csv(data)
             return {
                 **result,
                 "csv_data": csv_data,
@@ -229,4 +277,83 @@ class FileProcessor:
             "errors": errors,
             "file_size": len(file_content),
             "file_type": file_extension
-        } 
+        }
+    
+    def _transform_data_for_csv(self, data: Dict[str, Any]) -> str:
+        """Transform raw data into the expected format for CSV export using transform_to_analysis_ready_format"""
+        try:
+            # Transform raw data into all_line_items format that transform_to_analysis_ready_format expects
+            all_line_items: List[Dict[str, Any]] = []
+            
+            years_detected = data.get("years_detected", [])
+            base_year = data.get("base_year")
+            line_items = data.get("line_items", {})
+            
+            statement_names = {
+                "balance_sheet": "Balance Sheet",
+                "income_statement": "Income Statement",
+                "cash_flow_statement": "Cash Flow Statement",
+                "statement_of_changes_in_equity": "Statement of Changes in Equity"
+            }
+            
+            for statement_key, statement_data in line_items.items():
+                if not isinstance(statement_data, dict):
+                    continue
+                statement_name = statement_names.get(statement_key, statement_key.replace("_", " ").title())
+                
+                for category_key, category_data in statement_data.items():
+                    if not isinstance(category_data, dict):
+                        continue
+                    category_name = category_key.replace("_", " ").title()
+                    
+                    for field_key, field_data in category_data.items():
+                        if not isinstance(field_data, dict) or "value" not in field_data:
+                            continue
+                        field_name = field_key.replace("_", " ").title()
+                        
+                        # Build year mapping
+                        year_data: Dict[str, Any] = {}
+                        if base_year is not None and field_data.get("base_year") is not None:
+                            year_data[str(base_year)] = field_data["base_year"]
+                        for i, year in enumerate(years_detected[1:], 1):
+                            year_key = f"year_{i}"
+                            if field_data.get(year_key) is not None:
+                                year_data[str(year)] = field_data[year_key]
+                        
+                        all_line_items.append({
+                            "Category": statement_name,
+                            "Subcategory": category_name,
+                            "Field": field_name,
+                            "Value": field_data["value"],
+                            "Confidence": f"{field_data.get('confidence', 0):.1%}",
+                            "Confidence_Score": ensure_confidence_score(field_data.get("confidence", 0)),
+                            "Year_Data": year_data,
+                        })
+            
+            if not all_line_items:
+                return "No data available for export"
+            
+            df = transform_to_analysis_ready_format(all_line_items)
+            
+            # Remove pseudo rows like Date/Year if present and any leading blank lines
+            if {"Category", "Subcategory", "Field"}.issubset(df.columns):
+                df = df[~((df["Category"] == "Date") & (df["Subcategory"] == "Year"))]
+            # Drop rows that are entirely empty strings or NaN
+            df = df.replace({"": None}).dropna(how='all')
+            
+            # Drop fully empty rows and reset index
+            df = df.dropna(how='all').reset_index(drop=True)
+            
+            # Convert float-like integers to int (to avoid 2022.0)
+            def _format_val(v: Any) -> Any:
+                if isinstance(v, float) and v.is_integer():
+                    return int(v)
+                return v
+            df = df.applymap(_format_val)
+            
+            # Export with consistent newline to avoid perceived blank lines
+            return df.to_csv(index=False, lineterminator='\r\n')
+            
+        except Exception as e:
+            print(f"Error transforming data for CSV: {str(e)}")
+            return create_ifrs_csv_export(data) 
