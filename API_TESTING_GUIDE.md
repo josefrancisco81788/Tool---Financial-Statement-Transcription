@@ -41,7 +41,7 @@ This script will:
 curl http://localhost:8000/
 ```
 
-### Upload a File (Synchronous - Small files < 5MB)
+### Upload a File (Synchronous - Recommended)
 ```bash
 curl -X POST "http://localhost:8000/api/v1/extract-financial-data/sync" \
   -H "accept: application/json" \
@@ -51,17 +51,7 @@ curl -X POST "http://localhost:8000/api/v1/extract-financial-data/sync" \
   -F "output_format=csv"
 ```
 
-### Upload a File (Asynchronous - Large files >= 5MB)
-```bash
-curl -X POST "http://localhost:8000/api/v1/extract-financial-data" \
-  -H "accept: application/json" \
-  -H "Content-Type: multipart/form-data" \
-  -F "file=@your_file.pdf" \
-  -F "processing_approach=auto" \
-  -F "output_format=csv"
-```
-
-### Check Job Status (for async jobs)
+### Check Job Status (only if using the non-sync endpoint)
 ```bash
 curl http://localhost:8000/api/v1/jobs/{job_id}
 ```
@@ -127,9 +117,11 @@ fetch('http://localhost:8000/api/v1/extract-financial-data/sync', {
   "status": "success",
   "processing_time": 15.2,
   "processing_approach": "whole_document",
+  "requested_processing_approach": "whole_document",
+  "effective_processing_approach": "whole_document",
   "pages_processed": 4,
   "output_format": "csv",
-  "csv_data": "Statement,Category,Line_Item,Value,Confidence...",
+  "csv_data": "Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,...",
   "document_characteristics": {
     "page_count": 4,
     "file_size_mb": 2.1,
@@ -150,20 +142,19 @@ fetch('http://localhost:8000/api/v1/extract-financial-data/sync', {
 ## 🔧 Processing Options
 
 ### Processing Approaches
-- `"auto"` - Let AI choose the best approach
-- `"whole_document"` - Process entire document at once
-- `"vector_database"` - Use vector search for large documents
+- `auto` - Let AI choose the best approach
+- `whole_document` - Process entire document at once
+- `vector_database` - Use vector search for large documents
 
 ### Output Formats
-- `"csv"` - Structured CSV data
-- `"json"` - Raw JSON data
-- `"both"` - Both CSV and JSON
+- `csv` - Structured CSV data
+- `json` - Raw JSON data
+- `both` - Both CSV and JSON
 
 ## 📁 Supported File Types
 
 - **PDF** (.pdf) - Multi-page documents
 - **Images** (.jpg, .jpeg, .png) - Single page documents
-- **Max Size**: 10MB per file
 
 ## 🧪 Sample Test Files
 
@@ -197,22 +188,15 @@ c.save()
    Solution: Start the API with uvicorn
    ```
 
-2. **File Too Large**
-   ```
-   Error: File too large. Maximum size is 10MB
-   Solution: Use a smaller file or compress it
-   ```
-
-3. **Invalid File Type**
-   ```
-   Error: Unsupported file type
-   Solution: Use PDF, JPG, JPEG, or PNG files
-   ```
-
-4. **OpenAI API Key Missing**
+2. **OpenAI API Key Missing**
    ```
    Error: OpenAI API key not found
    Solution: Set OPENAI_API_KEY environment variable
+   ```
+
+3. **Excel shows blank lines**
+   ```
+   Use the CSV returned by the API directly. It uses CRLF line endings for Excel compatibility.
    ```
 
 ### Debug Mode
@@ -221,20 +205,11 @@ Enable debug logging by setting environment variable:
 export DEBUG=true
 ```
 
-## 📈 Performance Tips
-
-1. **Small Files (< 5MB)**: Use sync endpoint for immediate results
-2. **Large Files (>= 5MB)**: Use async endpoint with job tracking
-3. **Multiple Files**: Process sequentially to avoid rate limits
-4. **Image Quality**: Use high-quality images for better OCR results
-
-## 🎯 Next Steps
-
-1. **Test with Real Data**: Upload actual financial statements
-2. **Integrate into Applications**: Use the API in your projects
-3. **Add Authentication**: Implement API key authentication
-4. **Deploy to Production**: Host the API on cloud platforms
-5. **Monitor Performance**: Track processing times and success rates
+## 📈 POC Notes & Limits
+- Synchronous processing; long documents may take several minutes and risk request timeouts depending on your platform.
+- No authentication or rate limiting; restrict access in POC environments.
+- In-memory job tracking is ephemeral; restarts clear job history.
+- PDF processing depends on platform setup (Poppler or PyMuPDF available).
 
 ---
 

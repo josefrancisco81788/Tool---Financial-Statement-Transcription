@@ -82,6 +82,40 @@ streamlit run app.py
 
 The application will be available at `http://localhost:8501`
 
+## 🖥️ API Mode (FastAPI)
+
+Run the API server instead of the Streamlit UI.
+
+### Install API dependencies
+```bash
+pip install -r requirements-api.txt
+```
+
+### Start the API
+```bash
+cd api
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### Endpoints
+- `POST /api/v1/extract-financial-data/sync` — Synchronous processing (recommended)
+- `POST /api/v1/extract-financial-data` — Legacy endpoint; currently processes synchronously as well
+- `GET /api/v1/jobs/{job_id}` — Job status (in-memory tracking)
+- `GET /api/v1/health` — Health check
+
+### Environment
+- Set `OPENAI_API_KEY` in your environment or `.env`
+- PDF processing requires Poppler or uses PyMuPDF fallback depending on platform
+
+### CSV format and Excel
+- CSV matches Streamlit export structure (Category, Subcategory, Field, Confidence, Confidence_Score, Value_Year_X)
+- API returns CSV with CRLF line endings for Excel compatibility; when writing files in Python, open with `newline=''`
+
+### POC caveats
+- No authentication or rate limiting; restrict exposure
+- In-memory job tracking; restarts clear history
+- Synchronous processing; long documents may exceed platform request timeouts
+
 ## 📖 Usage Guide
 
 ### Basic Workflow

@@ -20,25 +20,12 @@ python test_real_file.py document.pdf --output-format json
 curl http://localhost:8000/
 ```
 
-### Upload Small File (< 5MB) - Immediate Results
+### Upload File (Synchronous - Recommended)
 ```bash
 curl -X POST "http://localhost:8000/api/v1/extract-financial-data/sync" \
   -F "file=@your_document.pdf" \
   -F "processing_approach=auto" \
   -F "output_format=csv"
-```
-
-### Upload Large File (>= 5MB) - Background Processing
-```bash
-curl -X POST "http://localhost:8000/api/v1/extract-financial-data" \
-  -F "file=@large_document.pdf" \
-  -F "processing_approach=auto" \
-  -F "output_format=csv"
-```
-
-### Check Job Status (for large files)
-```bash
-curl http://localhost:8000/api/v1/jobs/{job_id_from_previous_response}
 ```
 
 ## 📋 Method 3: Web Interface
@@ -73,7 +60,8 @@ with open('your_document.pdf', 'rb') as f:
         result = response.json()
         print("Success!")
         if 'csv_data' in result:
-            with open('extracted_data.csv', 'w') as f:
+            # Use newline='' for Excel-friendly files
+            with open('extracted_data.csv', 'w', newline='', encoding='utf-8') as f:
                 f.write(result['csv_data'])
             print("CSV saved to extracted_data.csv")
     else:
@@ -96,7 +84,6 @@ with open('your_document.pdf', 'rb') as f:
 
 - **PDF** (.pdf) - Multi-page documents
 - **Images** (.jpg, .jpeg, .png) - Single page documents
-- **Max Size**: 10MB per file
 
 ## 🎯 Quick Start Steps
 
@@ -122,10 +109,6 @@ with open('your_document.pdf', 'rb') as f:
 # Start the API
 cd api && uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
-
-### File Too Large
-- Compress the file or use a smaller version
-- Use the async endpoint for files >= 5MB
 
 ### OpenAI API Key Missing
 ```bash
