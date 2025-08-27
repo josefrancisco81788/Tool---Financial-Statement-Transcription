@@ -2101,7 +2101,7 @@ def create_ifrs_csv_export(data):
                     # This is a subcategory
                     add_section_rows(section_name, info, field.replace("_", " ").title())
     
-    # Process each statement
+    # Process each statement - handle both old and new data structures
     statements = [
         ("Balance Sheet", "balance_sheet"),
         ("Income Statement", "income_statement"), 
@@ -2110,7 +2110,11 @@ def create_ifrs_csv_export(data):
     ]
     
     for statement_name, statement_key in statements:
-        statement_data = data.get(statement_key, {})
+        # Try new structure first (line_items), then fallback to old structure
+        if "line_items" in data and statement_key in data["line_items"]:
+            statement_data = data["line_items"][statement_key]
+        else:
+            statement_data = data.get(statement_key, {})
         add_section_rows(statement_name, statement_data)
     
     # Convert to DataFrame and CSV
