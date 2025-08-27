@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Git
+.git
+.gitignore
+
+# IDE/Editor
+.vscode
+.idea
+
+# Local data & caches
+.env
+*.csv
+*.json
+*.pdf
+*.png
+*.jpg
+*.jpeg
+chroma_db/
+financial_statements.db
+
+# Streamlit cache
+.streamlit/
+
+# Node
+node_modules/
+
+# Render artifacts
+render.yaml
+
+# Notebooks
+*.ipynb
+
+# OS
+.DS_Store
+Thumbs.db
