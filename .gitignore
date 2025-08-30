@@ -37,4 +37,20 @@ Thumbs.db
 
 # Temporary files
 *.tmp
-*.temp 
+*.temp
+
+# Project reorganization - Output folders (ignore all contents)
+data/output/
+tests/outputs/
+
+# Specific output patterns (backup)
+extracted_data_*.csv
+*_full_response_*.json
+test_csv_fix_output.csv
+afs2024_proper_format_*.csv
+
+# Keep .gitkeep files
+!data/input/samples/.gitkeep
+!data/input/documents/.gitkeep
+!data/samples/.gitkeep
+!tests/fixtures/.gitkeep 

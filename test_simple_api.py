@@ -12,7 +12,7 @@ def test_api_response():
     print("=" * 40)
     
     # Test with sample file
-    with open('test_financial_statement.pdf', 'rb') as f:
+    with open('data/input/samples/test_financial_statement.pdf', 'rb') as f:
         files = {'file': ('test_financial_statement.pdf', f, 'application/pdf')}
         data = {
             'processing_approach': 'whole_document',

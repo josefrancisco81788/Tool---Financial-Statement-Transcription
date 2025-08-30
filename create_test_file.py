@@ -14,7 +14,7 @@ from reportlab.lib.units import inch
 def create_simple_test_pdf():
     """Create a simple test PDF with financial data"""
     
-    filename = "test_financial_statement.pdf"
+    filename = "data/input/samples/test_financial_statement.pdf"
     
     # Create the PDF document
     doc = SimpleDocTemplate(filename, pagesize=letter)
@@ -148,7 +148,7 @@ def create_simple_test_image():
             draw.text((50, y_position), line, fill='black', font=font)
             y_position += 30
         
-        filename = "test_financial_statement.png"
+        filename = "data/input/samples/test_financial_statement.png"
         image.save(filename)
         
         print(f"✅ Test image created: {filename}")

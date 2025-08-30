@@ -280,15 +280,52 @@ class FileProcessor:
         }
     
     def _transform_data_for_csv(self, data: Dict[str, Any]) -> str:
-        """Transform raw data into the expected format for CSV export using transform_to_analysis_ready_format"""
+        """Transform raw data into CSV format with year mapping row"""
         try:
-            # Transform raw data into all_line_items format that transform_to_analysis_ready_format expects
-            all_line_items: List[Dict[str, Any]] = []
+            print(f"🔍 [DEBUG] Starting CSV transformation with data keys: {list(data.keys())}")
             
+            # Extract year information
             years_detected = data.get("years_detected", [])
             base_year = data.get("base_year")
             line_items = data.get("line_items", {})
             
+            print(f"🔍 [DEBUG] Years detected: {years_detected}, Base year: {base_year}")
+            print(f"🔍 [DEBUG] Line items keys: {list(line_items.keys())}")
+            
+            if not years_detected:
+                print("⚠️ [DEBUG] No years detected, falling back to old format")
+                return create_ifrs_csv_export(data)
+            
+            # Sort years (most recent first)
+            try:
+                sorted_years = sorted(years_detected, key=lambda x: int(x) if str(x).isdigit() else float('inf'), reverse=True)
+            except:
+                sorted_years = sorted(years_detected, reverse=True)
+            
+            print(f"🔍 [DEBUG] Sorted years: {sorted_years}")
+            
+            # Create CSV rows
+            csv_rows = []
+            
+            # Create header row
+            header_row = ["Category", "Subcategory", "Field", "Confidence", "Confidence_Score"]
+            for i in range(4):  # Support up to 4 years
+                header_row.append(f"Value_Year_{i+1}")
+            csv_rows.append(header_row)
+            
+            # Create year mapping row
+            year_mapping_row = ["Date", "Year", "Year", "", "0.0"]
+            for i in range(4):
+                if i < len(sorted_years):
+                    year_mapping_row.append(str(sorted_years[i]))
+                else:
+                    year_mapping_row.append("")
+            csv_rows.append(year_mapping_row)
+            
+            print(f"🔍 [DEBUG] Header row: {header_row}")
+            print(f"🔍 [DEBUG] Year mapping row: {year_mapping_row}")
+            
+            # Process line items
             statement_names = {
                 "balance_sheet": "Balance Sheet",
                 "income_statement": "Income Statement",
@@ -311,49 +348,69 @@ class FileProcessor:
                             continue
                         field_name = field_key.replace("_", " ").title()
                         
-                        # Build year mapping
-                        year_data: Dict[str, Any] = {}
-                        if base_year is not None and field_data.get("base_year") is not None:
-                            year_data[str(base_year)] = field_data["base_year"]
-                        for i, year in enumerate(years_detected[1:], 1):
-                            year_key = f"year_{i}"
-                            if field_data.get(year_key) is not None:
-                                year_data[str(year)] = field_data[year_key]
+                        # Build data row
+                        data_row = [
+                            statement_name,
+                            category_name,
+                            field_name,
+                            f"{field_data.get('confidence', 0):.1%}",
+                            ensure_confidence_score(field_data.get("confidence", 0))
+                        ]
                         
-                        all_line_items.append({
-                            "Category": statement_name,
-                            "Subcategory": category_name,
-                            "Field": field_name,
-                            "Value": field_data["value"],
-                            "Confidence": f"{field_data.get('confidence', 0):.1%}",
-                            "Confidence_Score": ensure_confidence_score(field_data.get("confidence", 0)),
-                            "Year_Data": year_data,
-                        })
+                        # Add year values
+                        for i in range(4):
+                            if i < len(sorted_years):
+                                year = sorted_years[i]
+                                if i == 0:
+                                    # First year (most recent) - use main value for base year
+                                    data_row.append(str(field_data["value"]))
+                                elif i == 1:
+                                    # Second year - use year_1 value
+                                    if field_data.get("year_1") is not None:
+                                        data_row.append(str(field_data["year_1"]))
+                                    else:
+                                        data_row.append("")
+                                elif i == 2:
+                                    # Third year - use year_2 value
+                                    if field_data.get("year_2") is not None:
+                                        data_row.append(str(field_data["year_2"]))
+                                    else:
+                                        data_row.append("")
+                                elif i == 3:
+                                    # Fourth year - use year_3 value
+                                    if field_data.get("year_3") is not None:
+                                        data_row.append(str(field_data["year_3"]))
+                                    else:
+                                        data_row.append("")
+                                else:
+                                    data_row.append("")
+                            else:
+                                data_row.append("")
+                        
+                        csv_rows.append(data_row)
             
-            if not all_line_items:
-                return "No data available for export"
+            print(f"🔍 [DEBUG] Created {len(csv_rows)} CSV rows (including header and year mapping)")
             
-            df = transform_to_analysis_ready_format(all_line_items)
+            if len(csv_rows) <= 2:  # Only header and year mapping rows
+                print("⚠️ [DEBUG] No data rows created, falling back to old format")
+                return create_ifrs_csv_export(data)
             
-            # Remove pseudo rows like Date/Year if present and any leading blank lines
-            if {"Category", "Subcategory", "Field"}.issubset(df.columns):
-                df = df[~((df["Category"] == "Date") & (df["Subcategory"] == "Year"))]
-            # Drop rows that are entirely empty strings or NaN
-            df = df.replace({"": None}).dropna(how='all')
+            # Convert to CSV string
+            import csv
+            import io
             
-            # Drop fully empty rows and reset index
-            df = df.dropna(how='all').reset_index(drop=True)
+            output = io.StringIO()
+            writer = csv.writer(output, lineterminator='\r\n')
+            writer.writerows(csv_rows)
             
-            # Convert float-like integers to int (to avoid 2022.0)
-            def _format_val(v: Any) -> Any:
-                if isinstance(v, float) and v.is_integer():
-                    return int(v)
-                return v
-            df = df.applymap(_format_val)
+            csv_output = output.getvalue()
+            print(f"🔍 [DEBUG] CSV output length: {len(csv_output)} characters")
+            print(f"🔍 [DEBUG] CSV output first 3 lines:")
+            print(csv_output.split('\r\n')[:3])
             
-            # Export with consistent newline to avoid perceived blank lines
-            return df.to_csv(index=False, lineterminator='\r\n')
+            return csv_output
             
         except Exception as e:
-            print(f"Error transforming data for CSV: {str(e)}")
+            print(f"❌ [DEBUG] Error transforming data for CSV: {str(e)}")
+            print(f"❌ [DEBUG] Falling back to create_ifrs_csv_export")
             return create_ifrs_csv_export(data) 

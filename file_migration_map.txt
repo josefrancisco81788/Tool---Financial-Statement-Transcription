@@ -1,0 +1,38 @@
+# File Migration Map - Project Reorganization
+# Generated: $(date)
+
+# Input Files (PDF Documents)
+AFS2024.pdf → data/input/documents/
+AFS2024 - statement extracted.pdf → data/input/documents/
+AFS2022.pdf → data/input/documents/
+afs-2021-2023.pdf → data/input/documents/
+afs-2021-2023 - statement extracted.pdf → data/input/documents/
+2021 AFS with SEC Stamp.pdf → data/input/documents/
+9_extracted_2021 AFS with SEC Stamp.pdf → data/input/documents/
+
+# Sample Files (Test Files)
+test_financial_statement.pdf → data/input/samples/
+test_financial_statement.png → data/input/samples/
+
+# Output Files (Generated Data)
+extracted_data_*.csv → data/output/
+afs2024_extracted_data_*.csv → data/output/
+*_full_response_*.json → data/output/
+test_csv_fix_output.csv → tests/outputs/
+afs2024_proper_format_*.csv → tests/outputs/
+
+# Scripts Requiring Updates
+test_cloudrun_afs2024.py - Update file paths
+test_simple_api.py - Update file paths
+test_file_upload.py - Update output paths
+test_with_options.py - Update output paths
+test_real_file.py - Update output paths
+test_csv_fix_local.py - Update file paths
+create_test_file.py - Update file paths
+debug_api.py - Update file paths
+fix_csv_year_labels.py - Update file paths
+
+# Documentation Requiring Updates
+API_TESTING_GUIDE.md - Update examples
+CLOUDRUN_TESTING_GUIDE.md - Update examples
+QUICK_TEST_COMMANDS.md - Update examples

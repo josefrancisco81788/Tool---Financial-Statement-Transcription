@@ -163,14 +163,14 @@ def save_results(result):
     
     # Save CSV if available
     if 'csv_data' in result:
-        csv_filename = f"extracted_data_{timestamp}.csv"
+        csv_filename = f"data/output/extracted_data_{timestamp}.csv"
         with open(csv_filename, 'w', encoding='utf-8') as f:
             f.write(result['csv_data'])
         print(f"💾 CSV saved to: {csv_filename}")
     
     # Save JSON if available
     if 'json_data' in result:
-        json_filename = f"extracted_data_{timestamp}.json"
+        json_filename = f"data/output/extracted_data_{timestamp}.json"
         with open(json_filename, 'w', encoding='utf-8') as f:
             json.dump(result['json_data'], f, indent=2)
         print(f"💾 JSON saved to: {json_filename}")
@@ -184,7 +184,7 @@ def list_sample_files():
     files = []
     
     for ext in extensions:
-        for file in Path('.').glob(f'*{ext}'):
+        for file in Path('data/input').rglob(f'*{ext}'):
             files.append(file)
     
     if files:

@@ -35,7 +35,7 @@ def test_whole_document_processing():
         print("✅ ChromaDB initialized")
         
         # Test with sample file
-        sample_file_path = "test_financial_statement.pdf"
+        sample_file_path = "data/input/samples/test_financial_statement.pdf"
         if not os.path.exists(sample_file_path):
             print(f"❌ Sample file not found: {sample_file_path}")
             return

@@ -121,7 +121,7 @@ fetch('http://localhost:8000/api/v1/extract-financial-data/sync', {
   "effective_processing_approach": "whole_document",
   "pages_processed": 4,
   "output_format": "csv",
-  "csv_data": "Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,...",
+  "csv_data": "Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3,Value_Year_4\nDate,Year,Year,,0.0,2024,2023,,\nBalance Sheet,Current Assets,Cash And Equivalents,95.0%,0.95,40506296,14011556,,",
   "document_characteristics": {
     "page_count": 4,
     "file_size_mb": 2.1,
@@ -129,6 +129,32 @@ fetch('http://localhost:8000/api/v1/extract-financial-data/sync', {
   }
 }
 ```
+
+## 📊 CSV Output Format Specification
+
+### Correct Format (DO NOT CHANGE)
+The API produces CSV files with the following structure:
+
+**Header Row**: Standard column headers with `Value_Year_X` columns
+**Year Mapping Row**: Shows which years each `Value_Year_X` represents
+**Data Rows**: Financial data for each line item
+
+Example:
+```csv
+Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3,Value_Year_4
+Date,Year,Year,,0.0,2024,2023,,
+Balance Sheet,Current Assets,Cash And Equivalents,95.0%,0.95,40506296,14011556,,
+```
+
+### Why This Format?
+- **Scalable**: Works for any number of years (1-4)
+- **Consistent**: Same column structure regardless of years present
+- **Clear**: Year mapping row shows exactly what each column represents
+- **Standard**: Compatible with financial analysis tools
+
+### Common Mistakes to Avoid
+❌ **Don't change column names** from `Value_Year_X` to `Value_2024`, `Value_2023`
+✅ **Do use the year mapping row** to understand what years the data represents
 
 ### Error Response
 ```json

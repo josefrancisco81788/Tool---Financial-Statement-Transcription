@@ -166,7 +166,7 @@ def save_results(result):
     
     # Save CSV if available
     if 'csv_data' in result:
-        csv_filename = f"extracted_data_{timestamp}.csv"
+        csv_filename = f"data/output/extracted_data_{timestamp}.csv"
         with open(csv_filename, 'w', encoding='utf-8', newline='') as f:
             f.write(result['csv_data'])
         print(f"💾 CSV saved to: {csv_filename}")
