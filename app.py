@@ -1,4 +1,14 @@
-﻿import streamlit as st
+﻿# =============================================================================
+# CRITICAL: CSV FORMAT STANDARDS - DO NOT MODIFY WITHOUT APPROVAL
+# =============================================================================
+# This file contains functions that support CSV format specification from CSV_FORMAT_SPECIFICATION.md
+# Version: 1.0
+# Key functions: transform_to_analysis_ready_format, create_ifrs_csv_export
+# Validation: Must pass validate_csv_success.py before deployment
+# Changes: Any CSV format changes require approval and must update version number
+# =============================================================================
+
+import streamlit as st
 import pandas as pd
 import json
 import base64
@@ -2782,7 +2792,14 @@ def process_pdf_with_whole_document_context(uploaded_file, client):
         return None
 
 def transform_to_analysis_ready_format(all_line_items):
-    """Transform line items into analysis-ready format with fixed Value_Year_X columns and header row"""
+    """
+    CRITICAL: CSV FORMAT STANDARDS - DO NOT MODIFY WITHOUT APPROVAL
+    This function supports the CSV format specification from CSV_FORMAT_SPECIFICATION.md
+    Version: 1.0
+    Required format: Category, Subcategory, Field, Confidence, Value_Year_1-4
+    Required year mapping row: Date,Year,Year,,0.0,2024,2023,,
+    Validation: Must pass validate_csv_success.py before deployment
+    """
     if not all_line_items:
         return pd.DataFrame()
     

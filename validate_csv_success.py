@@ -1,4 +1,13 @@
 #!/usr/bin/env python3
+# =============================================================================
+# CRITICAL: CSV SUCCESS CRITERIA VALIDATOR - DO NOT MODIFY WITHOUT APPROVAL
+# =============================================================================
+# This script validates CSV output against the success criteria defined in CSV_FORMAT_SPECIFICATION.md
+# Version: 1.0
+# Every test from here on out MUST pass this validation
+# Changes: Any validation logic changes require approval and must update version number
+# =============================================================================
+
 """
 CSV Success Criteria Validator
 

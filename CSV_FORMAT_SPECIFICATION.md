@@ -1,7 +1,13 @@
 # CSV Output Format Specification
 
+**Version: 1.0**  
+**Last Updated: 2024-12-19**  
+**Status: ACTIVE - DO NOT MODIFY WITHOUT APPROVAL**
+
 ## Overview
 This document specifies the exact CSV format produced by the Financial Statement Transcription API. This format is designed to be scalable, consistent, and self-documenting for multi-year financial data.
+
+**⚠️ CRITICAL: This specification is protected by STANDARDS_ENFORCEMENT.md. Any changes require approval and must follow the change process.**
 
 ## Format Structure
 

@@ -1,3 +1,14 @@
+# =============================================================================
+# CRITICAL: CSV FORMAT STANDARDS - DO NOT MODIFY WITHOUT APPROVAL
+# =============================================================================
+# This file implements CSV format specification from CSV_FORMAT_SPECIFICATION.md
+# Version: 1.0
+# Required columns: Category, Subcategory, Field, Confidence, Value_Year_1, Value_Year_2, Value_Year_3, Value_Year_4
+# Required year mapping row: Date,Year,Year,,0.0,2024,2023,,
+# Validation: Must pass validate_csv_success.py before deployment
+# Changes: Any CSV format changes require approval and must update version number
+# =============================================================================
+
 import os
 import sys
 import base64
@@ -224,7 +235,7 @@ class FileProcessor:
             raise Exception(f"Image processing failed: {str(e)}")
     
     def _format_output(self, result: Dict[str, Any], output_format: str) -> Dict[str, Any]:
-        """Format the output based on requested format"""
+        """Format the output based on requested format with CSV validation"""
         if result.get("status") != "success":
             return result
         
@@ -232,10 +243,14 @@ class FileProcessor:
         
         if output_format == "csv":
             csv_data = self._transform_data_for_csv(data)
+            # CRITICAL: Validate CSV format before returning
+            validation_result = self._validate_csv_format(csv_data)
             return {
                 **result,
                 "csv_data": csv_data,
-                "output_format": "csv"
+                "output_format": "csv",
+                "csv_format_version": "1.0",
+                "csv_validation": validation_result
             }
         elif output_format == "json":
             return {
@@ -245,11 +260,15 @@ class FileProcessor:
             }
         elif output_format == "both":
             csv_data = self._transform_data_for_csv(data)
+            # CRITICAL: Validate CSV format before returning
+            validation_result = self._validate_csv_format(csv_data)
             return {
                 **result,
                 "csv_data": csv_data,
                 "json_data": data,
-                "output_format": "both"
+                "output_format": "both",
+                "csv_format_version": "1.0",
+                "csv_validation": validation_result
             }
         else:
             return result
@@ -280,7 +299,14 @@ class FileProcessor:
         }
     
     def _transform_data_for_csv(self, data: Dict[str, Any]) -> str:
-        """Transform raw data into CSV format with year mapping row"""
+        """
+        CRITICAL: CSV FORMAT STANDARDS - DO NOT MODIFY WITHOUT APPROVAL
+        This method implements the CSV format specification from CSV_FORMAT_SPECIFICATION.md
+        Version: 1.0
+        Required format: Category, Subcategory, Field, Confidence, Value_Year_1-4
+        Required year mapping row: Date,Year,Year,,0.0,2024,2023,,
+        Validation: Must pass validate_csv_success.py before deployment
+        """
         try:
             # Extract year information
             years_detected = data.get("years_detected", [])
@@ -395,4 +421,84 @@ class FileProcessor:
         except Exception as e:
             print(f"❌ [DEBUG] Error in CSV transformation: {str(e)}")
             # Fall back to create_ifrs_csv_export
-            return create_ifrs_csv_export(data) 
+            return create_ifrs_csv_export(data)
+    
+    def _validate_csv_format(self, csv_data: str) -> Dict[str, Any]:
+        """
+        CRITICAL: CSV FORMAT VALIDATION - DO NOT MODIFY WITHOUT APPROVAL
+        Validates CSV format against success criteria from CSV_FORMAT_SPECIFICATION.md
+        Version: 1.0
+        """
+        try:
+            lines = csv_data.split('\r\n')
+            lines = [line.strip() for line in lines if line.strip()]
+            
+            if len(lines) < 3:
+                return {
+                    "valid": False,
+                    "errors": ["CSV must have at least 3 lines (header, year mapping, data)"],
+                    "format_version": "1.0"
+                }
+            
+            # Check column structure
+            header = lines[0]
+            expected_columns = ['Category', 'Subcategory', 'Field', 'Confidence', 'Value_Year_1', 'Value_Year_2', 'Value_Year_3', 'Value_Year_4']
+            header_columns = [col.strip() for col in header.split(',')]
+            
+            missing_columns = []
+            extra_columns = []
+            
+            for expected in expected_columns:
+                if expected not in header_columns:
+                    missing_columns.append(expected)
+            
+            for actual in header_columns:
+                if actual not in expected_columns:
+                    extra_columns.append(actual)
+            
+            # Check year mapping row
+            year_mapping_row = lines[1]
+            year_columns = [col.strip() for col in year_mapping_row.split(',')]
+            expected_year_row = ['Date', 'Year', 'Year', '', '0.0']
+            
+            year_mapping_valid = True
+            if len(year_columns) < 5 or year_columns[:5] != expected_year_row:
+                year_mapping_valid = False
+            
+            # Check for year values
+            year_values = year_columns[5:9] if len(year_columns) >= 9 else []
+            if len(year_values) < 2 or not year_values[0] or not year_values[1]:
+                year_mapping_valid = False
+            
+            # Check for empty rows
+            empty_row_count = 0
+            for line in csv_data.split('\r\n'):
+                if line.strip() == '':
+                    empty_row_count += 1
+            
+            # Compile validation result
+            errors = []
+            if missing_columns:
+                errors.append(f"Missing required columns: {missing_columns}")
+            if extra_columns:
+                errors.append(f"Extra columns found: {extra_columns}")
+            if not year_mapping_valid:
+                errors.append("Year mapping row is invalid")
+            if empty_row_count > 0:
+                errors.append(f"Found {empty_row_count} empty row(s)")
+            
+            return {
+                "valid": len(errors) == 0,
+                "errors": errors,
+                "format_version": "1.0",
+                "column_structure_valid": len(missing_columns) == 0 and len(extra_columns) == 0,
+                "year_mapping_valid": year_mapping_valid,
+                "no_empty_rows": empty_row_count == 0
+            }
+            
+        except Exception as e:
+            return {
+                "valid": False,
+                "errors": [f"Validation error: {str(e)}"],
+                "format_version": "1.0"
+            } 
