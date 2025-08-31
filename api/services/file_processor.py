@@ -282,19 +282,18 @@ class FileProcessor:
     def _transform_data_for_csv(self, data: Dict[str, Any]) -> str:
         """Transform raw data into CSV format with year mapping row"""
         try:
-            print(f"🔍 [DEBUG] Starting CSV transformation with data keys: {list(data.keys())}")
+            # Use the working transform_to_analysis_ready_format first
+            csv_data = transform_to_analysis_ready_format(data)
             
-            # Extract year information
+            # Add year mapping row after the header
+            lines = csv_data.split('\r\n')
+            if len(lines) < 2:
+                return csv_data
+            
+            # Extract years from the data
             years_detected = data.get("years_detected", [])
-            base_year = data.get("base_year")
-            line_items = data.get("line_items", {})
-            
-            print(f"🔍 [DEBUG] Years detected: {years_detected}, Base year: {base_year}")
-            print(f"🔍 [DEBUG] Line items keys: {list(line_items.keys())}")
-            
             if not years_detected:
-                print("⚠️ [DEBUG] No years detected, falling back to old format")
-                return create_ifrs_csv_export(data)
+                return csv_data
             
             # Sort years (most recent first)
             try:
@@ -302,115 +301,24 @@ class FileProcessor:
             except:
                 sorted_years = sorted(years_detected, reverse=True)
             
-            print(f"🔍 [DEBUG] Sorted years: {sorted_years}")
-            
-            # Create CSV rows
-            csv_rows = []
-            
-            # Create header row
-            header_row = ["Category", "Subcategory", "Field", "Confidence", "Confidence_Score"]
-            for i in range(4):  # Support up to 4 years
-                header_row.append(f"Value_Year_{i+1}")
-            csv_rows.append(header_row)
-            
             # Create year mapping row
             year_mapping_row = ["Date", "Year", "Year", "", "0.0"]
-            for i in range(4):
+            for i in range(4):  # Support up to 4 years
                 if i < len(sorted_years):
                     year_mapping_row.append(str(sorted_years[i]))
                 else:
                     year_mapping_row.append("")
-            csv_rows.append(year_mapping_row)
             
-            print(f"🔍 [DEBUG] Header row: {header_row}")
-            print(f"🔍 [DEBUG] Year mapping row: {year_mapping_row}")
+            # Insert year mapping row after header
+            header_row = lines[0]
+            data_rows = lines[1:]
             
-            # Process line items
-            statement_names = {
-                "balance_sheet": "Balance Sheet",
-                "income_statement": "Income Statement",
-                "cash_flow_statement": "Cash Flow Statement",
-                "statement_of_changes_in_equity": "Statement of Changes in Equity"
-            }
+            # Reconstruct CSV with year mapping row
+            result_lines = [header_row, ','.join(year_mapping_row)] + data_rows
             
-            for statement_key, statement_data in line_items.items():
-                if not isinstance(statement_data, dict):
-                    continue
-                statement_name = statement_names.get(statement_key, statement_key.replace("_", " ").title())
-                
-                for category_key, category_data in statement_data.items():
-                    if not isinstance(category_data, dict):
-                        continue
-                    category_name = category_key.replace("_", " ").title()
-                    
-                    for field_key, field_data in category_data.items():
-                        if not isinstance(field_data, dict) or "value" not in field_data:
-                            continue
-                        field_name = field_key.replace("_", " ").title()
-                        
-                        # Build data row
-                        data_row = [
-                            statement_name,
-                            category_name,
-                            field_name,
-                            f"{field_data.get('confidence', 0):.1%}",
-                            ensure_confidence_score(field_data.get("confidence", 0))
-                        ]
-                        
-                        # Add year values
-                        for i in range(4):
-                            if i < len(sorted_years):
-                                year = sorted_years[i]
-                                if i == 0:
-                                    # First year (most recent) - use main value for base year
-                                    data_row.append(str(field_data["value"]))
-                                elif i == 1:
-                                    # Second year - use year_1 value
-                                    if field_data.get("year_1") is not None:
-                                        data_row.append(str(field_data["year_1"]))
-                                    else:
-                                        data_row.append("")
-                                elif i == 2:
-                                    # Third year - use year_2 value
-                                    if field_data.get("year_2") is not None:
-                                        data_row.append(str(field_data["year_2"]))
-                                    else:
-                                        data_row.append("")
-                                elif i == 3:
-                                    # Fourth year - use year_3 value
-                                    if field_data.get("year_3") is not None:
-                                        data_row.append(str(field_data["year_3"]))
-                                    else:
-                                        data_row.append("")
-                                else:
-                                    data_row.append("")
-                            else:
-                                data_row.append("")
-                        
-                        csv_rows.append(data_row)
-            
-            print(f"🔍 [DEBUG] Created {len(csv_rows)} CSV rows (including header and year mapping)")
-            
-            if len(csv_rows) <= 2:  # Only header and year mapping rows
-                print("⚠️ [DEBUG] No data rows created, falling back to old format")
-                return create_ifrs_csv_export(data)
-            
-            # Convert to CSV string
-            import csv
-            import io
-            
-            output = io.StringIO()
-            writer = csv.writer(output, lineterminator='\r\n')
-            writer.writerows(csv_rows)
-            
-            csv_output = output.getvalue()
-            print(f"🔍 [DEBUG] CSV output length: {len(csv_output)} characters")
-            print(f"🔍 [DEBUG] CSV output first 3 lines:")
-            print(csv_output.split('\r\n')[:3])
-            
-            return csv_output
+            return '\r\n'.join(result_lines)
             
         except Exception as e:
-            print(f"❌ [DEBUG] Error transforming data for CSV: {str(e)}")
-            print(f"❌ [DEBUG] Falling back to create_ifrs_csv_export")
-            return create_ifrs_csv_export(data) 
+            print(f"❌ [DEBUG] Error adding year mapping row: {str(e)}")
+            # Fall back to original working format
+            return transform_to_analysis_ready_format(data) 
