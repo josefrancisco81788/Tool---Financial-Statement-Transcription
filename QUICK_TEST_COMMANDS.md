@@ -13,6 +13,24 @@ python test_real_file.py screenshot.png
 python test_real_file.py document.pdf --output-format json
 ```
 
+## ✅ Success Validation
+
+After running any test, validate the output against our success criteria:
+
+```bash
+# Check if CSV meets all success criteria
+python validate_csv_success.py extracted_data.csv
+```
+
+**Success Criteria Reference**: See `CSV_FORMAT_SPECIFICATION.md` for complete standards.
+
+### Quick Validation Checklist
+- [ ] CSV header: `Value_Year_1, Value_Year_2, Value_Year_3, Value_Year_4`
+- [ ] Year mapping row: `Date,Year,Year,,0.0,2024,2023,,`
+- [ ] No empty rows between data
+- [ ] All financial values present (no empty cells)
+- [ ] No "None" values in data
+
 ## 📋 Method 2: cURL Commands
 
 ### Test Health Check

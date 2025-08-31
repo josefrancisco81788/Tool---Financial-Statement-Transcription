@@ -124,6 +124,53 @@ Income Statement,Revenues,Net Sales,95.0%,0.95,249788478,292800617,,
 - [ ] No trailing commas
 - [ ] Proper CSV escaping for special characters
 
+## Success Criteria & Testing Standards
+
+### Required Success Criteria
+Every CSV output MUST meet ALL of the following criteria:
+
+#### 1. Column Structure ✅
+- **Required columns**: `Category, Subcategory, Field, Confidence, Value_Year_1, Value_Year_2, Value_Year_3, Value_Year_4`
+- **No extra columns** (like `Base_Year`, `Year_1`, `Year_2`, `Year_3`)
+- **No missing columns** from the required set
+
+#### 2. Row Integrity ✅
+- **No empty rows** between data rows in Excel
+- **No skipped rows** in the sequence
+- **Consistent row structure** throughout the CSV
+
+#### 3. Year Mapping Row ✅
+- **Row 2 must be**: `Date, Year, Year, [empty], [empty], 2024, 2023, [empty], [empty]`
+- **Category**: "Date"
+- **Subcategory**: "Year" 
+- **Field**: "Year"
+- **Value_Year_1**: "2024" (actual year)
+- **Value_Year_2**: "2023" (actual year)
+- **Value_Year_3, Value_Year_4**: empty (or actual years if present)
+
+#### 4. Data Completeness ✅
+- **ALL financial values must be present** (no empty cells where data should exist)
+- **No "None" values** in financial data cells
+- **No missing Balance Sheet items** (Cash, Accounts Receivable, etc.)
+- **No missing Income Statement items** (Net Sales, Cost of Goods Sold, etc.)
+- **No missing Cash Flow items** (Net Income, Depreciation, etc.)
+
+### Failure Conditions
+**Any of these = FAIL:**
+- Wrong column headers
+- Missing year mapping row
+- Empty rows between data
+- Missing financial values (empty cells where data should be)
+- "None" values in financial data
+- Wrong year labels in mapping row
+
+### Success Conditions
+**ALL of these = PASS:**
+- Correct column structure
+- Year mapping row present and correct
+- No empty rows
+- All financial data present and complete
+
 ## Common Issues and Solutions
 
 ### Issue: Missing Year Mapping Row

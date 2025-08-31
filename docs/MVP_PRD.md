@@ -22,6 +22,11 @@ Validate the core concept of AI-powered financial statement transcription with a
 - Average processing time <30 seconds per document
 - User satisfaction score >4/5
 
+### CSV Output Standards
+- **Format Compliance**: Must meet CSV_FORMAT_SPECIFICATION.md standards
+- **Data Completeness**: All extracted fields must have values (no empty cells)
+- **Year Mapping**: Must include correct year mapping row
+
 ## 3. Target Users
 
 ### Primary Users

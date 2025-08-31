@@ -65,12 +65,16 @@ python test_cloudrun_afs2024.py
 
 ## 🔍 Expected Results for Multi-Year Issue Resolution
 
-### ✅ Success Indicators
-- **Year Mapping Row**: CSV contains second row showing actual years (e.g., "Date,Year,Year,,0.0,2024,2023,,")
-- **Multiple Year Columns**: CSV header contains columns like "Value_Year_1", "Value_Year_2", etc.
-- **Year Data**: Multiple years of financial data extracted
-- **Processing Approach**: Uses appropriate approach for multi-year documents
-- **Data Completeness**: Extracts data from multiple years in the document
+### ✅ Success Indicators (Updated)
+**ALL of the following must be true:**
+
+1. **Column Structure**: CSV header contains `Value_Year_1, Value_Year_2, Value_Year_3, Value_Year_4`
+2. **Year Mapping Row**: Second row shows `Date,Year,Year,,0.0,2024,2023,,`
+3. **Data Completeness**: All financial values present (no empty cells where data should exist)
+4. **Row Integrity**: No empty rows between data rows
+5. **Multi-Year Data**: Values present in both `Value_Year_1` and `Value_Year_2` columns
+
+**Reference**: See `CSV_FORMAT_SPECIFICATION.md` for complete success criteria.
 
 ### 📊 Expected CSV Format
 ```csv
