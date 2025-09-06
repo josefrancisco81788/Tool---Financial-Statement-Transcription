@@ -39,6 +39,17 @@ An AI-powered tool for extracting and analyzing financial data from PDF document
 
 ## 🚀 Quick Start
 
+### Access Methods
+
+#### 🌐 Streamlit Web Interface
+Use the interactive web interface for document upload and analysis.
+
+#### 🔌 API Access
+For programmatic access and integration, use our REST API:
+- **API Documentation**: See [API_GUIDE.md](API_GUIDE.md)
+- **Endpoints**: `/extract`, `/health`, `/docs`
+- **Cloud Ready**: Deploy on Google Cloud Run
+
 ### Prerequisites
 - Python 3.8+
 - OpenAI API key
