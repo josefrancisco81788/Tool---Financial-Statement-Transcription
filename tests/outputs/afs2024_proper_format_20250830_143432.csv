@@ -1,0 +1,4 @@
+Category,Subcategory,Field,Confidence,Confidence_Score,Value_2024,Value_2023
+Balance Sheet,Current Assets,Cash And Equivalents,95.0%,0.95,40506296.0,14011556.0
+Balance Sheet,Current Assets,Accounts Receivable,90.0%,0.9,93102625.0,102434862.0
+Income Statement,Revenues,Net Sales,95.0%,0.95,249788478.0,292800617.0

@@ -1,0 +1,15 @@
+Document,Field,Field_Category,Field_Subcategory,Confidence,Value_Year_1,Value_Year_2,Value_Year_3
+,,,,,2022,2021,2020
+afs-2021-2023,Cash and Cash Equivalents,Balance Sheet,Current Assets,0.9,"P 4,269,658","P 4,382,991",not applicable
+afs-2021-2023,Total Assets,Balance Sheet,Totals,0.9,"₱ 4,563,148","₱ 4,777,801","₱ 1,769,455"
+afs-2021-2023,Total Liabilities And Equity,Balance Sheet,Totals,0.9,"₱ 4,563,148","₱ 4,777,801","₱ 1,769,455"
+afs-2021-2023,Trade and other current payables,Balance Sheet,Current Liabilities,0.9,"₱ 306,391","₱ 802,015","₱ 1,237,709"
+afs-2021-2023,Issued (share) capital,Balance Sheet,Equity,0.9,"P 3,062,500","P 3,062,500",not applicable
+afs-2021-2023,Other reserves,Balance Sheet,Equity,0.9,"913,285","219,245",not applicable
+afs-2021-2023,Revenue,Income Statement,Revenue,0.9,"P 9,843,009","P 20,406,722","P 7,944,185"
+afs-2021-2023,Cost of Sales,Income Statement,Revenue,0.9,"8,632,290","18,690,375","7,153,194"
+afs-2021-2023,Gross Profit,Income Statement,Revenue,0.9,"1,210,719","1,716,347","790,990"
+afs-2021-2023,Finance costs,Income Statement,Before Tax,0.9,"836,091","790,961",not applicable
+afs-2021-2023,Profit (loss) from continuing operations,Income Statement,After Tax,0.9,"P 280,971","P 694,040",not applicable
+afs-2021-2023,Income tax expense (from continuing operations),Income Statement,After Tax,0.9,"93,657","231,347",not applicable
+afs-2021-2023,Net Cashflow from Operations (per FS),Cash Flow Statement,Operating Activities,0.9,"(113,333)","71,491",not applicable

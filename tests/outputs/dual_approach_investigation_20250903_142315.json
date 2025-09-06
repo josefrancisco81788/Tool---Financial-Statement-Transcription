@@ -1,0 +1,228 @@
+{
+  "timestamp": "20250903_142315",
+  "hypothesis": "System has dual approaches: Phase 1 (working) vs Legacy app.py (hardcoded 2-year limit)",
+  "year_hardcoding": {
+    "app.py": {
+      "patterns": {
+        "year_1_only": [
+          "year_1\"",
+          "year_1,",
+          "year_1,",
+          "year_1 ",
+          "year_1\"",
+          "year_1\"",
+          "year_1 ",
+          "year_1,",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\"",
+          "year_1\""
+        ],
+        "year_2_only": [
+          "year_2\"",
+          "year_2,",
+          "year_2,",
+          "year_2 ",
+          "year_2\"",
+          "year_2\"",
+          "year_2 ",
+          "year_2,",
+          "year_2 ",
+          "year_2'",
+          "year_2\""
+        ],
+        "year_3_missing": false,
+        "hardcoded_range_2": [],
+        "hardcoded_slice_2": [],
+        "enumerate_1": [
+          "enumerate(years_detected[1:], 1)",
+          "enumerate(years_detected[1:], 1)",
+          "enumerate(years_detected[1:], 1)",
+          "enumerate(years_detected[1:], 1)",
+          "enumerate(financial_pages[:15], 1)"
+        ]
+      },
+      "problematic_lines": [
+        "  Line 1380: - Column 2: Second year (e.g., 2021) - extract to \"year_1\" field",
+        "  Line 1381: - Column 3: Third year (e.g., 2020) - extract to \"year_2\" field",
+        "  Line 1401: - year_1 = financial value for the second year column",
+        "  Line 1402: - year_2 = financial value for the third year column",
+        "  Line 1502: # Check if year_2 data is missing (indicating 3rd year extraction failure)",
+        "  Line 1503: year_2_count = 0",
+        "  Line 1508: if isinstance(field_data, dict) and field_data.get('year_2') is not None:",
+        "  Line 1509: year_2_count += 1",
+        "  Line 1511: if year_2_count == 0:",
+        "  Line 2057: \"Year_1\": info.get(\"year_1\", \"\"),"
+      ]
+    },
+    "template_mapping.py": {
+      "patterns": {
+        "year_1_only": [
+          "year_1\"",
+          "year_1,",
+          "year_1,",
+          "year_1 ",
+          "year_1\"",
+          "year_1,"
+        ],
+        "year_2_only": [
+          "year_2\"",
+          "year_2,",
+          "year_2,",
+          "year_2\"",
+          "year_2,"
+        ],
+        "year_3_missing": false,
+        "hardcoded_range_2": [],
+        "hardcoded_slice_2": [],
+        "enumerate_1": []
+      },
+      "problematic_lines": []
+    }
+  },
+  "processing_flow": {
+    "app.py": {
+      "main_functions": [
+        {
+          "name": "analyze_document_characteristics",
+          "calls_phase1": false,
+          "calls_legacy": false,
+          "length": 4538
+        },
+        {
+          "name": "analyze_page_content_semantically",
+          "calls_phase1": false,
+          "calls_legacy": false,
+          "length": 9190
+        },
+        {
+          "name": "process_pdf_with_vector_db",
+          "calls_phase1": false,
+          "calls_legacy": true,
+          "length": 12342
+        },
+        {
+          "name": "process_pdf_with_whole_document_context",
+          "calls_phase1": false,
+          "calls_legacy": true,
+          "length": 18838
+        },
+        {
+          "name": "main",
+          "calls_phase1": false,
+          "calls_legacy": true,
+          "length": 33033
+        }
+      ],
+      "total_functions": 5
+    }
+  },
+  "phase1_integration": {
+    "phase1_functions": [
+      "_unique_sorted_years",
+      "extract_years_from_text",
+      "_convert_pdf_to_images_and_text",
+      "_extract_text_with_vision_api",
+      "detect_years_from_document",
+      "main"
+    ],
+    "imports": {},
+    "phase1_exists": true
+  },
+  "streamlit_flow": {
+    "main_execution": [
+      "Line 3639: if __name__ == \"__main__\":",
+      "Line 3640: main()",
+      "Line 3641: "
+    ],
+    "upload_handlers": [
+      "Line 64: def analyze_document_characteristics(uploaded_file):",
+      "Line 68: file_size_mb = len(uploaded_file.getvalue()) / (1024 * 1024)",
+      "Line 71: pdf_document = fitz.Document(stream=uploaded_file.getvalue(), filetype=\"pdf\")",
+      "Line 1769: def process_pdf_with_vector_db(uploaded_file, client, enable_parallel=True):",
+      "Line 1775: images, page_info = convert_pdf_to_images(uploaded_file, enable_parallel)"
+    ],
+    "processing_calls": [
+      "Line 453: return process_pdf_with_vector_db(image_file, client)",
+      "Line 1366: def extract_comprehensive_financial_data(base64_image, statement_type_hint, page_text=\"\"):",
+      "Line 1769: def process_pdf_with_vector_db(uploaded_file, client, enable_parallel=True):",
+      "Line 1910: page_result = extract_comprehensive_financial_data(",
+      "Line 2447: def process_pdf_with_whole_document_context(uploaded_file, client):"
+    ]
+  }
+}

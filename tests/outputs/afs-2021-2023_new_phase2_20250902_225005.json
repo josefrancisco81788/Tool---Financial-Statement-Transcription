@@ -1,0 +1,581 @@
+{
+  "document": "afs-2021-2023",
+  "years_detected": [
+    "2022",
+    "2021",
+    "2020"
+  ],
+  "field_discovery": {
+    "status": "success",
+    "fields_discovered": [
+      {
+        "field_name": "Cash and Cash Equivalents",
+        "template_mapping": "Cash and Cash Equivalents",
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "No specific cash accounts provided"
+      },
+      {
+        "field_name": "Trade and Other Current Receivables",
+        "template_mapping": "Trade and Other Current Receivables",
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "No specific receivables provided"
+      },
+      {
+        "field_name": "Current Inventories",
+        "template_mapping": "Current Inventories",
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "No specific inventories provided"
+      },
+      {
+        "field_name": "Total Current Assets",
+        "template_mapping": "Total Current Assets",
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Total Assets",
+        "template_mapping": "Total Assets",
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Total Liabilities And Equity",
+        "template_mapping": "Total Liabilities And Equity",
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Current Liabilities",
+        "template_mapping": "Current Liabilities",
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Non Current Liabilities",
+        "template_mapping": "Non Current Liabilities",
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Liabilities",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Total Equity",
+        "template_mapping": "Total Equity",
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Revenue",
+        "template_mapping": "Revenue",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Cost of Sales",
+        "template_mapping": "Cost of Sales",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Gross Profit",
+        "template_mapping": "Gross Profit",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Administrative expense",
+        "template_mapping": "Administrative expense",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Profit (loss) before tax",
+        "template_mapping": "Profit (loss) before tax",
+        "category": "Income Statement",
+        "subcategory": "Before Tax",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Income tax expense (from continuing operations)",
+        "template_mapping": "Income tax expense (from continuing operations)",
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Profit (loss)",
+        "template_mapping": "Profit (loss)",
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Issued (share) capital",
+        "template_mapping": "Issued (share) capital",
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Retained earnings",
+        "template_mapping": "Retained earnings",
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Net Cashflow from Operations (per FS)",
+        "template_mapping": "Net Cashflow from Operations (per FS)",
+        "category": "Cash Flow Statement",
+        "subcategory": "Operating Activities",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      },
+      {
+        "field_name": "Amortization Expense",
+        "template_mapping": "Amortization Expense",
+        "category": "Cash Flow Statement",
+        "subcategory": "Operating Activities",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3"
+        ],
+        "notes": "Direct mapping from document"
+      }
+    ],
+    "field_mapping": {
+      "Cash and Cash Equivalents": "Cash and Cash Equivalents",
+      "Trade and Other Current Receivables": "Trade and Other Current Receivables",
+      "Current Inventories": "Current Inventories",
+      "Total Current Assets": "Total Current Assets",
+      "Total Assets": "Total Assets",
+      "Total Liabilities And Equity": "Total Liabilities And Equity",
+      "Current Liabilities": "Current Liabilities",
+      "Non Current Liabilities": "Non Current Liabilities",
+      "Total Equity": "Total Equity",
+      "Revenue": "Revenue",
+      "Cost of Sales": "Cost of Sales",
+      "Gross Profit": "Gross Profit",
+      "Administrative expense": "Administrative expense",
+      "Profit (loss) before tax": "Profit (loss) before tax",
+      "Income tax expense (from continuing operations)": "Income tax expense (from continuing operations)",
+      "Profit (loss)": "Profit (loss)",
+      "Issued (share) capital": "Issued (share) capital",
+      "Retained earnings": "Retained earnings",
+      "Net Cashflow from Operations (per FS)": "Net Cashflow from Operations (per FS)",
+      "Amortization Expense": "Amortization Expense"
+    },
+    "confidence_scores": {
+      "Cash and Cash Equivalents": 0.9,
+      "Trade and Other Current Receivables": 0.9,
+      "Current Inventories": 0.9,
+      "Total Current Assets": 0.9,
+      "Total Assets": 0.9,
+      "Total Liabilities And Equity": 0.9,
+      "Current Liabilities": 0.9,
+      "Non Current Liabilities": 0.9,
+      "Total Equity": 0.9,
+      "Revenue": 0.9,
+      "Cost of Sales": 0.9,
+      "Gross Profit": 0.9,
+      "Administrative expense": 0.9,
+      "Profit (loss) before tax": 0.9,
+      "Income tax expense (from continuing operations)": 0.9,
+      "Profit (loss)": 0.9,
+      "Issued (share) capital": 0.9,
+      "Retained earnings": 0.9,
+      "Net Cashflow from Operations (per FS)": 0.9,
+      "Amortization Expense": 0.9
+    },
+    "populated_template": {
+      "Cash and Cash Equivalents": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "values": {
+          "year_1": "not applicable",
+          "year_2": "not applicable",
+          "year_3": "not applicable"
+        },
+        "source_fields": [],
+        "aggregation_notes": "No specific cash accounts provided"
+      },
+      "Trade and Other Current Receivables": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "values": {
+          "year_1": "not applicable",
+          "year_2": "not applicable",
+          "year_3": "not applicable"
+        },
+        "source_fields": [],
+        "aggregation_notes": "No specific receivables provided"
+      },
+      "Current Inventories": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "values": {
+          "year_1": "not applicable",
+          "year_2": "not applicable",
+          "year_3": "not applicable"
+        },
+        "source_fields": [],
+        "aggregation_notes": "No specific inventories provided"
+      },
+      "Total Current Assets": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "values": {
+          "year_1": "4563148",
+          "year_2": "4777801",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "Current Assets"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Total Assets": {
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "values": {
+          "year_1": "4563148",
+          "year_2": "4777801",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "TOTAL ASSETS"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Total Liabilities And Equity": {
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "values": {
+          "year_1": "4563148",
+          "year_2": "4777801",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "TOTAL LIABILITIES AND EQUITY"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Current Liabilities": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "values": {
+          "year_1": "306391",
+          "year_2": "802015",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "Current Liabilities"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Non Current Liabilities": {
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Liabilities",
+        "values": {
+          "year_1": "0",
+          "year_2": "0",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "Non Current Liabilities"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Total Equity": {
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "values": {
+          "year_1": "4256756",
+          "year_2": "3975785",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "TOTAL EQUITY"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Revenue": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "9843009",
+          "year_2": "20406722",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "REVENUES"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Cost of Sales": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "8632290",
+          "year_2": "18690375",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "COST OF SALES"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Gross Profit": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "1210719",
+          "year_2": "1716347",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "GROSS PROFIT"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Administrative expense": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "836091",
+          "year_2": "790961",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "GENERAL AND ADMINISTRATIVE EXPENSES"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Profit (loss) before tax": {
+        "category": "Income Statement",
+        "subcategory": "Before Tax",
+        "values": {
+          "year_1": "374628",
+          "year_2": "925386",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "INCOME BEFORE TAX"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Income tax expense (from continuing operations)": {
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "values": {
+          "year_1": "93657",
+          "year_2": "231347",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "TAX EXPENSE"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Profit (loss)": {
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "values": {
+          "year_1": "280971",
+          "year_2": "694040",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "NET INCOME AFTER TAX"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Issued (share) capital": {
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "values": {
+          "year_1": "3062500",
+          "year_2": "3062500",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "CAPITAL STOCK"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Retained earnings": {
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "values": {
+          "year_1": "1194256",
+          "year_2": "913285",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "RETAINED EARNINGS"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Net Cashflow from Operations (per FS)": {
+        "category": "Cash Flow Statement",
+        "subcategory": "Operating Activities",
+        "values": {
+          "year_1": "374628",
+          "year_2": "925386",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "Total cash applied to (provided by) operating activities"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      },
+      "Amortization Expense": {
+        "category": "Cash Flow Statement",
+        "subcategory": "Operating Activities",
+        "values": {
+          "year_1": "374",
+          "year_2": "0",
+          "year_3": "not applicable"
+        },
+        "source_fields": [
+          "Amortization/Depreciation of fixed assets"
+        ],
+        "aggregation_notes": "Direct mapping from document"
+      }
+    },
+    "mapping_summary": {
+      "total_fields_populated": 20,
+      "fields_with_aggregations": 0,
+      "unmapped_document_fields": [],
+      "confidence_score": 0.95
+    },
+    "discovery_method": "ai_template_population"
+  },
+  "csv_output": "Document,Field,Field_Category,Field_Subcategory,Confidence,Value_Year_1,Value_Year_2,Value_Year_3\n,,,,,2022,2021,2020\nafs-2021-2023,Cash and Cash Equivalents,Balance Sheet,Current Assets,0.9,not applicable,not applicable,not applicable\nafs-2021-2023,Trade and Other Current Receivables,Balance Sheet,Current Assets,0.9,not applicable,not applicable,not applicable\nafs-2021-2023,Current Inventories,Balance Sheet,Current Assets,0.9,not applicable,not applicable,not applicable\nafs-2021-2023,Total Current Assets,Balance Sheet,Current Assets,0.9,4563148,4777801,not applicable\nafs-2021-2023,Total Assets,Balance Sheet,Totals,0.9,4563148,4777801,not applicable\nafs-2021-2023,Total Liabilities And Equity,Balance Sheet,Totals,0.9,4563148,4777801,not applicable\nafs-2021-2023,Current Liabilities,Balance Sheet,Current Liabilities,0.9,306391,802015,not applicable\nafs-2021-2023,Non Current Liabilities,Balance Sheet,Non Current Liabilities,0.9,0,0,not applicable\nafs-2021-2023,Total Equity,Balance Sheet,Equity,0.9,4256756,3975785,not applicable\nafs-2021-2023,Revenue,Income Statement,Revenue,0.9,9843009,20406722,not applicable\nafs-2021-2023,Cost of Sales,Income Statement,Revenue,0.9,8632290,18690375,not applicable\nafs-2021-2023,Gross Profit,Income Statement,Revenue,0.9,1210719,1716347,not applicable\nafs-2021-2023,Administrative expense,Income Statement,Revenue,0.9,836091,790961,not applicable\nafs-2021-2023,Profit (loss) before tax,Income Statement,Before Tax,0.9,374628,925386,not applicable\nafs-2021-2023,Income tax expense (from continuing operations),Income Statement,After Tax,0.9,93657,231347,not applicable\nafs-2021-2023,Profit (loss),Income Statement,After Tax,0.9,280971,694040,not applicable\nafs-2021-2023,Issued (share) capital,Balance Sheet,Equity,0.9,3062500,3062500,not applicable\nafs-2021-2023,Retained earnings,Balance Sheet,Equity,0.9,1194256,913285,not applicable\nafs-2021-2023,Net Cashflow from Operations (per FS),Cash Flow Statement,Operating Activities,0.9,374628,925386,not applicable\nafs-2021-2023,Amortization Expense,Cash Flow Statement,Operating Activities,0.9,374,0,not applicable"
+}

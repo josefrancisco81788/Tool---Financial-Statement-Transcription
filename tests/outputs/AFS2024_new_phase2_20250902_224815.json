@@ -1,0 +1,862 @@
+{
+  "document": "AFS2024",
+  "years_detected": [
+    "2024",
+    "2023"
+  ],
+  "field_discovery": {
+    "status": "success",
+    "fields_discovered": [
+      {
+        "field_name": "Cash and Cash Equivalents",
+        "template_mapping": "Cash and Cash Equivalents",
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Cash"
+      },
+      {
+        "field_name": "Trade and Other Current Receivables",
+        "template_mapping": "Trade and Other Current Receivables",
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Receivables"
+      },
+      {
+        "field_name": "Other current non-financial assets",
+        "template_mapping": "Other current non-financial assets",
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Other current assets"
+      },
+      {
+        "field_name": "Total Current Assets",
+        "template_mapping": "Total Current Assets",
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from TOTAL CURRENT ASSETS"
+      },
+      {
+        "field_name": "Property, Plant and Equipment",
+        "template_mapping": "Property, Plant and Equipment",
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Property & Equipment"
+      },
+      {
+        "field_name": "Other non-current financial assets",
+        "template_mapping": "Other non-current financial assets",
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Other non-current assets"
+      },
+      {
+        "field_name": "Total Non Current Assets",
+        "template_mapping": "Total Non Current Assets",
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from TOTAL NON-CURRENT ASSETS"
+      },
+      {
+        "field_name": "Total Assets",
+        "template_mapping": "Total Assets",
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from TOTAL ASSETS"
+      },
+      {
+        "field_name": "Trade and other current payables",
+        "template_mapping": "Trade and other current payables",
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Trade payables"
+      },
+      {
+        "field_name": "Current tax liabilities, current",
+        "template_mapping": "Current tax liabilities, current",
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Income tax payable"
+      },
+      {
+        "field_name": "Other current financial liabilities",
+        "template_mapping": "Other current financial liabilities",
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Loans payable - current portion"
+      },
+      {
+        "field_name": "Other current non-financial liabilities",
+        "template_mapping": "Other current non-financial liabilities",
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Other current liabilities"
+      },
+      {
+        "field_name": "Total Current Liabilities",
+        "template_mapping": "Total Current Liabilities",
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from TOTAL CURRENT LIABILITIES"
+      },
+      {
+        "field_name": "Other long-term financial liabilities",
+        "template_mapping": "Other long-term financial liabilities",
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Liabilities",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Other long-term liabilities"
+      },
+      {
+        "field_name": "Total Non Current Liabilities",
+        "template_mapping": "Total Non Current Liabilities",
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Liabilities",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from TOTAL NON-CURRENT LIABILITIES"
+      },
+      {
+        "field_name": "Total Liabilities And Equity",
+        "template_mapping": "Total Liabilities And Equity",
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from TOTAL LIABILITIES AND EQUITY (DEFICIT)"
+      },
+      {
+        "field_name": "Issued (share) capital",
+        "template_mapping": "Issued (share) capital",
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Share capital"
+      },
+      {
+        "field_name": "Share premium",
+        "template_mapping": "Share premium",
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Additional paid-in capital"
+      },
+      {
+        "field_name": "Treasury shares",
+        "template_mapping": "Treasury shares",
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Treasury Shares"
+      },
+      {
+        "field_name": "Other reserves",
+        "template_mapping": "Other reserves",
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Gain (Loss) on fair value of Asset held for sale"
+      },
+      {
+        "field_name": "Retained earnings",
+        "template_mapping": "Retained earnings",
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from Cummulative earnings (deficit)"
+      },
+      {
+        "field_name": "Total Equity",
+        "template_mapping": "Total Equity",
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from TOTAL EQUITY (DEFICIT)"
+      },
+      {
+        "field_name": "Revenue",
+        "template_mapping": "Revenue",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from REVENUE"
+      },
+      {
+        "field_name": "Cost of Sales",
+        "template_mapping": "Cost of Sales",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from COST OF SALES"
+      },
+      {
+        "field_name": "Gross Profit",
+        "template_mapping": "Gross Profit",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from GROSS PROFIT"
+      },
+      {
+        "field_name": "Administrative expense",
+        "template_mapping": "Administrative expense",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from GENERAL & ADMIN EXPENSES"
+      },
+      {
+        "field_name": "Profit (loss) from operating activities",
+        "template_mapping": "Profit (loss) from operating activities",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from NET OPERATING INCOME (LOSS)"
+      },
+      {
+        "field_name": "Profit (loss) before tax",
+        "template_mapping": "Profit (loss) before tax",
+        "category": "Income Statement",
+        "subcategory": "Before Tax",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from NET INCOME (LOSS) BEFORE TAX"
+      },
+      {
+        "field_name": "Income tax expense (from continuing operations)",
+        "template_mapping": "Income tax expense (from continuing operations)",
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from INCOME TAX EXPENSE"
+      },
+      {
+        "field_name": "Profit (loss)",
+        "template_mapping": "Profit (loss)",
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from NET INCOME (LOSS) AFTER INCOME TAX"
+      },
+      {
+        "field_name": "Other comprehensive income",
+        "template_mapping": "Other comprehensive income",
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from GAIN (LOSS) ON FAIR VALUE OF ASSET HELD FOR SALE"
+      },
+      {
+        "field_name": "Comprehensive / Net income",
+        "template_mapping": "Comprehensive / Net income",
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2"
+        ],
+        "notes": "Direct mapping from TOTAL COMPREHENSIVE INCOME (LOSS)"
+      }
+    ],
+    "field_mapping": {
+      "Cash and Cash Equivalents": "Cash and Cash Equivalents",
+      "Trade and Other Current Receivables": "Trade and Other Current Receivables",
+      "Other current non-financial assets": "Other current non-financial assets",
+      "Total Current Assets": "Total Current Assets",
+      "Property, Plant and Equipment": "Property, Plant and Equipment",
+      "Other non-current financial assets": "Other non-current financial assets",
+      "Total Non Current Assets": "Total Non Current Assets",
+      "Total Assets": "Total Assets",
+      "Trade and other current payables": "Trade and other current payables",
+      "Current tax liabilities, current": "Current tax liabilities, current",
+      "Other current financial liabilities": "Other current financial liabilities",
+      "Other current non-financial liabilities": "Other current non-financial liabilities",
+      "Total Current Liabilities": "Total Current Liabilities",
+      "Other long-term financial liabilities": "Other long-term financial liabilities",
+      "Total Non Current Liabilities": "Total Non Current Liabilities",
+      "Total Liabilities And Equity": "Total Liabilities And Equity",
+      "Issued (share) capital": "Issued (share) capital",
+      "Share premium": "Share premium",
+      "Treasury shares": "Treasury shares",
+      "Other reserves": "Other reserves",
+      "Retained earnings": "Retained earnings",
+      "Total Equity": "Total Equity",
+      "Revenue": "Revenue",
+      "Cost of Sales": "Cost of Sales",
+      "Gross Profit": "Gross Profit",
+      "Administrative expense": "Administrative expense",
+      "Profit (loss) from operating activities": "Profit (loss) from operating activities",
+      "Profit (loss) before tax": "Profit (loss) before tax",
+      "Income tax expense (from continuing operations)": "Income tax expense (from continuing operations)",
+      "Profit (loss)": "Profit (loss)",
+      "Other comprehensive income": "Other comprehensive income",
+      "Comprehensive / Net income": "Comprehensive / Net income"
+    },
+    "confidence_scores": {
+      "Cash and Cash Equivalents": 0.9,
+      "Trade and Other Current Receivables": 0.9,
+      "Other current non-financial assets": 0.9,
+      "Total Current Assets": 0.9,
+      "Property, Plant and Equipment": 0.9,
+      "Other non-current financial assets": 0.9,
+      "Total Non Current Assets": 0.9,
+      "Total Assets": 0.9,
+      "Trade and other current payables": 0.9,
+      "Current tax liabilities, current": 0.9,
+      "Other current financial liabilities": 0.9,
+      "Other current non-financial liabilities": 0.9,
+      "Total Current Liabilities": 0.9,
+      "Other long-term financial liabilities": 0.9,
+      "Total Non Current Liabilities": 0.9,
+      "Total Liabilities And Equity": 0.9,
+      "Issued (share) capital": 0.9,
+      "Share premium": 0.9,
+      "Treasury shares": 0.9,
+      "Other reserves": 0.9,
+      "Retained earnings": 0.9,
+      "Total Equity": 0.9,
+      "Revenue": 0.9,
+      "Cost of Sales": 0.9,
+      "Gross Profit": 0.9,
+      "Administrative expense": 0.9,
+      "Profit (loss) from operating activities": 0.9,
+      "Profit (loss) before tax": 0.9,
+      "Income tax expense (from continuing operations)": 0.9,
+      "Profit (loss)": 0.9,
+      "Other comprehensive income": 0.9,
+      "Comprehensive / Net income": 0.9
+    },
+    "populated_template": {
+      "Cash and Cash Equivalents": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "values": {
+          "year_1": "40506296",
+          "year_2": "14011556"
+        },
+        "source_fields": [
+          "Cash"
+        ],
+        "aggregation_notes": "Direct mapping from Cash"
+      },
+      "Trade and Other Current Receivables": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "values": {
+          "year_1": "93102625",
+          "year_2": "102434862"
+        },
+        "source_fields": [
+          "Receivables"
+        ],
+        "aggregation_notes": "Direct mapping from Receivables"
+      },
+      "Other current non-financial assets": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "values": {
+          "year_1": "72591698",
+          "year_2": "22796639"
+        },
+        "source_fields": [
+          "Other current assets"
+        ],
+        "aggregation_notes": "Direct mapping from Other current assets"
+      },
+      "Total Current Assets": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "values": {
+          "year_1": "206200619",
+          "year_2": "139243056"
+        },
+        "source_fields": [
+          "TOTAL CURRENT ASSETS"
+        ],
+        "aggregation_notes": "Direct mapping from TOTAL CURRENT ASSETS"
+      },
+      "Property, Plant and Equipment": {
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Assets",
+        "values": {
+          "year_1": "240617",
+          "year_2": "1992274"
+        },
+        "source_fields": [
+          "Property & Equipment"
+        ],
+        "aggregation_notes": "Direct mapping from Property & Equipment"
+      },
+      "Other non-current financial assets": {
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Assets",
+        "values": {
+          "year_1": "57306092",
+          "year_2": "126866242"
+        },
+        "source_fields": [
+          "Other non-current assets"
+        ],
+        "aggregation_notes": "Direct mapping from Other non-current assets"
+      },
+      "Total Non Current Assets": {
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Assets",
+        "values": {
+          "year_1": "60546713",
+          "year_2": "130758516"
+        },
+        "source_fields": [
+          "TOTAL NON-CURRENT ASSETS"
+        ],
+        "aggregation_notes": "Direct mapping from TOTAL NON-CURRENT ASSETS"
+      },
+      "Total Assets": {
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "values": {
+          "year_1": "266747332",
+          "year_2": "270001572"
+        },
+        "source_fields": [
+          "TOTAL ASSETS"
+        ],
+        "aggregation_notes": "Direct mapping from TOTAL ASSETS"
+      },
+      "Trade and other current payables": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "values": {
+          "year_1": "44907778",
+          "year_2": "23297018"
+        },
+        "source_fields": [
+          "Trade payables"
+        ],
+        "aggregation_notes": "Direct mapping from Trade payables"
+      },
+      "Current tax liabilities, current": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "values": {
+          "year_1": "3243704",
+          "year_2": "3735208"
+        },
+        "source_fields": [
+          "Income tax payable"
+        ],
+        "aggregation_notes": "Direct mapping from Income tax payable"
+      },
+      "Other current financial liabilities": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "values": {
+          "year_1": "12172744",
+          "year_2": "9752679"
+        },
+        "source_fields": [
+          "Loans payable - current portion"
+        ],
+        "aggregation_notes": "Direct mapping from Loans payable - current portion"
+      },
+      "Other current non-financial liabilities": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "values": {
+          "year_1": "18394950",
+          "year_2": "20250238"
+        },
+        "source_fields": [
+          "Other current liabilities"
+        ],
+        "aggregation_notes": "Direct mapping from Other current liabilities"
+      },
+      "Total Current Liabilities": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "values": {
+          "year_1": "78719175",
+          "year_2": "57035143"
+        },
+        "source_fields": [
+          "TOTAL CURRENT LIABILITIES"
+        ],
+        "aggregation_notes": "Direct mapping from TOTAL CURRENT LIABILITIES"
+      },
+      "Other long-term financial liabilities": {
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Liabilities",
+        "values": {
+          "year_1": "7186268",
+          "year_2": "46018833"
+        },
+        "source_fields": [
+          "Other long-term liabilities"
+        ],
+        "aggregation_notes": "Direct mapping from Other long-term liabilities"
+      },
+      "Total Non Current Liabilities": {
+        "category": "Balance Sheet",
+        "subcategory": "Non Current Liabilities",
+        "values": {
+          "year_1": "41986847",
+          "year_2": "74946502"
+        },
+        "source_fields": [
+          "TOTAL NON-CURRENT LIABILITIES"
+        ],
+        "aggregation_notes": "Direct mapping from TOTAL NON-CURRENT LIABILITIES"
+      },
+      "Total Liabilities And Equity": {
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "values": {
+          "year_1": "266747332",
+          "year_2": "270001572"
+        },
+        "source_fields": [
+          "TOTAL LIABILITIES AND EQUITY (DEFICIT)"
+        ],
+        "aggregation_notes": "Direct mapping from TOTAL LIABILITIES AND EQUITY (DEFICIT)"
+      },
+      "Issued (share) capital": {
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "values": {
+          "year_1": "45667200",
+          "year_2": "45667200"
+        },
+        "source_fields": [
+          "Share capital"
+        ],
+        "aggregation_notes": "Direct mapping from Share capital"
+      },
+      "Share premium": {
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "values": {
+          "year_1": "15833600",
+          "year_2": "15833600"
+        },
+        "source_fields": [
+          "Additional paid-in capital"
+        ],
+        "aggregation_notes": "Direct mapping from Additional paid-in capital"
+      },
+      "Treasury shares": {
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "values": {
+          "year_1": "-2705400",
+          "year_2": "-2347826"
+        },
+        "source_fields": [
+          "Treasury Shares"
+        ],
+        "aggregation_notes": "Direct mapping from Treasury Shares"
+      },
+      "Other reserves": {
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "values": {
+          "year_1": "2570000",
+          "year_2": "1470000"
+        },
+        "source_fields": [
+          "Gain (Loss) on fair value of Asset held for sale"
+        ],
+        "aggregation_notes": "Direct mapping from Gain (Loss) on fair value of Asset held for sale"
+      },
+      "Retained earnings": {
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "values": {
+          "year_1": "44675911",
+          "year_2": "17396953"
+        },
+        "source_fields": [
+          "Cummulative earnings (deficit)"
+        ],
+        "aggregation_notes": "Direct mapping from Cummulative earnings (deficit)"
+      },
+      "Total Equity": {
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "values": {
+          "year_1": "146041311",
+          "year_2": "138019927"
+        },
+        "source_fields": [
+          "TOTAL EQUITY (DEFICIT)"
+        ],
+        "aggregation_notes": "Direct mapping from TOTAL EQUITY (DEFICIT)"
+      },
+      "Revenue": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "249788478",
+          "year_2": "292800617"
+        },
+        "source_fields": [
+          "REVENUE"
+        ],
+        "aggregation_notes": "Direct mapping from REVENUE"
+      },
+      "Cost of Sales": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "202328679",
+          "year_2": "246283513"
+        },
+        "source_fields": [
+          "COST OF SALES"
+        ],
+        "aggregation_notes": "Direct mapping from COST OF SALES"
+      },
+      "Gross Profit": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "47459800",
+          "year_2": "46517104"
+        },
+        "source_fields": [
+          "GROSS PROFIT"
+        ],
+        "aggregation_notes": "Direct mapping from GROSS PROFIT"
+      },
+      "Administrative expense": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "35409424",
+          "year_2": "35413180"
+        },
+        "source_fields": [
+          "GENERAL & ADMIN EXPENSES"
+        ],
+        "aggregation_notes": "Direct mapping from GENERAL & ADMIN EXPENSES"
+      },
+      "Profit (loss) from operating activities": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "12050376",
+          "year_2": "11103924"
+        },
+        "source_fields": [
+          "NET OPERATING INCOME (LOSS)"
+        ],
+        "aggregation_notes": "Direct mapping from NET OPERATING INCOME (LOSS)"
+      },
+      "Profit (loss) before tax": {
+        "category": "Income Statement",
+        "subcategory": "Before Tax",
+        "values": {
+          "year_1": "12024098",
+          "year_2": "15140447"
+        },
+        "source_fields": [
+          "NET INCOME (LOSS) BEFORE TAX"
+        ],
+        "aggregation_notes": "Direct mapping from NET INCOME (LOSS) BEFORE TAX"
+      },
+      "Income tax expense (from continuing operations)": {
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "values": {
+          "year_1": "3243704",
+          "year_2": "3735208"
+        },
+        "source_fields": [
+          "INCOME TAX EXPENSE"
+        ],
+        "aggregation_notes": "Direct mapping from INCOME TAX EXPENSE"
+      },
+      "Profit (loss)": {
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "values": {
+          "year_1": "8780395",
+          "year_2": "11405239"
+        },
+        "source_fields": [
+          "NET INCOME (LOSS) AFTER INCOME TAX"
+        ],
+        "aggregation_notes": "Direct mapping from NET INCOME (LOSS) AFTER INCOME TAX"
+      },
+      "Other comprehensive income": {
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "values": {
+          "year_1": "1100000",
+          "year_2": "-3515320"
+        },
+        "source_fields": [
+          "GAIN (LOSS) ON FAIR VALUE OF ASSET HELD FOR SALE"
+        ],
+        "aggregation_notes": "Direct mapping from GAIN (LOSS) ON FAIR VALUE OF ASSET HELD FOR SALE"
+      },
+      "Comprehensive / Net income": {
+        "category": "Income Statement",
+        "subcategory": "After Tax",
+        "values": {
+          "year_1": "9880395",
+          "year_2": "7889919"
+        },
+        "source_fields": [
+          "TOTAL COMPREHENSIVE INCOME (LOSS)"
+        ],
+        "aggregation_notes": "Direct mapping from TOTAL COMPREHENSIVE INCOME (LOSS)"
+      }
+    },
+    "mapping_summary": {
+      "total_fields_populated": 45,
+      "fields_with_aggregations": 0,
+      "unmapped_document_fields": [
+        "Investment in non-proprietary shares",
+        "Advances from Stockholder",
+        "Long-term liabilities"
+      ],
+      "confidence_score": 0.92
+    },
+    "discovery_method": "ai_template_population"
+  },
+  "csv_output": "Document,Field,Field_Category,Field_Subcategory,Confidence,Value_Year_1,Value_Year_2\n,,,,,2024,2023\nAFS2024,Cash and Cash Equivalents,Balance Sheet,Current Assets,0.9,40506296,14011556\nAFS2024,Trade and Other Current Receivables,Balance Sheet,Current Assets,0.9,93102625,102434862\nAFS2024,Other current non-financial assets,Balance Sheet,Current Assets,0.9,72591698,22796639\nAFS2024,Total Current Assets,Balance Sheet,Current Assets,0.9,206200619,139243056\nAFS2024,Property, Plant and Equipment,Balance Sheet,Non Current Assets,0.9,240617,1992274\nAFS2024,Other non-current financial assets,Balance Sheet,Non Current Assets,0.9,57306092,126866242\nAFS2024,Total Non Current Assets,Balance Sheet,Non Current Assets,0.9,60546713,130758516\nAFS2024,Total Assets,Balance Sheet,Totals,0.9,266747332,270001572\nAFS2024,Trade and other current payables,Balance Sheet,Current Liabilities,0.9,44907778,23297018\nAFS2024,Current tax liabilities, current,Balance Sheet,Current Liabilities,0.9,3243704,3735208\nAFS2024,Other current financial liabilities,Balance Sheet,Current Liabilities,0.9,12172744,9752679\nAFS2024,Other current non-financial liabilities,Balance Sheet,Current Liabilities,0.9,18394950,20250238\nAFS2024,Total Current Liabilities,Balance Sheet,Current Liabilities,0.9,78719175,57035143\nAFS2024,Other long-term financial liabilities,Balance Sheet,Non Current Liabilities,0.9,7186268,46018833\nAFS2024,Total Non Current Liabilities,Balance Sheet,Non Current Liabilities,0.9,41986847,74946502\nAFS2024,Total Liabilities And Equity,Balance Sheet,Totals,0.9,266747332,270001572\nAFS2024,Issued (share) capital,Balance Sheet,Equity,0.9,45667200,45667200\nAFS2024,Share premium,Balance Sheet,Equity,0.9,15833600,15833600\nAFS2024,Treasury shares,Balance Sheet,Equity,0.9,-2705400,-2347826\nAFS2024,Other reserves,Balance Sheet,Equity,0.9,2570000,1470000\nAFS2024,Retained earnings,Balance Sheet,Equity,0.9,44675911,17396953\nAFS2024,Total Equity,Balance Sheet,Equity,0.9,146041311,138019927\nAFS2024,Revenue,Income Statement,Revenue,0.9,249788478,292800617\nAFS2024,Cost of Sales,Income Statement,Revenue,0.9,202328679,246283513\nAFS2024,Gross Profit,Income Statement,Revenue,0.9,47459800,46517104\nAFS2024,Administrative expense,Income Statement,Revenue,0.9,35409424,35413180\nAFS2024,Profit (loss) from operating activities,Income Statement,Revenue,0.9,12050376,11103924\nAFS2024,Profit (loss) before tax,Income Statement,Before Tax,0.9,12024098,15140447\nAFS2024,Income tax expense (from continuing operations),Income Statement,After Tax,0.9,3243704,3735208\nAFS2024,Profit (loss),Income Statement,After Tax,0.9,8780395,11405239\nAFS2024,Other comprehensive income,Income Statement,After Tax,0.9,1100000,-3515320\nAFS2024,Comprehensive / Net income,Income Statement,After Tax,0.9,9880395,7889919"
+}

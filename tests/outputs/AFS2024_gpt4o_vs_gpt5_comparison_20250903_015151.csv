@@ -1,0 +1,3 @@
+Model,Document,Status,Template_Fields,Data_Completeness_%,Format_Consistency_%,Unknown_Categories,Method,Notes
+GPT-4o,AFS2024,success,14,100.0,100.0,0,Multi-pass Legacy,
+GPT-5,AFS2024,success,22,100.0,100.0,0,multipass,
