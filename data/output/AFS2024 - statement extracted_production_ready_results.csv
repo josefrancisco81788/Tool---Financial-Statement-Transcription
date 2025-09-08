@@ -1,0 +1,18 @@
+Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2
+Meta,Reference,Year,,,2024,2023
+Balance Sheet,Current Assets,Cash and Cash Equivalents,95.00%,0.95,"₱ 40,506,296","₱ 14,011,556"
+Balance Sheet,Current Assets,Trade and Other Current Receivables,90.00%,0.9,"93,102,625","102,434,862"
+Balance Sheet,Current Assets,Other Current Assets,95.00%,0.95,"72,591,698","22,796,639"
+Balance Sheet,Current Assets,Total Current Assets,95.00%,0.95,"206,200,619","139,243,056"
+Balance Sheet,Non Current Assets,Investment Property,85.00%,0.85,"3,000,000","1,900,000"
+Balance Sheet,Non Current Assets,"Property, Plant and Equipment",95.00%,0.95,"240,617","1,992,274"
+Balance Sheet,Non Current Assets,Other Non-Current Assets,95.00%,0.95,"57,306,992","126,866,242"
+Balance Sheet,Non Current Assets,Total Non-Current Assets,95.00%,0.95,"60,546,713","130,758,516"
+Balance Sheet,Totals,Total Assets,95.00%,0.95,"₱ 266,747,332","₱ 270,001,572"
+Balance Sheet,Current Liabilities,Trade and other current payables,90.00%,0.9,"44,907,778","23,297,018"
+Balance Sheet,Current Liabilities,Other current provisions,90.00%,0.9,"18,394,950","20,250,238"
+Balance Sheet,Current Liabilities,Total Current Liabilities,95.00%,0.95,"78,719,175","57,035,143"
+Balance Sheet,Non Current Liabilities,Other non-current provisions,90.00%,0.9,"7,176,268","46,018,833"
+Balance Sheet,Non Current Liabilities,Total Non-Current Liabilities,95.00%,0.95,"41,986,847","74,946,502"
+Balance Sheet,Totals,Total Liabilities And Equity,90.00%,0.9,"120,706,022","131,981,645"
+Balance Sheet,Equity,Issued (share) capital,95.00%,0.95,"45,667,200","45,667,200"

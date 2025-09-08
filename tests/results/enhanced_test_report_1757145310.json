@@ -1,0 +1,43 @@
+{
+  "timestamp": "2025-09-06 08:55:10",
+  "summary": {
+    "total_tests": 1,
+    "successful_tests": 0,
+    "failed_tests": 1,
+    "success_rate": 0.0
+  },
+  "performance": {
+    "average_processing_time": 23.878235816955566,
+    "max_processing_time": 23.878235816955566,
+    "min_processing_time": 23.878235816955566,
+    "total_processing_time": 23.878235816955566
+  },
+  "by_category": {
+    "light": {
+      "total": 1,
+      "successful": 0,
+      "failed": 1
+    }
+  },
+  "results": [
+    {
+      "file": "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "filename": "AFS2024 - statement extracted.pdf",
+      "category": "light",
+      "success": false,
+      "error": "HTTP 422: {\"success\":false,\"error\":{\"code\":\"HTTP_ERROR\",\"message\":\"No financial data could be extracted from the document\",\"details\":\"HTTP 422 error\"},\"timestamp\":\"2025-09-06T07:55:10Z\"}",
+      "processing_time": 23.878235816955566,
+      "response_data": null,
+      "file_size": 298456,
+      "status_code": 422
+    }
+  ],
+  "test_state": {
+    "completed_tests": [],
+    "failed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
+    ],
+    "last_run": null
+  }
+}

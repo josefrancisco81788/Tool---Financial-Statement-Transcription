@@ -1,0 +1,62 @@
+Field,Value,Year,Category
+Document Information,,,Header
+Statement Type,STATEMENTS OF FINANCIAL POSITION,,Header
+Company Name,WIRELESS SERVICES ASIA INC.,,Header
+Period,March 31,,Header
+Currency,PHP,,Header
+Years Detected,"2024, 2023",,Header
+,,,Separator
+Current Assets,,,Category
+Cash,40506296,2024,current_assets
+Cash,14011556,2023,current_assets
+Receivables,93102625,2024,current_assets
+Receivables,102434862,2023,current_assets
+Other Current Assets,72591698,2024,current_assets
+Other Current Assets,22796639,2023,current_assets
+Total Current Assets,206200619,2024,current_assets
+Total Current Assets,139243056,2023,current_assets
+Non Current Assets,,,Category
+Investment In Non Proprietary Shares,3000000,2024,non_current_assets
+Investment In Non Proprietary Shares,1900000,2023,non_current_assets
+Property Equipment,240617,2024,non_current_assets
+Property Equipment,1992274,2023,non_current_assets
+Other Non Current Assets,57086992,2024,non_current_assets
+Other Non Current Assets,126866242,2023,non_current_assets
+Total Non Current Assets,60546713,2024,non_current_assets
+Total Non Current Assets,130758516,2023,non_current_assets
+Total Assets,,,Category
+Current Liabilities,,,Category
+Trade Payables,44907778,2024,current_liabilities
+Trade Payables,23297018,2023,current_liabilities
+Income Tax Payable,3243704,2024,current_liabilities
+Income Tax Payable,3735208,2023,current_liabilities
+Loans Payable Current Portion,12172744,2024,current_liabilities
+Loans Payable Current Portion,9752679,2023,current_liabilities
+Other Current Liabilities,18394950,2024,current_liabilities
+Other Current Liabilities,20250238,2023,current_liabilities
+Total Current Liabilities,78719175,2024,current_liabilities
+Total Current Liabilities,57035143,2023,current_liabilities
+Non Current Liabilities,,,Category
+Advances From Stockholder,21810579,2024,non_current_liabilities
+Advances From Stockholder,28927669,2023,non_current_liabilities
+Long Term Liabilities,13000000,2024,non_current_liabilities
+Long Term Liabilities,,2023,non_current_liabilities
+Other Long Term Liabilities,7176268,2024,non_current_liabilities
+Other Long Term Liabilities,46018833,2023,non_current_liabilities
+Total Non Current Liabilities,41986847,2024,non_current_liabilities
+Total Non Current Liabilities,74946502,2023,non_current_liabilities
+Total Liabilities,,,Category
+Equity,,,Category
+Share Capital,45667200,2024,equity
+Additional Paid In Capital,15833600,2024,equity
+Cumulative Earnings Appropriated,40000000,2024,equity
+Cumulative Earnings Appropriated,60000000,2023,equity
+Cumulative Earnings Deficit,44675911,2024,equity
+Cumulative Earnings Deficit,17396953,2023,equity
+Gain Loss On Fair Value Of Asset Held For Sale,2570000,2024,equity
+Gain Loss On Fair Value Of Asset Held For Sale,1470000,2023,equity
+Treasury Shares,-2705400,2024,equity
+Treasury Shares,-2347826,2023,equity
+Total Equity Deficit,146041311,2024,equity
+Total Equity Deficit,138019927,2023,equity
+Total Liabilities And Equity Deficit,,,Category

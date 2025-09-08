@@ -1,0 +1,35 @@
+{
+  "overall_extraction_rate": 41.0,
+  "total_extracted": 41,
+  "total_expected": 100,
+  "per_file_results": [
+    {
+      "name": "AFS2024",
+      "fields_extracted": 21,
+      "fields_expected": 32,
+      "extraction_rate": 65.625,
+      "status": "⚠️ GOOD"
+    },
+    {
+      "name": "AFS-2022",
+      "fields_extracted": 9,
+      "fields_expected": 25,
+      "extraction_rate": 36.0,
+      "status": "❌ NEEDS IMPROVEMENT"
+    },
+    {
+      "name": "2021 AFS with SEC Stamp",
+      "fields_extracted": 9,
+      "fields_expected": 26,
+      "extraction_rate": 34.61538461538461,
+      "status": "❌ NEEDS IMPROVEMENT"
+    },
+    {
+      "name": "afs-2021-2023",
+      "fields_extracted": 2,
+      "fields_expected": 17,
+      "extraction_rate": 11.76470588235294,
+      "status": "❌ NEEDS IMPROVEMENT"
+    }
+  ]
+}

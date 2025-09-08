@@ -112,8 +112,8 @@ class TestProcessingTimes:
         
         # Test processing time expectations by file size
         expected_times = {
-            "small": (10, 30),    # 10-30 seconds
-            "medium": (30, 90),   # 30-90 seconds
+            "small": (10, 25),    # 10-25 seconds
+            "medium": (30, 85),   # 30-85 seconds
             "large": (90, 180)    # 90-180 seconds
         }
         

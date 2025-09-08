@@ -1,0 +1,450 @@
+{
+  "status": "success",
+  "data": {
+    "statement_type": "Comprehensive Financial Statements",
+    "company_name": "Wireless Services Asia Inc.",
+    "period": "For the years ended March 31, 2024 and 2023",
+    "currency": "\u20b1 (Philippine Peso)",
+    "years_detected": [
+      "2024",
+      "2023"
+    ],
+    "base_year": "2024",
+    "processing_method": "whole_document_context",
+    "line_items": {
+      "balance_sheet": {
+        "current_assets": {
+          "cash_and_equivalents": {
+            "value": 40506296,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "accounts_receivable": {
+            "value": 93102625,
+            "confidence": 0.9,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "other_current_assets": {
+            "value": 72591698,
+            "confidence": 0.85,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "total_current_assets": {
+            "value": 206200619,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          }
+        },
+        "non_current_assets": {
+          "investment_in_non_proprietary_shares": {
+            "value": 3000000,
+            "confidence": 0.92,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "property_plant_equipment": {
+            "value": 240617,
+            "confidence": 0.92,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "other_non_current_assets": {
+            "value": 57306092,
+            "confidence": 0.88,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "total_non_current_assets": {
+            "value": 60546713,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          }
+        },
+        "current_liabilities": {
+          "accounts_payable": {
+            "value": 44907778,
+            "confidence": 0.88,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "income_tax_payable": {
+            "value": 3243704,
+            "confidence": 0.9,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "loans_payable_current_portion": {
+            "value": 12172744,
+            "confidence": 0.9,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "other_current_liabilities": {
+            "value": 18394950,
+            "confidence": 0.9,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "total_current_liabilities": {
+            "value": 78719175,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          }
+        },
+        "non_current_liabilities": {
+          "advances_from_stockholder": {
+            "value": 21810579,
+            "confidence": 0.92,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "long_term_liabilities": {
+            "value": 13000000,
+            "confidence": 0.92,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "other_long_term_liabilities": {
+            "value": 7176268,
+            "confidence": 0.92,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "total_non_current_liabilities": {
+            "value": 41986847,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          }
+        },
+        "equity": {
+          "share_capital": {
+            "value": 45667200,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "additional_paid_in_capital": {
+            "value": 15833600,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "cumulative_earnings_appropriated": {
+            "value": 40000000,
+            "confidence": 0.9,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "cumulative_earnings_deficit": {
+            "value": 44675911,
+            "confidence": 0.9,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "gain_loss_on_fair_value_of_asset_held_for_sale": {
+            "value": 2570000,
+            "confidence": 0.9,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "treasury_shares": {
+            "value": -2705400,
+            "confidence": 0.9,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "total_equity": {
+            "value": 146041311,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          }
+        },
+        "totals": {
+          "total_assets": {
+            "value": 266747332,
+            "confidence": 0.98,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "total_liabilities_and_equity": {
+            "value": 266747332,
+            "confidence": 0.98,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          }
+        }
+      },
+      "income_statement": {
+        "revenues": {
+          "net_sales": {
+            "value": 249788478,
+            "confidence": 0.95,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "total_revenue": {
+            "value": 249788478,
+            "confidence": 0.95,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          }
+        },
+        "cost_of_sales": {
+          "cost_of_goods_sold": {
+            "value": 202328679,
+            "confidence": 0.92,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          }
+        },
+        "operating_expenses": {
+          "general_and_admin_expenses": {
+            "value": 35409424,
+            "confidence": 0.85,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "total_operating_expenses": {
+            "value": 35409424,
+            "confidence": 0.9,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          }
+        },
+        "profitability": {
+          "gross_profit": {
+            "value": 47459800,
+            "confidence": 0.95,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "operating_income": {
+            "value": 12050376,
+            "confidence": 0.93,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          },
+          "net_income": {
+            "value": 8780395,
+            "confidence": 0.95,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          }
+        }
+      },
+      "cash_flow_statement": {
+        "operating_activities": {
+          "net_income": {
+            "value": 8780395,
+            "confidence": 0.95,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2024,
+            "year_1": 2023
+          }
+        }
+      }
+    },
+    "summary_metrics": {
+      "total_assets": {
+        "value": 266747332,
+        "confidence": 0.95
+      },
+      "total_revenue": {
+        "value": 249788478,
+        "confidence": 0.95
+      },
+      "net_income": {
+        "value": 8780395,
+        "confidence": 0.95
+      },
+      "total_equity": {
+        "value": 146041311,
+        "confidence": 0.92
+      }
+    },
+    "validation_results": {
+      "balance_sheet_balances": true,
+      "net_income_consistency": true,
+      "cross_statement_checks": [
+        "Net income matches between income statement and changes in equity"
+      ],
+      "data_quality_score": 0.95,
+      "completeness_score": 0.9
+    },
+    "comprehensive_analysis": {
+      "key_insights": [
+        "The company has maintained a stable equity position with a slight increase in total equity from 2023 to 2024.",
+        "Net income decreased from 2023 to 2024, indicating potential challenges in maintaining profitability.",
+        "The company has managed to reduce its non-current liabilities significantly."
+      ],
+      "unusual_items": [
+        "Significant decrease in other non-current assets from 2023 to 2024.",
+        "A notable gain on fair value of asset held for sale in 2024 compared to a loss in 2023."
+      ],
+      "data_gaps": [
+        "The cash flow statement is not fully detailed in the document."
+      ],
+      "recommendations": [
+        "Verify the details of the cash flow statement for a complete financial picture.",
+        "Investigate the reasons behind the decrease in non-current assets and the gain on asset held for sale."
+      ]
+    },
+    "document_analysis": {
+      "total_pages": 3,
+      "company_name": "Wireless Services Asia Inc.",
+      "reporting_period": "For the years ended March 31, 2024 and 2023",
+      "currency": "\u20b1 (Philippine Peso)",
+      "statements_present": [
+        "Statements of Financial Position",
+        "Statements of Operations",
+        "Statements of Changes in Equity"
+      ],
+      "document_structure": "The document is organized into three pages, each containing a different financial statement. Page 1 includes the balance sheet, Page 2 contains the income statement, and Page 3 is intended for changes in equity.",
+      "multi_year_data": true,
+      "years_covered": [
+        "2024",
+        "2023"
+      ]
+    },
+    "notes": "The financial statements provide a comprehensive view of the company's financial position and performance over two years. The balance sheet balances correctly, and net income figures are consistent across statements. However, the cash flow statement is not fully detailed, which limits the analysis of cash movements."
+  },
+  "pages_processed": "all",
+  "extraction_method": "whole_document",
+  "processing_time": 62.40267634391785,
+  "requested_processing_approach": "auto",
+  "effective_processing_approach": "whole_document",
+  "processing_approach": "whole_document",
+  "document_characteristics": {
+    "page_count": 3,
+    "file_size_mb": 0.28462982177734375,
+    "recommendation": "whole_document",
+    "reason": "Small document (3 pages, 0.3MB) - Whole Document Context recommended for comprehensive analysis",
+    "confidence": "high"
+  },
+  "csv_data": "Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3,Value_Year_4\r\nDate,Year,Year,,0.0,2024,2023,,\r\nBalance Sheet,Current Assets,Cash And Equivalents,95.0%,0.95,40506296,2023,,\r\nBalance Sheet,Current Assets,Accounts Receivable,90.0%,0.9,93102625,2023,,\r\nBalance Sheet,Current Assets,Other Current Assets,85.0%,0.85,72591698,2023,,\r\nBalance Sheet,Current Assets,Total Current Assets,95.0%,0.95,206200619,2023,,\r\nBalance Sheet,Non Current Assets,Investment In Non Proprietary Shares,92.0%,0.92,3000000,2023,,\r\nBalance Sheet,Non Current Assets,Property Plant Equipment,92.0%,0.92,240617,2023,,\r\nBalance Sheet,Non Current Assets,Other Non Current Assets,88.0%,0.88,57306092,2023,,\r\nBalance Sheet,Non Current Assets,Total Non Current Assets,95.0%,0.95,60546713,2023,,\r\nBalance Sheet,Current Liabilities,Accounts Payable,88.0%,0.88,44907778,2023,,\r\nBalance Sheet,Current Liabilities,Income Tax Payable,90.0%,0.9,3243704,2023,,\r\nBalance Sheet,Current Liabilities,Loans Payable Current Portion,90.0%,0.9,12172744,2023,,\r\nBalance Sheet,Current Liabilities,Other Current Liabilities,90.0%,0.9,18394950,2023,,\r\nBalance Sheet,Current Liabilities,Total Current Liabilities,95.0%,0.95,78719175,2023,,\r\nBalance Sheet,Non Current Liabilities,Advances From Stockholder,92.0%,0.92,21810579,2023,,\r\nBalance Sheet,Non Current Liabilities,Long Term Liabilities,92.0%,0.92,13000000,2023,,\r\nBalance Sheet,Non Current Liabilities,Other Long Term Liabilities,92.0%,0.92,7176268,2023,,\r\nBalance Sheet,Non Current Liabilities,Total Non Current Liabilities,95.0%,0.95,41986847,2023,,\r\nBalance Sheet,Equity,Share Capital,95.0%,0.95,45667200,2023,,\r\nBalance Sheet,Equity,Additional Paid In Capital,95.0%,0.95,15833600,2023,,\r\nBalance Sheet,Equity,Cumulative Earnings Appropriated,90.0%,0.9,40000000,2023,,\r\nBalance Sheet,Equity,Cumulative Earnings Deficit,90.0%,0.9,44675911,2023,,\r\nBalance Sheet,Equity,Gain Loss On Fair Value Of Asset Held For Sale,90.0%,0.9,2570000,2023,,\r\nBalance Sheet,Equity,Treasury Shares,90.0%,0.9,-2705400,2023,,\r\nBalance Sheet,Equity,Total Equity,95.0%,0.95,146041311,2023,,\r\nBalance Sheet,Totals,Total Assets,98.0%,0.98,266747332,2023,,\r\nBalance Sheet,Totals,Total Liabilities And Equity,98.0%,0.98,266747332,2023,,\r\nIncome Statement,Revenues,Net Sales,95.0%,0.95,249788478,2023,,\r\nIncome Statement,Revenues,Total Revenue,95.0%,0.95,249788478,2023,,\r\nIncome Statement,Cost Of Sales,Cost Of Goods Sold,92.0%,0.92,202328679,2023,,\r\nIncome Statement,Operating Expenses,General And Admin Expenses,85.0%,0.85,35409424,2023,,\r\nIncome Statement,Operating Expenses,Total Operating Expenses,90.0%,0.9,35409424,2023,,\r\nIncome Statement,Profitability,Gross Profit,95.0%,0.95,47459800,2023,,\r\nIncome Statement,Profitability,Operating Income,93.0%,0.93,12050376,2023,,\r\nIncome Statement,Profitability,Net Income,95.0%,0.95,8780395,2023,,\r\nCash Flow Statement,Operating Activities,Net Income,95.0%,0.95,8780395,2023,,\r\n",
+  "output_format": "csv",
+  "csv_format_version": "1.0",
+  "csv_validation": {
+    "valid": false,
+    "errors": [
+      "Extra columns found: ['Confidence_Score']",
+      "Found 1 empty row(s)"
+    ],
+    "format_version": "1.0",
+    "column_structure_valid": false,
+    "year_mapping_valid": true,
+    "no_empty_rows": false
+  }
+}

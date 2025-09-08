@@ -1,0 +1,41 @@
+{
+  "status": "FAILED",
+  "overall_passed": false,
+  "timestamp": "2025-09-05T10:11:15.115342",
+  "validation_version": "1.0",
+  "years_detected": [
+    "2024",
+    "2023",
+    "2022"
+  ],
+  "validation_metrics": {
+    "key_presence": true,
+    "rightmost_column_completeness": 0.0,
+    "year_guard": true,
+    "confidence_format_valid": true,
+    "complete_year_rows": 0.0
+  },
+  "failure_reasons": [
+    "Rightmost column completeness 0.0% < 70% threshold"
+  ],
+  "coverage_report": {
+    "expected_year_fields": 0,
+    "actual_year_fields": 0,
+    "per_year_coverage": {},
+    "per_field_completeness": {}
+  },
+  "accounting_checks": {
+    "balance_sheet_identity": {
+      "status": "NOT_APPLICABLE",
+      "reason": "Total Assets field not found"
+    },
+    "cash_flow_identity": {
+      "status": "NOT_APPLICABLE",
+      "reason": "Cash flow fields not found"
+    },
+    "overall_accounting_valid": true
+  },
+  "quality_metrics": {
+    "overall_quality_score": 0.0
+  }
+}

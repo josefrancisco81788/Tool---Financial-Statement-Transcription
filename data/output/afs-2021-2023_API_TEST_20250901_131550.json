@@ -1,0 +1,303 @@
+{
+  "status": "success",
+  "data": {
+    "statement_type": "Comprehensive Financial Statements",
+    "company_name": "GBS Concept Advertising Inc.",
+    "period": "as of December 31, 2022",
+    "currency": "Philippine Peso",
+    "years_detected": [
+      "2022",
+      "2021",
+      "2020"
+    ],
+    "base_year": "2022",
+    "processing_method": "whole_document_context",
+    "line_items": {
+      "balance_sheet": {
+        "current_assets": {
+          "total_current_assets": {
+            "value": 4563148,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2022,
+            "year_1": 4777801
+          }
+        },
+        "non_current_assets": {
+          "total_non_current_assets": {
+            "value": 0,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2022,
+            "year_1": 0
+          }
+        },
+        "current_liabilities": {
+          "total_current_liabilities": {
+            "value": 306391,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2022,
+            "year_1": 802015
+          }
+        },
+        "non_current_liabilities": {
+          "total_non_current_liabilities": {
+            "value": 0,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2022,
+            "year_1": 0
+          }
+        },
+        "equity": {
+          "share_capital": {
+            "value": 3062500,
+            "confidence": 0.95,
+            "source_pages": [
+              3
+            ],
+            "base_year": 2022,
+            "year_1": 3062500
+          },
+          "retained_earnings": {
+            "value": 1194256,
+            "confidence": 0.9,
+            "source_pages": [
+              3
+            ],
+            "base_year": 2022,
+            "year_1": 913285
+          },
+          "total_equity": {
+            "value": 4256756,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2022,
+            "year_1": 3975785
+          }
+        },
+        "totals": {
+          "total_assets": {
+            "value": 4563148,
+            "confidence": 0.98,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2022,
+            "year_1": 4777801
+          },
+          "total_liabilities_and_equity": {
+            "value": 4563148,
+            "confidence": 0.98,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2022,
+            "year_1": 4777801
+          }
+        }
+      },
+      "income_statement": {
+        "revenues": {
+          "total_revenue": {
+            "value": 9843009,
+            "confidence": 0.95,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2022,
+            "year_1": 20406722
+          }
+        },
+        "cost_of_sales": {
+          "cost_of_goods_sold": {
+            "value": 8632290,
+            "confidence": 0.92,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2022,
+            "year_1": 18690375
+          }
+        },
+        "operating_expenses": {
+          "administrative_expenses": {
+            "value": 836091,
+            "confidence": 0.85,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2022,
+            "year_1": 790961
+          }
+        },
+        "profitability": {
+          "gross_profit": {
+            "value": 1210719,
+            "confidence": 0.95,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2022,
+            "year_1": 1716347
+          },
+          "net_income": {
+            "value": 280971,
+            "confidence": 0.95,
+            "source_pages": [
+              2
+            ],
+            "base_year": 2022,
+            "year_1": 694040
+          }
+        }
+      },
+      "cash_flow_statement": {
+        "operating_activities": {
+          "net_income": {
+            "value": 280971,
+            "confidence": 0.95,
+            "source_pages": [
+              4
+            ],
+            "base_year": 2022,
+            "year_1": 925386
+          }
+        },
+        "investing_activities": {
+          "net_cash_from_investing": {
+            "value": 0,
+            "confidence": 0.9,
+            "source_pages": [
+              4
+            ],
+            "base_year": 2022,
+            "year_1": 2750000
+          }
+        },
+        "financing_activities": {
+          "net_cash_from_financing": {
+            "value": 0,
+            "confidence": 0.9,
+            "source_pages": [
+              4
+            ],
+            "base_year": 2022,
+            "year_1": 2750000
+          }
+        }
+      }
+    },
+    "summary_metrics": {
+      "total_assets": {
+        "value": 4563148,
+        "confidence": 0.95
+      },
+      "total_revenue": {
+        "value": 9843009,
+        "confidence": 0.95
+      },
+      "net_income": {
+        "value": 280971,
+        "confidence": 0.95
+      },
+      "operating_cash_flow": {
+        "value": 0,
+        "confidence": 0.88
+      },
+      "total_equity": {
+        "value": 4256756,
+        "confidence": 0.92
+      }
+    },
+    "validation_results": {
+      "balance_sheet_balances": true,
+      "net_income_consistency": true,
+      "cross_statement_checks": [
+        "Net income matches between income statement and cash flow statement.",
+        "Total assets equal total liabilities and equity."
+      ],
+      "data_quality_score": 0.95,
+      "completeness_score": 0.9
+    },
+    "comprehensive_analysis": {
+      "key_insights": [
+        "The company has maintained a stable equity base with no non-current liabilities.",
+        "There is a significant drop in revenue from 2021 to 2022.",
+        "Net income decreased significantly in 2022 compared to 2021."
+      ],
+      "unusual_items": [
+        "No non-current liabilities reported for both years.",
+        "Significant decrease in revenue and net income in 2022."
+      ],
+      "data_gaps": [
+        "Detailed breakdown of cash flow activities for 2022 is missing."
+      ],
+      "recommendations": [
+        "Verify the absence of non-current liabilities.",
+        "Investigate the reasons for the significant drop in revenue and net income in 2022."
+      ]
+    },
+    "document_analysis": {
+      "total_pages": 8,
+      "company_name": "GBS Concept Advertising Inc.",
+      "reporting_period": "as of December 31, 2022",
+      "currency": "Philippine Peso",
+      "statements_present": [
+        "Statement of Financial Position",
+        "Statement of Comprehensive Income",
+        "Statements of Changes in Equity",
+        "Statement of Cash Flows"
+      ],
+      "document_structure": "The document is organized into separate pages for each financial statement, with comparative figures for previous years included.",
+      "multi_year_data": true,
+      "years_covered": [
+        "2022",
+        "2021",
+        "2020"
+      ]
+    },
+    "notes": "The financial statements provide a clear view of the company's financial position and performance over the past two years. However, the absence of detailed cash flow activities for 2022 limits the analysis of cash management strategies."
+  },
+  "pages_processed": "all",
+  "extraction_method": "whole_document",
+  "processing_time": 70.75047993659973,
+  "requested_processing_approach": "auto",
+  "effective_processing_approach": "whole_document",
+  "processing_approach": "whole_document",
+  "document_characteristics": {
+    "page_count": 8,
+    "file_size_mb": 0.6854362487792969,
+    "recommendation": "whole_document",
+    "reason": "Small document (8 pages, 0.7MB) - Whole Document Context recommended for comprehensive analysis",
+    "confidence": "high"
+  },
+  "csv_data": "Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3,Value_Year_4\r\nDate,Year,Year,,0.0,2022,2021,2020,\r\nBalance Sheet,Current Assets,Total Current Assets,95.0%,0.95,4563148,4777801,,\r\nBalance Sheet,Non Current Assets,Total Non Current Assets,95.0%,0.95,0,0,,\r\nBalance Sheet,Current Liabilities,Total Current Liabilities,95.0%,0.95,306391,802015,,\r\nBalance Sheet,Non Current Liabilities,Total Non Current Liabilities,95.0%,0.95,0,0,,\r\nBalance Sheet,Equity,Share Capital,95.0%,0.95,3062500,3062500,,\r\nBalance Sheet,Equity,Retained Earnings,90.0%,0.9,1194256,913285,,\r\nBalance Sheet,Equity,Total Equity,95.0%,0.95,4256756,3975785,,\r\nBalance Sheet,Totals,Total Assets,98.0%,0.98,4563148,4777801,,\r\nBalance Sheet,Totals,Total Liabilities And Equity,98.0%,0.98,4563148,4777801,,\r\nIncome Statement,Revenues,Total Revenue,95.0%,0.95,9843009,20406722,,\r\nIncome Statement,Cost Of Sales,Cost Of Goods Sold,92.0%,0.92,8632290,18690375,,\r\nIncome Statement,Operating Expenses,Administrative Expenses,85.0%,0.85,836091,790961,,\r\nIncome Statement,Profitability,Gross Profit,95.0%,0.95,1210719,1716347,,\r\nIncome Statement,Profitability,Net Income,95.0%,0.95,280971,694040,,\r\nCash Flow Statement,Operating Activities,Net Income,95.0%,0.95,280971,925386,,\r\nCash Flow Statement,Investing Activities,Net Cash From Investing,90.0%,0.9,0,2750000,,\r\nCash Flow Statement,Financing Activities,Net Cash From Financing,90.0%,0.9,0,2750000,,\r\n",
+  "output_format": "csv",
+  "csv_format_version": "1.0",
+  "csv_validation": {
+    "valid": false,
+    "errors": [
+      "Extra columns found: ['Confidence_Score']",
+      "Found 1 empty row(s)"
+    ],
+    "format_version": "1.0",
+    "column_structure_valid": false,
+    "year_mapping_valid": true,
+    "no_empty_rows": false
+  },
+  "csv_mapping_version": "1.0.0-legacy",
+  "mapping_mode": "legacy",
+  "csv_shadow": null
+}

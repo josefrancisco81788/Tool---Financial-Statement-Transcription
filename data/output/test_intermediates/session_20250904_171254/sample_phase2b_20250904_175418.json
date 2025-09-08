@@ -1,0 +1,100 @@
+{
+  "years_detected": [
+    "2024",
+    "2023",
+    "2022"
+  ],
+  "total_raw_items": 4,
+  "total_consolidated_items": 4,
+  "consolidated_items": [
+    {
+      "consolidated_label": "Cash on hand",
+      "years": [
+        "2024",
+        "2023",
+        "2022"
+      ],
+      "values": [
+        "10000",
+        "9000",
+        "8000"
+      ],
+      "source_labels": [
+        "Cash on hand"
+      ],
+      "consolidation_reasoning": "Fallback - no semantic consolidation applied",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.5
+    },
+    {
+      "consolidated_label": "Trade receivables",
+      "years": [
+        "2024",
+        "2023",
+        "2022"
+      ],
+      "values": [
+        "3000000",
+        "2500000",
+        "2000000"
+      ],
+      "source_labels": [
+        "Trade receivables"
+      ],
+      "consolidation_reasoning": "Fallback - no semantic consolidation applied",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.5
+    },
+    {
+      "consolidated_label": "Cash in bank",
+      "years": [
+        "2024",
+        "2023",
+        "2022"
+      ],
+      "values": [
+        "40000",
+        "36000",
+        "32000"
+      ],
+      "source_labels": [
+        "Cash in bank"
+      ],
+      "consolidation_reasoning": "Fallback - no semantic consolidation applied",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.5
+    },
+    {
+      "consolidated_label": "Accounts receivable",
+      "years": [
+        "2024",
+        "2023",
+        "2022"
+      ],
+      "values": [
+        "500000",
+        "400000",
+        "300000"
+      ],
+      "source_labels": [
+        "Accounts receivable"
+      ],
+      "consolidation_reasoning": "Fallback - no semantic consolidation applied",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.5
+    }
+  ],
+  "consolidation_metadata": {
+    "phase": "2b_year_consolidation",
+    "approach": "ai_semantic_understanding",
+    "interpretation_level": "semantic_consolidation"
+  }
+}

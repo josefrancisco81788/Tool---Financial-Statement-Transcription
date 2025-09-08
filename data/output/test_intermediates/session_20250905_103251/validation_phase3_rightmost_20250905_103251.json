@@ -1,0 +1,120 @@
+{
+  "status": "PASSED",
+  "overall_passed": true,
+  "timestamp": "2025-09-05T10:32:51.460402",
+  "validation_version": "1.0",
+  "years_detected": [
+    "2024",
+    "2023",
+    "2022"
+  ],
+  "validation_metrics": {
+    "key_presence": true,
+    "rightmost_column_completeness": 1.0,
+    "year_guard": true,
+    "confidence_format_valid": true,
+    "complete_year_rows": 1.0,
+    "accounting_identity_check": true
+  },
+  "failure_reasons": [],
+  "coverage_report": {
+    "expected_year_fields": 3,
+    "actual_year_fields": 3,
+    "per_year_coverage": {
+      "Value_Year_1": {
+        "year": "2024",
+        "fields_with_data": 6,
+        "coverage_rate": 1.0
+      },
+      "Value_Year_2": {
+        "year": "2023",
+        "fields_with_data": 6,
+        "coverage_rate": 1.0
+      },
+      "Value_Year_3": {
+        "year": "2022",
+        "fields_with_data": 6,
+        "coverage_rate": 1.0
+      }
+    },
+    "per_field_completeness": {
+      "Cash and Cash Equivalents": {
+        "non_null_years": 3,
+        "total_years": 3,
+        "completeness_rate": 1.0
+      },
+      "Trade Receivables": {
+        "non_null_years": 3,
+        "total_years": 3,
+        "completeness_rate": 1.0
+      },
+      "Total Current Assets": {
+        "non_null_years": 3,
+        "total_years": 3,
+        "completeness_rate": 1.0
+      },
+      "Total Assets": {
+        "non_null_years": 3,
+        "total_years": 3,
+        "completeness_rate": 1.0
+      },
+      "Total Liabilities": {
+        "non_null_years": 3,
+        "total_years": 3,
+        "completeness_rate": 1.0
+      },
+      "Total Equity": {
+        "non_null_years": 3,
+        "total_years": 3,
+        "completeness_rate": 1.0
+      }
+    }
+  },
+  "accounting_checks": {
+    "balance_sheet_identity": {
+      "status": "PASSED",
+      "assets_field": "Total Assets",
+      "liabilities_field": "Total Liabilities",
+      "equity_field": "Total Equity",
+      "year_checks": {
+        "Value_Year_1": {
+          "assets": 14165773.0,
+          "liabilities": 2000000.0,
+          "equity": 12165773.0,
+          "expected_assets": 14165773.0,
+          "difference_pct": 0.0,
+          "valid": true
+        },
+        "Value_Year_2": {
+          "assets": 13212663.0,
+          "liabilities": 1800000.0,
+          "equity": 11412663.0,
+          "expected_assets": 13212663.0,
+          "difference_pct": 0.0,
+          "valid": true
+        },
+        "Value_Year_3": {
+          "assets": 9369455.0,
+          "liabilities": 1500000.0,
+          "equity": 7869455.0,
+          "expected_assets": 9369455.0,
+          "difference_pct": 0.0,
+          "valid": true
+        }
+      }
+    },
+    "cash_flow_identity": {
+      "status": "NOT_APPLICABLE",
+      "reason": "Cash flow fields not found"
+    },
+    "overall_accounting_valid": true
+  },
+  "quality_metrics": {
+    "total_fields": 6,
+    "high_confidence_fields": 6,
+    "complete_fields": 6,
+    "confidence_score": 1.0,
+    "completeness_score": 1.0,
+    "overall_quality_score": 1.0
+  }
+}

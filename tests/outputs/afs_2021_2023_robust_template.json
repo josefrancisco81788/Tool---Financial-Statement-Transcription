@@ -1,0 +1,76 @@
+{
+  "statement_type": "Statement of Financial Position",
+  "company_name": "GBS Concept Advertising Inc.",
+  "period": "As of December 31, 2022",
+  "currency": "PHP",
+  "years_detected": [
+    "2022",
+    "2021"
+  ],
+  "base_year": "2022",
+  "year_ordering": "most_recent_first",
+  "line_items": {
+    "assets": {
+      "current_assets": {
+        "value": 4563148,
+        "confidence": 0.95,
+        "base_year": 4563148,
+        "year_1": 4777801
+      },
+      "total_assets": {
+        "value": 4563148,
+        "confidence": 0.95,
+        "base_year": 4563148,
+        "year_1": 4777801
+      }
+    },
+    "liabilities_and_equity": {
+      "current_liabilities": {
+        "value": 306391,
+        "confidence": 0.95,
+        "base_year": 306391,
+        "year_1": 802015
+      },
+      "non_current_liabilities": {
+        "value": null,
+        "confidence": 0.1,
+        "base_year": null,
+        "year_1": null
+      },
+      "equity": {
+        "value": 4256756,
+        "confidence": 0.95,
+        "base_year": 4256756,
+        "year_1": 3975785
+      },
+      "total_liabilities_and_equity": {
+        "value": 4563148,
+        "confidence": 0.95,
+        "base_year": 4563148,
+        "year_1": 4777801
+      }
+    }
+  },
+  "summary_metrics": {
+    "total_assets": {
+      "value": 4563148,
+      "confidence": 0.95
+    },
+    "total_liabilities_and_equity": {
+      "value": 4563148,
+      "confidence": 0.95
+    }
+  },
+  "document_structure": {
+    "main_sections": [
+      "Assets",
+      "Liabilities and Equity"
+    ],
+    "line_item_count": 7,
+    "has_multi_year_data": true,
+    "special_notes": null
+  },
+  "notes": "The document contains clear labels and numerical values for the years 2022 and 2021. Non-current liabilities section shows no values for both years.",
+  "processing_method": "comprehensive_extraction",
+  "timestamp": 1757283276.2321315
+}

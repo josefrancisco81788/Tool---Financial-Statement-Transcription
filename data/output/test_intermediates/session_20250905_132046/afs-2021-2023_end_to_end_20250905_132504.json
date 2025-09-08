@@ -1,0 +1,66 @@
+{
+  "pipeline_version": "1.0",
+  "input_file": "data/input/samples/afs-2021-2023 - statement extracted.pdf",
+  "start_time": "2025-09-05T13:20:47.057682",
+  "phases": {
+    "phase1": {
+      "name": "Year Detection",
+      "status": "COMPLETED",
+      "duration": 135.443132,
+      "years_detected": [
+        "2022",
+        "2021",
+        "2020"
+      ],
+      "pages_processed": 8
+    },
+    "phase2a": {
+      "name": "RAW Table Read",
+      "status": "COMPLETED",
+      "duration": 96.551811,
+      "tables_extracted": 8
+    },
+    "phase2b": {
+      "name": "AI Year Consolidation",
+      "status": "COMPLETED",
+      "duration": 14.017062,
+      "consolidated_items": 0
+    },
+    "phase2c": {
+      "name": "AI Template Mapping",
+      "status": "COMPLETED",
+      "duration": 10.469085,
+      "mapped_fields": 10
+    },
+    "phase2d": {
+      "name": "Schema Formatting",
+      "status": "COMPLETED",
+      "duration": 0.0,
+      "formatted_fields": 10
+    },
+    "phase3": {
+      "name": "Rigorous Validation",
+      "status": "PASSED",
+      "duration": 0.03876,
+      "overall_passed": true,
+      "validation_metrics": {
+        "key_presence": true,
+        "rightmost_column_completeness": 1.0,
+        "year_guard": true,
+        "confidence_format_valid": true,
+        "complete_year_rows": 1.0,
+        "accounting_identity_check": false,
+        "field_coverage": 0.10989010989010989
+      }
+    },
+    "phase7": {
+      "status": "FAILED",
+      "error": "[Errno 13] Permission denied: 'data/output/afs-2021-2023 - statement extracted_production_ready_results.csv'"
+    }
+  },
+  "final_status": "FAILED",
+  "final_csv": null,
+  "performance_metrics": {},
+  "error": "[Errno 13] Permission denied: 'data/output/afs-2021-2023 - statement extracted_production_ready_results.csv'",
+  "end_time": "2025-09-05T13:25:04.608576"
+}

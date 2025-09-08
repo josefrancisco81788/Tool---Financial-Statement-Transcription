@@ -1,0 +1,33 @@
+{
+  "pipeline_version": "1.0",
+  "input_file": "data/input/samples/afs-2021-2023 - statement extracted.pdf",
+  "start_time": "2025-09-05T15:33:25.274893",
+  "phases": {
+    "phase1": {
+      "name": "Year Detection",
+      "status": "COMPLETED",
+      "duration": 103.523391,
+      "years_detected": [
+        "2022",
+        "2021",
+        "2020"
+      ],
+      "pages_processed": 8
+    },
+    "phase2a": {
+      "name": "RAW Table Read",
+      "status": "COMPLETED",
+      "duration": 102.353284,
+      "tables_extracted": 8
+    },
+    "phase3": {
+      "status": "FAILED",
+      "error": "'list' object has no attribute 'items'"
+    }
+  },
+  "final_status": "FAILED",
+  "final_csv": null,
+  "performance_metrics": {},
+  "error": "'list' object has no attribute 'items'",
+  "end_time": "2025-09-05T15:37:41.488176"
+}

@@ -1,0 +1,661 @@
+{
+  "timestamp": "2025-09-06 09:20:07",
+  "summary": {
+    "total_tests": 4,
+    "successful_tests": 4,
+    "failed_tests": 0,
+    "success_rate": 100.0
+  },
+  "performance": {
+    "average_processing_time": 116.11779165267944,
+    "max_processing_time": 168.43463850021362,
+    "min_processing_time": 87.28943514823914,
+    "total_processing_time": 464.4711666107178
+  },
+  "by_category": {
+    "light": {
+      "total": 4,
+      "successful": 4,
+      "failed": 0
+    }
+  },
+  "results": [
+    {
+      "file": "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "filename": "2021 AFS with SEC Stamp - statement extracted.pdf",
+      "category": "light",
+      "success": true,
+      "error": null,
+      "processing_time": 94.78595018386841,
+      "response_data": {
+        "success": true,
+        "data": {
+          "statement_type": "comparative_statement_of_financial_position",
+          "company_name": "Metechs Industrial Corporation",
+          "period": "As of December 31, 2021 & 2020",
+          "currency": "PHP",
+          "years_detected": [
+            "2021",
+            "2020"
+          ],
+          "base_year": "2021",
+          "year_ordering": "most_recent_first",
+          "line_items": {
+            "current_assets": {
+              "cash_in_bank": {
+                "value": 2557457,
+                "confidence": 0.95,
+                "base_year": 2557457,
+                "year_1": 1778716
+              },
+              "trade_receivables": {
+                "value": 26274253,
+                "confidence": 0.95,
+                "base_year": 26274253,
+                "year_1": 27409240
+              },
+              "inventories": {
+                "value": 10190218,
+                "confidence": 0.95,
+                "base_year": 10190218,
+                "year_1": 13984772
+              },
+              "other_current_assets": {
+                "value": 542778,
+                "confidence": 0.95,
+                "base_year": 542778,
+                "year_1": 2131849
+              },
+              "total_current_assets": {
+                "value": 39564706,
+                "confidence": 0.95,
+                "base_year": 39564706,
+                "year_1": 45304577
+              }
+            },
+            "non_current_assets": {
+              "property_plant_equipment": {
+                "value": 7059947,
+                "confidence": 0.95,
+                "base_year": 7059947,
+                "year_1": 8170659
+              },
+              "total_non_current_assets": {
+                "value": 7059947,
+                "confidence": 0.95,
+                "base_year": 7059947,
+                "year_1": 8170659
+              }
+            },
+            "total_assets": {
+              "value": 46624653,
+              "confidence": 0.95,
+              "base_year": 46624653,
+              "year_1": 53475236
+            },
+            "liabilities": {
+              "loans_payable": {
+                "value": 0,
+                "confidence": 0.95,
+                "base_year": 0,
+                "year_1": 13650759
+              },
+              "other_current_liabilities": {
+                "value": 394471,
+                "confidence": 0.95,
+                "base_year": 394471,
+                "year_1": 185171
+              },
+              "income_tax_payable": {
+                "value": 497148,
+                "confidence": 0.95,
+                "base_year": 497148,
+                "year_1": 109612
+              },
+              "total_liabilities": {
+                "value": 891619,
+                "confidence": 0.95,
+                "base_year": 891619,
+                "year_1": 13945542
+              }
+            },
+            "equity": {
+              "share_capital": {
+                "value": 27000000,
+                "confidence": 0.95,
+                "base_year": 27000000,
+                "year_1": 27000000
+              },
+              "retained_earnings_end": {
+                "value": 18733034,
+                "confidence": 0.95,
+                "base_year": 18733034,
+                "year_1": 12529695
+              },
+              "total_stockholders_equity": {
+                "value": 45733034,
+                "confidence": 0.95,
+                "base_year": 45733034,
+                "year_1": 39529695
+              }
+            },
+            "total_liabilities_equity": {
+              "value": 46624653,
+              "confidence": 0.95,
+              "base_year": 46624653,
+              "year_1": 53475236
+            }
+          },
+          "summary_metrics": {
+            "total_assets": {
+              "value": 46624653,
+              "confidence": 0.95
+            },
+            "total_liabilities": {
+              "value": 891619,
+              "confidence": 0.95
+            },
+            "total_equity": {
+              "value": 45733034,
+              "confidence": 0.95
+            }
+          },
+          "document_structure": {
+            "main_sections": [
+              "Assets",
+              "Liabilities",
+              "Equity"
+            ],
+            "line_item_count": 13,
+            "has_multi_year_data": true,
+            "special_notes": "Includes Exhibits and Notes references."
+          },
+          "notes": "The statement presents a clear separation of current and non-current items with precise multi-year data. All monetary values are in Philippine Peso. Some liabilities items have zero values indicating balance adjustments or repayments.",
+          "processing_method": "multi_page_vector_database",
+          "timestamp": 1757146383.8973598,
+          "pages_processed": 4
+        },
+        "processing_time": 92.6417555809021,
+        "pages_processed": 4,
+        "timestamp": "2025-09-06T08:13:57Z"
+      },
+      "file_size": 2073591,
+      "status_code": 200
+    },
+    {
+      "file": "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "filename": "afs-2021-2023 - statement extracted.pdf",
+      "category": "light",
+      "success": true,
+      "error": null,
+      "processing_time": 168.43463850021362,
+      "response_data": {
+        "success": true,
+        "data": {
+          "statement_type": "Statement of Financial Position",
+          "company_name": "GBS Concept Advertising Inc.",
+          "period": "As of December 31, 2022",
+          "currency": "PHP",
+          "years_detected": [
+            "2022",
+            "2021"
+          ],
+          "base_year": "2022",
+          "year_ordering": "most_recent_first",
+          "line_items": {
+            "assets": {
+              "current_assets": {
+                "value": 4563148,
+                "confidence": 0.95,
+                "base_year": 4563148,
+                "year_1": 4777801
+              }
+            },
+            "liabilities_and_equity": {
+              "current_liabilities": {
+                "value": 306391,
+                "confidence": 0.95,
+                "base_year": 306391,
+                "year_1": 802015
+              },
+              "equity": {
+                "value": 4256756,
+                "confidence": 0.95,
+                "base_year": 4256756,
+                "year_1": 3975785
+              }
+            }
+          },
+          "summary_metrics": {
+            "total_assets": {
+              "value": 4563148,
+              "confidence": 0.95
+            },
+            "total_liabilities_and_equity": {
+              "value": 4563148,
+              "confidence": 0.95
+            }
+          },
+          "document_structure": {
+            "main_sections": [
+              "Assets",
+              "Liabilities and Equity"
+            ],
+            "line_item_count": 4,
+            "has_multi_year_data": true,
+            "special_notes": "No values for non-current liabilities"
+          },
+          "notes": "The document has clear headers and numerical values. No data was available for non-current liabilities.",
+          "processing_method": "multi_page_vector_database",
+          "timestamp": 1757146478.3365777,
+          "pages_processed": 8
+        },
+        "processing_time": 166.37921380996704,
+        "pages_processed": 8,
+        "timestamp": "2025-09-06T08:16:46Z"
+      },
+      "file_size": 718732,
+      "status_code": 200
+    },
+    {
+      "file": "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "filename": "AFS-2022 - statement extracted.pdf",
+      "category": "light",
+      "success": true,
+      "error": null,
+      "processing_time": 87.28943514823914,
+      "response_data": {
+        "success": true,
+        "data": {
+          "statement_type": "Statements of Financial Position",
+          "company_name": "Ideal Marketing & Manufacturing Corporation",
+          "period": "As of December 31",
+          "currency": "PHP",
+          "years_detected": [
+            "2022",
+            "2021"
+          ],
+          "base_year": "2022",
+          "year_ordering": "most_recent_first",
+          "line_items": {
+            "current_assets": {
+              "cash": {
+                "value": 10041673,
+                "confidence": 0.95,
+                "base_year": 10041673,
+                "year_1": 11237376
+              },
+              "receivables": {
+                "value": 6965863,
+                "confidence": 0.95,
+                "base_year": 6965863,
+                "year_1": 9085459
+              },
+              "inventories": {
+                "value": 216357523,
+                "confidence": 0.95,
+                "base_year": 216357523,
+                "year_1": 181220353
+              },
+              "total_current_assets": {
+                "value": 233365059,
+                "confidence": 0.95,
+                "base_year": 233365059,
+                "year_1": 201543188
+              }
+            },
+            "non_current_assets": {
+              "property_and_equipments": {
+                "value": 58663112,
+                "confidence": 0.95,
+                "base_year": 58663112,
+                "year_1": 59868152
+              },
+              "other_assets": {
+                "value": 5438613,
+                "confidence": 0.95,
+                "base_year": 5438613,
+                "year_1": 2314137
+              },
+              "total_non_current_assets": {
+                "value": 64101725,
+                "confidence": 0.95,
+                "base_year": 64101725,
+                "year_1": 62182289
+              }
+            },
+            "total_assets": {
+              "value": 297466784,
+              "confidence": 0.95,
+              "base_year": 297466784,
+              "year_1": 263725477
+            },
+            "current_liabilities": {
+              "trade_and_other_payables": {
+                "value": 178874377,
+                "confidence": 0.95,
+                "base_year": 178874377,
+                "year_1": 151497735
+              },
+              "total_current_liabilities": {
+                "value": 178874377,
+                "confidence": 0.95,
+                "base_year": 178874377,
+                "year_1": 151497735
+              }
+            },
+            "non_current_liabilities": {
+              "total_non_current_liabilities": {
+                "value": 0,
+                "confidence": 0.95,
+                "base_year": 0,
+                "year_1": 0
+              }
+            },
+            "equity": {
+              "share_capital": {
+                "value": 46000000,
+                "confidence": 0.95,
+                "base_year": 46000000,
+                "year_1": 46000000
+              },
+              "retained_earnings": {
+                "value": 72592407,
+                "confidence": 0.95,
+                "base_year": 72592407,
+                "year_1": 66227742
+              },
+              "total_shareholders_equity": {
+                "value": 118592407,
+                "confidence": 0.95,
+                "base_year": 118592407,
+                "year_1": 112227742
+              }
+            },
+            "total_liabilities_and_equity": {
+              "value": 297466784,
+              "confidence": 0.95,
+              "base_year": 297466784,
+              "year_1": 263725477
+            }
+          },
+          "summary_metrics": {
+            "total_assets": {
+              "value": 297466784,
+              "confidence": 0.95
+            },
+            "total_liabilities": {
+              "value": 178874377,
+              "confidence": 0.95
+            },
+            "total_equity": {
+              "value": 118592407,
+              "confidence": 0.95
+            }
+          },
+          "document_structure": {
+            "main_sections": [
+              "Assets",
+              "Liabilities and Shareholders' Equity"
+            ],
+            "line_item_count": 12,
+            "has_multi_year_data": true,
+            "special_notes": "Consistent year structure with totals clearly displayed."
+          },
+          "notes": "All line items are clearly labeled with corresponding values. The document is structured well for extraction with a clear distinction between assets, liabilities, and equity.",
+          "processing_method": "multi_page_vector_database",
+          "timestamp": 1757146641.6563277,
+          "pages_processed": 4
+        },
+        "processing_time": 85.21298933029175,
+        "pages_processed": 4,
+        "timestamp": "2025-09-06T08:18:13Z"
+      },
+      "file_size": 56925,
+      "status_code": 200
+    },
+    {
+      "file": "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "filename": "AFS2024 - statement extracted.pdf",
+      "category": "light",
+      "success": true,
+      "error": null,
+      "processing_time": 113.9611427783966,
+      "response_data": {
+        "success": true,
+        "data": {
+          "statement_type": "STATEMENTS OF FINANCIAL POSITION",
+          "company_name": "WIRELESS SERVICES ASIA INC.",
+          "period": "March 31",
+          "currency": "PHP",
+          "years_detected": [
+            "2024",
+            "2023"
+          ],
+          "base_year": "2024",
+          "year_ordering": "most_recent_first",
+          "line_items": {
+            "current_assets": {
+              "cash": {
+                "value": 40506296,
+                "confidence": 0.95,
+                "base_year": 40506296,
+                "year_1": 14011556
+              },
+              "receivables": {
+                "value": 93102625,
+                "confidence": 0.95,
+                "base_year": 93102625,
+                "year_1": 102434862
+              },
+              "other_current_assets": {
+                "value": 72591698,
+                "confidence": 0.95,
+                "base_year": 72591698,
+                "year_1": 22796639
+              },
+              "total_current_assets": {
+                "value": 206200619,
+                "confidence": 0.95,
+                "base_year": 206200619,
+                "year_1": 139243056
+              }
+            },
+            "non_current_assets": {
+              "investment_in_non_proprietary_shares": {
+                "value": 3000000,
+                "confidence": 0.95,
+                "base_year": 3000000,
+                "year_1": 1900000
+              },
+              "property_equipment": {
+                "value": 240617,
+                "confidence": 0.95,
+                "base_year": 240617,
+                "year_1": 1992274
+              },
+              "other_non_current_assets": {
+                "value": 57086992,
+                "confidence": 0.95,
+                "base_year": 57086992,
+                "year_1": 126866242
+              },
+              "total_non_current_assets": {
+                "value": 60546713,
+                "confidence": 0.95,
+                "base_year": 60546713,
+                "year_1": 130758516
+              }
+            },
+            "total_assets": {
+              "value": 266747332,
+              "confidence": 0.95,
+              "base_year": 266747332,
+              "year_1": 270001572
+            },
+            "current_liabilities": {
+              "trade_payables": {
+                "value": 44907778,
+                "confidence": 0.95,
+                "base_year": 44907778,
+                "year_1": 23297018
+              },
+              "income_tax_payable": {
+                "value": 3243704,
+                "confidence": 0.95,
+                "base_year": 3243704,
+                "year_1": 3735208
+              },
+              "loans_payable_current_portion": {
+                "value": 12172744,
+                "confidence": 0.95,
+                "base_year": 12172744,
+                "year_1": 9752679
+              },
+              "other_current_liabilities": {
+                "value": 18394950,
+                "confidence": 0.95,
+                "base_year": 18394950,
+                "year_1": 20250238
+              },
+              "total_current_liabilities": {
+                "value": 78719175,
+                "confidence": 0.95,
+                "base_year": 78719175,
+                "year_1": 57035143
+              }
+            },
+            "non_current_liabilities": {
+              "advances_from_stockholder": {
+                "value": 21810579,
+                "confidence": 0.95,
+                "base_year": 21810579,
+                "year_1": 28927669
+              },
+              "long_term_liabilities": {
+                "value": 13000000,
+                "confidence": 0.95,
+                "base_year": 13000000
+              },
+              "other_long_term_liabilities": {
+                "value": 7176268,
+                "confidence": 0.95,
+                "base_year": 7176268,
+                "year_1": 46018833
+              },
+              "total_non_current_liabilities": {
+                "value": 41986847,
+                "confidence": 0.95,
+                "base_year": 41986847,
+                "year_1": 74946502
+              }
+            },
+            "total_liabilities": {
+              "value": 120706022,
+              "confidence": 0.95,
+              "base_year": 120706022,
+              "year_1": 131981645
+            },
+            "equity": {
+              "share_capital": {
+                "value": 45667200,
+                "confidence": 0.95,
+                "base_year": 45667200,
+                "year_1": 45667200
+              },
+              "additional_paid_in_capital": {
+                "value": 15833600,
+                "confidence": 0.95,
+                "base_year": 15833600,
+                "year_1": 15833600
+              },
+              "cumulative_earnings_appropriated": {
+                "value": 40000000,
+                "confidence": 0.95,
+                "base_year": 40000000,
+                "year_1": 60000000
+              },
+              "cumulative_earnings_deficit": {
+                "value": 44675911,
+                "confidence": 0.95,
+                "base_year": 44675911,
+                "year_1": 17396953
+              },
+              "gain_loss_on_fair_value_of_asset_held_for_sale": {
+                "value": 2570000,
+                "confidence": 0.95,
+                "base_year": 2570000,
+                "year_1": 1470000
+              },
+              "treasury_shares": {
+                "value": -2705400,
+                "confidence": 0.95,
+                "base_year": -2705400,
+                "year_1": -2347826
+              },
+              "total_equity_deficit": {
+                "value": 146041311,
+                "confidence": 0.95,
+                "base_year": 146041311,
+                "year_1": 138019927
+              }
+            }
+          },
+          "summary_metrics": {
+            "total_assets": {
+              "value": 266747332,
+              "confidence": 0.95
+            },
+            "total_liabilities": {
+              "value": 120706022,
+              "confidence": 0.95
+            },
+            "net_income": null
+          },
+          "document_structure": {
+            "main_sections": [
+              "Assets",
+              "Liabilities",
+              "Equity"
+            ],
+            "line_item_count": 18,
+            "has_multi_year_data": true,
+            "special_notes": "Document includes total liability and equity under a single line"
+          },
+          "notes": "All financial data extracted from the balance sheet structure. Some values are not available for multiple years.",
+          "processing_method": "multi_page_vector_database",
+          "timestamp": 1757146762.0180302,
+          "pages_processed": 3
+        },
+        "processing_time": 111.91967248916626,
+        "pages_processed": 3,
+        "timestamp": "2025-09-06T08:20:07Z"
+      },
+      "file_size": 298456,
+      "status_code": 200
+    }
+  ],
+  "test_state": {
+    "completed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
+    ],
+    "failed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
+    ],
+    "last_run": null
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "test_name": "E2E_AFS2024",
+  "timestamp": "2025-09-05T12:15:13.473716",
+  "error_data": {
+    "test_function": "test_e2e_afs2024",
+    "pipeline_requirement": "complete_ai_forward_flow",
+    "error": "Phase 2d should be removed in AI-forward approach\nassert 'phase2d' not in {'phase1': {'duration': 46.616411, 'name': 'Year Detection', 'pages_processed': 3, 'status': 'COMPLETED', ...}, 'phase2a': {'duration': 56.110047, 'name': 'RAW Table Read', 'status': 'COMPLETED', 'tables_extracted': 3}, 'phase2b': {'consolidated_items': 44, 'duration': 29.47556, 'name': 'AI Year Consolidation', 'status': 'COMPLETED'}, 'phase2c': {'duration': 17.547493, 'mapped_fields': 17, 'name': 'AI Template Mapping', 'status': 'COMPLETED'}, ...}"
+  }
+}

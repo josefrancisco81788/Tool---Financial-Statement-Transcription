@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "years_detected": [
+    "2024",
+    "2023"
+  ],
+  "method": "whole_document_llm_vision",
+  "pages_processed": 3,
+  "total_text_length": 4462,
+  "page_info": [
+    {
+      "page_num": 1,
+      "text": "WIRELESS SERVICES ASIA INC.\nSTATEMENTS OF FINANCIAL POSITION\n\nASSETS\n\nNotes | 2024 | March 31 | 2023\n\nCurrent assets\nCash | 4 | ₱ 40,506,296 | ₱ 14,011,556\nReceivables | 5,6 | 93,102,625 | 102,434,862\nOther current assets | 7 | 72,591,698 | 22,796,639\nTOTAL CURRENT ASSETS | 206,200,619 | 139,243,056\n\nNon-current assets\nInvestment in non-proprietary shares | 9 | 3,000,000 | 1,900,000\nProperty & Equipment | 8 | 240,617 | 1,992,274\nOther non-current assets | 7,14 | 57,306,992 | 126,866,242\nTOTAL NON-CURRENT ASSETS | 60,546,713 | 130,758,516\n\nTOTAL ASSETS | ₱ 266,747,332 | ₱ 270,001,572\n\nLIABILITIES AND OWNER'S CAPITAL\n\nLIABILITIES\n\nCurrent liabilities\nTrade payables | 10 | 44,907,778 | 23,297,018\nIncome tax payable | 17 | 3,243,704 | 3,735,208\nLoans payable - current portion | 11 | 12,172,744 | 9,752,679\nOther current liabilities | 10,17 | 18,394,950 | 20,250,238\nTOTAL CURRENT LIABILITIES | 78,719,175 | 57,035,143\n\nNon-Current liabilities\nAdvances from Stockholder | 6 | 21,810,579 | 28,927,669\nLong-term liabilities | 11 | 13,000,000\nOther long-term liabilities | 12 | 7,176,268 | 46,018,833\nTOTAL NON-CURRENT LIABILITIES | 41,986,847 | 74,946,502\n\nTOTAL LIABILITIES | 120,706,022 | 131,981,645\n\nEQUITY\n\nShare capital | 13 | 45,667,200 | 45,667,200\nAdditional paid-in capital | 13 | 15,833,600 | 15,833,600\nCummulative earnings, appropriated | 13 | 40,000,000 | 60,000,000\nCummulative earnings (deficit) | 13 | 44,675,911 | 17,396,953\nGain (Loss) on fair value of Asset held for sale | 13 | 2,570,000 | 1,470,000\nTreasury Shares | 13 | (2,705,400) | (2,347,826)\nTOTAL EQUITY (DEFICIT) | 146,041,311 | 138,019,927\n\nTOTAL LIABILITIES AND EQUITY (DEFICIT) | ₱ 266,747,332 | ₱ 270,001,572\n\nJUL 2 9 2024",
+      "image_data": 

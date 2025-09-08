@@ -1,0 +1,9 @@
+{
+  "test_name": "E2E_AFS2024",
+  "timestamp": "2025-09-05T11:20:01.961145",
+  "error_data": {
+    "test_function": "test_e2e_afs2024",
+    "pipeline_requirement": "complete_ai_forward_flow",
+    "error": "assert 'status' in {'end_time': '2025-09-05T11:20:01.948766', 'error': \"'list' object has no attribute 'get'\", 'final_csv': None, 'final_status': 'FAILED', ...}"
+  }
+}

@@ -286,6 +286,12 @@ class FinancialDataExtractor:
         if hasattr(image_file, 'read'):
             # File-like object
             image_data = image_file.read()
+        elif hasattr(image_file, 'save'):
+            # PIL Image object
+            import io
+            buffer = io.BytesIO()
+            image_file.save(buffer, format='PNG')
+            image_data = buffer.getvalue()
         else:
             # Assume it's already bytes
             image_data = image_file

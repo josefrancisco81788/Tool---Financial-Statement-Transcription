@@ -1,5 +1,6 @@
 """
 PDF processing module for converting PDFs to images and extracting text.
+Copied exactly from alpha-testing-v1 for optimal performance.
 """
 
 import io
@@ -18,10 +19,82 @@ class PDFProcessor:
         """Initialize PDF processor with optional extractor"""
         self.extractor = extractor or FinancialDataExtractor()
         self.config = Config()
+        
+        # Initialize PDF processing libraries exactly like alpha-testing-v1
+        self.pdf_processing_available = False
+        self.pdf_library = None
+        self.pdf_error_message = None
+        
+        # Test pdf2image with actual Poppler availability (copied from alpha-testing-v1)
+        try:
+            from pdf2image import convert_from_bytes
+            # Test if Poppler is actually available by trying a minimal conversion
+            import tempfile
+            import os
+            
+            # Create a minimal valid PDF for testing (copied from alpha-testing-v1)
+            minimal_pdf = b"""%PDF-1.4
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Kids [3 0 R]
+/Count 1
+>>
+endobj
+3 0 obj
+<<
+/Type /Page
+/Parent 2 0 R
+/MediaBox [0 0 612 792]
+>>
+endobj
+xref
+0 4
+0000000000 65535 f 
+0000000009 00000 n 
+0000000074 00000 n 
+0000000120 00000 n 
+trailer
+<<
+/Size 4
+/Root 1 0 R
+>>
+startxref
+0
+%%EOF"""
+            
+            # Try to convert the test PDF
+            test_images = convert_from_bytes(minimal_pdf, dpi=72)
+            if test_images:
+                self.pdf_processing_available = True
+                self.pdf_library = "pdf2image"
+                print("✅ Using pdf2image for PDF processing (optimal performance)")
+            else:
+                raise Exception("pdf2image conversion failed")
+                
+        except Exception as e:
+            # pdf2image failed, try PyMuPDF (copied from alpha-testing-v1)
+            try:
+                import fitz  # PyMuPDF
+                # Test if fitz.open works properly
+                test_doc = fitz.Document()  # Create empty document to test
+                test_doc.close()
+                self.pdf_processing_available = True
+                self.pdf_library = "pymupdf"
+                print(f"⚠️ pdf2image failed ({str(e)[:100]}...), using PyMuPDF fallback")
+            except (ImportError, AttributeError) as pymupdf_error:
+                self.pdf_error_message = f"Neither pdf2image (with Poppler) nor PyMuPDF available for PDF processing. pdf2image error: {str(e)}, PyMuPDF error: {str(pymupdf_error)}"
     
     def convert_pdf_to_images(self, pdf_file, enable_parallel: bool = True) -> Tuple[List[Image.Image], List[Dict[str, Any]]]:
         """
         Convert PDF to images and extract text using AI Vision API.
+        Copied exactly from alpha-testing-v1 for optimal performance.
         
         Args:
             pdf_file: PDF file (file-like object or bytes)
@@ -30,26 +103,36 @@ class PDFProcessor:
         Returns:
             Tuple of (images, page_info)
         """
+        if not self.pdf_processing_available:
+            raise Exception(f"PDF processing is not available: {self.pdf_error_message}")
+        
         try:
-            # Use PyMuPDF for PDF processing
+            # Get PDF data
             if hasattr(pdf_file, 'read'):
                 pdf_data = pdf_file.read()
             else:
                 pdf_data = pdf_file
             
-            doc = fitz.Document(stream=pdf_data, filetype="pdf")
-            images = []
+            # Use the exact same logic as alpha-testing-v1
+            if self.pdf_library == "pdf2image":
+                # Use pdf2image (copied from alpha-testing-v1)
+                from pdf2image import convert_from_bytes
+                images = convert_from_bytes(pdf_data, dpi=200)
+            elif self.pdf_library == "pymupdf":
+                # Use PyMuPDF as fallback (copied from alpha-testing-v1)
+                import fitz
+                doc = fitz.Document(stream=pdf_data, filetype="pdf")
+                images = []
+                for page_num in range(len(doc)):
+                    page = doc.load_page(page_num)
+                    pix = page.get_pixmap(matrix=fitz.Matrix(200/72, 200/72))  # 200 DPI
+                    img_data = pix.tobytes("png")
+                    images.append(Image.open(io.BytesIO(img_data)))
+                doc.close()
+            else:
+                raise Exception("No PDF processing library available")
             
-            # Convert each page to image
-            for page_num in range(len(doc)):
-                page = doc.load_page(page_num)
-                pix = page.get_pixmap(matrix=fitz.Matrix(200/72, 200/72))  # 200 DPI
-                img_data = pix.tobytes("png")
-                images.append(Image.open(io.BytesIO(img_data)))
-            
-            doc.close()
-            
-            # Extract text from images
+            # Extract text from images using the same parallel processing as alpha-testing-v1
             page_info = self._extract_text_from_images(images, enable_parallel)
             
             return images, page_info

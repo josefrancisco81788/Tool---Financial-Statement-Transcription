@@ -1,0 +1,15 @@
+Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3
+Meta,Reference,Year,,,2022,2021,2020
+Balance Sheet,Current Assets,Current Assets,95.00%,0.95,4,"4,563,148","4,777,801"
+Balance Sheet,Totals,Total Assets,95.00%,0.95,"4,563,148","4,777,801",
+Balance Sheet,Current Liabilities,Current Liabilities,95.00%,0.95,5,"306,391","802,015"
+Balance Sheet,Non Current Liabilities,Non-current Liabilities,95.00%,0.95,6,,
+Balance Sheet,Equity,Equity,95.00%,0.95,7,"4,256,756","3,975,785"
+Balance Sheet,Totals,Total Liabilities And Equity,95.00%,0.95,"4,563,148","4,777,801",
+Income Statement,Revenue,Revenue,95.00%,0.95,8,"9,843,009","20,406,722"
+Income Statement,Revenue,Cost of Sales,95.00%,0.95,9,"8,632,290","18,690,375"
+Income Statement,Revenue,Gross Profit,95.00%,0.95,"1,210,719","1,716,347",
+Income Statement,Before Tax,Income Before Tax,95.00%,0.95,"374,628","925,386",
+Income Statement,After Tax,Income tax expense (from continuing operations),95.00%,0.95,11,"93,657","231,347"
+Income Statement,After Tax,Profit (loss) from continuing operations,95.00%,0.95,"280,971","694,040",
+Balance Sheet,Equity,Issued (share) capital,95.00%,0.95,"3,062,500","3,062,500",

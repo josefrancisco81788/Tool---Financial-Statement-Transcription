@@ -1,0 +1,50 @@
+{
+  "timestamp": "2025-09-06 08:58:58",
+  "debug_duration": 3.854600667953491,
+  "configuration": {
+    "api_key_set": true,
+    "api_key_length": 164,
+    "api_key_prefix": "sk-proj-on...",
+    "model": "gpt-4o",
+    "max_tokens": 4000,
+    "max_file_size": 52428800
+  },
+  "extractor_initialization": {
+    "initialization_success": true,
+    "extractor_type": "FinancialDataExtractor",
+    "openai_client_available": true
+  },
+  "pdf_processor_initialization": {
+    "initialization_success": true,
+    "processor_type": "PDFProcessor"
+  },
+  "file_processing": {
+    "filename": "AFS2024 - statement extracted.pdf",
+    "file_exists": true,
+    "file_size": 298456,
+    "processing_steps": {
+      "pdf_parsing": {
+        "success": true,
+        "page_count": 3
+      },
+      "image_conversion": {
+        "success": true,
+        "image_size": 325050
+      },
+      "base64_encoding": {
+        "success": true,
+        "encoded_size": 433400
+      },
+      "prompt_building": {
+        "success": true,
+        "prompt_length": 9455
+      }
+    }
+  },
+  "api_call": {
+    "filename": "AFS2024 - statement extracted.pdf",
+    "api_call_success": false,
+    "response_data": null,
+    "error": "Error extracting from image: Error in comprehensive extraction: No valid JSON found in AI response"
+  }
+}

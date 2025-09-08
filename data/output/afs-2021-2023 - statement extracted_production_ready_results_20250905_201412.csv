@@ -1,0 +1,12 @@
+Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3
+Meta,Reference,Year,,,2022,2021,2020
+Balance Sheet,Current Assets,Cash and Cash Equivalents,85.00%,0.85,4,"4,563,148","4,777,801"
+Balance Sheet,Totals,Total Assets,95.00%,0.95,"4,563,148","4,777,801",
+Balance Sheet,Totals,Total Liabilities And Equity,95.00%,0.95,"4,563,148","4,777,801",
+Income Statement,Revenue,Revenue,95.00%,0.95,"PHP 9,843,009","PHP 20,406,722",
+Income Statement,Revenue,Cost of Sales,95.00%,0.95,"8,632,290","18,690,375",
+Income Statement,Revenue,Gross Profit,95.00%,0.95,"1,210,719","1,716,347",
+Income Statement,After Tax,Income tax expense (from continuing operations),90.00%,0.9,"93,657","231,347",
+Income Statement,After Tax,Profit (loss) from continuing operations,90.00%,0.9,"PHP 280,971","PHP 694,040",
+Balance Sheet,Equity,Issued (share) capital,95.00%,0.95,"3,062,500","3,062,500",
+Balance Sheet,Equity,Retained Earnings,85.00%,0.85,"280,971","694,040",

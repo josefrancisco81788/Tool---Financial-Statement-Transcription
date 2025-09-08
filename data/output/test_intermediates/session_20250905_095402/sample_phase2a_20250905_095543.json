@@ -1,0 +1,463 @@
+{
+  "total_pages_processed": 3,
+  "total_tables_found": 3,
+  "years_detected": [
+    "2024",
+    "2023"
+  ],
+  "raw_tables": [
+    {
+      "page_number": 1,
+      "table_id": "page_1_table_1",
+      "columns": [
+        "Notes",
+        "2024",
+        "March 31",
+        "2023"
+      ],
+      "rows": [
+        {
+          "label": "Cash",
+          "cells": [
+            "4",
+            "₱ 40,506,296",
+            "₱ 14,011,556"
+          ]
+        },
+        {
+          "label": "Receivables",
+          "cells": [
+            "5,6",
+            "93,102,625",
+            "102,434,862"
+          ]
+        },
+        {
+          "label": "Other current assets",
+          "cells": [
+            "7",
+            "72,591,698",
+            "22,796,639"
+          ]
+        },
+        {
+          "label": "TOTAL CURRENT ASSETS",
+          "cells": [
+            "",
+            "206,200,619",
+            "139,243,056"
+          ]
+        },
+        {
+          "label": "Investment in non-proprietary shares",
+          "cells": [
+            "9",
+            "3,000,000",
+            "1,900,000"
+          ]
+        },
+        {
+          "label": "Property & Equipment",
+          "cells": [
+            "8",
+            "240,617",
+            "1,992,274"
+          ]
+        },
+        {
+          "label": "Other non-current assets",
+          "cells": [
+            "7,14",
+            "57,306,992",
+            "126,866,242"
+          ]
+        },
+        {
+          "label": "TOTAL NON-CURRENT ASSETS",
+          "cells": [
+            "",
+            "60,546,713",
+            "130,758,516"
+          ]
+        },
+        {
+          "label": "TOTAL ASSETS",
+          "cells": [
+            "₱",
+            "266,747,332",
+            "₱ 270,001,572"
+          ]
+        },
+        {
+          "label": "Trade payables",
+          "cells": [
+            "10",
+            "44,907,778",
+            "23,297,018"
+          ]
+        },
+        {
+          "label": "Income tax payable",
+          "cells": [
+            "17",
+            "3,243,704",
+            "3,735,208"
+          ]
+        },
+        {
+          "label": "Loans payable - current portion",
+          "cells": [
+            "11",
+            "12,172,744",
+            "9,752,679"
+          ]
+        },
+        {
+          "label": "Other current liabilities",
+          "cells": [
+            "10,17",
+            "18,394,950",
+            "20,250,238"
+          ]
+        },
+        {
+          "label": "TOTAL CURRENT LIABILITIES",
+          "cells": [
+            "",
+            "78,719,175",
+            "57,035,143"
+          ]
+        },
+        {
+          "label": "Advances from Stockholder",
+          "cells": [
+            "6",
+            "21,810,579",
+            "28,927,669"
+          ]
+        },
+        {
+          "label": "Long-term liabilities",
+          "cells": [
+            "11",
+            "13,000,000",
+            ""
+          ]
+        },
+        {
+          "label": "Other long-term liabilities",
+          "cells": [
+            "12",
+            "7,176,268",
+            "46,018,833"
+          ]
+        },
+        {
+          "label": "TOTAL NON-CURRENT LIABILITIES",
+          "cells": [
+            "",
+            "41,986,847",
+            "74,946,502"
+          ]
+        },
+        {
+          "label": "TOTAL LIABILITIES",
+          "cells": [
+            "",
+            "120,706,022",
+            "131,981,645"
+          ]
+        },
+        {
+          "label": "Share capital",
+          "cells": [
+            "13",
+            "45,667,200",
+            "45,667,200"
+          ]
+        },
+        {
+          "label": "Additional paid-in capital",
+          "cells": [
+            "13",
+            "15,833,600",
+            "15,833,600"
+          ]
+        },
+        {
+          "label": "Cummulative earnings, appropriated",
+          "cells": [
+            "13",
+            "40,000,000",
+            "60,000,000"
+          ]
+        },
+        {
+          "label": "Cummulative earnings (deficit)",
+          "cells": [
+            "13",
+            "44,675,911",
+            "17,396,953"
+          ]
+        },
+        {
+          "label": "Gain (Loss) on fair value of Asset held for sale",
+          "cells": [
+            "13",
+            "2,570,000",
+            "1,470,000"
+          ]
+        },
+        {
+          "label": "Treasury Shares",
+          "cells": [
+            "13",
+            "(2,705,400)",
+            "(2,347,826)"
+          ]
+        },
+        {
+          "label": "TOTAL EQUITY (DEFICIT)",
+          "cells": [
+            "",
+            "146,041,311",
+            "138,019,927"
+          ]
+        },
+        {
+          "label": "TOTAL LIABILITIES AND EQUITY (DEFICIT)",
+          "cells": [
+            "₱",
+            "266,747,332",
+            "₱ 270,001,572"
+          ]
+        }
+      ],
+      "table_type": "balance_sheet",
+      "notes": "The table includes assets, liabilities, and equity sections with notes references.",
+      "row_count": 27,
+      "column_count": 4
+    },
+    {
+      "page_number": 2,
+      "table_id": "page_2_table_1",
+      "columns": [
+        "Label",
+        "Notes",
+        "2024",
+        "2023"
+      ],
+      "rows": [
+        {
+          "label": "REVENUE",
+          "cells": [
+            "16",
+            "₱ 249,788,478",
+            "₱ 292,800,617"
+          ]
+        },
+        {
+          "label": "COST OF SALES",
+          "cells": [
+            "16",
+            "202,328,679",
+            "246,283,513"
+          ]
+        },
+        {
+          "label": "GROSS PROFIT",
+          "cells": [
+            "",
+            "47,459,800",
+            "46,517,104"
+          ]
+        },
+        {
+          "label": "GENERAL & ADMIN EXPENSES",
+          "cells": [
+            "16",
+            "35,409,424",
+            "35,413,180"
+          ]
+        },
+        {
+          "label": "NET OPERATING INCOME (LOSS)",
+          "cells": [
+            "",
+            "12,050,376",
+            "11,103,924"
+          ]
+        },
+        {
+          "label": "OTHER INCOME (EXPENSES)",
+          "cells": [
+            "16",
+            "(26,278)",
+            "4,036,523"
+          ]
+        },
+        {
+          "label": "NET INCOME (LOSS) BEFORE TAX",
+          "cells": [
+            "",
+            "12,024,098",
+            "15,140,447"
+          ]
+        },
+        {
+          "label": "INCOME TAX EXPENSE",
+          "cells": [
+            "17",
+            "3,243,704",
+            "3,735,208"
+          ]
+        },
+        {
+          "label": "NET INCOME (LOSS) AFTER INCOME TAX",
+          "cells": [
+            "",
+            "8,780,395",
+            "11,405,239"
+          ]
+        },
+        {
+          "label": "OTHER COMPREHENSIVE INCOME",
+          "cells": [
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "label": "GAIN (LOSS) ON FAIR VALUE OF ASSET HELD FOR SALE",
+          "cells": [
+            "9",
+            "1,100,000",
+            "(3,515,320)"
+          ]
+        },
+        {
+          "label": "TOTAL COMPREHENSIVE INCOME (LOSS)",
+          "cells": [
+            "",
+            "₱ 9,880,395",
+            "₱ 7,889,919"
+          ]
+        }
+      ],
+      "table_type": "income_statement",
+      "notes": "Table contains financial data for the years 2024 and 2023.",
+      "row_count": 12,
+      "column_count": 4
+    },
+    {
+      "page_number": 3,
+      "table_id": "page_3_table_1",
+      "columns": [
+        "Label",
+        "Notes",
+        "2024",
+        "2023"
+      ],
+      "rows": [
+        {
+          "label": "Share Capital",
+          "cells": [
+            "13",
+            "₱ 45,667,200",
+            "₱ 45,667,200"
+          ]
+        },
+        {
+          "label": "Additional Pai-In Capital",
+          "cells": [
+            "13",
+            "15,833,600",
+            "15,833,600"
+          ]
+        },
+        {
+          "label": "Cumulative earnings, beg.",
+          "cells": [
+            "13",
+            "77,396,953",
+            "96,015,096"
+          ]
+        },
+        {
+          "label": "Net income (loss)",
+          "cells": [
+            "13",
+            "8,780,395",
+            "11,405,239"
+          ]
+        },
+        {
+          "label": "Prior period adjustments",
+          "cells": [
+            "13",
+            "(1,501,437)",
+            "(27,523,195)"
+          ]
+        },
+        {
+          "label": "Dividends",
+          "cells": [
+            "13",
+            "",
+            "(2,500,187)"
+          ]
+        },
+        {
+          "label": "Cumulative earnings, end",
+          "cells": [
+            "13",
+            "84,675,911",
+            "77,396,953"
+          ]
+        },
+        {
+          "label": "Cumulative earnings, appropriated",
+          "cells": [
+            "13",
+            "(40,000,000)",
+            "(60,000,000)"
+          ]
+        },
+        {
+          "label": "Cumulative earnings (deficit)",
+          "cells": [
+            "13",
+            "44,675,911",
+            "17,396,953"
+          ]
+        },
+        {
+          "label": "Gain (Loss) on fair value of Asset held for sale",
+          "cells": [
+            "13",
+            "2,570,000",
+            "1,470,000"
+          ]
+        },
+        {
+          "label": "Treasury Shares",
+          "cells": [
+            "13",
+            "(2,705,400)",
+            "(2,347,826)"
+          ]
+        }
+      ],
+      "table_type": "other",
+      "notes": "Table is titled 'STATEMENTS OF CHANGES IN EQUITY' for the years ended March 31, 2024 and 2023.",
+      "row_count": 11,
+      "column_count": 4
+    }
+  ],
+  "extraction_metadata": {
+    "phase": "2a_raw_table_read",
+    "approach": "pure_transcription",
+    "interpretation_level": "none"
+  }
+}

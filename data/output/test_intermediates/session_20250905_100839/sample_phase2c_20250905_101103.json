@@ -1,0 +1,195 @@
+{
+  "years_detected": [
+    "2024",
+    "2023"
+  ],
+  "total_consolidated_items": 0,
+  "total_mapped_fields": 10,
+  "mapped_template": {
+    "Cash and Cash Equivalents": {
+      "template_field": "Cash and Cash Equivalents",
+      "category": "Balance Sheet",
+      "subcategory": "Current Assets",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "95000",
+        "87000"
+      ],
+      "source_items": [
+        "Cash and cash equivalents"
+      ],
+      "mapping_reasoning": "Direct mapping to cash equivalents",
+      "confidence": 0.95
+    },
+    "Trade and Other Current Receivables": {
+      "template_field": "Trade and Other Current Receivables",
+      "category": "Balance Sheet",
+      "subcategory": "Current Assets",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "120000",
+        "115000"
+      ],
+      "source_items": [
+        "Accounts receivable",
+        "Other receivables"
+      ],
+      "mapping_reasoning": "Accounts receivable and other receivables are part of trade and other current receivables",
+      "confidence": 0.9
+    },
+    "Current Inventories": {
+      "template_field": "Current Inventories",
+      "category": "Balance Sheet",
+      "subcategory": "Current Assets",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "50000",
+        "48000"
+      ],
+      "source_items": [
+        "Inventories"
+      ],
+      "mapping_reasoning": "Inventories directly map to current inventories",
+      "confidence": 0.95
+    },
+    "Property, Plant and Equipment": {
+      "template_field": "Property, Plant and Equipment",
+      "category": "Balance Sheet",
+      "subcategory": "Non Current Assets",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "300000",
+        "290000"
+      ],
+      "source_items": [
+        "Property, plant and equipment"
+      ],
+      "mapping_reasoning": "Direct mapping to property, plant and equipment",
+      "confidence": 0.95
+    },
+    "Total Assets": {
+      "template_field": "Total Assets",
+      "category": "Balance Sheet",
+      "subcategory": "Totals",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "600000",
+        "580000"
+      ],
+      "source_items": [
+        "Total assets"
+      ],
+      "mapping_reasoning": "Direct mapping to total assets",
+      "confidence": 0.95
+    },
+    "Total Liabilities And Equity": {
+      "template_field": "Total Liabilities And Equity",
+      "category": "Balance Sheet",
+      "subcategory": "Totals",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "600000",
+        "580000"
+      ],
+      "source_items": [
+        "Total liabilities and equity"
+      ],
+      "mapping_reasoning": "Direct mapping to total liabilities and equity",
+      "confidence": 0.95
+    },
+    "Revenue": {
+      "template_field": "Revenue",
+      "category": "Income Statement",
+      "subcategory": "Revenue",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "400000",
+        "390000"
+      ],
+      "source_items": [
+        "Sales revenue"
+      ],
+      "mapping_reasoning": "Sales revenue is equivalent to revenue",
+      "confidence": 0.95
+    },
+    "Cost of Sales": {
+      "template_field": "Cost of Sales",
+      "category": "Income Statement",
+      "subcategory": "Revenue",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "250000",
+        "240000"
+      ],
+      "source_items": [
+        "Cost of goods sold"
+      ],
+      "mapping_reasoning": "Cost of goods sold is equivalent to cost of sales",
+      "confidence": 0.95
+    },
+    "Gross Profit": {
+      "template_field": "Gross Profit",
+      "category": "Income Statement",
+      "subcategory": "Revenue",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "150000",
+        "150000"
+      ],
+      "source_items": [
+        "Gross profit"
+      ],
+      "mapping_reasoning": "Direct mapping to gross profit",
+      "confidence": 0.95
+    },
+    "Net Cashflow from Operations (per FS)": {
+      "template_field": "Net Cashflow from Operations (per FS)",
+      "category": "Cash Flow Statement",
+      "subcategory": "Operating Activities",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "80000",
+        "75000"
+      ],
+      "source_items": [
+        "Net cash provided by operating activities"
+      ],
+      "mapping_reasoning": "Net cash provided by operating activities directly maps to net cashflow from operations",
+      "confidence": 0.95
+    }
+  },
+  "mapping_metadata": {
+    "phase": "2c_template_mapping",
+    "approach": "ai_financial_intelligence"
+  }
+}
