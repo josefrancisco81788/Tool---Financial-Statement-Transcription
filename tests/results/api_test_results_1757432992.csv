@@ -1,0 +1,2 @@
+File,Company,Statement Type,Years,Processing Time (s),Pages Processed,Line Items Count,Total Assets,Total Liabilities,Total Equity,Success,Status Code,Error Message
+2021 AFS with SEC Stamp - statement extracted.pdf,Metechs Industrial Corporation,comparative_statement_of_financial_position,"2021, 2020",149.3,5,15,46624653,891619,45733034,True,200,

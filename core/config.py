@@ -28,7 +28,7 @@ class Config:
     SUPPORTED_FILE_TYPES: list = [".pdf", ".png", ".jpg", ".jpeg"]
     
     # Processing Configuration
-    MAX_PAGES_TO_PROCESS: int = int(os.getenv("MAX_PAGES_TO_PROCESS", "10"))
+    MAX_PAGES_TO_PROCESS: int = int(os.getenv("MAX_PAGES_TO_PROCESS", "100"))  # Allow up to 100 pages
     PARALLEL_WORKERS: int = int(os.getenv("PARALLEL_WORKERS", "5"))
     PROCESSING_TIMEOUT: int = int(os.getenv("PROCESSING_TIMEOUT", "900"))  # 15 minutes
     

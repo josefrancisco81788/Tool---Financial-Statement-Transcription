@@ -1,0 +1,3944 @@
+[
+  {
+    "file_actual": "enhanced_test_report_1757432682_financial_data.csv",
+    "file_expected": "FS_Input_Template_Fields_AFS2024.csv",
+    "total_fields": 25,
+    "matches": 22,
+    "mismatches": 3,
+    "missing_actual": 66,
+    "missing_expected": 0,
+    "field_comparisons": [
+      {
+        "field": "Balance Sheet|Current Assets|Cash and Cash Equivalents",
+        "status": "MATCH",
+        "actual_year1": "40506296",
+        "actual_year2": "14011556",
+        "expected_year1": "40506296",
+        "expected_year2": "14011556",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current Inventories",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current Tax Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current biological assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current non-cash assets pledged as collateral for which transferee has right by contract or custom to sell or repledge collateral",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Non-current assets or disposal groups classified as held for sale or as held for distribution to owners",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Other current financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Other current non-financial assets",
+        "status": "MATCH",
+        "actual_year1": "72591698",
+        "actual_year2": "22796639",
+        "expected_year1": "72591698",
+        "expected_year2": "22796639",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Total Current Assets",
+        "status": "MATCH",
+        "actual_year1": "206200619",
+        "actual_year2": "139243056",
+        "expected_year1": "206200619",
+        "expected_year2": "139243056",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Trade and Other Current Receivables",
+        "status": "MATCH",
+        "actual_year1": "93102625",
+        "actual_year2": "102434862",
+        "expected_year1": "93102625",
+        "expected_year2": "102434862",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Current provisions for employee benefits",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Current tax liabilities, current",
+        "status": "MATCH",
+        "actual_year1": "3243704",
+        "actual_year2": "3735208",
+        "expected_year1": "3243704",
+        "expected_year2": "3735208",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Liabilities included in disposal groups classified as held for sale",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current financial liabilities",
+        "status": "MATCH",
+        "actual_year1": "12172744",
+        "actual_year2": "9752679",
+        "expected_year1": "12172744",
+        "expected_year2": "9752679",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current non-financial liabilities",
+        "status": "MATCH",
+        "actual_year1": "18394950",
+        "actual_year2": "20250238",
+        "expected_year1": "18394950",
+        "expected_year2": "20250238",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current provisions",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Total Current Liabilities",
+        "status": "MATCH",
+        "actual_year1": "78719175",
+        "actual_year2": "57035143",
+        "expected_year1": "78719175",
+        "expected_year2": "57035143",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Trade and other current payables",
+        "status": "MATCH",
+        "actual_year1": "44907778",
+        "actual_year2": "23297018",
+        "expected_year1": "44907778",
+        "expected_year2": "23297018",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Equity|Equity",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Issued (share) capital",
+        "status": "MATCH",
+        "actual_year1": "45667200",
+        "actual_year2": "45667200",
+        "expected_year1": "45667200",
+        "expected_year2": "45667200",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Equity|Liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Non-controlling interests",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Other equity interest",
+        "status": "MISMATCH",
+        "actual_year1": "2570000",
+        "actual_year2": "1470000",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Other reserves",
+        "status": "MISMATCH",
+        "actual_year1": "40000000",
+        "actual_year2": "60000000",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Retained earnings",
+        "status": "MATCH",
+        "actual_year1": "44675911",
+        "actual_year2": "17396953",
+        "expected_year1": "44675911",
+        "expected_year2": "17396953",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Equity|Share premium",
+        "status": "MATCH",
+        "actual_year1": "15833600",
+        "actual_year2": "15833600",
+        "expected_year1": "15833600",
+        "expected_year2": "15833600",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Equity|Total Equity",
+        "status": "MATCH",
+        "actual_year1": "146041311",
+        "actual_year2": "138019927",
+        "expected_year1": "146041311",
+        "expected_year2": "138019927",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Equity|Treasury shares",
+        "status": "MATCH",
+        "actual_year1": "-2705400",
+        "actual_year2": "-2347826",
+        "expected_year1": "-2705400",
+        "expected_year2": "-2347826",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Current tax assets, non-current",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Deferred tax assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Goodwill",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Intangible assets other than goodwill",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investment Property",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investment accounted for using equity method",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investments in subsidiaries, joint ventures and associates",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current biological assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current inventories",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current non-cash assets pledged as collateral for which transferee has right by contract or custom to sell or repledge collateral",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Other non-current financial assets",
+        "status": "MATCH",
+        "actual_year1": "3000000",
+        "actual_year2": "1900000",
+        "expected_year1": "3000000",
+        "expected_year2": "1900000",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Other non-current non-financial assets",
+        "status": "MATCH",
+        "actual_year1": "57086992",
+        "actual_year2": "126866242",
+        "expected_year1": "57086992",
+        "expected_year2": "126866242",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Property, Plant and Equipment",
+        "status": "MATCH",
+        "actual_year1": "240617",
+        "actual_year2": "1992274",
+        "expected_year1": "240617",
+        "expected_year2": "1992274",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Total Non Current Assets",
+        "status": "MATCH",
+        "actual_year1": "60546713",
+        "actual_year2": "130758516",
+        "expected_year1": "60546713",
+        "expected_year2": "130758516",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Trade and other non-current receivables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Current tax liabilities, non-current",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Deferred tax liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Non-current provisions for employee benefits",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other long-term financial liabilities",
+        "status": "MISMATCH",
+        "actual_year1": "13000000",
+        "actual_year2": "0",
+        "expected_year1": "13000000",
+        "expected_year2": "",
+        "year1_match": true,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other non-current non-financial liabilities",
+        "status": "MATCH",
+        "actual_year1": "7176268",
+        "actual_year2": "46018833",
+        "expected_year1": "7176268",
+        "expected_year2": "46018833",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other non-current provisions",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Total Non Current Liabilities",
+        "status": "MATCH",
+        "actual_year1": "41986847",
+        "actual_year2": "74946502",
+        "expected_year1": "41986847",
+        "expected_year2": "74946502",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Trade and other non-current payables",
+        "status": "MATCH",
+        "actual_year1": "21810579",
+        "actual_year2": "28927669",
+        "expected_year1": "21810579",
+        "expected_year2": "28927669",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Totals|Total Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "266747332",
+        "expected_year2": "270001572",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Totals|Total Liabilities And Equity",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "266747332",
+        "expected_year2": "270001572",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Amortization",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Amortization Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Depreciation",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Depreciation Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Interest Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Interest Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Lease Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Net Cashflow from Operations (per FS)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Non-Cash Expenses",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Principal Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Comprehensive / Net income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "8780395",
+        "expected_year2": "11405239",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Income tax expense (from continuing operations)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "3243704",
+        "expected_year2": "3735208",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Other comprehensive income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss from discontinued operations",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss) from continuing operations",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Cumulative gain (loss) previously recognised in other comprehensive income arising from reclassification of financial assets out of fair value through other comprehensive income into fair value through profit or loss measurement category. 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Finance costs",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Finance income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gain (loss) arising from derecognition of financial assets measured at amortised cost 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gains (losses) arising form difference between previous carrying amount and fair value of financial assets reclassified as measured at fair value1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gains (losses) on net monetary position 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Hedging gains (losses) for hedge of group of items with offsetting risk positions 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Other income (expense) from subsidiaries, jointly controlled entities and associates 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Profit (loss) before tax",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "12024098",
+        "expected_year2": "15140447",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Share of profit(loss) of associates in joint ventures accounted for using equity method 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Administrative expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "35409424",
+        "expected_year2": "35413180",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Cost of Sales",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "202328679",
+        "expected_year2": "246283513",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Distribution costs",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Gross Profit",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "47459800",
+        "expected_year2": "46517104",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other gains(losses)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Profit (loss) from operating activities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Revenue",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "249788478",
+        "expected_year2": "292800617",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Meta|Reference|Year",
+        "status": "MATCH",
+        "actual_year1": "2024",
+        "actual_year2": "2023",
+        "expected_year1": "2024",
+        "expected_year2": "2023",
+        "year1_match": true,
+        "year2_match": true
+      }
+    ],
+    "summary": {
+      "accuracy_percentage": 88.0,
+      "total_comparable_fields": 25,
+      "fields_with_data_actual": 25,
+      "fields_with_data_expected": 32
+    },
+    "name": "AFS2024 - statement extracted.pdf"
+  },
+  {
+    "file_actual": "enhanced_test_report_1757433779_financial_data.csv",
+    "file_expected": "FS_Input_Template_Fields_2021_AFS_with_SEC_Stamp.csv",
+    "total_fields": 11,
+    "matches": 4,
+    "mismatches": 1,
+    "missing_actual": 86,
+    "missing_expected": 6,
+    "field_comparisons": [
+      {
+        "field": "Balance Sheet|Current Assets|Cash In Bank",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "2557457",
+        "actual_year2": "1778716",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Cash and Cash Equivalents",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "2557457",
+        "expected_year2": "1778716",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current Inventories",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "10190218",
+        "expected_year2": "13984772",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current Tax Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current biological assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current non-cash assets pledged as collateral for which transferee has right by contract or custom to sell or repledge collateral",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Inventories",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "10190218",
+        "actual_year2": "13984772",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Non-current assets or disposal groups classified as held for sale or as held for distribution to owners",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Other current financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Other current non-financial assets",
+        "status": "MATCH",
+        "actual_year1": "542778",
+        "actual_year2": "2131849",
+        "expected_year1": "542778",
+        "expected_year2": "2131849",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Total Current Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "39564706",
+        "expected_year2": "45304577",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Trade Receivables",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "26274253",
+        "actual_year2": "27409240",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Trade and Other Current Receivables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "26274253",
+        "expected_year2": "27409240",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Current provisions for employee benefits",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Current tax liabilities, current",
+        "status": "MATCH",
+        "actual_year1": "497148",
+        "actual_year2": "109612",
+        "expected_year1": "497148",
+        "expected_year2": "109612",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Liabilities included in disposal groups classified as held for sale",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Loans Payable",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "0",
+        "actual_year2": "13650759",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current financial liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "0",
+        "expected_year2": "13650759",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current non-financial liabilities",
+        "status": "MISMATCH",
+        "actual_year1": "394471",
+        "actual_year2": "185171",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current provisions",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Total Current Liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Trade and other current payables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "394471",
+        "expected_year2": "185171",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Equity",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Issued (share) capital",
+        "status": "MATCH",
+        "actual_year1": "27000000",
+        "actual_year2": "27000000",
+        "expected_year1": "27000000",
+        "expected_year2": "27000000",
+        "year1_match": true,
+        "year2_match": true
+      },
+      {
+        "field": "Balance Sheet|Equity|Liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "891619",
+        "expected_year2": "13945542",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Non-controlling interests",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Other equity interest",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Other reserves",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Retained Earnings End",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "18733034",
+        "actual_year2": "12529695",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Retained earnings",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "18733034",
+        "expected_year2": "12529695",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Share premium",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Total Equity",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "45733034",
+        "expected_year2": "39529695",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Treasury shares",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Current tax assets, non-current",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Deferred tax assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Goodwill",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Intangible assets other than goodwill",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investment Property",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investment accounted for using equity method",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investments in subsidiaries, joint ventures and associates",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current biological assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current inventories",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current non-cash assets pledged as collateral for which transferee has right by contract or custom to sell or repledge collateral",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Other non-current financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Other non-current non-financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Property Plant Equipment",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "7059947",
+        "actual_year2": "8170659",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Property, Plant and Equipment",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "7059947",
+        "expected_year2": "8170659",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Total Non Current Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "7059947",
+        "expected_year2": "8170659",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Trade and other non-current receivables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Current tax liabilities, non-current",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Deferred tax liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Non-current provisions for employee benefits",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other long-term financial liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other non-current non-financial liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other non-current provisions",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Total Non Current Liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Trade and other non-current payables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Totals|Total Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "46624653",
+        "expected_year2": "53475236",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Totals|Total Liabilities And Equity",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "46624653",
+        "expected_year2": "53475236",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Amortization",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Amortization Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Depreciation",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Depreciation Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "1110712",
+        "expected_year2": "1148023",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Interest Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Interest Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Lease Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Net Cashflow from Operations (per FS)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "-6535311",
+        "expected_year2": "-2569546",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Non-Cash Expenses",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Principal Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Comprehensive / Net income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "6203339",
+        "expected_year2": "2216206",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Income tax expense (from continuing operations)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "1550835",
+        "expected_year2": "949803",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Other comprehensive income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss from discontinued operations",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss) from continuing operations",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Cumulative gain (loss) previously recognised in other comprehensive income arising from reclassification of financial assets out of fair value through other comprehensive income into fair value through profit or loss measurement category. 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Finance costs",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Finance income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gain (loss) arising from derecognition of financial assets measured at amortised cost 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gains (losses) arising form difference between previous carrying amount and fair value of financial assets reclassified as measured at fair value1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gains (losses) on net monetary position 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Hedging gains (losses) for hedge of group of items with offsetting risk positions 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Other income (expense) from subsidiaries, jointly controlled entities and associates 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Profit (loss) before tax",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "7754174",
+        "expected_year2": "3166008",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Share of profit(loss) of associates in joint ventures accounted for using equity method 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Administrative expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "10803016",
+        "expected_year2": "6958247",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Cost of Sales",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "155025195",
+        "expected_year2": "120662197",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Distribution costs",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Gross Profit",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "18557190",
+        "expected_year2": "10124256",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other gains(losses)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Profit (loss) from operating activities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Revenue",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "173582385",
+        "expected_year2": "130786452",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Meta|Reference|Year",
+        "status": "MATCH",
+        "actual_year1": "2021",
+        "actual_year2": "2020",
+        "expected_year1": "2021",
+        "expected_year2": "2020",
+        "year1_match": true,
+        "year2_match": true
+      }
+    ],
+    "summary": {
+      "accuracy_percentage": 80.0,
+      "total_comparable_fields": 5,
+      "fields_with_data_actual": 11,
+      "fields_with_data_expected": 26
+    },
+    "name": "2021 AFS with SEC Stamp - statement extracted.pdf"
+  },
+  {
+    "file_actual": "enhanced_test_report_1757434094_financial_data.csv",
+    "file_expected": "FS_Input_Template_Fields_afs_2021_2023.csv",
+    "total_fields": 11,
+    "matches": 1,
+    "mismatches": 0,
+    "missing_actual": 90,
+    "missing_expected": 10,
+    "field_comparisons": [
+      {
+        "field": "Balance Sheet|Current Assets|Beginning Balance",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "4382991",
+        "actual_year2": "1561500",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Cash Balance End",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "4269658",
+        "actual_year2": "4382991",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Cash and Cash Equivalents",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current Inventories",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current Tax Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current biological assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current non-cash assets pledged as collateral for which transferee has right by contract or custom to sell or repledge collateral",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Net Cash Provided By Investing Financing Activities",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "0",
+        "actual_year2": "2750000",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Net Increase Decrease In Cash",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "-113333",
+        "actual_year2": "2821491",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Non-current assets or disposal groups classified as held for sale or as held for distribution to owners",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Other current financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Other current non-financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Total Current Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "4563148",
+        "expected_year2": "4777801",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Trade and Other Current Receivables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Current provisions for employee benefits",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Current tax liabilities, current",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Liabilities included in disposal groups classified as held for sale",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current financial liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current non-financial liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current provisions",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Total Current Liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "306391",
+        "expected_year2": "802015",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Trade and other current payables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Equity",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Issued (share) capital",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "3062500",
+        "expected_year2": "3062500",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Non-controlling interests",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Other equity interest",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Other reserves",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Retained earnings",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "1194256",
+        "expected_year2": "913285",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Share premium",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Total Equity",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "4256756",
+        "expected_year2": "3975785",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Treasury shares",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Current tax assets, non-current",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Deferred tax assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Goodwill",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Intangible assets other than goodwill",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investment Property",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investment accounted for using equity method",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investments in subsidiaries, joint ventures and associates",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current biological assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current inventories",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current non-cash assets pledged as collateral for which transferee has right by contract or custom to sell or repledge collateral",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Other non-current financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Other non-current non-financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Property, Plant and Equipment",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Total Non Current Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Trade and other non-current receivables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Current tax liabilities, non-current",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Deferred tax liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Non-current provisions for employee benefits",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other long-term financial liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other non-current non-financial liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other non-current provisions",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Total Non Current Liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "0",
+        "expected_year2": "0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Trade and other non-current payables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Totals|Total Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "4563148",
+        "expected_year2": "4777801",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Totals|Total Liabilities And Equity",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "4563148",
+        "expected_year2": "4777801",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Amortization",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Amortization Depreciation Of Fixed Assets",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "374",
+        "actual_year2": "0",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Amortization Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Cash Paid For Income Taxes",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "-93657",
+        "actual_year2": "-231347",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Depreciation",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Depreciation Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Increase Decrease In Current Assets",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "101320",
+        "actual_year2": "-186855",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Increase Decrease In Current Liabilities",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "-495624",
+        "actual_year2": "-435694",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Interest Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Interest Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Lease Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Net Cash Applied Operating Activities",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "-113333",
+        "actual_year2": "71491",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Net Cashflow from Operations (per FS)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "-113333",
+        "expected_year2": "71491",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Net Income For The Year",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "374628",
+        "actual_year2": "925386",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Non-Cash Expenses",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Principal Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Comprehensive / Net income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "280971",
+        "expected_year2": "694040",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Income tax expense (from continuing operations)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "93657",
+        "expected_year2": "231347",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Other comprehensive income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss from discontinued operations",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss) from continuing operations",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Cumulative gain (loss) previously recognised in other comprehensive income arising from reclassification of financial assets out of fair value through other comprehensive income into fair value through profit or loss measurement category. 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Finance costs",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Finance income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gain (loss) arising from derecognition of financial assets measured at amortised cost 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gains (losses) arising form difference between previous carrying amount and fair value of financial assets reclassified as measured at fair value1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gains (losses) on net monetary position 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Hedging gains (losses) for hedge of group of items with offsetting risk positions 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Other income (expense) from subsidiaries, jointly controlled entities and associates 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Profit (loss) before tax",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "374628",
+        "expected_year2": "925386",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Share of profit(loss) of associates in joint ventures accounted for using equity method 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Administrative expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "836091",
+        "expected_year2": "790961",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Cost of Sales",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "8632290",
+        "expected_year2": "18690375",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Distribution costs",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Gross Profit",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "1210719",
+        "expected_year2": "1716347",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other gains(losses)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Profit (loss) from operating activities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Revenue",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "9843009",
+        "expected_year2": "20406722",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Meta|Reference|Year",
+        "status": "MATCH",
+        "actual_year1": "2022",
+        "actual_year2": "2021",
+        "expected_year1": "2022",
+        "expected_year2": "2021",
+        "year1_match": true,
+        "year2_match": true
+      }
+    ],
+    "summary": {
+      "accuracy_percentage": 100.0,
+      "total_comparable_fields": 1,
+      "fields_with_data_actual": 11,
+      "fields_with_data_expected": 17
+    },
+    "name": "afs-2021-2023 - statement extracted.pdf"
+  },
+  {
+    "file_actual": "enhanced_test_report_1757434254_financial_data.csv",
+    "file_expected": "FS_Input_Template_Fields_AFS-2022.csv",
+    "total_fields": 13,
+    "matches": 0,
+    "mismatches": 6,
+    "missing_actual": 85,
+    "missing_expected": 7,
+    "field_comparisons": [
+      {
+        "field": "Balance Sheet|Current Assets|Cash and Cash Equivalents",
+        "status": "MISMATCH",
+        "actual_year1": "10041673",
+        "actual_year2": "11237376",
+        "expected_year1": "10041673.0",
+        "expected_year2": "11237376.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current Inventories",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "216357523.0",
+        "expected_year2": "181220353.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current Tax Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current biological assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Current non-cash assets pledged as collateral for which transferee has right by contract or custom to sell or repledge collateral",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Inventories",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "216357523",
+        "actual_year2": "181220353",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Issued (share) capital",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "46000000",
+        "actual_year2": "46000000",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Non-current assets or disposal groups classified as held for sale or as held for distribution to owners",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Other current financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Other current non-financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Retained Earnings",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "72592407",
+        "actual_year2": "66227742",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Total Current Assets",
+        "status": "MISMATCH",
+        "actual_year1": "233365059",
+        "actual_year2": "201543188",
+        "expected_year1": "233365059.0",
+        "expected_year2": "201543188.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Total Shareholders Equity",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "118592407",
+        "actual_year2": "112227742",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Assets|Trade and Other Current Receivables",
+        "status": "MISMATCH",
+        "actual_year1": "6965863",
+        "actual_year2": "9085459",
+        "expected_year1": "6965863.0",
+        "expected_year2": "9085459.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Current provisions for employee benefits",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Current tax liabilities, current",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Liabilities included in disposal groups classified as held for sale",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current financial liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current non-financial liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Other current provisions",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Total Current Liabilities",
+        "status": "MISMATCH",
+        "actual_year1": "178874377",
+        "actual_year2": "151497735",
+        "expected_year1": "178874377.0",
+        "expected_year2": "151497735.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Trade And Other Payables",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "178874377",
+        "actual_year2": "151497735",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Current Liabilities|Trade and other current payables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "178874377.0",
+        "expected_year2": "151497735.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Equity",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Issued (share) capital",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "46000000.0",
+        "expected_year2": "46000000.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "178874377.0",
+        "expected_year2": "151497735.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Non-controlling interests",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Other equity interest",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Other reserves",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Retained earnings",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "72592407.0",
+        "expected_year2": "66227742.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Share premium",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Total Equity",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "118592407.0",
+        "expected_year2": "112227742.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Equity|Treasury shares",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Current tax assets, non-current",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Deferred tax assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Goodwill",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Intangible assets other than goodwill",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investment Property",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investment accounted for using equity method",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Investments in subsidiaries, joint ventures and associates",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current biological assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current inventories",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Non-current non-cash assets pledged as collateral for which transferee has right by contract or custom to sell or repledge collateral",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Other Assets",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "5438613",
+        "actual_year2": "2314137",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Other non-current financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Other non-current non-financial assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "5438613.0",
+        "expected_year2": "2314137.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Property And Equipments",
+        "status": "ONLY_IN_ACTUAL",
+        "actual_year1": "58663112",
+        "actual_year2": "59868152",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Property, Plant and Equipment",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "58663112.0",
+        "expected_year2": "59868152.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Total Non Current Assets",
+        "status": "MISMATCH",
+        "actual_year1": "64101725",
+        "actual_year2": "62182289",
+        "expected_year1": "64101725.0",
+        "expected_year2": "62182289.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Assets|Trade and other non-current receivables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Current tax liabilities, non-current",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Deferred tax liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Non-current provisions for employee benefits",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other long-term financial liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other non-current non-financial liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Other non-current provisions",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Total Non Current Liabilities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "0.0",
+        "expected_year2": "0.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Non Current Liabilities|Trade and other non-current payables",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Totals|Total Assets",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "297466784.0",
+        "expected_year2": "263725477.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Balance Sheet|Totals|Total Liabilities And Equity",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "297466784.0",
+        "expected_year2": "263725477.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Amortization",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Amortization Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Depreciation",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Depreciation Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "1205040.0",
+        "expected_year2": "1218229.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Interest Expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Interest Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Lease Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Net Cashflow from Operations (per FS)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Non-Cash Expenses",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Cash Flow Statement|Operating Activities|Principal Payments",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Comprehensive / Net income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "6364665.0",
+        "expected_year2": "6621599.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Income tax expense (from continuing operations)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "2121555.0",
+        "expected_year2": "2207200.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Other comprehensive income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss from discontinued operations",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|After Tax|Profit (loss) from continuing operations",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Cumulative gain (loss) previously recognised in other comprehensive income arising from reclassification of financial assets out of fair value through other comprehensive income into fair value through profit or loss measurement category. 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Difference between carrying amount of dividends payable and carrying amount of non-cash assets distributed 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Finance costs",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Finance income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gain (loss) arising from derecognition of financial assets measured at amortised cost 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gains (losses) arising form difference between previous carrying amount and fair value of financial assets reclassified as measured at fair value1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Gains (losses) on net monetary position 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Hedging gains (losses) for hedge of group of items with offsetting risk positions 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Impairment loss (impairment gain and reversal of impairment loss) determined in accordance with IFRS 9 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Other income (expense) from subsidiaries, jointly controlled entities and associates 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Profit (loss) before tax",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "8486219.0",
+        "expected_year2": "8828798.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Before Tax|Share of profit(loss) of associates in joint ventures accounted for using equity method 1",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Administrative expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "37387453.0",
+        "expected_year2": "37517159.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Cost of Sales",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "439318810.0",
+        "expected_year2": "440879641.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Distribution costs",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Gross Profit",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "45873673.0",
+        "expected_year2": "46345958.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other expense",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other gains(losses)",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Other income",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Profit (loss) from operating activities",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "",
+        "expected_year2": "",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Income Statement|Revenue|Revenue",
+        "status": "ONLY_IN_EXPECTED",
+        "actual_year1": "",
+        "actual_year2": "",
+        "expected_year1": "485192483.0",
+        "expected_year2": "487225599.0",
+        "year1_match": false,
+        "year2_match": false
+      },
+      {
+        "field": "Meta|Reference|Year",
+        "status": "MISMATCH",
+        "actual_year1": "2022",
+        "actual_year2": "2021",
+        "expected_year1": "2022.0",
+        "expected_year2": "2021.0",
+        "year1_match": false,
+        "year2_match": false
+      }
+    ],
+    "summary": {
+      "accuracy_percentage": 0.0,
+      "total_comparable_fields": 6,
+      "fields_with_data_actual": 13,
+      "fields_with_data_expected": 25
+    },
+    "name": "AFS-2022 - statement extracted.pdf"
+  }
+]

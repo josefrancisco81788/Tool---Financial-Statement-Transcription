@@ -296,50 +296,255 @@ class PDFProcessor:
     
     def classify_financial_statement_pages(self, page_info: List[Dict[str, Any]], enable_parallel: bool = True) -> List[Dict[str, Any]]:
         """
-        Classify pages to identify financial statement content.
-        
-        Args:
-            page_info: List of page info dictionaries
-            enable_parallel: Whether to use parallel processing
-            
-        Returns:
-            List of financial statement pages
+        Enhanced classification with universal patterns, number density scoring, and case-insensitive matching.
+        Copied exactly from working Streamlit version.
         """
+        import re
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        
         financial_pages = []
         
-        for page in page_info:
-            if not page['success']:
-                continue
-            
-            # Calculate number density score
-            text = page['text']
-            numbers = [word for word in text.split() if word.replace(',', '').replace('.', '').replace('-', '').isdigit()]
-            number_density = len(numbers) / max(len(text.split()), 1)
-            
-            # Financial statement patterns
-            financial_patterns = [
-                'balance sheet', 'income statement', 'cash flow', 'statement of financial position',
-                'assets', 'liabilities', 'equity', 'revenue', 'expenses', 'profit', 'loss',
-                'current assets', 'non-current assets', 'current liabilities', 'non-current liabilities',
-                'share capital', 'retained earnings', 'total assets', 'total liabilities',
-                'net income', 'gross profit', 'operating income', 'ebitda'
+        # Enhanced universal patterns (case-insensitive) - copied from Streamlit
+        statement_patterns = {
+            'Balance Sheet': [
+                r'statement of financial position',
+                r'balance sheet',
+                r'statement of position',
+                r'financial position'
+            ],
+            'Income Statement': [
+                r'statement of comprehensive income',
+                r'income statement',
+                r'profit and loss',
+                r'statement of operations',
+                r'statement of earnings',
+                r'comprehensive income'
+            ],
+            'Cash Flow Statement': [
+                r'statement of cash flows',
+                r'cash flow statement',
+                r'statement of cash flow',
+                r'cash flows'
+            ],
+            'Statement of Equity': [
+                r'statement of changes in equity',
+                r'statement of equity',
+                r'changes in equity',
+                r'equity statement',
+                r'statement of stockholders.? equity'
+            ]
+        }
+        
+        # Enhanced line item patterns (case-insensitive) - copied from Streamlit
+        line_item_patterns = {
+            'Balance Sheet': [
+                r'current assets', r'non.?current assets', r'total assets',
+                r'current liabilities', r'non.?current liabilities', r'total liabilities',
+                r'shareholders.? equity', r'retained earnings', r'share capital',
+                r'cash and cash equivalents', r'accounts receivable', r'inventory',
+                r'property.? plant.? equipment', r'accounts payable', r'long.?term debt'
+            ],
+            'Income Statement': [
+                r'revenue', r'net sales', r'gross profit', r'operating income',
+                r'net income', r'earnings per share', r'cost of goods sold',
+                r'operating expenses', r'interest expense', r'income tax',
+                r'other comprehensive income', r'basic earnings per share'
+            ],
+            'Cash Flow Statement': [
+                r'cash flows from operating activities', r'cash flows from investing activities',
+                r'cash flows from financing activities', r'net increase.? in cash',
+                r'depreciation and amortization', r'changes in working capital',
+                r'capital expenditures', r'dividends paid', r'proceeds from borrowings'
+            ],
+            'Statement of Equity': [
+                r'beginning balance', r'ending balance', r'comprehensive income',
+                r'dividends declared', r'share issuance', r'treasury shares',
+                r'appropriated', r'unappropriated', r'retained earnings'
+            ]
+        }
+        
+        # Supporting indicators (case-insensitive) - copied from Streamlit
+        supporting_indicators = [
+            r'with comparative figures', r'see notes to', r'notes to financial statements',
+            r'audited', r'unaudited', r'management.?s discussion',
+            r'for the year ended', r'as of', r'december 31', r'march 31',
+            r'amounts in', r'thousands', r'millions', r'philippine peso',
+            r'us dollars', r'consolidated', r'parent company'
+        ]
+        
+        def calculate_number_density_score(page_text):
+            """Calculate enhanced number density score - copied from Streamlit"""
+            # Smart financial number detection
+            financial_number_patterns = [
+                r'[\$₱€£¥¢][\d,]+\.?\d*',  # Currency amounts: $1,000.00, ₱500,000
+                r'\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\b',  # Comma-separated numbers: 1,000,000.50
+                r'\b\d{4,}(?:\.\d+)?\b',  # Large numbers without commas: 50000, 1000000.5
+                r'\(\d{1,3}(?:,\d{3})+(?:\.\d+)?\)',  # Negative numbers in parentheses: (1,000.00)
+                r'\(\d{4,}(?:\.\d+)?\)',  # Negative large numbers: (50000)
+                r'\b\d+\.?\d*%\b',  # Percentages: 15.5%, 20%
             ]
             
-            # Check for financial patterns
-            pattern_matches = sum(1 for pattern in financial_patterns if pattern in text)
-            confidence = min(0.9, (pattern_matches * 0.1) + (number_density * 0.5))
+            # Find all financial numbers
+            financial_numbers = []
+            for pattern in financial_number_patterns:
+                matches = re.findall(pattern, page_text)
+                financial_numbers.extend(matches)
             
-            if confidence > 0.3:  # Threshold for financial content
-                financial_pages.append({
-                    'page_num': page['page_num'],
-                    'statement_type': 'Financial Statement',
-                    'confidence': confidence,
-                    'image': page['image'],
-                    'text': page['text'],
-                    'number_density': number_density,
-                    'financial_numbers_count': len(numbers),
-                    'number_density_score': number_density
-                })
+            # Remove duplicates while preserving order
+            seen = set()
+            unique_financial_numbers = []
+            for num in financial_numbers:
+                if num not in seen:
+                    seen.add(num)
+                    unique_financial_numbers.append(num)
+            
+            # Calculate density metrics
+            total_chars = len(page_text)
+            total_words = len(page_text.split())
+            number_count = len(unique_financial_numbers)
+            
+            # Calculate number density as percentage of words
+            number_density_pct = (number_count / max(total_words, 1)) * 100
+            
+            # Enhanced scoring system - copied from Streamlit
+            if number_density_pct >= 20:    # Very high density - strong positive (financial tables)
+                density_score = 6.0
+            elif number_density_pct >= 15:  # High density - positive
+                density_score = 4.0
+            elif number_density_pct >= 10:  # Medium-high density - positive
+                density_score = 2.0
+            elif number_density_pct >= 7:   # Low-medium density - slight positive
+                density_score = 0.5
+            elif number_density_pct >= 5:   # Low density - neutral
+                density_score = 0.0
+            elif number_density_pct >= 3:   # Very low density - slight negative
+                density_score = -1.0
+            else:                           # Extremely low density - strong negative (narrative text)
+                density_score = -3.0
+            
+            return density_score, number_density_pct, unique_financial_numbers
+        
+        def classify_single_page(page_data):
+            """Classify a single page - copied from Streamlit"""
+            page, page_index, total_pages = page_data
+            try:
+                page_num = page['page_num']
+                page_text = page['text'].lower()  # Convert to lowercase for case-insensitive matching
+                
+                # Calculate number density score
+                number_density_score, number_density, financial_numbers = calculate_number_density_score(page['text'])
+                financial_numbers_count = len(financial_numbers)
+                
+                # Score each statement type
+                statement_scores = {}
+                all_matches = {}
+                
+                for stmt_type, patterns in statement_patterns.items():
+                    score = 0
+                    matches_found = []
+                    
+                    # Statement title patterns (high weight)
+                    for pattern in patterns:
+                        matches = re.findall(pattern, page_text, re.IGNORECASE)
+                        if matches:
+                            score += 5.0 * len(matches)
+                            matches_found.extend([f"Title: '{match}'" for match in matches])
+                    
+                    # Line item patterns (medium weight)
+                    for pattern in line_item_patterns[stmt_type]:
+                        matches = re.findall(pattern, page_text, re.IGNORECASE)
+                        if matches:
+                            score += 2.0 * len(matches)
+                            matches_found.extend([f"Line: '{match}'" for match in matches])
+                    
+                    # Supporting indicators (low weight)
+                    for pattern in supporting_indicators:
+                        matches = re.findall(pattern, page_text, re.IGNORECASE)
+                        if matches:
+                            score += 1.0 * len(matches)
+                            matches_found.extend([f"Support: '{match}'" for match in matches])
+                    
+                    # Add number density score (enhanced weight)
+                    score += number_density_score
+                    
+                    statement_scores[stmt_type] = score
+                    all_matches[stmt_type] = matches_found
+                
+                # Determine classification - find the highest scoring statement type
+                max_score = max(statement_scores.values())
+                
+                # ENHANCED THRESHOLD - copied from Streamlit
+                if max_score >= 3.0:
+                    # Find which statement type has the highest score
+                    statement_type = max(statement_scores.keys(), key=lambda k: statement_scores[k])
+                    
+                    return {
+                        'page_num': page_num,
+                        'statement_type': statement_type,
+                        'confidence': max_score,
+                        'number_density': number_density,
+                        'financial_numbers_count': financial_numbers_count,
+                        'number_density_score': number_density_score,
+                        'image': page['image'],
+                        'text': page['text'],  # Keep original text for processing
+                        'classified': True,
+                        'statement_scores': statement_scores,
+                        'matches': all_matches,
+                        'index': page_index
+                    }
+                else:
+                    return {
+                        'page_num': page_num,
+                        'classified': False,
+                        'max_score': max_score,
+                        'number_density': number_density,
+                        'financial_numbers_count': financial_numbers_count,
+                        'number_density_score': number_density_score,
+                        'statement_scores': statement_scores,
+                        'matches': all_matches,
+                        'index': page_index
+                    }
+                    
+            except Exception as e:
+                return {
+                    'page_num': page.get('page_num', 'Unknown'),
+                    'classified': False,
+                    'error': str(e),
+                    'index': page_index
+                }
+        
+        if not enable_parallel or len(page_info) <= 3:
+            # Sequential processing for small documents
+            for i, page in enumerate(page_info):
+                if not page['success']:
+                    continue
+                result = classify_single_page((page, i, len(page_info)))
+                if result.get('classified', False):
+                    financial_pages.append(result)
+        else:
+            # Parallel processing - copied from Streamlit
+            with ThreadPoolExecutor(max_workers=10) as executor:
+                # Prepare page data with indices
+                page_data_list = [(page, i, len(page_info)) for i, page in enumerate(page_info) if page['success']]
+                
+                # Submit all pages for classification
+                future_to_page = {executor.submit(classify_single_page, page_data): page_data[1] 
+                                 for page_data in page_data_list}
+                
+                # Collect results as they complete
+                results = {}
+                for future in as_completed(future_to_page):
+                    page_index = future_to_page[future]
+                    try:
+                        result = future.result()
+                        if result.get('classified', False):
+                            results[result['index']] = result
+                    except Exception as e:
+                        print(f"Error classifying page {page_index}: {str(e)}")
+                
+                # Sort results by index and add to financial_pages
+                for index in sorted(results.keys()):
+                    financial_pages.append(results[index])
         
         # Sort by confidence
         financial_pages.sort(key=lambda x: x['confidence'], reverse=True)
@@ -370,20 +575,24 @@ class PDFProcessor:
             financial_pages = self.classify_financial_statement_pages(page_info, enable_parallel)
             
             if not financial_pages:
-                # Fallback: process first page
-                financial_pages = [{
-                    'page_num': 1,
-                    'statement_type': 'Unknown',
-                    'confidence': 0.1,
-                    'image': images[0],
-                    'text': page_info[0]['text'] if page_info else "",
-                    'number_density': 0,
-                    'financial_numbers_count': 0,
-                    'number_density_score': 0
-                }]
+                # Fallback: process ALL pages if no financial pages detected (copy Streamlit logic)
+                print("⚠️ No financial statement pages detected. Processing all pages as fallback.")
+                financial_pages = []
+                for i, page in enumerate(page_info):
+                    if page['success']:
+                        financial_pages.append({
+                            'page_num': page['page_num'],
+                            'statement_type': 'Unknown',
+                            'confidence': 0.1,
+                            'image': page['image'],
+                            'text': page['text'],
+                            'number_density': 0,
+                            'financial_numbers_count': 0,
+                            'number_density_score': 0
+                        })
             
-            # Select top pages for processing
-            max_pages_to_process = min(self.config.MAX_PAGES_TO_PROCESS, len(financial_pages))
+            # Select top pages for processing (copy Streamlit logic exactly)
+            max_pages_to_process = min(10, len(financial_pages))  # Streamlit uses 10, not config limit
             selected_pages = financial_pages[:max_pages_to_process]
             
             # Process selected pages

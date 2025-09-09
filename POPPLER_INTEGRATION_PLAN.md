@@ -91,14 +91,14 @@ RUN useradd --create-home --shell /bin/bash app \
 USER app
 
 # Expose port
-EXPOSE 8080
+EXPOSE 8000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8080/health || exit 1
+    CMD curl -f http://localhost:8000/health || exit 1
 
 # Run the application
-CMD ["uvicorn", "api_app:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "api_app:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
 #### **2.2 Alternative: Multi-stage Dockerfile**
@@ -126,8 +126,8 @@ COPY . .
 RUN useradd --create-home --shell /bin/bash app \
     && chown -R app:app /app
 USER app
-EXPOSE 8080
-CMD ["uvicorn", "api_app:app", "--host", "0.0.0.0", "--port", "8080"]
+EXPOSE 8000
+CMD ["uvicorn", "api_app:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
 ### **Phase 3: Local Development Setup**
@@ -384,7 +384,7 @@ services:
   financial-api:
     build: .
     ports:
-      - "8080:8080"
+      - "8000:8000"
     environment:
       - PREFER_POPPLER=true
       - PDF_CONVERSION_DPI=200
@@ -446,10 +446,10 @@ python tests/test_api_enhanced.py --file "AFS2024 - statement extracted.pdf"
 docker build -t financial-api .
 
 # Test Docker container
-docker run -p 8080:8080 financial-api
+docker run -p 8000:8000 financial-api
 
 # Verify no more Poppler warnings
-curl http://localhost:8080/health
+curl http://localhost:8000/health
 ```
 
 ## 📊 **Expected Benefits**

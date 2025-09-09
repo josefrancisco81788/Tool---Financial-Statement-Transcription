@@ -1,0 +1,2 @@
+File,Company,Statement Type,Years,Processing Time (s),Pages Processed,Line Items Count,Total Assets,Total Liabilities,Total Equity,Success,Status Code,Error Message
+AFS2024 - statement extracted.pdf,WIRELESS SERVICES ASIA INC.,STATEMENTS OF FINANCIAL POSITION,"2024, 2023",117.1,3,22,266747332,120706022,146041311,True,200,

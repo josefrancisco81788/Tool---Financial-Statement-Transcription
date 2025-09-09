@@ -15,7 +15,7 @@ from typing import Dict, Any, List
 class APITester:
     """API testing class for financial statement transcription"""
     
-    def __init__(self, base_url: str = "http://localhost:8080"):
+    def __init__(self, base_url: str = "http://localhost:8000"):
         """Initialize API tester"""
         self.base_url = base_url
         self.fixtures_dir = Path("tests/fixtures")

@@ -107,14 +107,14 @@ tests/fixtures/
 ### API Testing with Light Files
 ```bash
 # Test single document
-curl -X POST "http://localhost:8080/extract" \
+curl -X POST "http://localhost:8000/extract" \
   -F "file=@tests/fixtures/light/AFS2024 - statement extracted.pdf" \
   -F "statement_type=balance_sheet"
 
 # Test all light files
 for file in tests/fixtures/light/*.pdf; do
   echo "Testing: $file"
-  curl -X POST "http://localhost:8080/extract" \
+  curl -X POST "http://localhost:8000/extract" \
     -F "file=@$file" \
     -F "statement_type=balance_sheet"
 done
@@ -125,11 +125,33 @@ done
 # Test with full documents
 for file in tests/fixtures/origin/*.pdf; do
   echo "Testing: $file"
-  time curl -X POST "http://localhost:8080/extract" \
+  time curl -X POST "http://localhost:8000/extract" \
     -F "file=@$file" \
     -F "statement_type=balance_sheet"
 done
 ```
+
+## CSV Export
+
+The API test suite now supports CSV export for easy manual review:
+
+```bash
+# Run tests with CSV export
+python tests/test_api_enhanced.py --category light --export-csv
+
+# Run single file with CSV export
+python tests/test_api_enhanced.py --file "AFS2024.pdf" --export-csv
+
+# Run with custom CSV filename
+python tests/test_api_enhanced.py --category light --export-csv --csv-filename "my_results.csv"
+```
+
+**CSV Output Location**: `tests/results/api_test_results_[timestamp].csv`
+
+**CSV Columns**:
+- File, Company, Statement Type, Years, Processing Time (s)
+- Pages Processed, Line Items Count, Total Assets, Total Liabilities, Total Equity
+- Success, Status Code, Error Message
 
 ## Validation
 

@@ -1,0 +1,199 @@
+{
+  "timestamp": "2025-09-09 17:08:14",
+  "summary": {
+    "total_tests": 1,
+    "successful_tests": 1,
+    "failed_tests": 0,
+    "success_rate": 100.0
+  },
+  "performance": {
+    "average_processing_time": 274.54103112220764,
+    "max_processing_time": 274.54103112220764,
+    "min_processing_time": 274.54103112220764,
+    "total_processing_time": 274.54103112220764
+  },
+  "by_category": {
+    "light": {
+      "total": 1,
+      "successful": 1,
+      "failed": 0
+    }
+  },
+  "results": [
+    {
+      "file": "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "filename": "afs-2021-2023 - statement extracted.pdf",
+      "category": "light",
+      "success": true,
+      "error": null,
+      "processing_time": 274.54103112220764,
+      "response_data": {
+        "success": true,
+        "data": {
+          "statement_type": "Statement of Cash Flows",
+          "company_name": "GBS Concept Advertising Inc.",
+          "period": "For the year ended December 31, 2022",
+          "currency": "PHP",
+          "years_detected": [
+            "2022",
+            "2021"
+          ],
+          "base_year": "2022",
+          "year_ordering": "chronological",
+          "line_items": {
+            "operating_activities": {
+              "net_income_for_the_year": {
+                "value": 374628,
+                "confidence": 0.95,
+                "base_year": 374628,
+                "year_1": 925386
+              },
+              "amortization_depreciation_of_fixed_assets": {
+                "value": 374,
+                "confidence": 0.95,
+                "base_year": 374,
+                "year_1": 0
+              },
+              "increase_decrease_in_current_assets": {
+                "value": 101320,
+                "confidence": 0.95,
+                "base_year": 101320,
+                "year_1": -186855
+              },
+              "increase_decrease_in_current_liabilities": {
+                "value": -495624,
+                "confidence": 0.95,
+                "base_year": -495624,
+                "year_1": -435694
+              },
+              "cash_paid_for_income_taxes": {
+                "value": -93657,
+                "confidence": 0.95,
+                "base_year": -93657,
+                "year_1": -231347
+              },
+              "net_cash_applied_operating_activities": {
+                "value": -113333,
+                "confidence": 0.95,
+                "base_year": -113333,
+                "year_1": 71491
+              }
+            },
+            "investing_financing_activities": {
+              "net_cash_provided_by_investing_financing_activities": {
+                "value": 0,
+                "confidence": 0.95,
+                "base_year": 0,
+                "year_1": 2750000
+              }
+            },
+            "cash_changes": {
+              "net_increase_decrease_in_cash": {
+                "value": -113333,
+                "confidence": 0.95,
+                "base_year": -113333,
+                "year_1": 2821491
+              },
+              "beginning_balance": {
+                "value": 4382991,
+                "confidence": 0.95,
+                "base_year": 4382991,
+                "year_1": 1561500
+              },
+              "cash_balance_end": {
+                "value": 4269658,
+                "confidence": 0.95,
+                "base_year": 4269658,
+                "year_1": 4382991
+              }
+            }
+          },
+          "summary_metrics": {
+            "net_cash_from_operating": {
+              "value": -113333,
+              "confidence": 0.95
+            },
+            "net_cash_from_investing_financing": {
+              "value": 0,
+              "confidence": 0.95
+            },
+            "cash_at_end": {
+              "value": 4269658,
+              "confidence": 0.95
+            }
+          },
+          "document_structure": {
+            "main_sections": [
+              "Operating Activities",
+              "Investing/Financing Activities",
+              "Cash Changes"
+            ],
+            "line_item_count": 9,
+            "has_multi_year_data": true,
+            "special_notes": "Investing activities had no entries for 2022, only for 2021."
+          },
+          "notes": "The statement includes operating and investing/financing activities but shows no investing activities for 2022. The format and values were clear and consistent, allowing high confidence in the extracted figures.",
+          "processing_method": "multi_page_vector_database",
+          "timestamp": 1757433893.3556561,
+          "pages_processed": 8
+        },
+        "processing_time": 272.27046632766724,
+        "pages_processed": 8,
+        "timestamp": "2025-09-09T16:08:14Z"
+      },
+      "file_size": 718732,
+      "status_code": 200
+    }
+  ],
+  "test_state": {
+    "completed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf"
+    ],
+    "failed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
+    ],
+    "last_run": null
+  }
+}

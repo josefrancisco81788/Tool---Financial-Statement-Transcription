@@ -296,14 +296,14 @@ python tests/test_api_enhanced.py --timeout 600 --category light
 ### API Endpoint Testing
 ```bash
 # Test single document via API
-curl -X POST "http://localhost:8080/extract" \
+curl -X POST "http://localhost:8000/extract" \
   -F "file=@tests/fixtures/light/AFS2024 - statement extracted.pdf" \
   -F "statement_type=balance_sheet"
 
 # Test all light files
 for file in tests/fixtures/light/*.pdf; do
   echo "Testing: $file"
-  curl -X POST "http://localhost:8080/extract" \
+  curl -X POST "http://localhost:8000/extract" \
     -F "file=@$file" \
     -F "statement_type=balance_sheet"
 done

@@ -1,0 +1,213 @@
+{
+  "timestamp": "2025-09-09 17:10:54",
+  "summary": {
+    "total_tests": 1,
+    "successful_tests": 1,
+    "failed_tests": 0,
+    "success_rate": 100.0
+  },
+  "performance": {
+    "average_processing_time": 143.9109604358673,
+    "max_processing_time": 143.9109604358673,
+    "min_processing_time": 143.9109604358673,
+    "total_processing_time": 143.9109604358673
+  },
+  "by_category": {
+    "light": {
+      "total": 1,
+      "successful": 1,
+      "failed": 0
+    }
+  },
+  "results": [
+    {
+      "file": "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "filename": "AFS-2022 - statement extracted.pdf",
+      "category": "light",
+      "success": true,
+      "error": null,
+      "processing_time": 143.9109604358673,
+      "response_data": {
+        "success": true,
+        "data": {
+          "statement_type": "statements_of_financial_position",
+          "company_name": "ideal_marketing_manufacturing_corporation",
+          "period": "as_of_december_31",
+          "currency": "PHP",
+          "years_detected": [
+            "2022",
+            "2021"
+          ],
+          "base_year": "2022",
+          "year_ordering": "most_recent_first",
+          "line_items": {
+            "current_assets": {
+              "cash": {
+                "value": 10041673,
+                "confidence": 0.95,
+                "base_year": 10041673,
+                "year_1": 11237376
+              },
+              "receivables": {
+                "value": 6965863,
+                "confidence": 0.95,
+                "base_year": 6965863,
+                "year_1": 9085459
+              },
+              "inventories": {
+                "value": 216357523,
+                "confidence": 0.95,
+                "base_year": 216357523,
+                "year_1": 181220353
+              },
+              "total_current_assets": {
+                "value": 233365059,
+                "confidence": 0.95,
+                "base_year": 233365059,
+                "year_1": 201543188
+              }
+            },
+            "non_current_assets": {
+              "property_and_equipments": {
+                "value": 58663112,
+                "confidence": 0.95,
+                "base_year": 58663112,
+                "year_1": 59868152
+              },
+              "other_assets": {
+                "value": 5438613,
+                "confidence": 0.95,
+                "base_year": 5438613,
+                "year_1": 2314137
+              },
+              "total_non_current_assets": {
+                "value": 64101725,
+                "confidence": 0.95,
+                "base_year": 64101725,
+                "year_1": 62182289
+              }
+            },
+            "current_liabilities": {
+              "trade_and_other_payables": {
+                "value": 178874377,
+                "confidence": 0.95,
+                "base_year": 178874377,
+                "year_1": 151497735
+              },
+              "total_current_liabilities": {
+                "value": 178874377,
+                "confidence": 0.95,
+                "base_year": 178874377,
+                "year_1": 151497735
+              }
+            },
+            "shareholders_equity": {
+              "share_capital": {
+                "value": 46000000,
+                "confidence": 0.95,
+                "base_year": 46000000,
+                "year_1": 46000000
+              },
+              "retained_earnings": {
+                "value": 72592407,
+                "confidence": 0.95,
+                "base_year": 72592407,
+                "year_1": 66227742
+              },
+              "total_shareholders_equity": {
+                "value": 118592407,
+                "confidence": 0.95,
+                "base_year": 118592407,
+                "year_1": 112227742
+              }
+            }
+          },
+          "summary_metrics": {
+            "total_assets": {
+              "value": 297466784,
+              "confidence": 0.95
+            },
+            "total_liabilities": {
+              "value": 178874377,
+              "confidence": 0.95
+            },
+            "total_equity": {
+              "value": 118592407,
+              "confidence": 0.95
+            }
+          },
+          "document_structure": {
+            "main_sections": [
+              "Assets",
+              "Liabilities and Shareholders' Equity"
+            ],
+            "line_item_count": 12,
+            "has_multi_year_data": true,
+            "special_notes": "Includes sections for current and non-current assets and liabilities, as well as shareholders' equity."
+          },
+          "notes": "The document follows a standard balance sheet layout with clear labeling and multi-year data. No non-current liabilities were reported.",
+          "processing_method": "multi_page_vector_database",
+          "timestamp": 1757434163.33152,
+          "pages_processed": 4
+        },
+        "processing_time": 141.71730661392212,
+        "pages_processed": 4,
+        "timestamp": "2025-09-09T16:10:54Z"
+      },
+      "file_size": 56925,
+      "status_code": 200
+    }
+  ],
+  "test_state": {
+    "completed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf"
+    ],
+    "failed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
+    ],
+    "last_run": null
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "timestamp": "2025-09-09 16:21:57",
+  "summary": {
+    "total_tests": 1,
+    "successful_tests": 1,
+    "failed_tests": 0,
+    "success_rate": 100.0
+  },
+  "performance": {
+    "average_processing_time": 159.0706307888031,
+    "max_processing_time": 159.0706307888031,
+    "min_processing_time": 159.0706307888031,
+    "total_processing_time": 159.0706307888031
+  },
+  "by_category": {
+    "light": {
+      "total": 1,
+      "successful": 1,
+      "failed": 0
+    }
+  },
+  "results": [
+    {
+      "file": "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "filename": "AFS2024 - statement extracted.pdf",
+      "category": "light",
+      "success": true,
+      "error": null,
+      "processing_time": 159.0706307888031,
+      "response_data": {
+        "success": true,
+        "data": {
+          "statement_type": "STATEMENTS OF OPERATIONS",
+          "company_name": "WIRELESS SERVICES ASIA INC.",
+          "period": "For the years ended March 31",
+          "currency": "PHP",
+          "years_detected": [
+            "2024",
+            "2023"
+          ],
+          "base_year": "2024",
+          "year_ordering": "most_recent_first",
+          "line_items": {
+            "revenues": {
+              "revenue": {
+                "value": 249788478,
+                "confidence": 0.95,
+                "base_year": 249788478,
+                "year_1": 292800617
+              }
+            },
+            "cost_of_sales": {
+              "cost_of_sales": {
+                "value": 202328679,
+                "confidence": 0.95,
+                "base_year": 202328679,
+                "year_1": 246283513
+              }
+            },
+            "gross_profit": {
+              "gross_profit": {
+                "value": 47459800,
+                "confidence": 0.95,
+                "base_year": 47459800,
+                "year_1": 46517104
+              }
+            },
+            "operating_expenses": {
+              "general_admin_expenses": {
+                "value": 35409424,
+                "confidence": 0.95,
+                "base_year": 35409424,
+                "year_1": 35413180
+              }
+            },
+            "operating_income": {
+              "net_operating_income_loss": {
+                "value": 12050376,
+                "confidence": 0.95,
+                "base_year": 12050376,
+                "year_1": 11103924
+              }
+            },
+            "other_income": {
+              "other_income_expenses": {
+                "value": -26278,
+                "confidence": 0.95,
+                "base_year": -26278,
+                "year_1": 4036523
+              }
+            },
+            "income_before_tax": {
+              "net_income_loss_before_tax": {
+                "value": 12024098,
+                "confidence": 0.95,
+                "base_year": 12024098,
+                "year_1": 15140447
+              }
+            },
+            "tax_expense": {
+              "income_tax_expense": {
+                "value": 3243704,
+                "confidence": 0.95,
+                "base_year": 3243704,
+                "year_1": 3735208
+              }
+            },
+            "net_income": {
+              "net_income_loss_after_income_tax": {
+                "value": 8780395,
+                "confidence": 0.95,
+                "base_year": 8780395,
+                "year_1": 11405239
+              }
+            },
+            "comprehensive_income": {
+              "gain_loss_on_fair_value_of_asset_held_for_sale": {
+                "value": 1100000,
+                "confidence": 0.95,
+                "base_year": 1100000,
+                "year_1": -3515320
+              }
+            },
+            "total_comprehensive_income": {
+              "total_comprehensive_income_loss": {
+                "value": 9880395,
+                "confidence": 0.95,
+                "base_year": 9880395,
+                "year_1": 7889919
+              }
+            }
+          },
+          "summary_metrics": {
+            "total_revenue": {
+              "value": 249788478,
+              "confidence": 0.95
+            },
+            "net_income": {
+              "value": 8780395,
+              "confidence": 0.93
+            }
+          },
+          "document_structure": {
+            "main_sections": [
+              "Revenues",
+              "Cost of Sales",
+              "Gross Profit",
+              "Operating Expenses",
+              "Operating Income",
+              "Other Income",
+              "Income Before Tax",
+              "Tax Expense",
+              "Net Income",
+              "Comprehensive Income",
+              "Total Comprehensive Income"
+            ],
+            "line_item_count": 11,
+            "has_multi_year_data": true,
+            "special_notes": "All values are in PHP, multi-year data for 2024 and 2023 detected."
+          },
+          "notes": "All line items and totals are extracted based on clear numerical values under the respective years. Negative numbers are handled with parentheses as indicated in the document.",
+          "processing_method": "multi_page_vector_database",
+          "timestamp": 1757431284.1881223,
+          "pages_processed": 2
+        },
+        "processing_time": 154.4454894065857,
+        "pages_processed": 2,
+        "timestamp": "2025-09-09T15:21:57Z"
+      },
+      "file_size": 298456,
+      "status_code": 200
+    }
+  ],
+  "test_state": {
+    "completed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
+    ],
+    "failed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
+    ],
+    "last_run": null
+  }
+}

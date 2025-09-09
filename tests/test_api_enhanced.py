@@ -33,7 +33,7 @@ class TimeoutError(Exception):
 class APITester:
     """Enhanced API tester with individual file testing and timeout management"""
     
-    def __init__(self, base_url: str = "http://localhost:8080", timeout: int = 300):
+    def __init__(self, base_url: str = "http://localhost:8000", timeout: int = 300):
         """Initialize the API tester"""
         self.base_url = base_url.rstrip('/')
         self.timeout = timeout
@@ -235,7 +235,7 @@ class APITester:
         
         return results
     
-    def generate_report(self, results: List[Dict[str, Any]], save_to_file: bool = True) -> Dict[str, Any]:
+    def generate_report(self, results: List[Dict[str, Any]], save_to_file: bool = True, export_csv: bool = False) -> Dict[str, Any]:
         """Generate comprehensive test report"""
         total_tests = len(results)
         successful_tests = sum(1 for r in results if r["success"])
@@ -284,8 +284,62 @@ class APITester:
             with open(report_file, 'w') as f:
                 json.dump(report, f, indent=2)
             print(f"📊 Report saved to: {report_file}")
+            
+            # CSV export (lazy initialization - no heavy work in __init__)
+            if export_csv:
+                csv_file = self._export_results_to_csv(results, timestamp)
+                print(f"📄 CSV exported to: {csv_file}")
         
         return report
+    
+    def _export_results_to_csv(self, results: List[Dict[str, Any]], timestamp: int) -> str:
+        """Export test results to CSV format (lazy initialization - no heavy work in __init__)"""
+        import csv  # Import only when needed
+        
+        csv_filename = f"api_test_results_{timestamp}.csv"
+        csv_path = self.results_dir / csv_filename
+        
+        with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
+            writer = csv.writer(csvfile)
+            
+            # Write header
+            writer.writerow([
+                'File', 'Company', 'Statement Type', 'Years', 'Processing Time (s)',
+                'Pages Processed', 'Line Items Count', 'Total Assets', 'Total Liabilities', 
+                'Total Equity', 'Success', 'Status Code', 'Error Message'
+            ])
+            
+            # Write data for each result
+            for result in results:
+                response_data = result.get('response_data', {}) or {}
+                data_content = response_data.get('data', {}) or {}
+                
+                # Extract key information (same pattern as extract_test_results_to_csv.py)
+                filename = result['filename']
+                company = data_content.get('company_name', 'N/A')
+                statement_type = data_content.get('statement_type', 'N/A')
+                years = ', '.join(data_content.get('years_detected', []))
+                processing_time = result['processing_time']
+                pages_processed = response_data.get('pages_processed', 'N/A')
+                line_items_count = data_content.get('document_structure', {}).get('line_item_count', 'N/A')
+                
+                # Extract summary metrics
+                summary = data_content.get('summary_metrics', {})
+                total_assets = summary.get('total_assets', {}).get('value', 'N/A')
+                total_liabilities = summary.get('total_liabilities', {}).get('value', 'N/A')
+                total_equity = summary.get('total_equity', {}).get('value', 'N/A')
+                
+                success = result.get('success', False)
+                status_code = result.get('status_code', 'N/A')
+                error_message = result.get('error', 'N/A')
+                
+                writer.writerow([
+                    filename, company, statement_type, years, f"{processing_time:.1f}",
+                    pages_processed, line_items_count, total_assets, total_liabilities,
+                    total_equity, success, status_code, error_message
+                ])
+        
+        return str(csv_path)
     
     def print_summary(self, report: Dict[str, Any]):
         """Print test summary to console"""
@@ -327,12 +381,14 @@ def main():
     
     # Test configuration
     parser.add_argument("--timeout", type=int, default=300, help="Timeout per test in seconds (default: 300)")
-    parser.add_argument("--base-url", type=str, default="http://localhost:8080", help="API base URL")
+    parser.add_argument("--base-url", type=str, default="http://localhost:8000", help="API base URL")
     
     # Output options
     parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
     parser.add_argument("--no-progress", action="store_true", help="Disable progress bar")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be tested without running tests")
+    parser.add_argument("--export-csv", action="store_true", help="Export results to CSV format")
+    parser.add_argument("--csv-filename", type=str, help="Custom CSV filename (optional)")
     
     # State management
     parser.add_argument("--resume", action="store_true", help="Resume from last test state")
@@ -422,7 +478,7 @@ def main():
     results = tester.test_files(files_to_test, verbose=args.verbose, show_progress=not args.no_progress)
     
     # Generate and display report
-    report = tester.generate_report(results)
+    report = tester.generate_report(results, save_to_file=True, export_csv=args.export_csv)
     tester.print_summary(report)
     
     # Return appropriate exit code
