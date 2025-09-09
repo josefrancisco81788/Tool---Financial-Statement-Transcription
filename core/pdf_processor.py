@@ -16,85 +16,79 @@ class PDFProcessor:
     """PDF processing class for converting PDFs to images and extracting text"""
     
     def __init__(self, extractor: Optional[FinancialDataExtractor] = None):
-        """Initialize PDF processor with optional extractor"""
+        """Initialize PDF processor with optional extractor - NO WORK DONE IN INIT"""
         self.extractor = extractor or FinancialDataExtractor()
         self.config = Config()
         
-        # Initialize PDF processing libraries exactly like alpha-testing-v1
+        # Lazy initialization - no work done during import
+        self._backends = None
         self.pdf_processing_available = False
         self.pdf_library = None
         self.pdf_error_message = None
+    
+    def _detect_backends(self):
+        """Detect available PDF processing backends with timeout protection"""
+        import os
+        import shutil
         
-        # Test pdf2image with actual Poppler availability (copied from alpha-testing-v1)
+        backends = {"pymupdf": False, "pdf2image": False, "poppler_path": None}
+        
+        # Test PyMuPDF first (more reliable on Windows)
         try:
-            from pdf2image import convert_from_bytes
-            # Test if Poppler is actually available by trying a minimal conversion
-            import tempfile
-            import os
+            import fitz
+            test_doc = fitz.Document()
+            test_doc.close()
+            backends["pymupdf"] = True
+        except Exception:
+            pass
+        
+        # Test pdf2image only if not disabled
+        if not os.getenv("DISABLE_PDF2IMAGE", "").lower() in ("1", "true", "yes"):
+            try:
+                import pdf2image
+                # Check for Poppler
+                poppler_path = os.getenv("POPPLER_PATH")
+                if poppler_path or shutil.which("pdftoppm"):
+                    backends["pdf2image"] = True
+                    backends["poppler_path"] = poppler_path
+            except Exception:
+                pass
+        
+        return backends
+    
+    def _ensure_backends(self):
+        """Ensure backends are detected (lazy initialization)"""
+        if self._backends is None:
+            self._backends = self._detect_backends()
             
-            # Create a minimal valid PDF for testing (copied from alpha-testing-v1)
-            minimal_pdf = b"""%PDF-1.4
-1 0 obj
-<<
-/Type /Catalog
-/Pages 2 0 R
->>
-endobj
-2 0 obj
-<<
-/Type /Pages
-/Kids [3 0 R]
-/Count 1
->>
-endobj
-3 0 obj
-<<
-/Type /Page
-/Parent 2 0 R
-/MediaBox [0 0 612 792]
->>
-endobj
-xref
-0 4
-0000000000 65535 f 
-0000000009 00000 n 
-0000000074 00000 n 
-0000000120 00000 n 
-trailer
-<<
-/Size 4
-/Root 1 0 R
->>
-startxref
-0
-%%EOF"""
-            
-            # Try to convert the test PDF
-            test_images = convert_from_bytes(minimal_pdf, dpi=72)
-            if test_images:
+            # Set the primary library based on availability
+            if self._backends["pymupdf"]:
+                self.pdf_library = "pymupdf"
                 self.pdf_processing_available = True
+                print("✅ Using PyMuPDF for PDF processing (reliable)")
+            elif self._backends["pdf2image"]:
                 self.pdf_library = "pdf2image"
+                self.pdf_processing_available = True
                 print("✅ Using pdf2image for PDF processing (optimal performance)")
             else:
-                raise Exception("pdf2image conversion failed")
-                
-        except Exception as e:
-            # pdf2image failed, try PyMuPDF (copied from alpha-testing-v1)
+                self.pdf_error_message = "No usable PDF processing library available"
+                self.pdf_processing_available = False
+    
+    def _with_timeout(self, fn, timeout=15):
+        """Execute function with timeout protection"""
+        from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
+        
+        with ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(fn)
             try:
-                import fitz  # PyMuPDF
-                # Test if fitz.open works properly
-                test_doc = fitz.Document()  # Create empty document to test
-                test_doc.close()
-                self.pdf_processing_available = True
-                self.pdf_library = "pymupdf"
-                print(f"⚠️ pdf2image failed ({str(e)[:100]}...), using PyMuPDF fallback")
-            except (ImportError, AttributeError) as pymupdf_error:
-                self.pdf_error_message = f"Neither pdf2image (with Poppler) nor PyMuPDF available for PDF processing. pdf2image error: {str(e)}, PyMuPDF error: {str(pymupdf_error)}"
+                return future.result(timeout=timeout)
+            except FutureTimeoutError:
+                raise TimeoutError(f"Operation timed out after {timeout} seconds")
     
     def convert_pdf_to_images(self, pdf_file, enable_parallel: bool = True) -> Tuple[List[Image.Image], List[Dict[str, Any]]]:
         """
         Convert PDF to images and extract text using AI Vision API.
-        Copied exactly from alpha-testing-v1 for optimal performance.
+        Uses lazy initialization with timeout protection.
         
         Args:
             pdf_file: PDF file (file-like object or bytes)
@@ -103,6 +97,9 @@ startxref
         Returns:
             Tuple of (images, page_info)
         """
+        # Ensure backends are detected (lazy initialization)
+        self._ensure_backends()
+        
         if not self.pdf_processing_available:
             raise Exception(f"PDF processing is not available: {self.pdf_error_message}")
         
@@ -113,22 +110,31 @@ startxref
             else:
                 pdf_data = pdf_file
             
-            # Use the exact same logic as alpha-testing-v1
+            # Use backend-specific conversion with timeout protection
             if self.pdf_library == "pdf2image":
-                # Use pdf2image (copied from alpha-testing-v1)
-                from pdf2image import convert_from_bytes
-                images = convert_from_bytes(pdf_data, dpi=200)
+                def _convert_with_pdf2image():
+                    from pdf2image import convert_from_bytes
+                    return convert_from_bytes(
+                        pdf_data, 
+                        dpi=200,
+                        poppler_path=self._backends.get("poppler_path")
+                    )
+                images = self._with_timeout(_convert_with_pdf2image, timeout=30)
+                
             elif self.pdf_library == "pymupdf":
-                # Use PyMuPDF as fallback (copied from alpha-testing-v1)
-                import fitz
-                doc = fitz.Document(stream=pdf_data, filetype="pdf")
-                images = []
-                for page_num in range(len(doc)):
-                    page = doc.load_page(page_num)
-                    pix = page.get_pixmap(matrix=fitz.Matrix(200/72, 200/72))  # 200 DPI
-                    img_data = pix.tobytes("png")
-                    images.append(Image.open(io.BytesIO(img_data)))
-                doc.close()
+                def _convert_with_pymupdf():
+                    import fitz
+                    doc = fitz.Document(stream=pdf_data, filetype="pdf")
+                    images = []
+                    for page_num in range(len(doc)):
+                        page = doc.load_page(page_num)
+                        pix = page.get_pixmap(matrix=fitz.Matrix(200/72, 200/72))  # 200 DPI
+                        img_data = pix.tobytes("png")
+                        images.append(Image.open(io.BytesIO(img_data)))
+                    doc.close()
+                    return images
+                images = self._with_timeout(_convert_with_pymupdf, timeout=30)
+                
             else:
                 raise Exception("No PDF processing library available")
             
@@ -352,6 +358,9 @@ startxref
             Dictionary containing extracted financial data
         """
         try:
+            # Ensure backends are detected (lazy initialization)
+            self._ensure_backends()
+            
             # Convert PDF to images and extract text
             images, page_info = self.convert_pdf_to_images(pdf_file, enable_parallel)
             if not images or not page_info:
