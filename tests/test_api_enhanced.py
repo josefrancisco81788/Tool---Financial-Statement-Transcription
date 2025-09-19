@@ -24,6 +24,10 @@ import requests
 from tqdm import tqdm
 import threading
 
+# Add project root to path for core CSV exporter
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from tests.core.csv_exporter import CSVExporter
+
 
 class TimeoutError(Exception):
     """Custom timeout exception"""
@@ -40,6 +44,7 @@ class APITester:
         self.fixtures_dir = Path("tests/fixtures")
         self.results_dir = Path("tests/results")
         self.results_dir.mkdir(exist_ok=True)
+        self.csv_exporter = CSVExporter()  # Initialize core CSV exporter
         
         # Test categories
         self.categories = {
@@ -293,51 +298,55 @@ class APITester:
         return report
     
     def _export_results_to_csv(self, results: List[Dict[str, Any]], timestamp: int) -> str:
-        """Export test results to CSV format (lazy initialization - no heavy work in __init__)"""
-        import csv  # Import only when needed
-        
+        """Export test results to CSV format using core CSV exporter"""
         csv_filename = f"api_test_results_{timestamp}.csv"
         csv_path = self.results_dir / csv_filename
         
-        with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
-            writer = csv.writer(csvfile)
-            
-            # Write header
-            writer.writerow([
-                'File', 'Company', 'Statement Type', 'Years', 'Processing Time (s)',
-                'Pages Processed', 'Line Items Count', 'Total Assets', 'Total Liabilities', 
-                'Total Equity', 'Success', 'Status Code', 'Error Message'
-            ])
-            
-            # Write data for each result
-            for result in results:
-                response_data = result.get('response_data', {}) or {}
-                data_content = response_data.get('data', {}) or {}
+        # Use core CSV exporter for summary CSV
+        success = self.csv_exporter.export_to_summary_csv(results, str(csv_path))
+        
+        if not success:
+            # Fallback to manual CSV export if core exporter fails
+            import csv
+            with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
+                writer = csv.writer(csvfile)
                 
-                # Extract key information (same pattern as extract_test_results_to_csv.py)
-                filename = result['filename']
-                company = data_content.get('company_name', 'N/A')
-                statement_type = data_content.get('statement_type', 'N/A')
-                years = ', '.join(data_content.get('years_detected', []))
-                processing_time = result['processing_time']
-                pages_processed = response_data.get('pages_processed', 'N/A')
-                line_items_count = data_content.get('document_structure', {}).get('line_item_count', 'N/A')
-                
-                # Extract summary metrics
-                summary = data_content.get('summary_metrics', {})
-                total_assets = summary.get('total_assets', {}).get('value', 'N/A')
-                total_liabilities = summary.get('total_liabilities', {}).get('value', 'N/A')
-                total_equity = summary.get('total_equity', {}).get('value', 'N/A')
-                
-                success = result.get('success', False)
-                status_code = result.get('status_code', 'N/A')
-                error_message = result.get('error', 'N/A')
-                
+                # Write header
                 writer.writerow([
-                    filename, company, statement_type, years, f"{processing_time:.1f}",
-                    pages_processed, line_items_count, total_assets, total_liabilities,
-                    total_equity, success, status_code, error_message
+                    'File', 'Company', 'Statement Type', 'Years', 'Processing Time (s)',
+                    'Pages Processed', 'Line Items Count', 'Total Assets', 'Total Liabilities', 
+                    'Total Equity', 'Success', 'Status Code', 'Error Message'
                 ])
+                
+                # Write data for each result
+                for result in results:
+                    response_data = result.get('response_data', {}) or {}
+                    data_content = response_data.get('data', {}) or {}
+                    
+                    # Extract key information (same pattern as extract_test_results_to_csv.py)
+                    filename = result['filename']
+                    company = data_content.get('company_name', 'N/A')
+                    statement_type = data_content.get('statement_type', 'N/A')
+                    years = ', '.join(data_content.get('years_detected', []))
+                    processing_time = result['processing_time']
+                    pages_processed = response_data.get('pages_processed', 'N/A')
+                    line_items_count = data_content.get('document_structure', {}).get('line_item_count', 'N/A')
+                    
+                    # Extract summary metrics
+                    summary = data_content.get('summary_metrics', {})
+                    total_assets = summary.get('total_assets', {}).get('value', 'N/A')
+                    total_liabilities = summary.get('total_liabilities', {}).get('value', 'N/A')
+                    total_equity = summary.get('total_equity', {}).get('value', 'N/A')
+                    
+                    success = result.get('success', False)
+                    status_code = result.get('status_code', 'N/A')
+                    error_message = result.get('error', 'N/A')
+                    
+                    writer.writerow([
+                        filename, company, statement_type, years, f"{processing_time:.1f}",
+                        pages_processed, line_items_count, total_assets, total_liabilities,
+                        total_equity, success, status_code, error_message
+                    ])
         
         return str(csv_path)
     

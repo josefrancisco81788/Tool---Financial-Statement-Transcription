@@ -9,6 +9,49 @@ import sys
 from pathlib import Path
 from typing import Dict, Any, List
 
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from tests.core.csv_exporter import CSVExporter
+
+
+def convert_json_to_template_csv_core(json_file_path: str, output_csv_path: str = None) -> str:
+    """
+    Convert API JSON response to template CSV format using core CSV exporter.
+    
+    Args:
+        json_file_path: Path to the JSON test report file
+        output_csv_path: Optional output CSV path (defaults to same directory as JSON)
+    
+    Returns:
+        Path to the created CSV file
+    """
+    # Load the JSON data
+    with open(json_file_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    
+    # Determine output path
+    if output_csv_path is None:
+        json_path = Path(json_file_path)
+        output_csv_path = json_path.parent / f"{json_path.stem}_template_format.csv"
+    
+    # Extract the financial data from the API response
+    extracted_data = data.get('data', {})
+    
+    if not extracted_data:
+        print("❌ No financial data found in JSON response")
+        return None
+    
+    # Use core CSV exporter
+    csv_exporter = CSVExporter()
+    success = csv_exporter.export_to_template_csv(extracted_data, str(output_csv_path))
+    
+    if success:
+        print(f"✅ Template CSV created: {output_csv_path}")
+        return str(output_csv_path)
+    else:
+        print("❌ Failed to create template CSV")
+        return None
+
 
 def convert_json_to_template_csv(json_file_path: str, output_csv_path: str = None) -> str:
     """

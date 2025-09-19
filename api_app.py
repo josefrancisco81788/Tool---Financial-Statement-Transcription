@@ -7,6 +7,8 @@ using AI-powered analysis. Built on the proven alpha-testing-v1 foundation.
 
 import os
 import time
+import tempfile
+import base64
 from typing import Optional, Dict, Any
 from fastapi import FastAPI, File, UploadFile, HTTPException, Form
 from fastapi.responses import JSONResponse
@@ -19,6 +21,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from core import FinancialDataExtractor, PDFProcessor, Config
+from tests.core.csv_exporter import CSVExporter
 
 
 # Initialize FastAPI app
@@ -43,6 +46,7 @@ app.add_middleware(
 config = Config()
 extractor = FinancialDataExtractor()
 pdf_processor = PDFProcessor(extractor)
+csv_exporter = CSVExporter()
 
 
 # Request/Response Models
@@ -61,6 +65,8 @@ class ErrorResponse(BaseModel):
 class SuccessResponse(BaseModel):
     success: bool = True
     data: Dict[str, Any]
+    template_csv: Optional[str] = None
+    template_fields_mapped: Optional[int] = None
     processing_time: float
     pages_processed: int
     timestamp: str
@@ -146,8 +152,39 @@ async def extract_financial_data(
         # Calculate processing time
         processing_time = time.time() - start_time
         
+        # Generate template CSV
+        template_csv = None
+        template_fields_mapped = 0
+        
+        try:
+            # Create temporary file for CSV export
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as temp_file:
+                temp_csv_path = temp_file.name
+            
+            # Export to template CSV
+            csv_success = csv_exporter.export_to_template_csv(extracted_data, temp_csv_path)
+            
+            if csv_success and os.path.exists(temp_csv_path):
+                # Read the generated CSV and encode as base64
+                with open(temp_csv_path, 'r', encoding='utf-8') as f:
+                    csv_content = f.read()
+                template_csv = base64.b64encode(csv_content.encode('utf-8')).decode('utf-8')
+                
+                # Count mapped fields
+                validation = csv_exporter.validate_template_compliance(temp_csv_path)
+                template_fields_mapped = validation.get('non_empty_fields', 0)
+                
+                # Clean up temporary file
+                os.unlink(temp_csv_path)
+                
+        except Exception as e:
+            print(f"Warning: CSV generation failed: {e}")
+            # Continue without CSV data
+        
         return SuccessResponse(
             data=extracted_data,
+            template_csv=template_csv,
+            template_fields_mapped=template_fields_mapped,
             processing_time=processing_time,
             pages_processed=pages_processed,
             timestamp=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())

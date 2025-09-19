@@ -23,19 +23,20 @@ The Financial Statement Transcription API provides programmatic access to our AI
 - **Multi-format Support**: PDF files, PNG, JPG, JPEG images
 - **AI-Powered Extraction**: OpenAI GPT-4 Vision for intelligent data recognition
 - **Multi-year Support**: Handles comparative financial statements (2024, 2023, 2022, etc.)
-- **High Accuracy**: Proven extraction logic with consistent year coverage
+- **Per-Page Classification**: Automatically detects statement types for each page (Balance Sheet, Income Statement, Cash Flow, Equity)
 - **Standardized Output**: Template CSV format matching `FS_Input_Template_Fields.csv`
 - **Cloud Ready**: Optimized for Google Cloud Run deployment
 - **RESTful API**: Simple HTTP endpoints with JSON responses
 
 ### Performance Characteristics
 - **Year Coverage**: Consistently extracts all available years
-- **Row Extraction**: 20-30+ financial line items per document
+- **Row Extraction**: 11.8-65.6% field extraction rate (varies by document type)
 - **PDF Conversion**: 19-23 seconds for 3-page documents
 - **Individual Image Processing**: 20-45 seconds per image
 - **Total Processing**: 85-120 seconds for typical 3-page financial statements
 - **Template Output**: 7,443 bytes for complete balance sheet data
 - **Reliability**: Built-in retry logic and error handling
+- **Overall Score**: 62.1% (not production ready - see testing section)
 
 ### Processing Architecture
 
@@ -43,13 +44,15 @@ The Financial Statement Transcription API provides programmatic access to our AI
 The API uses a robust processing approach that handles each page individually to ensure maximum reliability:
 
 - **Individual Image Processing**: Each PDF page is converted to an image and processed separately
-- **Smart Statement Selection**: Automatically identifies and prioritizes Balance Sheet data over Operations or Equity statements
+- **Per-Page Statement Classification**: AI automatically detects the statement type for each page (Balance Sheet, Income Statement, Cash Flow, Equity)
+- **Multi-Statement Document Support**: Handles documents containing multiple statement types in one PDF
 - **Fallback Processing**: Graceful handling of PDF library failures (pdf2image → PyMuPDF fallback)
 - **Error Isolation**: Processing errors on one page don't affect other pages
 
 #### Multi-Page Document Handling
 - **Page-by-Page Analysis**: Each page is analyzed independently for optimal accuracy
-- **Statement Type Detection**: Automatically identifies Financial Position, Operations, and Changes in Equity
+- **AI Statement Type Detection**: Uses pattern matching and number density scoring to identify statement types per page
+- **Multi-Statement Support**: Processes documents containing Balance Sheet, Income Statement, Cash Flow, and Equity statements
 - **Data Consolidation**: Combines results from multiple pages while maintaining data integrity
 - **Template Mapping**: Maps extracted data to standardized template format
 
@@ -65,8 +68,7 @@ The API uses a robust processing approach that handles each page individually to
 ```bash
 curl -X POST "https://your-api-url.com/extract" \
   -H "Content-Type: multipart/form-data" \
-  -F "file=@your-financial-statement.pdf" \
-  -F "statement_type=balance_sheet"
+  -F "file=@your-financial-statement.pdf"
 ```
 
 ### Response
@@ -95,6 +97,29 @@ curl -X POST "https://your-api-url.com/extract" \
 }
 ```
 
+## 🏗️ Statement Type Architecture
+
+### How Statement Type Detection Works
+
+The API uses a sophisticated **per-page classification system** that automatically detects the type of financial statement on each page:
+
+#### Per-Page AI Classification
+- **Automatic Detection**: AI analyzes each page independently using pattern matching and number density scoring
+- **Statement Types Supported**: Balance Sheet, Income Statement, Cash Flow Statement, Statement of Equity
+- **Multi-Statement Documents**: Handles documents containing multiple statement types in one PDF
+- **No User Bias**: Eliminates user-specified statement type hints that could introduce bias
+
+#### Why Per-Page Classification is Superior
+- **Real-World Accuracy**: Financial documents typically contain all statement types in one PDF
+- **Comprehensive Extraction**: Gets all statement types without user intervention
+- **Bias-Free Processing**: AI determines statement types based on actual content, not user assumptions
+- **Optimal for Complex Documents**: Handles multi-statement documents correctly
+
+#### Statement Type Parameter Behavior
+- **For PDF Files**: `statement_type` parameter is **ignored** - AI automatically detects per page
+- **For Image Files**: `statement_type` parameter provides a hint for single-page processing
+- **Best Practice**: Omit the parameter and let AI determine statement types automatically
+
 ## 🔌 API Endpoints
 
 ### Base URL
@@ -111,7 +136,9 @@ Extract financial data from uploaded documents.
 
 **Parameters:**
 - `file` (required): PDF or image file
-- `statement_type` (optional): Hint for statement type (`balance_sheet`, `income_statement`, `cash_flow`)
+- `statement_type` (optional): Hint for statement type - **only used for image uploads, ignored for PDFs**
+
+**Note**: For PDF files, the API automatically detects statement types per page using AI classification. The `statement_type` parameter is only used as a hint for single image uploads.
 
 **Response:** JSON with extracted financial data
 
@@ -138,7 +165,7 @@ Interactive API documentation (Swagger UI).
 
 ### Standardized CSV Output
 
-The API now provides standardized CSV output that matches the `FS_Input_Template_Fields.csv` format, ensuring compatibility with financial analysis tools and databases.
+The API now provides standardized CSV output that matches the `FS_Input_Template_Fields.csv` format, ensuring compatibility with financial analysis tools and databases. This is powered by the centralized core CSV export functionality.
 
 #### Template Format Structure
 ```csv
@@ -154,6 +181,7 @@ Balance Sheet,Current Assets,Trade and Other Current Receivables,High,0.95,93102
 - **Confidence Scoring**: High/Medium confidence levels with numerical scores
 - **Field Mapping**: Automatic mapping from extracted data to standardized field names
 - **Empty Field Handling**: Unavailable fields left empty for clear data structure
+- **Core CSV Export**: Centralized CSV export functionality for consistent output across all tests and API responses
 
 #### Template Categories
 - **Meta**: Document reference information (Year, Company, Period)
@@ -168,7 +196,7 @@ Balance Sheet,Current Assets,Trade and Other Current Receivables,High,0.95,93102
 Content-Type: multipart/form-data
 
 file: [binary file data]
-statement_type: "balance_sheet"  # optional
+statement_type: "balance_sheet"  # optional - only for images, ignored for PDFs
 ```
 
 #### Supported File Types
@@ -266,21 +294,15 @@ statement_type: "balance_sheet"  # optional
 
 ## 🔐 Authentication
 
-### API Key Authentication
-Include your API key in the request header:
+### No Authentication Required
+The API currently operates without authentication. All endpoints are publicly accessible.
 
-```bash
-curl -X POST "https://your-api-url.com/extract" \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: multipart/form-data" \
-  -F "file=@document.pdf"
-```
+**Note**: For production deployments, consider implementing authentication based on your security requirements.
 
 ### Environment Variables
 For server-side integration:
 
 ```bash
-export FINANCIAL_API_KEY="your-api-key-here"
 export FINANCIAL_API_URL="https://your-api-url.com"
 ```
 
@@ -360,19 +382,21 @@ import base64
 import csv
 import io
 
-def extract_financial_data(file_path, api_key):
+def extract_financial_data(file_path):
     url = "https://your-api-url.com/extract"
     
     headers = {
-        "Authorization": f"Bearer {api_key}"
+        "Content-Type": "multipart/form-data"
     }
     
     files = {
         "file": open(file_path, "rb")
     }
     
+    # statement_type parameter is optional and only used for image uploads
+    # For PDFs, the API automatically detects statement types per page
     data = {
-        "statement_type": "balance_sheet"
+        "statement_type": "balance_sheet"  # optional hint for images only
     }
     
     response = requests.post(url, headers=headers, files=files, data=data)
@@ -398,7 +422,7 @@ def save_template_csv(api_response, output_path):
         print("No template CSV data in response")
 
 # Usage
-result = extract_financial_data("financial_statement.pdf", "your-api-key")
+result = extract_financial_data("financial_statement.pdf")
 print(json.dumps(result, indent=2))
 
 # Save template CSV
@@ -410,12 +434,12 @@ save_template_csv(result, "extracted_data.csv")
 import requests
 import time
 
-def process_multi_page_document(file_path, api_key):
+def process_multi_page_document(file_path):
     """Process a multi-page financial document with progress tracking"""
     url = "https://your-api-url.com/extract"
     
     headers = {
-        "Authorization": f"Bearer {api_key}"
+        "Content-Type": "multipart/form-data"
     }
     
     files = {
@@ -442,7 +466,7 @@ def process_multi_page_document(file_path, api_key):
         raise Exception(f"API Error: {response.status_code} - {response.text}")
 
 # Usage
-result = process_multi_page_document("multi_page_financial_statement.pdf", "your-api-key")
+result = process_multi_page_document("multi_page_financial_statement.pdf")
 ```
 
 ### JavaScript Example
@@ -451,16 +475,17 @@ const FormData = require('form-data');
 const fs = require('fs');
 const axios = require('axios');
 
-async function extractFinancialData(filePath, apiKey) {
+async function extractFinancialData(filePath) {
     const form = new FormData();
     form.append('file', fs.createReadStream(filePath));
+    // statement_type parameter is optional and only used for image uploads
+    // For PDFs, the API automatically detects statement types per page
     form.append('statement_type', 'balance_sheet');
     
     try {
         const response = await axios.post('https://your-api-url.com/extract', form, {
             headers: {
-                ...form.getHeaders(),
-                'Authorization': `Bearer ${apiKey}`
+                ...form.getHeaders()
             }
         });
         
@@ -471,7 +496,7 @@ async function extractFinancialData(filePath, apiKey) {
 }
 
 // Usage
-extractFinancialData('financial_statement.pdf', 'your-api-key')
+extractFinancialData('financial_statement.pdf')
     .then(result => console.log(JSON.stringify(result, null, 2)))
     .catch(error => console.error(error));
 ```
@@ -481,9 +506,8 @@ extractFinancialData('financial_statement.pdf', 'your-api-key')
 #### Basic Extraction
 ```bash
 curl -X POST "https://your-api-url.com/extract" \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -F "file=@balance_sheet.pdf" \
-  -F "statement_type=balance_sheet"
+  -H "Content-Type: multipart/form-data" \
+  -F "file=@balance_sheet.pdf"
 ```
 
 #### Health Check
@@ -515,8 +539,9 @@ curl -X GET "https://your-api-url.com/docs"
 **Problem**: Missing years or line items
 **Solution**:
 - Ensure document has clear financial data
-- Try different statement_type hint
 - Check document quality and resolution
+- Verify document follows standard financial statement format
+- Note: statement_type parameter is ignored for PDFs - AI automatically detects statement types per page
 
 #### 4. Rate Limit Issues
 **Problem**: "Rate limit exceeded" errors
@@ -609,11 +634,26 @@ The API includes comprehensive test files for validation and benchmarking:
 - **Years Detected**: 2024, 2023
 - **Output Size**: 7,443 bytes (template CSV)
 
+#### Overall Test Results (All Light Files)
+- **Field Extraction Rate**: 60.0% (primary metric)
+- **Template Format Accuracy**: 67.0% (secondary metric)
+- **Overall Weighted Score**: 62.1%
+- **Production Ready**: No (minimum 70% required)
+- **Success Rate**: 100% (all tests complete successfully)
+
 #### Performance Benchmarks
 | Document Type | Pages | Processing Time | Extraction Rate | Success Rate |
 |---------------|-------|-----------------|-----------------|--------------|
 | Light Files | 1-3 | 40-120s | 11.8-65.6% | 100% |
 | Origin Files | 3-10 | 120-300s | TBD | 95%+ |
+
+#### Statement Type Performance
+| Statement Type | Extraction Rate | Format Accuracy | Notes |
+|----------------|-----------------|-----------------|-------|
+| Balance Sheet | 60.0% | 67.0% | Most common, well-supported |
+| Cash Flow | 25.0% | 50.0% | Limited extraction depth |
+| Equity | 25.0% | 50.0% | Limited extraction depth |
+| Income Statement | TBD | TBD | Not tested in current suite |
 
 ### Template Compliance Verification
 All test files produce output that:
@@ -625,8 +665,11 @@ All test files produce output that:
 
 ### Running Tests
 ```bash
-# Test individual file
-python tests/extract_afs2024_to_template_csv.py
+# Test individual file using core CSV exporter
+python tests/core/csv_exporter.py
+
+# Export financial data to template CSV
+python tests/export_financial_data_to_csv.py
 
 # Run field extraction analysis (PRIMARY METRIC)
 python tests/analyze_field_extraction_accuracy.py

@@ -49,9 +49,9 @@ This document outlines the comprehensive testing strategy for the Financial Stat
 - Data completeness checks
 - Format consistency
 
-#### 5. **End-to-End Tests** (`tests/e2e/`)
-- Complete workflow testing
-- Real document processing
+#### 5. **End-to-End Tests** (`tests/`)
+- Complete workflow testing via `test_api_enhanced.py`
+- Real document processing with CSV export
 - Cross-document validation
 - Regression testing
 
@@ -221,6 +221,18 @@ def test_e2e_mixed_file_types():
     """Test workflow with mixed file types"""
 ```
 
+#### **CSV Export Integration Tests**
+```python
+def test_api_csv_export():
+    """Test API returns template_csv and template_fields_mapped"""
+    
+def test_csv_export_workflow():
+    """Test complete JSON to CSV export workflow"""
+    
+def test_template_compliance():
+    """Test CSV output matches template format"""
+```
+
 #### **Regression Tests**
 ```python
 def test_alpha_v1_performance_match():
@@ -307,34 +319,39 @@ def test_consistency_across_runs():
 
 ## 🚀 Test Implementation Plan
 
-### **Step 1: Create Test Structure**
+### **Step 1: Test Structure** (Current)
 ```bash
 tests/
 ├── unit/           # Unit tests
 ├── integration/    # Integration tests
 ├── performance/    # Performance tests
 ├── validation/     # Validation tests
-├── e2e/           # End-to-end tests
-└── fixtures/      # Test data (already created)
+├── core/          # Core CSV export functionality
+├── fixtures/      # Test data
+├── test_api_enhanced.py    # Main end-to-end testing
+├── test_api.py            # Basic API testing
+├── test_light_files_direct.py # Direct core testing
+└── run_tests.py           # Test runner
 ```
 
-### **Step 2: Implement Test Classes**
-- `TestCoreExtractor` - Core extraction logic tests
-- `TestPDFProcessor` - PDF processing tests
-- `TestAPIEndpoints` - API endpoint tests
-- `TestPerformance` - Performance tests
-- `TestValidation` - Validation tests
+### **Step 2: Test Classes** (Implemented)
+- `TestCoreExtractor` - Core extraction logic tests ✅
+- `TestAPIEndpoints` - API endpoint tests ✅
+- `TestProcessingTimes` - Performance tests ✅
+- `TestYearCoverage` - Validation tests ✅
+- `APITester` - Enhanced API testing with CSV export ✅
 
-### **Step 3: Create Test Fixtures**
-- Mock data for unit tests
-- Sample responses for integration tests
-- Performance benchmarks for comparison
+### **Step 3: Test Fixtures** (Available)
+- Light files for fast testing ✅
+- Origin files for comprehensive testing ✅
+- Template files for validation ✅
+- CSV export functionality ✅
 
-### **Step 4: Implement Test Execution**
-- Automated test runner
-- Test reporting
-- Performance monitoring
-- Result validation
+### **Step 4: Test Execution** (Implemented)
+- Automated test runner (`run_tests.py`) ✅
+- CSV export and validation ✅
+- Performance monitoring ✅
+- Field extraction scoring ✅
 
 ## 📋 Test Checklist
 

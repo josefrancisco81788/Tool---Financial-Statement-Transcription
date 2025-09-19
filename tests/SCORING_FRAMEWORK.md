@@ -44,6 +44,27 @@ python tests/analyze_field_extraction_accuracy.py
 python tests/compare_results_vs_expected.py
 ```
 
+### 3. CSV Export Integration (New Metric)
+**Formula**: `CSV Fields Mapped / Total Template Fields × 100`
+
+**Definition**:
+- **CSV Fields Mapped**: Count of fields populated in API-generated CSV
+- **Total Template Fields**: Total number of fields in template structure
+
+**Why This Matters**: This measures the API's ability to generate complete CSV exports directly in responses.
+
+**Thresholds**:
+- **Excellent**: ≥80% CSV field mapping
+- **Good**: 60-79% CSV field mapping
+- **Acceptable**: 40-59% CSV field mapping
+- **Needs Improvement**: <40% CSV field mapping
+
+**Command to Calculate**:
+```bash
+# Check API response for template_fields_mapped field
+python tests/test_api_enhanced.py --file "AFS2024 - statement extracted.pdf"
+```
+
 ## 📋 Test File Benchmarks
 
 ### Light Test Files (Primary Testing)
@@ -77,11 +98,12 @@ python tests/compare_results_vs_expected.py
 **Output**: Template compliance and format accuracy
 
 ### Step 3: Calculate Overall Score
-**Formula**: `(Extraction Rate × 0.7) + (Format Accuracy × 0.3)`
+**Formula**: `(Extraction Rate × 0.6) + (Format Accuracy × 0.2) + (CSV Integration × 0.2)`
 
 **Weighting**:
-- **70%**: Field Extraction Rate (primary value)
-- **30%**: Template Format Accuracy (secondary value)
+- **60%**: Field Extraction Rate (primary value)
+- **20%**: Template Format Accuracy (secondary value)
+- **20%**: CSV Export Integration (new capability)
 
 ### Step 4: Determine Status
 - **Excellent**: Overall Score ≥85%

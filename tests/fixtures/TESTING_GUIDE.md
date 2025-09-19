@@ -8,8 +8,7 @@ This directory contains test files and testing instructions for the Financial St
 tests/fixtures/
 ├── origin/           # Original large PDF documents (full financial reports)
 ├── light/            # Extracted statement pages (focused financial statements)
-├── templates/        # Master template and filled templates
-└── expected/         # Expected output files for validation
+└── templates/        # Master template and filled templates
 ```
 
 ## File Organization
@@ -47,10 +46,11 @@ tests/fixtures/
 **Purpose**: Template structure and expected output format
 **Use Case**: Output validation, format comparison
 
-### Expected Output
-**Location**: `tests/fixtures/expected/`
+### Test Results
+**Location**: `tests/results/`
 - API response JSON files for each test document
-- Validation results and comparison data
+- CSV export results and validation data
+- Performance metrics and scoring results
 
 ## Testing Strategy
 
@@ -133,25 +133,41 @@ done
 
 ## CSV Export
 
-The API test suite now supports CSV export for easy manual review:
+The API now returns CSV data directly in responses and supports comprehensive CSV export functionality:
 
+### API CSV Integration
+The API now returns:
+- `template_csv`: Base64-encoded CSV data
+- `template_fields_mapped`: Count of populated template fields
+
+### CSV Export Commands
 ```bash
-# Run tests with CSV export
-python tests/test_api_enhanced.py --category light --export-csv
+# Test core CSV exporter directly
+python tests/core/csv_exporter.py
+
+# Export financial data to template CSV
+python tests/export_financial_data_to_csv.py <json_file> <output_csv>
+
+# Run enhanced API tests (includes CSV export)
+python tests/test_api_enhanced.py --category light
 
 # Run single file with CSV export
-python tests/test_api_enhanced.py --file "AFS2024.pdf" --export-csv
-
-# Run with custom CSV filename
-python tests/test_api_enhanced.py --category light --export-csv --csv-filename "my_results.csv"
+python tests/test_api_enhanced.py --file "AFS2024 - statement extracted.pdf"
 ```
 
-**CSV Output Location**: `tests/results/api_test_results_[timestamp].csv`
+**CSV Output Locations**:
+- **Summary CSV**: `tests/results/api_test_results_[timestamp].csv`
+- **Template CSV**: Generated from API responses with base64 decoding
+- **Core CSV Exporter**: `tests/core/csv_exporter.py` - Centralized CSV export functionality
 
-**CSV Columns**:
+**Summary CSV Columns**:
 - File, Company, Statement Type, Years, Processing Time (s)
 - Pages Processed, Line Items Count, Total Assets, Total Liabilities, Total Equity
 - Success, Status Code, Error Message
+
+**Template CSV Format**:
+- Category, Subcategory, Field, Confidence, Confidence_Score
+- Value_Year_1, Value_Year_2, Value_Year_3, Value_Year_4
 
 ## Validation
 
