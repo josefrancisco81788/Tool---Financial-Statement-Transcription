@@ -20,7 +20,15 @@
     "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
     "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
     "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
-    "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf"
+    "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+    "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+    "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+    "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+    "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+    "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+    "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+    "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+    "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
   ],
   "failed_tests": [
     "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",

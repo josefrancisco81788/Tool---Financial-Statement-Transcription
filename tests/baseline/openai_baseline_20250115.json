@@ -1,0 +1,120 @@
+{
+  "baseline_info": {
+    "date": "2025-01-15",
+    "provider": "openai",
+    "model": "gpt-4o",
+    "test_type": "light_files",
+    "total_documents": 4,
+    "total_processing_time_seconds": 653.18,
+    "average_processing_time_seconds": 163.30
+  },
+  "overall_metrics": {
+    "success_rate": 100.0,
+    "field_extraction_rate": 41.0,
+    "template_format_accuracy": 79.9,
+    "csv_mapping_rate": 19.2,
+    "overall_score": 42.0,
+    "production_ready": false
+  },
+  "per_document_results": [
+    {
+      "document": "AFS2024 - statement extracted.pdf",
+      "company": "Wireless Services Asia Inc.",
+      "statement_type": "Statements of Financial Position",
+      "years": ["2024", "2023"],
+      "processing_time_seconds": 155.6,
+      "pages": 3,
+      "line_items": 21,
+      "fields_extracted": 21,
+      "fields_expected": 32,
+      "extraction_rate": 65.6,
+      "format_accuracy": 84.6,
+      "csv_fields_mapped": 27,
+      "overall_score": 62.2,
+      "status": "good"
+    },
+    {
+      "document": "AFS-2022 - statement extracted.pdf",
+      "company": "Ideal Marketing & Manufacturing Corporation",
+      "statement_type": "Statements of Financial Position",
+      "years": ["2022", "2021"],
+      "processing_time_seconds": 111.2,
+      "pages": 4,
+      "line_items": 10,
+      "fields_extracted": 9,
+      "fields_expected": 25,
+      "extraction_rate": 36.0,
+      "format_accuracy": 72.5,
+      "csv_fields_mapped": 16,
+      "overall_score": 39.6,
+      "status": "needs_improvement"
+    },
+    {
+      "document": "2021 AFS with SEC Stamp - statement extracted.pdf",
+      "company": "Metechs Industrial Corporation",
+      "statement_type": "Comparative Statement of Financial Position",
+      "years": ["2021", "2020"],
+      "processing_time_seconds": 172.0,
+      "pages": 5,
+      "line_items": 13,
+      "fields_extracted": 9,
+      "fields_expected": 26,
+      "extraction_rate": 34.6,
+      "format_accuracy": 79.1,
+      "csv_fields_mapped": 17,
+      "overall_score": 40.3,
+      "status": "needs_improvement"
+    },
+    {
+      "document": "afs-2021-2023 - statement extracted.pdf",
+      "company": "GBS Concept Advertising Inc.",
+      "statement_type": "Statement of Cash Flows",
+      "years": ["2022", "2021"],
+      "processing_time_seconds": 214.4,
+      "pages": 8,
+      "line_items": 11,
+      "fields_extracted": 2,
+      "fields_expected": 17,
+      "extraction_rate": 11.8,
+      "format_accuracy": 83.5,
+      "csv_fields_mapped": 10,
+      "overall_score": 26.0,
+      "status": "needs_improvement"
+    }
+  ],
+  "performance_benchmarks": {
+    "fastest_document": "AFS-2022 - statement extracted.pdf",
+    "slowest_document": "afs-2021-2023 - statement extracted.pdf",
+    "best_extraction": "AFS2024 - statement extracted.pdf",
+    "worst_extraction": "afs-2021-2023 - statement extracted.pdf",
+    "processing_time_range": {
+      "min_seconds": 111.2,
+      "max_seconds": 214.4,
+      "range_seconds": 103.2
+    },
+    "extraction_rate_range": {
+      "min_percent": 11.8,
+      "max_percent": 65.6,
+      "range_percent": 53.8
+    }
+  },
+  "migration_criteria": {
+    "minimum_acceptable": {
+      "field_extraction_rate": 41.0,
+      "template_format_accuracy": 79.9,
+      "average_processing_time_seconds": 163.3,
+      "success_rate": 100.0
+    },
+    "target_improvement": {
+      "field_extraction_rate": 60.0,
+      "template_format_accuracy": 85.0,
+      "average_processing_time_seconds": 120.0,
+      "overall_score": 70.0
+    }
+  },
+  "test_files": {
+    "results_csv": "tests/results/api_test_results_1758535603.csv",
+    "field_analysis": "tests/outputs/field_extraction_analysis.json",
+    "enhanced_report": "tests/results/enhanced_test_report_1758535603.json"
+  }
+}
