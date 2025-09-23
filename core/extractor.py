@@ -6,18 +6,29 @@ import json
 import base64
 import time
 import random
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Union
 from openai import OpenAI
+import anthropic
 from .config import Config
 
 
 class FinancialDataExtractor:
-    """Core financial data extraction class"""
+    """Core financial data extraction class with dual provider support"""
     
-    def __init__(self, openai_client: Optional[OpenAI] = None):
-        """Initialize the extractor with OpenAI client"""
-        self.client = openai_client or OpenAI(api_key=Config.OPENAI_API_KEY)
+    def __init__(self, openai_client: Optional[OpenAI] = None, anthropic_client: Optional[anthropic.Anthropic] = None):
+        """Initialize the extractor with AI provider clients"""
         self.config = Config()
+        self.provider = self.config.AI_PROVIDER.lower()
+        
+        # Initialize clients based on provider
+        if self.provider == "openai":
+            self.openai_client = openai_client or OpenAI(api_key=self.config.OPENAI_API_KEY)
+            self.anthropic_client = None
+        elif self.provider == "anthropic":
+            self.openai_client = None
+            self.anthropic_client = anthropic_client or anthropic.Anthropic(api_key=self.config.ANTHROPIC_API_KEY)
+        else:
+            raise ValueError(f"Unsupported AI provider: {self.provider}. Must be 'openai' or 'anthropic'")
     
     def exponential_backoff_retry(self, func, max_retries: int = 3, base_delay: float = 1, max_delay: int = 60):
         """Implement exponential backoff for API calls with rate limiting"""
@@ -63,46 +74,31 @@ class FinancialDataExtractor:
             # Build the comprehensive extraction prompt
             prompt = self._build_extraction_prompt(statement_type_hint)
             
-            # Make API call with retry logic
-            response = self.exponential_backoff_retry(
-                lambda: self.client.chat.completions.create(
-                    model=self.config.OPENAI_MODEL,
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": [
-                                {"type": "text", "text": prompt},
-                                {
-                                    "type": "image_url",
-                                    "image_url": {
-                                        "url": f"data:image/png;base64,{base64_image}"
-                                    }
-                                }
-                            ]
-                        }
-                    ],
-                    max_tokens=self.config.OPENAI_MAX_TOKENS
-                )
-            )
+            # Make provider-specific API call with retry logic
+            if self.provider == "openai":
+                response = self._call_openai_api(base64_image, prompt)
+            elif self.provider == "anthropic":
+                response = self._call_anthropic_api(base64_image, prompt)
+            else:
+                raise ValueError(f"Unsupported provider: {self.provider}")
             
             # Parse the JSON response
-            content = response.choices[0].message.content or ""
-            
-            if not content:
+            if not response:
                 raise Exception("Empty response from AI model")
             
             # Extract JSON from the response
-            start_idx = content.find('{')
-            end_idx = content.rfind('}') + 1
+            start_idx = response.find('{')
+            end_idx = response.rfind('}') + 1
             
             if start_idx == -1 or end_idx == 0:
                 raise Exception("No valid JSON found in AI response")
                 
-            json_str = content[start_idx:end_idx]
+            json_str = response[start_idx:end_idx]
             extracted_data = json.loads(json_str)
             
             # Add processing metadata
             extracted_data['processing_method'] = 'comprehensive_extraction'
+            extracted_data['ai_provider'] = self.provider
             extracted_data['timestamp'] = time.time()
             
             return extracted_data
@@ -318,3 +314,61 @@ class FinancialDataExtractor:
             
         except Exception as e:
             raise Exception(f"Error extracting from image: {str(e)}")
+    
+    def _call_openai_api(self, base64_image: str, prompt: str) -> str:
+        """Make API call to OpenAI with retry logic"""
+        def api_call():
+            response = self.openai_client.chat.completions.create(
+                model=self.config.OPENAI_MODEL,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": prompt},
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:image/png;base64,{base64_image}"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                max_tokens=self.config.OPENAI_MAX_TOKENS
+            )
+            return response.choices[0].message.content or ""
+        
+        return self.exponential_backoff_retry(api_call)
+    
+    def _call_anthropic_api(self, base64_image: str, prompt: str) -> str:
+        """Make API call to Anthropic with retry logic using 2025 v4.2 API"""
+        def api_call():
+            # Use the correct 2025 v4.2 Anthropic API format
+            response = self.anthropic_client.messages.create(
+                model=self.config.ANTHROPIC_MODEL,
+                max_tokens=self.config.ANTHROPIC_MAX_TOKENS,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": prompt},
+                            {
+                                "type": "image",
+                                "source": {
+                                    "type": "base64",
+                                    "media_type": "image/png",
+                                    "data": base64_image
+                                }
+                            }
+                        ]
+                    }
+                ]
+            )
+            
+            # Handle response from 2025 v4.2 API
+            if hasattr(response, 'content') and response.content:
+                return response.content[0].text if isinstance(response.content, list) else response.content
+            else:
+                raise Exception(f"Unexpected response format: {type(response)}")
+        
+        return self.exponential_backoff_retry(api_call)

@@ -268,28 +268,15 @@ class PDFProcessor:
             Focus on financial data, numbers, and labels.
             """
             
-            response = self.extractor.exponential_backoff_retry(
-                lambda: self.extractor.client.chat.completions.create(
-                    model=self.config.OPENAI_MODEL,
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": [
-                                {"type": "text", "text": prompt},
-                                {
-                                    "type": "image_url",
-                                    "image_url": {
-                                        "url": f"data:image/png;base64,{base64_image}"
-                                    }
-                                }
-                            ]
-                        }
-                    ],
-                    max_tokens=2000
-                )
-            )
+            # Use the dual-provider system for text extraction
+            if self.extractor.provider == "openai":
+                response = self.extractor._call_openai_api(base64_image, prompt)
+            elif self.extractor.provider == "anthropic":
+                response = self.extractor._call_anthropic_api(base64_image, prompt)
+            else:
+                raise Exception(f"Unknown provider: {self.extractor.provider}")
             
-            return response.choices[0].message.content or ""
+            return response or ""
             
         except Exception as e:
             raise Exception(f"Error extracting text from page {page_num}: {str(e)}")

@@ -24,11 +24,14 @@ from core import FinancialDataExtractor, PDFProcessor, Config
 from tests.core.csv_exporter import CSVExporter
 
 
+# Initialize configuration
+config = Config()
+
 # Initialize FastAPI app
 app = FastAPI(
-    title=Config.API_TITLE,
-    version=Config.API_VERSION,
-    description=Config.API_DESCRIPTION,
+    title=config.API_TITLE,
+    version=config.API_VERSION,
+    description=config.API_DESCRIPTION,
     docs_url="/docs",
     redoc_url="/redoc"
 )
@@ -43,7 +46,6 @@ app.add_middleware(
 )
 
 # Initialize core components
-config = Config()
 extractor = FinancialDataExtractor()
 pdf_processor = PDFProcessor(extractor)
 csv_exporter = CSVExporter()
@@ -54,6 +56,7 @@ class HealthResponse(BaseModel):
     status: str
     timestamp: str
     version: str
+    ai_provider: str
 
 
 class ErrorResponse(BaseModel):
@@ -93,7 +96,8 @@ async def health_check():
     return HealthResponse(
         status="healthy",
         timestamp=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        version=config.API_VERSION
+        version=config.API_VERSION,
+        ai_provider=config.AI_PROVIDER
     )
 
 
@@ -247,6 +251,7 @@ async def root():
     return {
         "message": "Financial Statement Transcription API",
         "version": config.API_VERSION,
+        "ai_provider": config.AI_PROVIDER,
         "docs": "/docs",
         "health": "/health",
         "extract": "/extract"
