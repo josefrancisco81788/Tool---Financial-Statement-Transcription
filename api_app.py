@@ -45,10 +45,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize core components
-extractor = FinancialDataExtractor()
-pdf_processor = PDFProcessor(extractor)
-csv_exporter = CSVExporter()
+# Initialize core components (removed global instances to fix provider switching)
+# extractor = FinancialDataExtractor()  # REMOVED - causes singleton caching issue
+# pdf_processor = PDFProcessor(extractor)  # REMOVED
+csv_exporter = CSVExporter()  # Keep this as it doesn't depend on AI provider
 
 
 # Request/Response Models
@@ -84,6 +84,11 @@ async def startup_event():
         config.validate()
         print("✅ Configuration validated successfully")
         
+        # Debug provider configuration
+        print(f"🔍 Environment AI_PROVIDER: {os.getenv('AI_PROVIDER')}")
+        print(f"🔍 Config AI_PROVIDER: {config.AI_PROVIDER}")
+        print("🔍 Extractor instances will be created per request (factory pattern)")
+        
     except Exception as e:
         print(f"❌ Startup error: {str(e)}")
         raise
@@ -105,7 +110,8 @@ async def health_check():
 @app.post("/extract", response_model=SuccessResponse)
 async def extract_financial_data(
     file: UploadFile = File(...),
-    statement_type: Optional[str] = Form(None)
+    statement_type: Optional[str] = Form(None),
+    export_csv: Optional[bool] = Form(False)
 ):
     """
     Extract financial data from uploaded PDF or image file.
@@ -113,13 +119,24 @@ async def extract_financial_data(
     Args:
         file: PDF or image file (PNG, JPG, JPEG)
         statement_type: Optional hint for statement type (balance_sheet, income_statement, cash_flow)
+        export_csv: Whether to generate and return template CSV (default: False)
     
     Returns:
-        JSON response with extracted financial data
+        JSON response with extracted financial data and optional CSV
     """
     start_time = time.time()
     
     try:
+        # Create fresh instances per request (fixes provider switching issue)
+        extractor = FinancialDataExtractor()
+        pdf_processor = PDFProcessor(extractor)
+        
+        # Debug provider configuration
+        print(f"🔍 Request ENV AI_PROVIDER: {os.getenv('AI_PROVIDER')}")
+        print(f"🔍 Request Config AI_PROVIDER: {config.AI_PROVIDER}")
+        print(f"🔍 Request Extractor AI_PROVIDER: {extractor.provider}")
+        print(f"🔍 Request Client type: {type(extractor.openai_client if extractor.provider == 'openai' else extractor.anthropic_client)}")
+        
         # Validate file
         if not file.filename:
             raise HTTPException(status_code=400, detail="No file provided")
@@ -156,34 +173,35 @@ async def extract_financial_data(
         # Calculate processing time
         processing_time = time.time() - start_time
         
-        # Generate template CSV
+        # Generate template CSV if requested
         template_csv = None
         template_fields_mapped = 0
         
-        try:
-            # Create temporary file for CSV export
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as temp_file:
-                temp_csv_path = temp_file.name
-            
-            # Export to template CSV
-            csv_success = csv_exporter.export_to_template_csv(extracted_data, temp_csv_path)
-            
-            if csv_success and os.path.exists(temp_csv_path):
-                # Read the generated CSV and encode as base64
-                with open(temp_csv_path, 'r', encoding='utf-8') as f:
-                    csv_content = f.read()
-                template_csv = base64.b64encode(csv_content.encode('utf-8')).decode('utf-8')
+        if export_csv:
+            try:
+                # Create temporary file for CSV export
+                with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as temp_file:
+                    temp_csv_path = temp_file.name
                 
-                # Count mapped fields
-                validation = csv_exporter.validate_template_compliance(temp_csv_path)
-                template_fields_mapped = validation.get('non_empty_fields', 0)
+                # Export to template CSV
+                csv_success = csv_exporter.export_to_template_csv(extracted_data, temp_csv_path)
                 
-                # Clean up temporary file
-                os.unlink(temp_csv_path)
-                
-        except Exception as e:
-            print(f"Warning: CSV generation failed: {e}")
-            # Continue without CSV data
+                if csv_success and os.path.exists(temp_csv_path):
+                    # Read the generated CSV and encode as base64
+                    with open(temp_csv_path, 'r', encoding='utf-8') as f:
+                        csv_content = f.read()
+                    template_csv = base64.b64encode(csv_content.encode('utf-8')).decode('utf-8')
+                    
+                    # Count mapped fields
+                    validation = csv_exporter.validate_template_compliance(temp_csv_path)
+                    template_fields_mapped = validation.get('non_empty_fields', 0)
+                    
+                    # Clean up temporary file
+                    os.unlink(temp_csv_path)
+                    
+            except Exception as e:
+                print(f"Warning: CSV generation failed: {e}")
+                # Continue without CSV data
         
         return SuccessResponse(
             data=extracted_data,
