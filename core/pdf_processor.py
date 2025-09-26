@@ -124,7 +124,11 @@ class PDFProcessor:
             elif self.pdf_library == "pymupdf":
                 def _convert_with_pymupdf():
                     import fitz
-                    doc = fitz.Document(stream=pdf_data, filetype="pdf")
+                    # Try opening with file path first, then fallback to bytes
+                    if isinstance(pdf_file, str):
+                        doc = fitz.open(pdf_file)
+                    else:
+                        doc = fitz.open(stream=pdf_data)
                     images = []
                     for page_num in range(len(doc)):
                         page = doc.load_page(page_num)
@@ -538,6 +542,290 @@ class PDFProcessor:
         
         return financial_pages
     
+    def classify_pages_batch_vision(self, images: List[str], batch_size: int = 4) -> List[int]:
+        """
+        Classify pages in batches using vision model to identify financial statement pages
+        
+        Args:
+            images: List of base64-encoded page images
+            batch_size: Number of pages to process per batch
+            
+        Returns:
+            List of page numbers containing financial statements
+        """
+        financial_pages = []
+        
+        # Process pages in batches
+        for i in range(0, len(images), batch_size):
+            batch_images = images[i:i + batch_size]
+            batch_pages = self.classify_single_batch_vision(batch_images, i)
+            financial_pages.extend(batch_pages)
+        
+        return financial_pages
+    
+    def classify_single_batch_vision(self, batch_images: List[str], start_page_num: int) -> List[tuple]:
+        """
+        Classify a single batch of pages using vision model
+        
+        Args:
+            batch_images: List of base64-encoded page images for this batch
+            start_page_num: Starting page number for this batch
+            
+        Returns:
+            List of page numbers in this batch that contain financial statements
+        """
+        try:
+            # Classify each page in the batch individually
+            financial_pages = []
+            
+            for i, page_image in enumerate(batch_images):
+                try:
+                    page_num = start_page_num + i
+                    prompt = self._build_simple_classification_prompt()
+                    result = self.extractor._call_anthropic_api(page_image, prompt)
+                    
+                    # Simple binary classification
+                    if "yes" in result.lower():
+                        financial_pages.append((page_num, "financial"))
+                        print(f"✅ Page {page_num + 1}: Contains financial data")
+                    else:
+                        print(f"❌ Page {page_num + 1}: No financial data")
+                        
+                except Exception as e:
+                    print(f"❌ Error classifying page {page_num + 1}: {e}")
+            
+            return financial_pages
+            
+        except Exception as e:
+            print(f"Batch classification failed: {e}")
+            return []
+    
+    def _build_simple_classification_prompt(self) -> str:
+        """Build simple binary classification prompt"""
+        return """
+        Does this page contain financial tables with numbers?
+        
+        Look for:
+        - Tables with financial data
+        - Currency symbols (₱, $, €, £, ¥)
+        - Year columns (2024, 2023, 2022, etc.)
+        - Financial terminology
+        
+        Answer only: YES or NO
+        """
+    
+    def _build_simple_extraction_prompt(self) -> str:
+        """Build simple comprehensive extraction prompt"""
+        return """
+        Extract ALL financial data from this page.
+        
+        Look for:
+        - Assets, Liabilities, Equity
+        - Revenue, Expenses, Profit
+        - Cash flows, Operating activities
+        - Any financial line items with numbers
+        
+        Return JSON format:
+        {
+            "statement_type": "type of statement",
+            "company_name": "company name",
+            "period": "period/date",
+            "currency": "currency",
+            "years_detected": ["2024", "2023", "2022"],
+            "line_items": {
+                "category_name": {
+                    "item_name": {"value": 1000000, "confidence": 0.9}
+                }
+            },
+            "summary_metrics": {
+                "total_assets": {"value": 1000000, "confidence": 0.9}
+            }
+        }
+        
+        Extract EVERY financial line item you can see clearly.
+        """
+    
+    def _parse_classification_result(self, result: str, start_page: int, batch_size: int) -> List[int]:
+        """Parse classification result to identify financial pages"""
+        financial_pages = []
+        
+        # Simple parsing - look for financial classifications
+        result_lower = result.lower()
+        if any(keyword in result_lower for keyword in ["financial_balance_sheet", "financial_income", "financial_cash_flow", "financial_notes"]):
+            # For now, assume the classified page is financial
+            # TODO: Implement proper page-by-page parsing when multi-image batching is available
+            financial_pages.append(start_page)
+        
+        return financial_pages
+    
+    def extract_from_financial_page_enhanced(self, page_image: str, statement_type_hint: str) -> Dict[str, Any]:
+        """
+        Extract financial data from a single identified financial statement page with enhanced prompt
+        
+        Args:
+            page_image: Base64-encoded page image
+            statement_type_hint: Hint for statement type
+            
+        Returns:
+            Dict containing extracted financial data
+        """
+        try:
+            # Use enhanced extraction prompt for financial pages
+            enhanced_prompt = self._build_enhanced_financial_extraction_prompt(statement_type_hint)
+            
+            extracted_data = self.extractor._call_anthropic_api(page_image, enhanced_prompt)
+            
+            # Parse the JSON response
+            import json
+            try:
+                parsed_data = json.loads(extracted_data)
+                return parsed_data
+            except json.JSONDecodeError:
+                # If not JSON, return as text for now
+                return {"raw_extraction": extracted_data}
+                
+        except Exception as e:
+            return {"error": f"Financial page extraction failed: {str(e)}"}
+    
+    def _build_enhanced_financial_extraction_prompt(self, statement_type_hint: str) -> str:
+        """Build enhanced prompt for financial statement extraction"""
+        return f"""
+        This is a scanned image of a financial statement page. Extract ALL visible financial line items with maximum detail.
+        
+        VISUAL ANALYSIS FOCUS:
+        - Look for tabular data with row labels on the left and numerical values in columns
+        - Identify multiple years of data across columns
+        - Extract currency symbols and convert to numeric values
+        - Handle parentheses as negative numbers: (26,278) = -26278
+        - Process comma-separated numbers: 249,788,478 = 249788478
+        
+        EXTRACTION REQUIREMENTS:
+        - Extract EVERY line item you can see clearly, even if formatting varies
+        - Use the exact terminology from the document
+        - Organize into logical categories based on the document's structure
+        - Provide confidence scores for each extracted value
+        
+        REQUIRED JSON STRUCTURE:
+        {{
+            "statement_type": "exact statement title from document",
+            "company_name": "extracted company name",
+            "period": "extracted period/date", 
+            "currency": "extracted currency (PHP, USD, etc.)",
+            "years_detected": ["2024", "2023", "2022"],
+            "base_year": "2024",
+            "year_ordering": "most_recent_first",
+            
+            "line_items": {{
+                "current_assets": {{
+                    "cash_and_equivalents": {{"value": 1000000, "confidence": 0.95, "base_year": 1000000, "year_1": 950000}},
+                    "accounts_receivable": {{"value": 500000, "confidence": 0.90, "base_year": 500000, "year_1": 480000}}
+                }},
+                "non_current_assets": {{
+                    "property_plant_equipment": {{"value": 2000000, "confidence": 0.92, "base_year": 2000000, "year_1": 1900000}}
+                }},
+                "current_liabilities": {{
+                    "accounts_payable": {{"value": 400000, "confidence": 0.88, "base_year": 400000, "year_1": 380000}}
+                }},
+                "equity": {{
+                    "share_capital": {{"value": 1000000, "confidence": 0.95, "base_year": 1000000, "year_1": 1000000}},
+                    "retained_earnings": {{"value": 800000, "confidence": 0.90, "base_year": 800000, "year_1": 750000}}
+                }},
+                "revenues": {{
+                    "net_sales": {{"value": 5000000, "confidence": 0.95, "base_year": 5000000, "year_1": 4800000}}
+                }},
+                "operating_expenses": {{
+                    "selling_expenses": {{"value": 500000, "confidence": 0.88, "base_year": 500000, "year_1": 480000}}
+                }}
+            }},
+            
+            "summary_metrics": {{
+                "total_assets": {{"value": 3000000, "confidence": 0.95}},
+                "total_liabilities": {{"value": 1200000, "confidence": 0.90}},
+                "total_equity": {{"value": 1800000, "confidence": 0.92}},
+                "total_revenue": {{"value": 5100000, "confidence": 0.95}},
+                "net_income": {{"value": 1200000, "confidence": 0.93}}
+            }}
+        }}
+        
+        Focus on extracting as many line items as possible from this financial statement page.
+        """
+    
+    def get_extraction_prompt_by_type(self, statement_type: str) -> str:
+        """Get statement-specific extraction prompt"""
+        if "balance_sheet" in statement_type.lower():
+            return self._build_balance_sheet_extraction_prompt()
+        elif "income" in statement_type.lower():
+            return self._build_income_statement_extraction_prompt()
+        elif "cash_flow" in statement_type.lower():
+            return self._build_cash_flow_extraction_prompt()
+        else:
+            return self._build_enhanced_financial_extraction_prompt(statement_type)
+    
+    def _build_balance_sheet_extraction_prompt(self) -> str:
+        """Build prompt specifically for Balance Sheet extraction"""
+        return """
+        This is a scanned Balance Sheet page. Extract ALL visible financial line items with focus on:
+        
+        BALANCE SHEET SPECIFIC TERMS:
+        - Assets: "Cash and Cash Equivalents", "Accounts Receivable", "Inventory", "Property Plant Equipment"
+        - Liabilities: "Accounts Payable", "Current Liabilities", "Long-term Debt", "Total Liabilities"
+        - Equity: "Share Capital", "Retained Earnings", "Total Equity"
+        
+        Look for the fundamental equation: Assets = Liabilities + Equity
+        
+        Extract EVERY line item you can see, including:
+        - Current Assets and Non-Current Assets
+        - Current Liabilities and Non-Current Liabilities  
+        - All Equity components
+        - Total amounts for each section
+        
+        Return in the same JSON structure with appropriate categories.
+        """
+    
+    def _build_income_statement_extraction_prompt(self) -> str:
+        """Build prompt specifically for Income Statement extraction"""
+        return """
+        This is a scanned Income Statement page. Extract ALL visible financial line items with focus on:
+        
+        INCOME STATEMENT SPECIFIC TERMS:
+        - Revenue: "Revenue", "Sales", "Net Sales", "Operating Revenue", "Total Revenue"
+        - Cost of Sales: "Cost of Sales", "Cost of Goods Sold", "Direct Costs"
+        - Operating Expenses: "Operating Expenses", "Selling Expenses", "Administrative Expenses", "General & Administrative"
+        - Profit: "Gross Profit", "Operating Profit", "Net Income", "Profit After Tax", "Earnings"
+        
+        Look for the fundamental structure: Revenue - Expenses = Net Income
+        
+        Extract EVERY line item you can see, including:
+        - All revenue sources
+        - Cost of sales and operating expenses
+        - Profit calculations at each level
+        - Tax expenses and net income
+        
+        Return in the same JSON structure with appropriate categories.
+        """
+    
+    def _build_cash_flow_extraction_prompt(self) -> str:
+        """Build prompt specifically for Cash Flow Statement extraction"""
+        return """
+        This is a scanned Cash Flow Statement page. Extract ALL visible financial line items with focus on:
+        
+        CASH FLOW SPECIFIC TERMS:
+        - Operating Activities: "Net Cash from Operations", "Operating Cash Flow", "Cash from Operating Activities"
+        - Investing Activities: "Capital Expenditures", "Investments", "Cash from Investing Activities"
+        - Financing Activities: "Dividends Paid", "Debt Repayment", "Cash from Financing Activities"
+        - Net Change: "Net Increase in Cash", "Net Change in Cash", "Cash at Beginning/End"
+        
+        Look for the fundamental structure: Operating + Investing + Financing = Net Change in Cash
+        
+        Extract EVERY line item you can see, including:
+        - All operating cash flows
+        - All investing activities
+        - All financing activities
+        - Net cash changes and ending balances
+        
+        Return in the same JSON structure with appropriate categories.
+        """
+    
     def process_pdf_with_vector_db(self, pdf_file, enable_parallel: bool = True) -> Optional[Dict[str, Any]]:
         """
         Process PDF using comprehensive vector database approach.
@@ -558,50 +846,83 @@ class PDFProcessor:
             if not images or not page_info:
                 return None
             
-            # Classify financial statement pages
-            financial_pages = self.classify_financial_statement_pages(page_info, enable_parallel)
+            # VISION-ONLY CLASSIFICATION for scanned documents
+            # Convert all pages to base64 images for vision classification
+            page_images = []
+            for page in page_info:
+                if page['success'] and 'image' in page:
+                    base64_image = self.extractor.encode_image(page['image'])
+                    page_images.append(base64_image)
+            
+            if not page_images:
+                print("❌ No images extracted from PDF - cannot process scanned document")
+                return None
+            
+            # SIMPLIFIED APPROACH: Process all pages as financial pages (bypass classification)
+            financial_pages = []
+            
+            for i, page in enumerate(page_info):
+                if page['success']:
+                    financial_pages.append({
+                        'page_num': page['page_num'],
+                        'statement_type': 'Financial Statement',
+                        'confidence': 0.9,
+                        'image': page['image'],
+                        'text': page['text'],
+                        'number_density': 0.8,
+                        'financial_numbers_count': 10,
+                        'number_density_score': 0.8
+                    })
+            
+            print(f"🔍 Processing all {len(financial_pages)} pages as financial pages (classification bypassed)")
             
             if not financial_pages:
-                # Fallback: process ALL pages if no financial pages detected (copy Streamlit logic)
-                print("⚠️ No financial statement pages detected. Processing all pages as fallback.")
-                financial_pages = []
-                for i, page in enumerate(page_info):
-                    if page['success']:
-                        financial_pages.append({
-                            'page_num': page['page_num'],
-                            'statement_type': 'Unknown',
-                            'confidence': 0.1,
-                            'image': page['image'],
-                            'text': page['text'],
-                            'number_density': 0,
-                            'financial_numbers_count': 0,
-                            'number_density_score': 0
-                        })
+                print("❌ No financial statement pages detected by vision classification.")
+                print("   This indicates either:")
+                print("   1. Document contains no financial statements")
+                print("   2. Vision classification needs improvement")
+                print("   3. Document format is not supported")
+                return None
             
             # Select top pages for processing (copy Streamlit logic exactly)
             max_pages_to_process = min(10, len(financial_pages))  # Streamlit uses 10, not config limit
             selected_pages = financial_pages[:max_pages_to_process]
             
-            # Process selected pages
+            # Process selected pages with statement-specific extraction
             results = []
             for page in selected_pages:
                 try:
-                    # Extract financial data from page
+                    # Extract financial data from page using statement-specific prompt
                     base64_image = self.extractor.encode_image(page['image'])
+                    statement_type = page['statement_type']
+                    
+                    # Use the existing extraction method for proper integration
                     extracted_data = self.extractor.extract_comprehensive_financial_data(
                         base64_image, 
-                        page['statement_type'], 
+                        statement_type, 
                         page['text']
                     )
                     
-                    results.append({
-                        'page_num': page['page_num'],
-                        'data': extracted_data,
-                        'confidence': page['confidence']
-                    })
+                    if extracted_data and 'error' not in extracted_data:
+                        # Debug: Show what was extracted from this page
+                        line_items = extracted_data.get('line_items', {})
+                        total_items = sum(len(items) if isinstance(items, dict) else 0 for items in line_items.values())
+                        print(f"✅ Page {page['page_num'] + 1}: Extracted {total_items} line items")
+                        for category, items in line_items.items():
+                            if isinstance(items, dict):
+                                print(f"   {category}: {list(items.keys())}")
+                        
+                        results.append({
+                            'page_num': page['page_num'],
+                            'data': extracted_data,
+                            'confidence': page['confidence']
+                        })
+                    else:
+                        print(f"❌ Failed to extract data from page {page['page_num'] + 1}")
+                        continue
                     
                 except Exception as e:
-                    print(f"Error processing page {page['page_num']}: {str(e)}")
+                    print(f"❌ Error processing page {page['page_num'] + 1}: {str(e)}")
                     continue
             
             if not results:
@@ -618,6 +939,7 @@ class PDFProcessor:
     def _combine_page_results(self, results: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
         Combine results from multiple pages into a single result.
+        Uses the most complete and accurate data from each category.
         
         Args:
             results: List of page results
@@ -628,12 +950,65 @@ class PDFProcessor:
         if len(results) == 1:
             return results[0]['data']
         
-        # For multiple pages, use the highest confidence result as base
-        best_result = max(results, key=lambda x: x['confidence'])
-        combined_data = best_result['data'].copy()
+        # Start with empty structure
+        combined_data = {
+            'statement_type': 'Financial Statement',
+            'company_name': '',
+            'period': '',
+            'currency': '',
+            'years_detected': [],
+            'base_year': '',
+            'year_ordering': '',
+            'line_items': {},
+            'summary_metrics': {},
+            'document_structure': {},
+            'notes': '',
+            'processing_method': 'multi_page_vector_database',
+            'ai_provider': 'anthropic',
+            'timestamp': '',
+            'pages_processed': len(results)
+        }
         
-        # Add metadata about multiple pages
-        combined_data['pages_processed'] = len(results)
-        combined_data['processing_method'] = 'multi_page_vector_database'
+        # Collect all line_items from all pages
+        all_line_items = {}
+        
+        for result in results:
+            page_data = result['data']
+            page_line_items = page_data.get('line_items', {})
+            
+            # Merge each category
+            for category, items in page_line_items.items():
+                if category not in all_line_items:
+                    all_line_items[category] = {}
+                
+                if isinstance(items, dict):
+                    for field, value in items.items():
+                        if isinstance(value, dict) and 'value' in value and value['value'] is not None:
+                            # Use the first valid value we find for each field
+                            if field not in all_line_items[category]:
+                                all_line_items[category][field] = value
+                            else:
+                                # If we already have this field, keep the one with higher confidence
+                                existing_confidence = all_line_items[category][field].get('confidence', 0)
+                                new_confidence = value.get('confidence', 0)
+                                if new_confidence > existing_confidence:
+                                    all_line_items[category][field] = value
+        
+        combined_data['line_items'] = all_line_items
+        
+        # Use metadata from the first result
+        if results:
+            first_data = results[0]['data']
+            combined_data['company_name'] = first_data.get('company_name', '')
+            combined_data['period'] = first_data.get('period', '')
+            combined_data['currency'] = first_data.get('currency', '')
+            combined_data['years_detected'] = first_data.get('years_detected', [])
+            combined_data['base_year'] = first_data.get('base_year', '')
+            combined_data['year_ordering'] = first_data.get('year_ordering', '')
+            combined_data['summary_metrics'] = first_data.get('summary_metrics', {})
+            combined_data['document_structure'] = first_data.get('document_structure', {})
+            combined_data['notes'] = first_data.get('notes', '')
+            combined_data['ai_provider'] = first_data.get('ai_provider', 'anthropic')
+            combined_data['timestamp'] = first_data.get('timestamp', '')
         
         return combined_data

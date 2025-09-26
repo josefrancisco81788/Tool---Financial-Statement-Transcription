@@ -585,16 +585,162 @@ anthropic,AFS2024,True,38.7,0.72,0.08,0.01,False
 - **Monitoring**: Implement health checks and alerting
 - **Documentation**: Maintain detailed operational procedures
 
+## 🚨 **IMPLEMENTATION ISSUES & LESSONS LEARNED**
+
+### **📊 Post-Implementation Analysis (January 2025)**
+
+After implementing the unified testing pipeline, several critical issues emerged that disrupted core functionality:
+
+#### **❌ Major Issues Identified**
+
+1. **Architecture Disruption**
+   - **PyMuPDF Usage**: Incorrectly implemented PDF→Image conversion for scanned documents
+   - **Unnecessary Complexity**: Added conversion layers that weren't needed for 30-90MB scanned PDFs
+   - **Performance Degradation**: Slower processing due to conversion overhead
+   - **Quality Loss**: Additional conversion steps reduced document quality
+
+2. **Import Path Conflicts**
+   - **Module Resolution**: `unified_test_runner.py` had incorrect import paths
+   - **Dependency Conflicts**: New testing infrastructure conflicted with existing API
+   - **Broken Imports**: Required manual fixes to restore functionality
+
+3. **Processing Flow Disruption**
+   - **Direct LLM Processing Lost**: Original PDF→LLM flow replaced with PDF→PyMuPDF→Images→LLM
+   - **File Size Issues**: No proper handling for large scanned documents (30-90MB)
+   - **Quality Preservation**: Lost original document quality through unnecessary conversions
+
+#### **🔍 Root Cause Analysis**
+
+**Why the Unified Pipeline Broke Functionality:**
+
+1. **Over-Engineering**: Added unnecessary complexity to a working system
+2. **Architecture Mismatch**: PyMuPDF approach wrong for scanned documents
+3. **Import Path Issues**: New testing infrastructure conflicted with existing code
+4. **Processing Flow Disruption**: Replaced working direct processing with complex conversion
+
+**What Should Have Been Done:**
+
+1. **Incremental Improvement**: Enhance existing working system
+2. **Preserve Core Functionality**: Keep working extraction flow
+3. **Add Testing Layer**: Without disrupting existing functionality
+4. **Maintain Performance**: Don't add unnecessary conversion steps
+
+#### **✅ What Actually Works**
+
+**Unified Testing Pipeline (Working):**
+- ✅ Provider comparison functionality
+- ✅ CSV export and reporting
+- ✅ Baseline establishment and tracking
+- ✅ Configuration-driven testing
+- ✅ Results aggregation and analysis
+
+**Core Extraction (Broken):**
+- ❌ PyMuPDF usage for scanned documents
+- ❌ Unnecessary conversion overhead
+- ❌ Quality loss through conversion
+- ❌ Poor handling of large files (30-90MB)
+
+#### **🔧 Resolution Strategy**
+
+**Keep What Works:**
+- Unified testing pipeline for provider comparison
+- CSV export and reporting functionality
+- Configuration-driven testing approach
+
+**Fix What's Broken:**
+- Remove PyMuPDF dependency for scanned documents
+- Restore direct LLM processing for large files
+- Implement proper chunking for 30-90MB documents
+- Preserve original document quality
+
+---
+
+## 🎯 **MVP: IDEAL BARE MINIMUM FUNCTIONALITY**
+
+### **📋 Core Requirements for Production Readiness**
+
+Based on the implementation issues and lessons learned, here's the ideal bare minimum functionality:
+
+#### **1. Core API Functionality**
+- ✅ **Server Startup**: FastAPI server starts without errors
+- ✅ **Health Check**: `/health` endpoint returns proper status
+- ✅ **File Upload**: `/extract` endpoint accepts PDF/image uploads
+- ✅ **Error Handling**: Proper error responses and logging
+- ✅ **Provider Switching**: OpenAI/Anthropic configuration working
+
+#### **2. Document Processing**
+- ✅ **Direct LLM Processing**: PDF → LLM Vision API (no conversion)
+- ✅ **Large File Support**: Handle 30-90MB scanned documents
+- ✅ **Quality Preservation**: Maintain original document quality
+- ✅ **Multi-year Support**: Process 2-year and 3-year documents
+- ✅ **Scanned Document Support**: No OCR dependency
+
+#### **3. Data Extraction**
+- ✅ **Financial Data Extraction**: Extract line items, values, years
+- ✅ **Template Compliance**: Output matches FS_Input_Template_Fields.csv
+- ✅ **Confidence Scoring**: Provide confidence levels for extracted data
+- ✅ **Multi-year Data**: Handle overlapping years and data consolidation
+- ✅ **Field Mapping**: Proper categorization of financial data
+
+#### **4. CSV Export**
+- ✅ **Template CSV**: Generate template-compliant CSV output
+- ✅ **Field Mapping**: Map extracted data to standard fields
+- ✅ **Validation**: Template compliance checking
+- ✅ **Multiple Formats**: Summary, detailed, and comparison CSV formats
+
+#### **5. Provider Comparison**
+- ✅ **Provider Testing**: Test OpenAI vs Anthropic performance
+- ✅ **Baseline Management**: Establish and compare baselines
+- ✅ **Results Export**: CSV reports with provider comparisons
+- ✅ **Performance Tracking**: Speed, accuracy, and cost metrics
+
+### **🚫 What to Avoid (Lessons Learned)**
+
+#### **❌ Anti-Patterns**
+- **PyMuPDF for Scanned Documents**: Unnecessary conversion overhead
+- **Complex Conversion Chains**: PDF→Image→Base64→LLM
+- **Over-Engineering**: Adding complexity to working systems
+- **Breaking Existing Functionality**: Disrupting working extraction flow
+- **Quality Loss**: Unnecessary conversion steps
+
+#### **✅ Best Practices**
+- **Direct Processing**: PDF → LLM Vision API for scanned documents
+- **Incremental Enhancement**: Build on working systems
+- **Preserve Quality**: Maintain original document quality
+- **Performance First**: Optimize for speed and efficiency
+- **Test-Driven Development**: Validate changes don't break existing functionality
+
+### **🎯 Success Criteria**
+
+**Minimum Viable Product Must Achieve:**
+1. **Server Stability**: API server starts and runs without errors
+2. **Document Processing**: Handle 30-90MB scanned PDFs successfully
+3. **Data Extraction**: Extract financial data with ≥70% accuracy
+4. **CSV Generation**: Produce template-compliant CSV output
+5. **Provider Comparison**: Compare OpenAI vs Anthropic performance
+6. **End-to-End Flow**: Complete pipeline from upload to CSV export
+
+**Quality Thresholds:**
+- **Rightmost Column Completeness**: ≥70% (Current: 14-28%)
+- **2020 Data Extraction**: ≥70% of expected values (Current: 0%)
+- **Processing Time**: <5 minutes for 3-year documents
+- **Success Rate**: ≥90% for 2-year documents
+- **Template Compliance**: 100% field mapping accuracy
+
+---
+
 ## 📞 Next Steps
 
-1. **Review and Approve Plan** - Get stakeholder buy-in and feedback
-2. **Create Implementation Timeline** - Detailed task breakdown with dependencies
-3. **Set up Development Environment** - Repository structure and tooling
-4. **Begin Phase 1 Implementation** - Core infrastructure development
-5. **Validate with Existing Tests** - Ensure compatibility and accuracy
-6. **Deploy and Train Team** - Rollout strategy and training plan
+1. **Restore Core Functionality** - Fix PyMuPDF usage and restore direct LLM processing
+2. **Implement MVP Requirements** - Focus on bare minimum functionality
+3. **Validate End-to-End Flow** - Test complete pipeline from upload to CSV
+4. **Performance Optimization** - Ensure 30-90MB file handling works efficiently
+5. **Provider Comparison** - Validate OpenAI vs Anthropic testing works
+6. **Documentation Update** - Update all documentation to reflect current state
 7. **Monitor and Iterate** - Continuous improvement based on usage
 
 ---
 
 This unified testing pipeline will transform the testing process from **error-prone ad-hoc script creation** to **reliable, configuration-driven testing** with comprehensive provider comparison and performance tracking. The system will be maintainable, scalable, and provide valuable insights for decision-making.
+
+**Critical Lesson**: The unified pipeline should enhance existing functionality, not replace it. The core extraction system was working and should have been preserved while adding the testing infrastructure as a complementary layer.

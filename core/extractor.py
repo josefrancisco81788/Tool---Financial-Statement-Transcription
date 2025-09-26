@@ -20,15 +20,30 @@ class FinancialDataExtractor:
         self.config = Config()
         self.provider = self.config.AI_PROVIDER.lower()
         
+        # Debug provider configuration
+        print(f"🔍 Extractor init - provider: {self.provider}")
+        print(f"🔍 Extractor init - config AI_PROVIDER: {self.config.AI_PROVIDER}")
+        print(f"🔍 Extractor init - ANTHROPIC_API_KEY length: {len(self.config.ANTHROPIC_API_KEY)}")
+        print(f"🔍 Extractor init - OPENAI_API_KEY length: {len(self.config.OPENAI_API_KEY)}")
+        
         # Initialize clients based on provider
-        if self.provider == "openai":
-            self.openai_client = openai_client or OpenAI(api_key=self.config.OPENAI_API_KEY)
-            self.anthropic_client = None
-        elif self.provider == "anthropic":
-            self.openai_client = None
-            self.anthropic_client = anthropic_client or anthropic.Anthropic(api_key=self.config.ANTHROPIC_API_KEY)
-        else:
-            raise ValueError(f"Unsupported AI provider: {self.provider}. Must be 'openai' or 'anthropic'")
+        try:
+            if self.provider == "openai":
+                self.openai_client = openai_client or OpenAI(api_key=self.config.OPENAI_API_KEY)
+                self.anthropic_client = None
+                print("✅ OpenAI client created successfully")
+            elif self.provider == "anthropic":
+                self.openai_client = None
+                self.anthropic_client = anthropic_client or anthropic.Anthropic(api_key=self.config.ANTHROPIC_API_KEY)
+                print("✅ Anthropic client created successfully")
+            else:
+                raise ValueError(f"Unsupported AI provider: {self.provider}. Must be 'openai' or 'anthropic'")
+        except Exception as e:
+            print(f"❌ Client creation failed: {e}")
+            raise
+        
+        print(f"🔍 Extractor init - has anthropic client: {hasattr(self, 'anthropic_client') and self.anthropic_client is not None}")
+        print(f"🔍 Extractor init - has openai client: {hasattr(self, 'openai_client') and self.openai_client is not None}")
     
     def exponential_backoff_retry(self, func, max_retries: int = 3, base_delay: float = 1, max_delay: int = 60):
         """Implement exponential backoff for API calls with rate limiting"""
@@ -75,12 +90,18 @@ class FinancialDataExtractor:
             prompt = self._build_extraction_prompt(statement_type_hint)
             
             # Make provider-specific API call with retry logic
+            print(f"🔍 About to make API call with provider: {self.provider}")
             if self.provider == "openai":
+                print("🔍 Using OpenAI endpoint")
                 response = self._call_openai_api(base64_image, prompt)
             elif self.provider == "anthropic":
+                print("🔍 Using Anthropic endpoint")
                 response = self._call_anthropic_api(base64_image, prompt)
             else:
-                raise ValueError(f"Unsupported provider: {self.provider}")
+                print(f"❌ Unknown provider: {self.provider}")
+                raise ValueError(f"Unknown provider: {self.provider}")
+            
+            print(f"🔍 API call completed with provider: {self.provider}")
             
             # Parse the JSON response
             if not response:
