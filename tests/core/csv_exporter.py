@@ -689,26 +689,42 @@ class CSVExporter:
     
     def export_to_template_csv(self, extracted_data: Dict[str, Any], output_path: str) -> bool:
         """
-        Export extracted financial data to template CSV format using the predefined template structure
+        Export extracted financial data to template CSV format using LLM-first direct mapping
         
         Args:
-            extracted_data: Financial data extracted from API (can be in any format)
+            extracted_data: Financial data with template_mappings from LLM
             output_path: Path to save the CSV file
             
         Returns:
             bool: True if successful, False otherwise
         """
         try:
-            # Adapt the AI extraction format to expected structure
-            adapted_data = self.adapt_ai_extraction(extracted_data)
+            # Get direct mappings from LLM
+            template_mappings = extracted_data.get('template_mappings', {})
             
             # Create a copy of the template structure
             filled_template = []
             for template_row in self.template_data:
                 filled_row = template_row.copy()
+                field_name = template_row['Field']
                 
-                # Try to populate this template field with extracted data
-                populated = self._populate_template_field(filled_row, adapted_data)
+                # Direct lookup - no complex mapping needed
+                if field_name in template_mappings:
+                    mapping = template_mappings[field_name]
+                    filled_row['Value_Year_1'] = mapping.get('value')
+                    filled_row['Confidence'] = self._convert_confidence(mapping.get('confidence', 0.8))
+                    filled_row['Confidence_Score'] = mapping.get('confidence', 0.8)
+                    
+                    # Handle multi-year data if available
+                    if 'base_year' in mapping:
+                        filled_row['Value_Year_1'] = mapping.get('base_year')
+                    if 'year_1' in mapping:
+                        filled_row['Value_Year_2'] = mapping.get('year_1')
+                    if 'year_2' in mapping:
+                        filled_row['Value_Year_3'] = mapping.get('year_2')
+                    if 'year_3' in mapping:
+                        filled_row['Value_Year_4'] = mapping.get('year_3')
+                
                 filled_template.append(filled_row)
             
             # Write to CSV
@@ -723,15 +739,25 @@ class CSVExporter:
             # Count populated fields
             populated_count = sum(1 for row in filled_template if row.get('Value_Year_1') or row.get('Value_Year_2') or row.get('Value_Year_3') or row.get('Value_Year_4'))
             
-            logger.info(f"Template CSV exported to: {output_path}")
+            logger.info(f"LLM-First Template CSV exported to: {output_path}")
             logger.info(f"Template structure: {len(filled_template)} rows")
             logger.info(f"Populated fields: {populated_count} out of {len(filled_template)}")
             logger.info(f"Coverage: {populated_count / len(filled_template) * 100:.1f}%")
+            logger.info(f"Direct mappings used: {len(template_mappings)}")
             return True
             
         except Exception as e:
             logger.error(f"Error exporting template CSV: {e}")
             return False
+    
+    def _convert_confidence(self, confidence: float) -> str:
+        """Convert numeric confidence to string format"""
+        if confidence >= 0.9:
+            return "High"
+        elif confidence >= 0.7:
+            return "Medium"
+        else:
+            return "Low"
     
     def export_to_summary_csv(self, test_results: List[Dict[str, Any]], output_path: str) -> bool:
         """

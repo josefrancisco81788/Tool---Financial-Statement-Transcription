@@ -6,6 +6,8 @@ import json
 import base64
 import time
 import random
+import pandas as pd
+import os
 from typing import Dict, Any, Optional, List, Union
 from openai import OpenAI
 import anthropic
@@ -44,6 +46,44 @@ class FinancialDataExtractor:
         
         print(f"🔍 Extractor init - has anthropic client: {hasattr(self, 'anthropic_client') and self.anthropic_client is not None}")
         print(f"🔍 Extractor init - has openai client: {hasattr(self, 'openai_client') and self.openai_client is not None}")
+    
+    def _load_template_fields(self) -> List[str]:
+        """Load the 91 template fields for context"""
+        try:
+            # Try different possible paths for the template file
+            possible_paths = [
+                "tests/fixtures/templates/FS_Input_Template_Fields.csv",
+                "tests/fixtures/templates/FS_Input_Template_Fields.csv",
+                os.path.join(os.path.dirname(__file__), "..", "tests", "fixtures", "templates", "FS_Input_Template_Fields.csv")
+            ]
+            
+            template_path = None
+            for path in possible_paths:
+                if os.path.exists(path):
+                    template_path = path
+                    break
+            
+            if not template_path:
+                print("⚠️ Template file not found, using fallback field list")
+                return self._get_fallback_template_fields()
+            
+            df = pd.read_csv(template_path)
+            template_fields = df['Field'].tolist()
+            print(f"✅ Loaded {len(template_fields)} template fields from {template_path}")
+            return template_fields
+            
+        except Exception as e:
+            print(f"❌ Error loading template fields: {e}")
+            return self._get_fallback_template_fields()
+    
+    def _get_fallback_template_fields(self) -> List[str]:
+        """Fallback template fields if CSV loading fails"""
+        return [
+            "Cash and Cash Equivalents", "Total Revenue", "Net Income", "Total Assets", "Total Equity",
+            "Cost of Sales", "Gross Profit", "Operating Income", "Total Liabilities", "Current Assets",
+            "Non-Current Assets", "Current Liabilities", "Non-Current Liabilities", "Share Capital",
+            "Retained Earnings", "Depreciation", "Amortization", "Interest Expense", "Tax Expense"
+        ]
     
     def exponential_backoff_retry(self, func, max_retries: int = 3, base_delay: float = 1, max_delay: int = 60):
         """Implement exponential backoff for API calls with rate limiting"""
@@ -131,18 +171,23 @@ class FinancialDataExtractor:
             raise Exception(f"Error in comprehensive extraction: {str(e)}")
     
     def _build_extraction_prompt(self, statement_type_hint: str) -> str:
-        """Build the comprehensive extraction prompt"""
+        """Build the LLM-first direct mapping extraction prompt"""
+        template_fields = self._load_template_fields()
+        
         return f"""
         You are a financial data extraction expert. Analyze this {statement_type_hint} and extract ALL visible financial line items.
 
-        CORE EXTRACTION RULE: Extract every line that has both a LABEL and a NUMERICAL VALUE.
+        CORE EXTRACTION RULE: Extract every line that has both a LABEL and a NUMERICAL VALUE, then map it directly to the appropriate template field.
+
+        AVAILABLE TEMPLATE FIELDS (use EXACT field names from this list):
+        {', '.join(template_fields)}
 
         STEP-BY-STEP PROCESS:
         1. SCAN the entire document for lines with labels and numbers
-        2. IDENTIFY the document's own section headers and organization
-        3. EXTRACT using the exact terminology from the document
-        4. ORGANIZE into logical categories based on the document's structure
-        5. FORMAT using the JSON structure below
+        2. IDENTIFY each financial line item and its value(s)
+        3. MAP each item to the most appropriate template field from the list above
+        4. USE THE EXACT TEMPLATE FIELD NAME (case-sensitive)
+        5. EXTRACT values with confidence scores
 
         CURRENCY AND NUMBER HANDLING:
         - Handle all currency symbols (₱, $, €, £, ¥, etc.)
@@ -157,7 +202,7 @@ class FinancialDataExtractor:
         - Record actual years found for reference
         - Only include year fields that have actual data
 
-        REQUIRED JSON STRUCTURE (adapt field names to match document):
+        REQUIRED JSON STRUCTURE:
         {{
             "statement_type": "exact statement title from document",
             "company_name": "extracted company name",
@@ -167,61 +212,14 @@ class FinancialDataExtractor:
             "base_year": "2024",  // leftmost/primary year
             "year_ordering": "most_recent_first" or "chronological",
             
-            "line_items": {{
-                // ADAPT these category names to match the document's structure
-                // Examples for different statement types:
-                
-                // FOR BALANCE SHEETS - use document's section names:
-                "current_assets": {{
-                    "cash_and_equivalents": {{"value": 1000000, "confidence": 0.95, "base_year": 1000000, "year_1": 950000}},
-                    "accounts_receivable": {{"value": 500000, "confidence": 0.90, "base_year": 500000, "year_1": 480000}},
-                    "inventory": {{"value": 300000, "confidence": 0.85, "base_year": 300000, "year_1": 290000}}
-                }},
-                "non_current_assets": {{
-                    "property_plant_equipment": {{"value": 2000000, "confidence": 0.92, "base_year": 2000000, "year_1": 1900000}}
-                }},
-                "current_liabilities": {{
-                    "accounts_payable": {{"value": 400000, "confidence": 0.88, "base_year": 400000, "year_1": 380000}}
-                }},
-                "equity": {{
-                    "share_capital": {{"value": 1000000, "confidence": 0.95, "base_year": 1000000, "year_1": 1000000}},
-                    "retained_earnings": {{"value": 800000, "confidence": 0.90, "base_year": 800000, "year_1": 750000}}
-                }},
-                
-                // FOR INCOME STATEMENTS - use document's section names:
-                "revenues": {{
-                    "net_sales": {{"value": 5000000, "confidence": 0.95, "base_year": 5000000, "year_1": 4800000}},
-                    "other_income": {{"value": 100000, "confidence": 0.80, "base_year": 100000, "year_1": 95000}}
-                }},
-                "cost_of_sales": {{
-                    "cost_of_goods_sold": {{"value": 3000000, "confidence": 0.92, "base_year": 3000000, "year_1": 2900000}}
-                }},
-                "operating_expenses": {{
-                    "selling_expenses": {{"value": 500000, "confidence": 0.88, "base_year": 500000, "year_1": 480000}},
-                    "administrative_expenses": {{"value": 300000, "confidence": 0.85, "base_year": 300000, "year_1": 290000}}
-                }},
-                
-                // FOR CASH FLOW STATEMENTS - use document's section names:
-                "operating_activities": {{
-                    "net_income": {{"value": 1200000, "confidence": 0.95, "base_year": 1200000, "year_1": 1100000}},
-                    "depreciation": {{"value": 200000, "confidence": 0.90, "base_year": 200000, "year_1": 190000}}
-                }},
-                "investing_activities": {{
-                    "capital_expenditures": {{"value": -500000, "confidence": 0.88, "base_year": -500000, "year_1": -450000}}
-                }},
-                "financing_activities": {{
-                    "dividends_paid": {{"value": -100000, "confidence": 0.85, "base_year": -100000, "year_1": -95000}}
-                }}
-            }},
-            
-            "summary_metrics": {{
-                // Key totals for quick overview
-                "total_assets": {{"value": 3000000, "confidence": 0.95}},
-                "total_liabilities": {{"value": 1200000, "confidence": 0.90}},
-                "total_equity": {{"value": 1800000, "confidence": 0.92}},
-                "total_revenue": {{"value": 5100000, "confidence": 0.95}},
-                "net_income": {{"value": 1200000, "confidence": 0.93}},
-                "operating_cash_flow": {{"value": 1400000, "confidence": 0.88}}
+            "template_mappings": {{
+                // DIRECT MAPPING TO TEMPLATE FIELDS - use EXACT field names from the list above
+                "Cash and Cash Equivalents": {{"value": 1000000, "confidence": 0.95, "base_year": 1000000, "year_1": 950000}},
+                "Total Revenue": {{"value": 5000000, "confidence": 0.90, "base_year": 5000000, "year_1": 4800000}},
+                "Net Income": {{"value": 1200000, "confidence": 0.95, "base_year": 1200000, "year_1": 1100000}},
+                "Total Assets": {{"value": 3000000, "confidence": 0.95, "base_year": 3000000, "year_1": 2900000}},
+                "Total Equity": {{"value": 1800000, "confidence": 0.92, "base_year": 1800000, "year_1": 1700000}}
+                // Add more mappings as you find them in the document
             }},
             
             "document_structure": {{
@@ -237,15 +235,15 @@ class FinancialDataExtractor:
         CRITICAL EXTRACTION GUIDELINES:
 
         1. **EXTRACT EVERYTHING**: Every line with a label and number should be captured
-        2. **USE EXACT NAMES**: Convert document terminology to snake_case for JSON keys
-           - "Cash and Cash Equivalents" → "cash_and_cash_equivalents"
-           - "Accounts Receivable - Net" → "accounts_receivable_net"
-           - "Property, Plant & Equipment" → "property_plant_equipment"
+        2. **USE EXACT TEMPLATE FIELD NAMES**: Must match exactly from the template field list above
+           - If document shows "Cash and Bank Deposits", map to "Cash and Cash Equivalents"
+           - If document shows "Net Sales", map to "Total Revenue"
+           - If document shows "Profit for the Period", map to "Net Income"
         
-        3. **ADAPT CATEGORIES**: Use the document's own section organization
-           - If document has "Current Assets" and "Non-Current Assets", use those
-           - If document has "Operating Revenue" and "Non-Operating Revenue", use those
-           - Don't force items into predefined categories if they don't fit
+        3. **SEMANTIC MATCHING**: Use your understanding to find the best template field match
+           - "Total Stockholders' Equity" → "Total Equity"
+           - "Property, Plant & Equipment" → "Property, Plant and Equipment"
+           - "Cost of Goods Sold" → "Cost of Sales"
         
         4. **HANDLE TOTALS**: Always extract subtotals and grand totals
            - "Total Current Assets", "Total Assets", "Total Revenue", etc.
@@ -268,34 +266,37 @@ class FinancialDataExtractor:
              * year_1: 950000 (the amount under 2023, not "2023" itself)
            - Only include year fields that have actual financial data (not the year labels)
 
-        7. **FALLBACK APPROACH**: If document structure is unusual:
-           - Create a "miscellaneous" or "other_items" category
-           - Still extract all visible line items
-           - Note the unusual structure in the "notes" field
+        7. **FALLBACK APPROACH**: If you can't find a good template field match:
+           - Still extract the data with a generic field name
+           - Note the issue in the "notes" field
+           - Use your best judgment for the closest semantic match
 
-        EXAMPLES OF ADAPTIVE EXTRACTION:
+        EXAMPLES OF DIRECT TEMPLATE MAPPING:
 
         Document shows: "Cash and Bank Deposits    ₱1,000,000    ₱950,000"
-        Extract as: "cash_and_bank_deposits": {{"value": 1000000, "confidence": 0.95, "base_year": 1000000, "year_1": 950000}}
+        Map to: "Cash and Cash Equivalents": {{"value": 1000000, "confidence": 0.95, "base_year": 1000000, "year_1": 950000}}
 
         Document shows: "Total Stockholders' Equity    $5,000,000"  
-        Extract as: "total_stockholders_equity": {{"value": 5000000, "confidence": 0.95, "base_year": 5000000}}
+        Map to: "Total Equity": {{"value": 5000000, "confidence": 0.95, "base_year": 5000000}}
 
         Document shows: "Cost of Sales    (2,000,000)"
-        Extract as: "cost_of_sales": {{"value": -2000000, "confidence": 0.95, "base_year": -2000000}}
+        Map to: "Cost of Sales": {{"value": -2000000, "confidence": 0.95, "base_year": -2000000}}
 
         **MULTI-YEAR EXAMPLE** - Document shows:
         "                    2024        2023        2022
         Cash                40,506,296  14,011,556  12,500,000
         Accounts Receivable 93,102,625  102,434,862 95,000,000"
         
-        Extract as:
-        "cash": {{"value": 40506296, "confidence": 0.95, "base_year": 40506296, "year_1": 14011556, "year_2": 12500000}}
-        "accounts_receivable": {{"value": 93102625, "confidence": 0.95, "base_year": 93102625, "year_1": 102434862, "year_2": 95000000}}
-        
-        **WRONG**: Do NOT extract "2024": {{"value": 2024}} - years are headers, not data!
+        Map to:
+        "Cash and Cash Equivalents": {{"value": 40506296, "confidence": 0.95, "base_year": 40506296, "year_1": 14011556, "year_2": 12500000}}
+        "Accounts Receivable": {{"value": 93102625, "confidence": 0.95, "base_year": 93102625, "year_1": 102434862, "year_2": 95000000}}
 
-        REMEMBER: Your goal is to capture ALL financial data visible in the document while preserving the document's own terminology and organization. Be thorough but accurate.
+        **IMPORTANT**: 
+        - Extract ALL visible financial line items and map them to template fields
+        - Use the EXACT template field names from the list above
+        - Be thorough - it's better to extract too much than too little
+        - If you're unsure about a value, include it with lower confidence rather than omitting it
+        - Trust your semantic understanding to find the best template field matches
         """
     
     def encode_image(self, image_file) -> str:

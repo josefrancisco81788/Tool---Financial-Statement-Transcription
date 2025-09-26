@@ -939,28 +939,44 @@ class PDFProcessor:
     def _combine_page_results(self, results: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
         Combine results from multiple pages into a single result.
-        Uses the most complete and accurate data from each category.
+        Now handles template_mappings instead of line_items.
         
         Args:
             results: List of page results
             
         Returns:
-            Combined financial data
+            Combined financial data with template_mappings
         """
         if len(results) == 1:
             return results[0]['data']
         
-        # Start with empty structure
+        # Combine template_mappings from all pages
+        combined_mappings = {}
+        
+        for result in results:
+            page_data = result['data']
+            page_mappings = page_data.get('template_mappings', {})
+            
+            # Merge mappings (use highest confidence for duplicates)
+            for field_name, mapping in page_mappings.items():
+                if field_name not in combined_mappings:
+                    combined_mappings[field_name] = mapping
+                else:
+                    # Keep higher confidence value
+                    existing_confidence = combined_mappings[field_name].get('confidence', 0)
+                    new_confidence = mapping.get('confidence', 0)
+                    if new_confidence > existing_confidence:
+                        combined_mappings[field_name] = mapping
+        
+        # Use metadata from the first result
         combined_data = {
-            'statement_type': 'Financial Statement',
+            'template_mappings': combined_mappings,
             'company_name': '',
             'period': '',
             'currency': '',
             'years_detected': [],
             'base_year': '',
             'year_ordering': '',
-            'line_items': {},
-            'summary_metrics': {},
             'document_structure': {},
             'notes': '',
             'processing_method': 'multi_page_vector_database',
@@ -969,34 +985,6 @@ class PDFProcessor:
             'pages_processed': len(results)
         }
         
-        # Collect all line_items from all pages
-        all_line_items = {}
-        
-        for result in results:
-            page_data = result['data']
-            page_line_items = page_data.get('line_items', {})
-            
-            # Merge each category
-            for category, items in page_line_items.items():
-                if category not in all_line_items:
-                    all_line_items[category] = {}
-                
-                if isinstance(items, dict):
-                    for field, value in items.items():
-                        if isinstance(value, dict) and 'value' in value and value['value'] is not None:
-                            # Use the first valid value we find for each field
-                            if field not in all_line_items[category]:
-                                all_line_items[category][field] = value
-                            else:
-                                # If we already have this field, keep the one with higher confidence
-                                existing_confidence = all_line_items[category][field].get('confidence', 0)
-                                new_confidence = value.get('confidence', 0)
-                                if new_confidence > existing_confidence:
-                                    all_line_items[category][field] = value
-        
-        combined_data['line_items'] = all_line_items
-        
-        # Use metadata from the first result
         if results:
             first_data = results[0]['data']
             combined_data['company_name'] = first_data.get('company_name', '')
@@ -1005,7 +993,6 @@ class PDFProcessor:
             combined_data['years_detected'] = first_data.get('years_detected', [])
             combined_data['base_year'] = first_data.get('base_year', '')
             combined_data['year_ordering'] = first_data.get('year_ordering', '')
-            combined_data['summary_metrics'] = first_data.get('summary_metrics', {})
             combined_data['document_structure'] = first_data.get('document_structure', {})
             combined_data['notes'] = first_data.get('notes', '')
             combined_data['ai_provider'] = first_data.get('ai_provider', 'anthropic')
