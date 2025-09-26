@@ -716,6 +716,16 @@ class CSVExporter:
                     filled_row['Confidence_Score'] = mapping.get('confidence', 0.8)
                     
                     # Handle multi-year data if available
+                    if 'Value_Year_1' in mapping:
+                        filled_row['Value_Year_1'] = mapping.get('Value_Year_1')
+                    if 'Value_Year_2' in mapping:
+                        filled_row['Value_Year_2'] = mapping.get('Value_Year_2')
+                    if 'Value_Year_3' in mapping:
+                        filled_row['Value_Year_3'] = mapping.get('Value_Year_3')
+                    if 'Value_Year_4' in mapping:
+                        filled_row['Value_Year_4'] = mapping.get('Value_Year_4')
+                    
+                    # Also handle old format for backward compatibility
                     if 'base_year' in mapping:
                         filled_row['Value_Year_1'] = mapping.get('base_year')
                     if 'year_1' in mapping:
