@@ -1,5 +1,10 @@
 # 🤖 Migration Plan: ChatGPT to Claude
 
+> **⚠️ PRIMARY USE CASE REMINDER**  
+> This tool processes **30-80 page annual reports** where financial statements appear at **unpredictable locations**. PDFs are **non-OCR scanned images** with no extractable text. All processing must use vision-based AI analysis. See [USE_CASE.md](USE_CASE.md) for details.
+
+---
+
 ## 📋 Executive Summary
 
 This document outlines the comprehensive plan for migrating the Financial Statement Transcription Tool from OpenAI's ChatGPT (GPT-4 Vision) to Anthropic's Claude 3.5 Sonnet. The migration will maintain full backward compatibility while providing the option to use either AI provider.

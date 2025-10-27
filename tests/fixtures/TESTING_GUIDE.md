@@ -1,6 +1,32 @@
 # API Testing Guide
 
+> **⚠️ PRIMARY USE CASE - READ THIS FIRST**  
+> Financial statement documents are typically **30-80 pages long**, containing multiple sections including cover pages, management discussion, auditor reports, notes, and appendices. The actual financial statements (Balance Sheet, Income Statement, Cash Flow Statement) can appear **ANYWHERE** within this document bundle. The terms that must be matched with each template item are not known in advance and so deterministic matching is not viable.  
+> **CRITICAL**: These PDFs are **non-OCR scanned documents** - they contain only images, not extractable text.
+
 This directory contains test files and testing instructions for the Financial Statement Transcription API.
+
+## ⚠️ Test File Types - CRITICAL DISTINCTION
+
+### 🎯 ORIGIN Files = PRIMARY USE CASE
+**Location**: `tests/fixtures/origin/`  
+**Document Type**: Full 30-80 page annual reports  
+**Content**: Cover pages, MD&A, auditor reports, notes, appendices + financial statements  
+**Financial Statements Location**: UNPREDICTABLE (can be anywhere in document)  
+**Format**: Non-OCR scanned images (no extractable text)  
+**Use For**: Production validation, end-to-end testing, performance benchmarks  
+**Priority**: ✅ **ALWAYS TEST ON THESE FIRST**
+
+### 🔧 LIGHT Files = UNIT TESTING ONLY
+**Location**: `tests/fixtures/light/`  
+**Document Type**: Pre-extracted statement pages (3-8 pages)  
+**Content**: Financial statements ONLY (already isolated)  
+**Financial Statements Location**: All pages (statements already found)  
+**Format**: Same as origin (scanned images)  
+**Use For**: Isolated extraction logic testing, debugging specific fields  
+**Priority**: ⚠️ **NOT representative of production use case**
+
+---
 
 ## Directory Structure
 

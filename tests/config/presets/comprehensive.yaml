@@ -1,0 +1,29 @@
+name: "Comprehensive Test"
+description: "Full test suite for release validation"
+
+providers: ["openai", "anthropic"]
+document_sets: ["light", "origin"]
+timeout_seconds: 600
+parallel_workers: 2
+retry_attempts: 3
+
+output_formats: ["json", "csv", "html"]
+baseline_comparison: true
+provider_comparison: true
+
+accuracy_threshold: 0.6
+performance_threshold: 300.0
+use_scoring_framework: true
+production_readiness_check: true
+
+
+
+
+
+
+
+
+
+
+
+

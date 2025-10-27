@@ -1,0 +1,3 @@
+Provider,Document,Success,Error,Timestamp,Processing_Time_Seconds,Extraction_Rate,Format_Accuracy,Overall_Score,API_Calls_Made,Pages_Processed,Total_Fields_Extracted,Total_Template_Fields,Missing_Fields_Count,Field_Accuracy_Average,Extracted_Fields_JSON,Template_Fields_JSON,Missing_Fields_JSON,Field_Accuracy_JSON,Confidence_Scores_JSON
+openai,tests/fixtures/light/AFS-2022 - statement extracted.pdf,True,,2025-09-23T20:28:14.041468,158.93804812431335,0.0,0.0,0.0,0,0,0,0,0,0.0,{},[],[],{},{}
+anthropic,tests/fixtures/light/AFS-2022 - statement extracted.pdf,False,No data extracted from document,2025-09-23T20:28:15.398153,1.3566856384277344,0.0,0.0,0.0,0,0,0,0,0,0.0,{},[],[],{},{}

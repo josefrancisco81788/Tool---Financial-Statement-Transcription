@@ -1,0 +1,14 @@
+[
+  {
+    "provider": "openai",
+    "success": false,
+    "error": "type object 'Config' has no attribute 'OPENAI_API_KEY'",
+    "provider_correct": false
+  },
+  {
+    "provider": "anthropic",
+    "success": false,
+    "error": "type object 'Config' has no attribute 'ANTHROPIC_API_KEY'",
+    "provider_correct": false
+  }
+]

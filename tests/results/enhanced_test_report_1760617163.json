@@ -1,0 +1,362 @@
+{
+  "timestamp": "2025-10-16 13:19:23",
+  "summary": {
+    "total_tests": 1,
+    "successful_tests": 1,
+    "failed_tests": 0,
+    "success_rate": 100.0
+  },
+  "performance": {
+    "average_processing_time": 72.82501983642578,
+    "max_processing_time": 72.82501983642578,
+    "min_processing_time": 72.82501983642578,
+    "total_processing_time": 72.82501983642578
+  },
+  "by_category": {
+    "light": {
+      "total": 1,
+      "successful": 1,
+      "failed": 0
+    }
+  },
+  "results": [
+    {
+      "file": "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "filename": "AFS2024 - statement extracted.pdf",
+      "category": "light",
+      "success": true,
+      "error": null,
+      "processing_time": 72.82501983642578,
+      "response_data": {
+        "success": true,
+        "data": {
+          "template_mappings": {
+            "Cash and Cash Equivalents": {
+              "value": 40506296,
+              "confidence": 0.95,
+              "Value_Year_1": 40506296,
+              "Value_Year_2": 14011556
+            },
+            "Trade and Other Current Receivables": {
+              "value": 93102625,
+              "confidence": 0.95,
+              "Value_Year_1": 93102625,
+              "Value_Year_2": 102434862
+            },
+            "Other current non-financial assets": {
+              "value": 72591698,
+              "confidence": 0.9,
+              "Value_Year_1": 72591698,
+              "Value_Year_2": 22796639
+            },
+            "Total Current Assets": {
+              "value": 206200619,
+              "confidence": 0.95,
+              "Value_Year_1": 206200619,
+              "Value_Year_2": 139243056
+            },
+            "Investments in subsidiaries, joint ventures and associates": {
+              "value": 3000000,
+              "confidence": 0.9,
+              "Value_Year_1": 3000000,
+              "Value_Year_2": 1900000
+            },
+            "Property, Plant and Equipment": {
+              "value": 240617,
+              "confidence": 0.95,
+              "Value_Year_1": 240617,
+              "Value_Year_2": 1992274
+            },
+            "Other non-current non-financial assets": {
+              "value": 57086992,
+              "confidence": 0.9,
+              "Value_Year_1": 57086992,
+              "Value_Year_2": 126866242
+            },
+            "Total Non Current Assets": {
+              "value": 60546713,
+              "confidence": 0.95,
+              "Value_Year_1": 60546713,
+              "Value_Year_2": 130758516
+            },
+            "Total Assets": {
+              "value": 266747332,
+              "confidence": 0.95,
+              "Value_Year_1": 266747332,
+              "Value_Year_2": 270001572
+            },
+            "Trade and other current payables": {
+              "value": 44907778,
+              "confidence": 0.95,
+              "Value_Year_1": 44907778,
+              "Value_Year_2": 23297018
+            },
+            "Current tax liabilities": {
+              "value": 3243704,
+              "confidence": 0.95,
+              "Value_Year_1": 3243704,
+              "Value_Year_2": 3735208
+            },
+            "Other current financial liabilities": {
+              "value": 12172744,
+              "confidence": 0.9,
+              "Value_Year_1": 12172744,
+              "Value_Year_2": 9752679
+            },
+            "Other current non-financial liabilities": {
+              "value": 18394950,
+              "confidence": 0.9,
+              "Value_Year_1": 18394950,
+              "Value_Year_2": 20250238
+            },
+            "Total Current Liabilities": {
+              "value": 78719175,
+              "confidence": 0.95,
+              "Value_Year_1": 78719175,
+              "Value_Year_2": 57035143
+            },
+            "Other non-current financial liabilities": {
+              "value": 21810579,
+              "confidence": 0.9,
+              "Value_Year_1": 21810579,
+              "Value_Year_2": 28927669
+            },
+            "Other long-term financial liabilities": {
+              "value": 13000000,
+              "confidence": 0.9,
+              "Value_Year_1": 13000000,
+              "Value_Year_2": 0
+            },
+            "Other non-current non-financial liabilities": {
+              "value": 7176268,
+              "confidence": 0.9,
+              "Value_Year_1": 7176268,
+              "Value_Year_2": 46018833
+            },
+            "Total Non Current Liabilities": {
+              "value": 41986847,
+              "confidence": 0.95,
+              "Value_Year_1": 41986847,
+              "Value_Year_2": 74946502
+            },
+            "Total Liabilities": {
+              "value": 120706022,
+              "confidence": 0.95,
+              "Value_Year_1": 120706022,
+              "Value_Year_2": 131981645
+            },
+            "Issued (share) capital": {
+              "value": 45667200,
+              "confidence": 0.95,
+              "Value_Year_1": 45667200,
+              "Value_Year_2": 45667200
+            },
+            "Share premium": {
+              "value": 15833600,
+              "confidence": 0.95,
+              "Value_Year_1": 15833600,
+              "Value_Year_2": 15833600
+            },
+            "Other reserves": {
+              "value": 77396953,
+              "confidence": 0.9,
+              "Value_Year_1": 77396953,
+              "Value_Year_2": 96015096
+            },
+            "Retained earnings": {
+              "value": 44675911,
+              "confidence": 0.85,
+              "Value_Year_1": 44675911,
+              "Value_Year_2": 17396953
+            },
+            "Treasury shares": {
+              "value": -2705400,
+              "confidence": 0.95,
+              "Value_Year_1": -2705400,
+              "Value_Year_2": -2347826
+            },
+            "Total Equity": {
+              "value": 146041311,
+              "confidence": 0.95,
+              "Value_Year_1": 146041311,
+              "Value_Year_2": 138019927
+            },
+            "Total Liabilities And Equity": {
+              "value": 266747332,
+              "confidence": 0.95,
+              "Value_Year_1": 266747332,
+              "Value_Year_2": 270001572
+            },
+            "Revenue": {
+              "value": 249788478,
+              "confidence": 0.95,
+              "Value_Year_1": 249788478,
+              "Value_Year_2": 292800617
+            },
+            "Cost of Sales": {
+              "value": 202328679,
+              "confidence": 0.95,
+              "Value_Year_1": 202328679,
+              "Value_Year_2": 246283513
+            },
+            "Gross Profit": {
+              "value": 47459800,
+              "confidence": 0.95,
+              "Value_Year_1": 47459800,
+              "Value_Year_2": 46517104
+            },
+            "Administrative expense": {
+              "value": 35409424,
+              "confidence": 0.95,
+              "Value_Year_1": 35409424,
+              "Value_Year_2": 35413180
+            },
+            "Profit (loss) from operating activities": {
+              "value": 12050376,
+              "confidence": 0.95,
+              "Value_Year_1": 12050376,
+              "Value_Year_2": 11103924
+            },
+            "Other income": {
+              "value": -26278,
+              "confidence": 0.9,
+              "Value_Year_1": -26278,
+              "Value_Year_2": 4036523
+            },
+            "Profit (loss) before tax": {
+              "value": 12024098,
+              "confidence": 0.95,
+              "Value_Year_1": 12024098,
+              "Value_Year_2": 15140447
+            },
+            "Income tax expense (from continuing operations)": {
+              "value": 3243704,
+              "confidence": 0.95,
+              "Value_Year_1": 3243704,
+              "Value_Year_2": 3735208
+            },
+            "Profit (loss)": {
+              "value": 8780395,
+              "confidence": 0.95,
+              "Value_Year_1": 8780395,
+              "Value_Year_2": 11405239
+            },
+            "Other comprehensive income": {
+              "value": 1100000,
+              "confidence": 0.9,
+              "Value_Year_1": 1100000,
+              "Value_Year_2": -3515320
+            },
+            "Comprehensive / Net income": {
+              "value": 9880395,
+              "confidence": 0.95,
+              "Value_Year_1": 9880395,
+              "Value_Year_2": 7889919
+            },
+            "Year": {
+              "value": 2024,
+              "confidence": 0.95,
+              "Value_Year_1": 2024,
+              "Value_Year_2": 2023,
+              "Value_Year_3": null,
+              "Value_Year_4": null,
+              "source": "multi_page_vision_extraction"
+            }
+          },
+          "company_name": "",
+          "period": "",
+          "currency": "",
+          "years_detected": [],
+          "base_year": "",
+          "year_ordering": "",
+          "document_structure": {},
+          "notes": "",
+          "processing_method": "multi_page_vector_database",
+          "ai_provider": "anthropic",
+          "timestamp": 1760617144.6460688,
+          "pages_processed": 3
+        },
+        "template_csv": "Q2F0ZWdvcnksU3ViY2F0ZWdvcnksRmllbGQsQ29uZmlkZW5jZSxDb25maWRlbmNlX1Njb3JlLFZhbHVlX1llYXJfMSxWYWx1ZV9ZZWFyXzIsVmFsdWVfWWVhcl8zLFZhbHVlX1llYXJfNApNZXRhLFJlZmVyZW5jZSxZZWFyLEhpZ2gsMC45NSwyMDI0LDIwMjMsLApCYWxhbmNlIFNoZWV0LEN1cnJlbnQgQXNzZXRzLENhc2ggYW5kIENhc2ggRXF1aXZhbGVudHMsSGlnaCwwLjk1LDQwNTA2Mjk2LDE0MDExNTU2LCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IEFzc2V0cyxUcmFkZSBhbmQgT3RoZXIgQ3VycmVudCBSZWNlaXZhYmxlcyxIaWdoLDAuOTUsOTMxMDI2MjUsMTAyNDM0ODYyLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IEFzc2V0cyxDdXJyZW50IEludmVudG9yaWVzLCwsLCwsCkJhbGFuY2UgU2hlZXQsQ3VycmVudCBBc3NldHMsQ3VycmVudCBUYXggQXNzZXRzLCwsLCwsCkJhbGFuY2UgU2hlZXQsQ3VycmVudCBBc3NldHMsQ3VycmVudCBiaW9sb2dpY2FsIGFzc2V0cywsLCwsLApCYWxhbmNlIFNoZWV0LEN1cnJlbnQgQXNzZXRzLE90aGVyIGN1cnJlbnQgZmluYW5jaWFsIGFzc2V0cywsLCwsLApCYWxhbmNlIFNoZWV0LEN1cnJlbnQgQXNzZXRzLE90aGVyIGN1cnJlbnQgbm9uLWZpbmFuY2lhbCBhc3NldHMsSGlnaCwwLjksNzI1OTE2OTgsMjI3OTY2MzksLApCYWxhbmNlIFNoZWV0LEN1cnJlbnQgQXNzZXRzLEN1cnJlbnQgbm9uLWNhc2ggYXNzZXRzIHBsZWRnZWQgYXMgY29sbGF0ZXJhbCBmb3Igd2hpY2ggdHJhbnNmZXJlZSBoYXMgcmlnaHQgYnkgY29udHJhY3Qgb3IgY3VzdG9tIHRvIHNlbGwgb3IgcmVwbGVkZ2UgY29sbGF0ZXJhbCwsLCwsLApCYWxhbmNlIFNoZWV0LEN1cnJlbnQgQXNzZXRzLE5vbi1jdXJyZW50IGFzc2V0cyBvciBkaXNwb3NhbCBncm91cHMgY2xhc3NpZmllZCBhcyBoZWxkIGZvciBzYWxlIG9yIGFzIGhlbGQgZm9yIGRpc3RyaWJ1dGlvbiB0byBvd25lcnMsLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IEFzc2V0cyxUb3RhbCBDdXJyZW50IEFzc2V0cyxIaWdoLDAuOTUsMjA2MjAwNjE5LDEzOTI0MzA1NiwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgQXNzZXRzLCJQcm9wZXJ0eSwgUGxhbnQgYW5kIEVxdWlwbWVudCIsSGlnaCwwLjk1LDI0MDYxNywxOTkyMjc0LCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBBc3NldHMsSW52ZXN0bWVudCBQcm9wZXJ0eSwsLCwsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IEFzc2V0cyxHb29kd2lsbCwsLCwsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IEFzc2V0cyxJbnRhbmdpYmxlIGFzc2V0cyBvdGhlciB0aGFuIGdvb2R3aWxsLCwsLCwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgQXNzZXRzLEludmVzdG1lbnQgYWNjb3VudGVkIGZvciB1c2luZyBlcXVpdHkgbWV0aG9kLCwsLCwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgQXNzZXRzLCJJbnZlc3RtZW50cyBpbiBzdWJzaWRpYXJpZXMsIGpvaW50IHZlbnR1cmVzIGFuZCBhc3NvY2lhdGVzIixIaWdoLDAuOSwzMDAwMDAwLDE5MDAwMDAsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IEFzc2V0cyxOb24tY3VycmVudCBiaW9sb2dpY2FsIGFzc2V0cywsLCwsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IEFzc2V0cyxUcmFkZSBhbmQgb3RoZXIgbm9uLWN1cnJlbnQgcmVjZWl2YWJsZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBBc3NldHMsTm9uLWN1cnJlbnQgaW52ZW50b3JpZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBBc3NldHMsRGVmZXJyZWQgdGF4IGFzc2V0cywsLCwsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IEFzc2V0cywiQ3VycmVudCB0YXggYXNzZXRzLCBub24tY3VycmVudCIsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBBc3NldHMsT3RoZXIgbm9uLWN1cnJlbnQgZmluYW5jaWFsIGFzc2V0cywsLCwsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IEFzc2V0cyxPdGhlciBub24tY3VycmVudCBub24tZmluYW5jaWFsIGFzc2V0cyxIaWdoLDAuOSw1NzA4Njk5MiwxMjY4NjYyNDIsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IEFzc2V0cyxOb24tY3VycmVudCBub24tY2FzaCBhc3NldHMgcGxlZGdlZCBhcyBjb2xsYXRlcmFsIGZvciB3aGljaCB0cmFuc2ZlcmVlIGhhcyByaWdodCBieSBjb250cmFjdCBvciBjdXN0b20gdG8gc2VsbCBvciByZXBsZWRnZSBjb2xsYXRlcmFsLCwsLCwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgQXNzZXRzLFRvdGFsIE5vbiBDdXJyZW50IEFzc2V0cyxIaWdoLDAuOTUsNjA1NDY3MTMsMTMwNzU4NTE2LCwKQmFsYW5jZSBTaGVldCxUb3RhbHMsVG90YWwgQXNzZXRzLEhpZ2gsMC45NSwyNjY3NDczMzIsMjcwMDAxNTcyLCwKQmFsYW5jZSBTaGVldCxUb3RhbHMsVG90YWwgTGlhYmlsaXRpZXMgQW5kIEVxdWl0eSxIaWdoLDAuOTUsMjY2NzQ3MzMyLDI3MDAwMTU3MiwsCkJhbGFuY2UgU2hlZXQsQ3VycmVudCBMaWFiaWxpdGllcyxDdXJyZW50IHByb3Zpc2lvbnMgZm9yIGVtcGxveWVlIGJlbmVmaXRzLCwsLCwsCkJhbGFuY2UgU2hlZXQsQ3VycmVudCBMaWFiaWxpdGllcyxPdGhlciBjdXJyZW50IHByb3Zpc2lvbnMsLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IExpYWJpbGl0aWVzLFRyYWRlIGFuZCBvdGhlciBjdXJyZW50IHBheWFibGVzLEhpZ2gsMC45NSw0NDkwNzc3OCwyMzI5NzAxOCwsCkJhbGFuY2UgU2hlZXQsQ3VycmVudCBMaWFiaWxpdGllcywiQ3VycmVudCB0YXggbGlhYmlsaXRpZXMsIGN1cnJlbnQiLCwsLCwsCkJhbGFuY2UgU2hlZXQsQ3VycmVudCBMaWFiaWxpdGllcyxPdGhlciBjdXJyZW50IGZpbmFuY2lhbCBsaWFiaWxpdGllcyxIaWdoLDAuOSwxMjE3Mjc0NCw5NzUyNjc5LCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IExpYWJpbGl0aWVzLE90aGVyIGN1cnJlbnQgbm9uLWZpbmFuY2lhbCBsaWFiaWxpdGllcyxIaWdoLDAuOSwxODM5NDk1MCwyMDI1MDIzOCwsCkJhbGFuY2UgU2hlZXQsQ3VycmVudCBMaWFiaWxpdGllcyxMaWFiaWxpdGllcyBpbmNsdWRlZCBpbiBkaXNwb3NhbCBncm91cHMgY2xhc3NpZmllZCBhcyBoZWxkIGZvciBzYWxlLCwsLCwsCkJhbGFuY2UgU2hlZXQsQ3VycmVudCBMaWFiaWxpdGllcyxUb3RhbCBDdXJyZW50IExpYWJpbGl0aWVzLEhpZ2gsMC45NSw3ODcxOTE3NSw1NzAzNTE0MywsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgTGlhYmlsaXRpZXMsTm9uLWN1cnJlbnQgcHJvdmlzaW9ucyBmb3IgZW1wbG95ZWUgYmVuZWZpdHMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBMaWFiaWxpdGllcyxPdGhlciBub24tY3VycmVudCBwcm92aXNpb25zLCwsLCwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgTGlhYmlsaXRpZXMsVHJhZGUgYW5kIG90aGVyIG5vbi1jdXJyZW50IHBheWFibGVzLCwsLCwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgTGlhYmlsaXRpZXMsRGVmZXJyZWQgdGF4IGxpYWJpbGl0aWVzLCwsLCwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgTGlhYmlsaXRpZXMsIkN1cnJlbnQgdGF4IGxpYWJpbGl0aWVzLCBub24tY3VycmVudCIsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBMaWFiaWxpdGllcyxPdGhlciBsb25nLXRlcm0gZmluYW5jaWFsIGxpYWJpbGl0aWVzLEhpZ2gsMC45LDEzMDAwMDAwLDAsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IExpYWJpbGl0aWVzLE90aGVyIG5vbi1jdXJyZW50IG5vbi1maW5hbmNpYWwgbGlhYmlsaXRpZXMsSGlnaCwwLjksNzE3NjI2OCw0NjAxODgzMywsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgTGlhYmlsaXRpZXMsVG90YWwgTm9uIEN1cnJlbnQgTGlhYmlsaXRpZXMsSGlnaCwwLjk1LDQxOTg2ODQ3LDc0OTQ2NTAyLCwKQmFsYW5jZSBTaGVldCxFcXVpdHksSXNzdWVkIChzaGFyZSkgY2FwaXRhbCxIaWdoLDAuOTUsNDU2NjcyMDAsNDU2NjcyMDAsLApCYWxhbmNlIFNoZWV0LEVxdWl0eSxTaGFyZSBwcmVtaXVtLEhpZ2gsMC45NSwxNTgzMzYwMCwxNTgzMzYwMCwsCkJhbGFuY2UgU2hlZXQsRXF1aXR5LFRyZWFzdXJ5IHNoYXJlcyxIaWdoLDAuOTUsLTI3MDU0MDAsLTIzNDc4MjYsLApCYWxhbmNlIFNoZWV0LEVxdWl0eSxPdGhlciBlcXVpdHkgaW50ZXJlc3QsLCwsLCwKQmFsYW5jZSBTaGVldCxFcXVpdHksT3RoZXIgcmVzZXJ2ZXMsSGlnaCwwLjksNzczOTY5NTMsOTYwMTUwOTYsLApCYWxhbmNlIFNoZWV0LEVxdWl0eSxSZXRhaW5lZCBlYXJuaW5ncyxNZWRpdW0sMC44NSw0NDY3NTkxMSwxNzM5Njk1MywsCkJhbGFuY2UgU2hlZXQsRXF1aXR5LE5vbi1jb250cm9sbGluZyBpbnRlcmVzdHMsLCwsLCwKQmFsYW5jZSBTaGVldCxFcXVpdHksRXF1aXR5LCwsLCwsCkJhbGFuY2UgU2hlZXQsRXF1aXR5LExpYWJpbGl0aWVzLCwsLCwsCkJhbGFuY2UgU2hlZXQsRXF1aXR5LFRvdGFsIEVxdWl0eSxIaWdoLDAuOTUsMTQ2MDQxMzExLDEzODAxOTkyNywsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxSZXZlbnVlLEhpZ2gsMC45NSwyNDk3ODg0NzgsMjkyODAwNjE3LCwKSW5jb21lIFN0YXRlbWVudCxSZXZlbnVlLENvc3Qgb2YgU2FsZXMsSGlnaCwwLjk1LDIwMjMyODY3OSwyNDYyODM1MTMsLApJbmNvbWUgU3RhdGVtZW50LFJldmVudWUsR3Jvc3MgUHJvZml0LEhpZ2gsMC45NSw0NzQ1OTgwMCw0NjUxNzEwNCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxPdGhlciBpbmNvbWUsSGlnaCwwLjksLTI2Mjc4LDQwMzY1MjMsLApJbmNvbWUgU3RhdGVtZW50LFJldmVudWUsRGlzdHJpYnV0aW9uIGNvc3RzLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxBZG1pbmlzdHJhdGl2ZSBleHBlbnNlLEhpZ2gsMC45NSwzNTQwOTQyNCwzNTQxMzE4MCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxPdGhlciBleHBlbnNlLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxPdGhlciBnYWlucyhsb3NzZXMpLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxQcm9maXQgKGxvc3MpIGZyb20gb3BlcmF0aW5nIGFjdGl2aXRpZXMsSGlnaCwwLjk1LDEyMDUwMzc2LDExMTAzOTI0LCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LERpZmZlcmVuY2UgYmV0d2VlbiBjYXJyeWluZyBhbW91bnQgb2YgZGl2aWRlbmRzIHBheWFibGUgYW5kIGNhcnJ5aW5nIGFtb3VudCBvZiBub24tY2FzaCBhc3NldHMgZGlzdHJpYnV0ZWQgMSwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEJlZm9yZSBUYXgsR2FpbnMgKGxvc3Nlcykgb24gbmV0IG1vbmV0YXJ5IHBvc2l0aW9uIDEsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LEdhaW4gKGxvc3MpIGFyaXNpbmcgZnJvbSBkZXJlY29nbml0aW9uIG9mIGZpbmFuY2lhbCBhc3NldHMgbWVhc3VyZWQgYXQgYW1vcnRpc2VkIGNvc3QgMSwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEJlZm9yZSBUYXgsRmluYW5jZSBpbmNvbWUsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LEZpbmFuY2UgY29zdHMsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LEltcGFpcm1lbnQgbG9zcyAoaW1wYWlybWVudCBnYWluIGFuZCByZXZlcnNhbCBvZiBpbXBhaXJtZW50IGxvc3MpIGRldGVybWluZWQgaW4gYWNjb3JkYW5jZSB3aXRoIElGUlMgOSAxLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsQmVmb3JlIFRheCxTaGFyZSBvZiBwcm9maXQobG9zcykgb2YgYXNzb2NpYXRlcyBpbiBqb2ludCB2ZW50dXJlcyBhY2NvdW50ZWQgZm9yIHVzaW5nIGVxdWl0eSBtZXRob2QgMSwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEJlZm9yZSBUYXgsIk90aGVyIGluY29tZSAoZXhwZW5zZSkgZnJvbSBzdWJzaWRpYXJpZXMsIGpvaW50bHkgY29udHJvbGxlZCBlbnRpdGllcyBhbmQgYXNzb2NpYXRlcyAxIiwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEJlZm9yZSBUYXgsR2FpbnMgKGxvc3NlcykgYXJpc2luZyBmb3JtIGRpZmZlcmVuY2UgYmV0d2VlbiBwcmV2aW91cyBjYXJyeWluZyBhbW91bnQgYW5kIGZhaXIgdmFsdWUgb2YgZmluYW5jaWFsIGFzc2V0cyByZWNsYXNzaWZpZWQgYXMgbWVhc3VyZWQgYXQgZmFpciB2YWx1ZTEsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LEN1bXVsYXRpdmUgZ2FpbiAobG9zcykgcHJldmlvdXNseSByZWNvZ25pc2VkIGluIG90aGVyIGNvbXByZWhlbnNpdmUgaW5jb21lIGFyaXNpbmcgZnJvbSByZWNsYXNzaWZpY2F0aW9uIG9mIGZpbmFuY2lhbCBhc3NldHMgb3V0IG9mIGZhaXIgdmFsdWUgdGhyb3VnaCBvdGhlciBjb21wcmVoZW5zaXZlIGluY29tZSBpbnRvIGZhaXIgdmFsdWUgdGhyb3VnaCBwcm9maXQgb3IgbG9zcyBtZWFzdXJlbWVudCBjYXRlZ29yeS4gMSwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEJlZm9yZSBUYXgsSGVkZ2luZyBnYWlucyAobG9zc2VzKSBmb3IgaGVkZ2Ugb2YgZ3JvdXAgb2YgaXRlbXMgd2l0aCBvZmZzZXR0aW5nIHJpc2sgcG9zaXRpb25zIDEsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LFByb2ZpdCAobG9zcykgYmVmb3JlIHRheCxIaWdoLDAuOTUsMTIwMjQwOTgsMTUxNDA0NDcsLApJbmNvbWUgU3RhdGVtZW50LEFmdGVyIFRheCxJbmNvbWUgdGF4IGV4cGVuc2UgKGZyb20gY29udGludWluZyBvcGVyYXRpb25zKSxIaWdoLDAuOTUsMzI0MzcwNCwzNzM1MjA4LCwKSW5jb21lIFN0YXRlbWVudCxBZnRlciBUYXgsUHJvZml0IChsb3NzKSBmcm9tIGNvbnRpbnVpbmcgb3BlcmF0aW9ucywsLCwsLApJbmNvbWUgU3RhdGVtZW50LEFmdGVyIFRheCxQcm9maXQgKGxvc3MgZnJvbSBkaXNjb250aW51ZWQgb3BlcmF0aW9ucywsLCwsLApJbmNvbWUgU3RhdGVtZW50LEFmdGVyIFRheCxQcm9maXQgKGxvc3MpLEhpZ2gsMC45NSw4NzgwMzk1LDExNDA1MjM5LCwKSW5jb21lIFN0YXRlbWVudCxBZnRlciBUYXgsT3RoZXIgY29tcHJlaGVuc2l2ZSBpbmNvbWUsSGlnaCwwLjksMTEwMDAwMCwtMzUxNTMyMCwsCkluY29tZSBTdGF0ZW1lbnQsQWZ0ZXIgVGF4LENvbXByZWhlbnNpdmUgLyBOZXQgaW5jb21lLEhpZ2gsMC45NSw5ODgwMzk1LDc4ODk5MTksLApDYXNoIEZsb3cgU3RhdGVtZW50LE9wZXJhdGluZyBBY3Rpdml0aWVzLEFtb3J0aXphdGlvbiBFeHBlbnNlLCwsLCwsCkNhc2ggRmxvdyBTdGF0ZW1lbnQsT3BlcmF0aW5nIEFjdGl2aXRpZXMsRGVwcmVjaWF0aW9uIEV4cGVuc2UsLCwsLCwKQ2FzaCBGbG93IFN0YXRlbWVudCxPcGVyYXRpbmcgQWN0aXZpdGllcyxOZXQgQ2FzaGZsb3cgZnJvbSBPcGVyYXRpb25zIChwZXIgRlMpLCwsLCwsCkNhc2ggRmxvdyBTdGF0ZW1lbnQsT3BlcmF0aW5nIEFjdGl2aXRpZXMsQW1vcnRpemF0aW9uLCwsLCwsCkNhc2ggRmxvdyBTdGF0ZW1lbnQsT3BlcmF0aW5nIEFjdGl2aXRpZXMsRGVwcmVjaWF0aW9uLCwsLCwsCkNhc2ggRmxvdyBTdGF0ZW1lbnQsT3BlcmF0aW5nIEFjdGl2aXRpZXMsSW50ZXJlc3QgRXhwZW5zZSwsLCwsLApDYXNoIEZsb3cgU3RhdGVtZW50LE9wZXJhdGluZyBBY3Rpdml0aWVzLE5vbi1DYXNoIEV4cGVuc2VzLCwsLCwsCkNhc2ggRmxvdyBTdGF0ZW1lbnQsT3BlcmF0aW5nIEFjdGl2aXRpZXMsUHJpbmNpcGFsIFBheW1lbnRzLCwsLCwsCkNhc2ggRmxvdyBTdGF0ZW1lbnQsT3BlcmF0aW5nIEFjdGl2aXRpZXMsSW50ZXJlc3QgUGF5bWVudHMsLCwsLCwKQ2FzaCBGbG93IFN0YXRlbWVudCxPcGVyYXRpbmcgQWN0aXZpdGllcyxMZWFzZSBQYXltZW50cywsLCwsLAo=",
+        "template_fields_mapped": 70,
+        "processing_time": 66.81856107711792,
+        "pages_processed": 3,
+        "timestamp": "2025-10-16T12:19:23Z"
+      },
+      "file_size": 298456,
+      "status_code": 200
+    }
+  ],
+  "test_state": {
+    "completed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
+    ],
+    "failed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf"
+    ],
+    "last_run": null
+  }
+}

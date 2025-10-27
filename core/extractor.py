@@ -23,29 +23,29 @@ class FinancialDataExtractor:
         self.provider = self.config.AI_PROVIDER.lower()
         
         # Debug provider configuration
-        print(f"🔍 Extractor init - provider: {self.provider}")
-        print(f"🔍 Extractor init - config AI_PROVIDER: {self.config.AI_PROVIDER}")
-        print(f"🔍 Extractor init - ANTHROPIC_API_KEY length: {len(self.config.ANTHROPIC_API_KEY)}")
-        print(f"🔍 Extractor init - OPENAI_API_KEY length: {len(self.config.OPENAI_API_KEY)}")
+        print(f"[DEBUG] Extractor init - provider: {self.provider}")
+        print(f"[DEBUG] Extractor init - config AI_PROVIDER: {self.config.AI_PROVIDER}")
+        print(f"[DEBUG] Extractor init - ANTHROPIC_API_KEY length: {len(self.config.ANTHROPIC_API_KEY)}")
+        print(f"[DEBUG] Extractor init - OPENAI_API_KEY length: {len(self.config.OPENAI_API_KEY)}")
         
         # Initialize clients based on provider
         try:
             if self.provider == "openai":
                 self.openai_client = openai_client or OpenAI(api_key=self.config.OPENAI_API_KEY)
                 self.anthropic_client = None
-                print("✅ OpenAI client created successfully")
+                print("[INFO] OpenAI client created successfully")
             elif self.provider == "anthropic":
                 self.openai_client = None
                 self.anthropic_client = anthropic_client or anthropic.Anthropic(api_key=self.config.ANTHROPIC_API_KEY)
-                print("✅ Anthropic client created successfully")
+                print("[INFO] Anthropic client created successfully")
             else:
                 raise ValueError(f"Unsupported AI provider: {self.provider}. Must be 'openai' or 'anthropic'")
         except Exception as e:
-            print(f"❌ Client creation failed: {e}")
+            print(f"[ERROR] Client creation failed: {e}")
             raise
         
-        print(f"🔍 Extractor init - has anthropic client: {hasattr(self, 'anthropic_client') and self.anthropic_client is not None}")
-        print(f"🔍 Extractor init - has openai client: {hasattr(self, 'openai_client') and self.openai_client is not None}")
+        print(f"[DEBUG] Extractor init - has anthropic client: {hasattr(self, 'anthropic_client') and self.anthropic_client is not None}")
+        print(f"[DEBUG] Extractor init - has openai client: {hasattr(self, 'openai_client') and self.openai_client is not None}")
     
     def _load_template_fields(self) -> List[str]:
         """Load the 91 template fields for context"""
@@ -54,7 +54,7 @@ class FinancialDataExtractor:
             template_path = "tests/fixtures/templates/FS_Input_Template_Fields.csv"
             
             if not os.path.exists(template_path):
-                print(f"⚠️ Template file not found at: {template_path}")
+                print(f"[WARN] Template file not found at: {template_path}")
                 print(f"Current working directory: {os.getcwd()}")
                 return self._get_fallback_template_fields()
             
@@ -63,9 +63,9 @@ class FinancialDataExtractor:
             
             # Validate we have exactly 91 fields
             if len(template_fields) != 91:
-                print(f"⚠️ Expected 91 fields, got {len(template_fields)}")
+                print(f"[WARN] Expected 91 fields, got {len(template_fields)}")
             else:
-                print(f"✅ Loaded exactly {len(template_fields)} template fields from {template_path}")
+                print(f"[INFO] Loaded exactly {len(template_fields)} template fields from {template_path}")
             
             # Log first few fields for verification
             print(f"First 5 template fields: {template_fields[:5]}")
@@ -73,7 +73,7 @@ class FinancialDataExtractor:
             return template_fields
             
         except Exception as e:
-            print(f"❌ Error loading template fields: {e}")
+            print(f"[ERROR] Error loading template fields: {e}")
             return self._get_fallback_template_fields()
     
     def _get_fallback_template_fields(self) -> List[str]:
@@ -130,21 +130,21 @@ class FinancialDataExtractor:
             prompt = self._build_extraction_prompt(statement_type_hint)
             
             # Debug: Show the prompt being used
-            print(f"🔍 Using simplified prompt (first 500 chars): {prompt[:500]}...")
+            print(f"[DEBUG] Using simplified prompt (first 500 chars): {prompt[:500]}...")
             
             # Make provider-specific API call with retry logic
-            print(f"🔍 About to make API call with provider: {self.provider}")
+            print(f"[DEBUG] About to make API call with provider: {self.provider}")
             if self.provider == "openai":
-                print("🔍 Using OpenAI endpoint")
+                print("[DEBUG] Using OpenAI endpoint")
                 response = self._call_openai_api(base64_image, prompt)
             elif self.provider == "anthropic":
-                print("🔍 Using Anthropic endpoint")
+                print("[DEBUG] Using Anthropic endpoint")
                 response = self._call_anthropic_api(base64_image, prompt)
             else:
-                print(f"❌ Unknown provider: {self.provider}")
+                print(f"[ERROR] Unknown provider: {self.provider}")
                 raise ValueError(f"Unknown provider: {self.provider}")
             
-            print(f"🔍 API call completed with provider: {self.provider}")
+            print(f"[DEBUG] API call completed with provider: {self.provider}")
             
             # Parse the JSON response
             if not response:
@@ -189,11 +189,19 @@ class FinancialDataExtractor:
         4. Extract values as numbers (remove currency symbols, handle parentheses as negative)
         5. Set confidence: 0.9+ for clear values, 0.7+ for somewhat clear, 0.5+ for uncertain
 
-        PRIORITY FIELDS (extract these if present):
+        CRITICAL FIELDS (MUST extract if visible):
+        - **TOTALS ARE CRITICAL**: Total Assets, Total Equity, Total Liabilities
+        - **TOTALS ARE CRITICAL**: Total Current Assets, Total Non-Current Assets
+        - **TOTALS ARE CRITICAL**: Total Current Liabilities, Total Non-Current Liabilities
         - Revenue, Cost of Sales, Gross Profit, Comprehensive / Net income
-        - Total Assets, Total Equity, Total Liabilities
         - Cash and Cash Equivalents, Current Assets, Current Liabilities
         - Property, Plant and Equipment, Trade and Other Current Receivables
+        
+        CASH FLOW STATEMENT FIELDS (if present):
+        - Cash flows from (used in) operating activities
+        - Cash flows from (used in) investing activities  
+        - Cash flows from (used in) financing activities
+        - Net increase (decrease) in cash and cash equivalents
 
         Return format:
         {{
@@ -205,19 +213,30 @@ class FinancialDataExtractor:
             }}
         }}
 
-        MULTI-YEAR DATA HANDLING:
-        - If you see multiple years (like 2022, 2021), extract values for each year
-        - Use Value_Year_1 for the most recent year, Value_Year_2 for the previous year
-        - Example: If you see "Revenue  2022: 9,843,009  2021: 20,406,722", extract:
-          "Revenue": {{"value": 9843009, "confidence": 0.95, "Value_Year_1": 9843009, "Value_Year_2": 20406722}}
-
-        IMPORTANT:
+        MULTI-YEAR DATA HANDLING (CRITICAL):
+        - Documents may have 2, 3, or even 4 years of comparative data
+        - Look for year columns in the headers (e.g., "2023", "2022", "2021", "2020")
+        - Extract values for ALL years present, up to 4 years
+        - Use Value_Year_1 for MOST RECENT year, Value_Year_2 for next, Value_Year_3 for third, Value_Year_4 for fourth
+        
+        Examples:
+        - 2 years: "Revenue  2022: 9,843,009  2021: 20,406,722"
+          → {{"value": 9843009, "confidence": 0.95, "Value_Year_1": 9843009, "Value_Year_2": 20406722}}
+        
+        - 3 years: "Total Assets  2022: 500M  2021: 450M  2020: 400M"
+          → {{"value": 500000000, "confidence": 0.95, "Value_Year_1": 500000000, "Value_Year_2": 450000000, "Value_Year_3": 400000000}}
+        
+        - 4 years: Include Value_Year_4 for the oldest year
+        
+        IMPORTANT - COMPLETE EXTRACTION:
         - Extract as many fields as possible, not just the priority ones
+        - Extract ALL years visible in each row (don't stop at 2 years if you see 3 or 4)
         - If you see "Net Sales" or "Total Sales", map to "Revenue"
         - If you see "Cost of Goods Sold", map to "Cost of Sales"
         - If you see "Net Income" or "Profit", map to "Comprehensive / Net income"
         - Be thorough - extract everything you can see clearly
-        - Always include multi-year data if present in the document
+        - For cash flow statements, include Operating, Investing, and Financing activities
+        - Always include multi-year data - check if there are 2, 3, or 4 year columns
         """
     
     def encode_image(self, image_file) -> str:
@@ -236,6 +255,96 @@ class FinancialDataExtractor:
             image_data = image_file
         
         return base64.b64encode(image_data).decode('utf-8')
+    
+    def extract_years_from_image(self, base64_image: str) -> Dict[str, Any]:
+        """
+        Extract year information from financial statement image.
+        Uses a simple, focused prompt for high accuracy.
+        
+        Args:
+            base64_image: Base64-encoded image data
+            
+        Returns:
+            Dictionary with year data: {"years": [2023, 2022, 2021], "confidence": 0.95}
+        """
+        try:
+            # Simple, focused prompt - enhanced for 3-4 years
+            year_prompt = """What years are covered by this financial statement?
+
+CRITICAL: Look for ALL years present - some documents have 2, 3, or even 4 years of data!
+
+Look for years in:
+- Document title/header (e.g., "For the Years 2022, 2021, and 2020")
+- Column headers - scan the ENTIRE width of tables for year labels
+- Table column headers showing multiple years (2023 | 2022 | 2021 | 2020)
+- "Years Covered:", "As of December 31,", "For the year ended" phrases
+- Comparative financial data - count the number of value columns
+
+SCAN CAREFULLY:
+- If you see 2 value columns → likely 2 years
+- If you see 3 value columns → likely 3 years (extract all 3!)
+- If you see 4 value columns → likely 4 years (extract all 4!)
+
+Return ONLY a JSON object with ALL years found (most recent first):
+{"years": [2023, 2022, 2021]}  // for 3 years
+{"years": [2022, 2021, 2020, 2019]}  // for 4 years
+
+Examples:
+- 2 years: {"years": [2023, 2022]}
+- 3 years: {"years": [2022, 2021, 2020]}
+- 4 years: {"years": [2023, 2022, 2021, 2020]}
+
+If no years found, return: {"years": []}
+
+IMPORTANT: Return years in descending order (newest to oldest). Extract ALL years you see, not just the first 2!"""
+            
+            # Make API call with appropriate provider
+            if self.provider == "openai":
+                response = self._call_openai_api(base64_image, year_prompt)
+            elif self.provider == "anthropic":
+                response = self._call_anthropic_api(base64_image, year_prompt)
+            else:
+                raise ValueError(f"Unknown provider: {self.provider}")
+            
+            # Parse JSON response
+            start_idx = response.find('{')
+            end_idx = response.rfind('}') + 1
+            
+            if start_idx == -1 or end_idx == 0:
+                print(f"[WARN] No JSON found in year extraction response")
+                return {"years": [], "confidence": 0.0, "source": "vision_extraction"}
+            
+            json_str = response[start_idx:end_idx]
+            year_data = json.loads(json_str)
+            
+            # Validate and clean
+            years = year_data.get('years', [])
+            
+            # Filter to valid years (1900-2100)
+            years = [y for y in years if isinstance(y, int) and 1900 <= y <= 2100]
+            
+            # Sort descending (most recent first)
+            years = sorted(years, reverse=True)
+            
+            # Limit to 4 years (template supports Value_Year_1 through Value_Year_4)
+            years = years[:4]
+            
+            # Determine confidence based on number of years found
+            confidence = 0.95 if len(years) >= 2 else (0.8 if len(years) == 1 else 0.0)
+            
+            return {
+                "years": years,
+                "confidence": confidence,
+                "source": "vision_extraction"
+            }
+            
+        except json.JSONDecodeError as e:
+            print(f"[WARN] Failed to parse year extraction response: {e}")
+            return {"years": [], "confidence": 0.0, "source": "vision_extraction"}
+            
+        except Exception as e:
+            print(f"[WARN] Year extraction error: {e}")
+            return {"years": [], "confidence": 0.0, "source": "vision_extraction"}
     
     def extract_from_image(self, image_file, statement_type_hint: str = "financial statement") -> Dict[str, Any]:
         """

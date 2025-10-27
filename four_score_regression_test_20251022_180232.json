@@ -1,0 +1,180 @@
+{
+  "test_time": "2025-10-22T17:57:59.315807",
+  "test_type": "four_score_regression",
+  "files": {
+    "AFS2024 - statement extracted.pdf": {
+      "file_path": "tests/fixtures/light/AFS2024 - statement extracted.pdf",
+      "classification": {
+        "total_pages": 3,
+        "financial_pages_identified": 3,
+        "statement_breakdown": {
+          "balance_sheet": 1,
+          "income_statement": 1,
+          "cash_flow": 0,
+          "equity_statement": 1
+        },
+        "average_confidence": 0.9499999999999998,
+        "classification_time_seconds": 12.071878433227539
+      },
+      "extraction": {
+        "pages_processed": 3,
+        "total_template_fields": 41,
+        "extraction_time_seconds": 46.45921587944031,
+        "page_details": [
+          {
+            "page_num": 0,
+            "statement_type": "balance_sheet",
+            "template_fields_count": 23,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 1,
+            "statement_type": "income_statement",
+            "template_fields_count": 11,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 2,
+            "statement_type": "equity_statement",
+            "template_fields_count": 7,
+            "confidence": 0.95
+          }
+        ]
+      },
+      "performance": {
+        "total_time_seconds": 84.434805393219,
+        "conversion_time_seconds": 25.903711080551147,
+        "classification_time_seconds": 12.071878433227539,
+        "extraction_time_seconds": 46.45921587944031
+      }
+    },
+    "AFS-2022 - statement extracted.pdf": {
+      "file_path": "tests/fixtures/light/AFS-2022 - statement extracted.pdf",
+      "classification": {
+        "total_pages": 4,
+        "financial_pages_identified": 4,
+        "statement_breakdown": {
+          "balance_sheet": 1,
+          "income_statement": 1,
+          "cash_flow": 1,
+          "equity_statement": 1
+        },
+        "average_confidence": 0.95,
+        "classification_time_seconds": 12.233111381530762
+      },
+      "extraction": {
+        "pages_processed": 4,
+        "total_template_fields": 35,
+        "extraction_time_seconds": 34.04478168487549,
+        "page_details": [
+          {
+            "page_num": 0,
+            "statement_type": "balance_sheet",
+            "template_fields_count": 15,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 1,
+            "statement_type": "equity_statement",
+            "template_fields_count": 4,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 2,
+            "statement_type": "cash_flow",
+            "template_fields_count": 9,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 3,
+            "statement_type": "income_statement",
+            "template_fields_count": 7,
+            "confidence": 0.95
+          }
+        ]
+      },
+      "performance": {
+        "total_time_seconds": 59.60032916069031,
+        "conversion_time_seconds": 13.322436094284058,
+        "classification_time_seconds": 12.233111381530762,
+        "extraction_time_seconds": 34.04478168487549
+      }
+    },
+    "afs-2021-2023 - statement extracted.pdf": {
+      "file_path": "tests/fixtures/light/afs-2021-2023 - statement extracted.pdf",
+      "classification": {
+        "total_pages": 8,
+        "financial_pages_identified": 8,
+        "statement_breakdown": {
+          "balance_sheet": 2,
+          "income_statement": 2,
+          "cash_flow": 2,
+          "equity_statement": 2
+        },
+        "average_confidence": 0.9500000000000001,
+        "classification_time_seconds": 35.369086503982544
+      },
+      "extraction": {
+        "pages_processed": 8,
+        "total_template_fields": 43,
+        "extraction_time_seconds": 64.64202809333801,
+        "page_details": [
+          {
+            "page_num": 0,
+            "statement_type": "balance_sheet",
+            "template_fields_count": 6,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 1,
+            "statement_type": "income_statement",
+            "template_fields_count": 7,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 2,
+            "statement_type": "equity_statement",
+            "template_fields_count": 4,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 3,
+            "statement_type": "cash_flow",
+            "template_fields_count": 6,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 4,
+            "statement_type": "balance_sheet",
+            "template_fields_count": 6,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 5,
+            "statement_type": "income_statement",
+            "template_fields_count": 7,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 6,
+            "statement_type": "equity_statement",
+            "template_fields_count": 4,
+            "confidence": 0.95
+          },
+          {
+            "page_num": 7,
+            "statement_type": "cash_flow",
+            "template_fields_count": 3,
+            "confidence": 0.95
+          }
+        ]
+      },
+      "performance": {
+        "total_time_seconds": 129.3551902770996,
+        "conversion_time_seconds": 29.344075679779053,
+        "classification_time_seconds": 35.369086503982544,
+        "extraction_time_seconds": 64.64202809333801
+      }
+    }
+  }
+}

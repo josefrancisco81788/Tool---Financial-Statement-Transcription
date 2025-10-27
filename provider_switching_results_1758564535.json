@@ -1,0 +1,32 @@
+[
+  {
+    "provider": "openai",
+    "success": true,
+    "processing_time": 67.6636426448822,
+    "line_items_count": 36,
+    "ai_provider": "openai",
+    "statement_type": "STATEMENTS OF FINANCIAL POSITION",
+    "company_name": "WIRELESS SERVICES ASIA INC.",
+    "currency": "PHP",
+    "years_detected": [
+      "2024",
+      "2023"
+    ],
+    "provider_correct": true
+  },
+  {
+    "provider": "anthropic",
+    "success": true,
+    "processing_time": 55.35933327674866,
+    "line_items_count": 36,
+    "ai_provider": "openai",
+    "statement_type": "STATEMENTS OF FINANCIAL POSITION",
+    "company_name": "WIRELESS SERVICES ASIA INC.",
+    "currency": "PHP",
+    "years_detected": [
+      "2024",
+      "2023"
+    ],
+    "provider_correct": false
+  }
+]

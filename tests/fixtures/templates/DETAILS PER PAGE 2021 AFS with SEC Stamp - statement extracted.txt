@@ -1,0 +1,88 @@
+Detailed Description of Document Contents per page:
+
+File Name: 2021 AFS with SEC Stamp - statement extracted.pdf
+Page Number: 1
+Company Name: Metechs Industrial Corporation
+Document Name: Comparative Statement of Financial Position
+Years Covered: 2021, 2020
+Cash in Bank: 2,557,457, 1,778,716
+Trade Receivables: 26,274,253, 27,409,240
+Inventories: 10,190,218, 13,984,772
+Other Current Assets: 542,778, 2,131,849
+Current Assets: 39,564,706, 45,304,577
+Property, Plant & Equipment: 7,059,947, 8,170,659
+Non-Current Assets: 7,059,947, 8,170,659
+Total Assets: 46,624,653, 53,475,236
+Loans Payable: 0, 13,650,759
+Other Current Liabilities: 394,471, 185,171
+Income Tax Payable: 497,148, 109,612
+Total Liabilities: 891,619, 13,945,542
+Share Capital: 27,000,000, 27,000,000
+Retained Earnings: 18,733,034, 12,529,695
+Total Stockholders Equity: 45,733,034, 39,529,695
+Total Liabilities & Equity: 46,624,653, 53,475,236
+
+File Name: 2021 AFS with SEC Stamp - statement extracted.pdf
+Page Number: 2
+Company Name: Metechs Industrial Corporation
+Document Name: Comparative Statements of Income
+Years Covered: 2021, 2020
+Revenue: 173,582,385, 130,786,452
+Cost of Sale: 155,025,195, 120,662,197
+Gross Income: 18,557,190, 10,124,256
+Operating Expenses: 10,803,016, 6,958,247
+Income (Loss) Before Tax: 7,754,174, 3,166,008
+Provision for Income Tax: 1,550,835, 949,803
+Net Income After Final Tax: 6,203,339, 2,216,206
+
+File Name: 2021 AFS with SEC Stamp - statement extracted.pdf
+Page Number: 3
+Company Name: Metechs Industrial Corporation
+Document Name: Comparative Statements of Changes in Equity
+Years Covered: 2021, 2020
+Authorized Capital Stock - Common Stock P1 par value: 0, 0
+Issued Capital Stock: 0, 0
+Subscribed Capital Stock: 27,000,000, 27,000,000
+Paid-up Capital Stock: 27,000,000, 27,000,000
+Retained Earnings - Balance January 31: 12,529,695, 10,563,492
+Less: Prior Year Adjustments: 0, 250,003
+Net Income/Loss (Loss): 6,203,339, 2,216,206
+Retained Earnings - Balance December 31: 18,733,034, 12,529,695
+Total Equity: 45,733,034, 39,529,695
+
+File Name: 2021 AFS with SEC Stamp - statement extracted.pdf
+Page Number: 4
+Company Name: Metechs Industrial Corporation
+Document Name: Statement of Cost of Goods Manufactured
+Years Covered: 2021 only
+Raw Materials - Inventory Beginning: 12,210,838.82
+Raw Materials - Add Purchases: 142,172,162.30
+Total Materials Goods Available for Use: 154,383,001.12
+Less: Inventory End: 8,689,528.20
+Raw Materials Used: 145,693,472.92
+Direct Labor: 6,145,118.21
+Manufacturing Overhead - Manpower Service: 0
+Manufacturing Overhead - Light & Water: 1,049,386.49
+Manufacturing Overhead - Factory Supplies: 1,376,197.50
+Manufacturing Overhead - Depreciation Expense: 487,776.02
+Total Manufacturing Overhead: 2,913,360.01
+Cost of Goods Manufactured: 154,751,951.14
+
+File Name: 2021 AFS with SEC Stamp - statement extracted.pdf
+Page Number: 5
+Company Name: Metechs Industrial Corporation
+Document Name: Comparative Statement of Cash Flows
+Years Covered: 2021, 2020
+Net Income/Loss: 6,203,339, 2,216,206
+Depreciation: 1,110,712, 1,148,023
+Others: 0, (250,003)
+Operating Income/(Loss) Before Working Capital Changes: 7,314,051, 3,114,226
+Increase/(Decrease) in Trade Receivables: 1,134,987, 14,367,700
+Increase/(Decrease) in Inventories: 3,794,555, (6,079,772)
+Increase/(Decrease) in Other Current Assets: 1,589,071, 480,761
+Increase/(Decrease) in Loans Payable: (13,650,759), (5,736,801)
+Increase/(Decrease) in Other Current Liabilities: 596,836, (1,279,439)
+Net Cash Provided by Operating Activities: (6,535,311), (2,569,546)
+Net Increase/(Decrease) in Cash: 778,740, 544,681
+Cash at Beginning of Year: 1,778,716, 1,234,036
+Cash at End of Year: 2,557,457, 1,778,716

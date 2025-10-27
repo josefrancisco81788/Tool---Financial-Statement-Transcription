@@ -1,0 +1,2 @@
+Provider,Document,Success_Rate,Avg_Processing_Time,Avg_Extraction_Rate,Avg_Format_Accuracy,Avg_Overall_Score,Total_Fields_Extracted,Fields_Accuracy_Above_80%,Production_Ready
+openai,ALL_DOCUMENTS,1.0,193.23504209518433,0.0,0.0,0.0,0,0,0

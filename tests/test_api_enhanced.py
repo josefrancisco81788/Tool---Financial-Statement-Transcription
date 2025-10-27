@@ -165,9 +165,11 @@ class APITester:
             def _test_file():
                 with open(file_path, 'rb') as f:
                     files = {'file': (file_path.name, f, 'application/pdf')}
+                    data = {'export_csv': True}  # Always request CSV export
                     response = requests.post(
                         f"{self.base_url}/extract",
                         files=files,
+                        data=data,
                         timeout=self.timeout
                     )
                     return response

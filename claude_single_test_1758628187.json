@@ -1,0 +1,222 @@
+{
+  "test_info": {
+    "pdf_path": "tests/fixtures/light/AFS2024 - statement extracted.pdf",
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-20250514",
+    "processing_time": 116.17426252365112,
+    "timestamp": 1758628187.3671324
+  },
+  "extracted_data": {
+    "statement_type": "STATEMENTS OF FINANCIAL POSITION",
+    "company_name": "WIRELESS SERVICES ASIA INC.",
+    "period": "March 31",
+    "currency": "PHP",
+    "years_detected": [
+      "2024",
+      "2023"
+    ],
+    "base_year": "2024",
+    "year_ordering": "most_recent_first",
+    "line_items": {
+      "current_assets": {
+        "cash": {
+          "value": 40506296,
+          "confidence": 0.95,
+          "base_year": 40506296,
+          "year_1": 14011556
+        },
+        "receivables": {
+          "value": 93102625,
+          "confidence": 0.95,
+          "base_year": 93102625,
+          "year_1": 102434862
+        },
+        "other_current_assets": {
+          "value": 72591698,
+          "confidence": 0.95,
+          "base_year": 72591698,
+          "year_1": 22796639
+        },
+        "total_current_assets": {
+          "value": 206200619,
+          "confidence": 0.95,
+          "base_year": 206200619,
+          "year_1": 139243056
+        }
+      },
+      "non_current_assets": {
+        "investment_in_non_proprietary_shares": {
+          "value": 3000000,
+          "confidence": 0.95,
+          "base_year": 3000000,
+          "year_1": 1900000
+        },
+        "property_and_equipment": {
+          "value": 240617,
+          "confidence": 0.95,
+          "base_year": 240617,
+          "year_1": 1992274
+        },
+        "other_non_current_assets": {
+          "value": 57086992,
+          "confidence": 0.95,
+          "base_year": 57086992,
+          "year_1": 126866242
+        },
+        "total_non_current_assets": {
+          "value": 60546713,
+          "confidence": 0.95,
+          "base_year": 60546713,
+          "year_1": 130758516
+        }
+      },
+      "current_liabilities": {
+        "trade_payables": {
+          "value": 44907778,
+          "confidence": 0.95,
+          "base_year": 44907778,
+          "year_1": 23297018
+        },
+        "income_tax_payable": {
+          "value": 3243704,
+          "confidence": 0.95,
+          "base_year": 3243704,
+          "year_1": 3735208
+        },
+        "loans_payable_current_portion": {
+          "value": 12172744,
+          "confidence": 0.95,
+          "base_year": 12172744,
+          "year_1": 9752679
+        },
+        "other_current_liabilities": {
+          "value": 18394950,
+          "confidence": 0.95,
+          "base_year": 18394950,
+          "year_1": 20250238
+        },
+        "total_current_liabilities": {
+          "value": 78719175,
+          "confidence": 0.95,
+          "base_year": 78719175,
+          "year_1": 57035143
+        }
+      },
+      "non_current_liabilities": {
+        "advances_from_stockholder": {
+          "value": 21810579,
+          "confidence": 0.95,
+          "base_year": 21810579,
+          "year_1": 28927669
+        },
+        "long_term_liabilities": {
+          "value": 13000000,
+          "confidence": 0.95,
+          "base_year": 13000000,
+          "year_1": null
+        },
+        "other_long_term_liabilities": {
+          "value": 7176268,
+          "confidence": 0.95,
+          "base_year": 7176268,
+          "year_1": 46018833
+        },
+        "total_non_current_liabilities": {
+          "value": 41986847,
+          "confidence": 0.95,
+          "base_year": 41986847,
+          "year_1": 74946502
+        }
+      },
+      "equity": {
+        "share_capital": {
+          "value": 45667200,
+          "confidence": 0.95,
+          "base_year": 45667200,
+          "year_1": 45667200
+        },
+        "additional_paid_in_capital": {
+          "value": 15833600,
+          "confidence": 0.95,
+          "base_year": 15833600,
+          "year_1": 15833600
+        },
+        "cumulative_earnings_appropriated": {
+          "value": 40000000,
+          "confidence": 0.95,
+          "base_year": 40000000,
+          "year_1": 60000000
+        },
+        "cumulative_earnings_deficit": {
+          "value": 44675911,
+          "confidence": 0.95,
+          "base_year": 44675911,
+          "year_1": 17396953
+        },
+        "gain_loss_on_fair_value_of_asset_held_for_sale": {
+          "value": 2570000,
+          "confidence": 0.95,
+          "base_year": 2570000,
+          "year_1": 1470000
+        },
+        "treasury_shares": {
+          "value": -2705400,
+          "confidence": 0.95,
+          "base_year": -2705400,
+          "year_1": -2347826
+        },
+        "total_equity_deficit": {
+          "value": 146041311,
+          "confidence": 0.95,
+          "base_year": 146041311,
+          "year_1": 138019927
+        }
+      }
+    },
+    "summary_metrics": {
+      "total_assets": {
+        "value": 266747332,
+        "confidence": 0.95,
+        "base_year": 266747332,
+        "year_1": 270001572
+      },
+      "total_liabilities": {
+        "value": 120706022,
+        "confidence": 0.95,
+        "base_year": 120706022,
+        "year_1": 131981645
+      },
+      "total_equity": {
+        "value": 146041311,
+        "confidence": 0.95,
+        "base_year": 146041311,
+        "year_1": 138019927
+      },
+      "total_liabilities_and_equity": {
+        "value": 266747332,
+        "confidence": 0.95,
+        "base_year": 266747332,
+        "year_1": 270001572
+      }
+    },
+    "document_structure": {
+      "main_sections": [
+        "ASSETS",
+        "Current assets",
+        "Non-current assets",
+        "LIABILITIES AND OWNER'S CAPITAL",
+        "Current liabilities",
+        "Non-Current liabilities",
+        "EQUITY"
+      ],
+      "line_item_count": 22,
+      "has_multi_year_data": true,
+      "special_notes": "Statement shows deficit in equity section, treasury shares shown as negative values in parentheses"
+    },
+    "notes": "This is a Statement of Financial Position (Balance Sheet) for Wireless Services Asia Inc. as of March 31, 2024 and 2023. All amounts are in Philippine Pesos (\u20b1). The document shows a clear balance sheet structure with current and non-current assets, current and non-current liabilities, and equity sections. Treasury shares are shown in parentheses indicating negative values. The document includes reference notes numbered 4-17 for various line items.",
+    "processing_method": "multi_page_vector_database",
+    "ai_provider": "anthropic",
+    "timestamp": 1758628142.9966254,
+    "pages_processed": 3
+  }
+}

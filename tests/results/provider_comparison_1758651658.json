@@ -1,0 +1,23 @@
+{
+  "total_tests": 4,
+  "successful_tests": 0,
+  "failed_tests": 4,
+  "success_rate": 0.0,
+  "average_processing_time": 0.0,
+  "min_processing_time": 0.0,
+  "max_processing_time": 0.0,
+  "average_extraction_rate": 0.0,
+  "average_format_accuracy": 0.0,
+  "average_overall_score": 0.0,
+  "production_ready_count": 0,
+  "production_ready_rate": 0.0,
+  "provider_results": {
+    "anthropic": {
+      "total_tests": 4,
+      "successful_tests": 0,
+      "success_rate": 0.0,
+      "average_processing_time": 0.0,
+      "average_extraction_rate": 0.0
+    }
+  }
+}

@@ -1,0 +1,9 @@
+Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3,Value_Year_4
+Meta,Reference,Company,High,0.95,GBS Concept Advertising Inc.,,,
+Meta,Reference,Period,High,0.95,"For the year ended December 31, 2022",,,
+Meta,Reference,Currency,High,0.95,PHP,,,
+Balance Sheet,Other,Net_Income_For_The_Year,High,0.95,374628,925386,,
+Balance Sheet,Other,Amortization_Depreciation_Of_Fixed_Assets,High,0.95,374,None,,
+Balance Sheet,Other,Net_Cash_Applied_To_Provided_By_Operating_Activities,High,0.95,-113333,71491,,
+Balance Sheet,Other,Proceeds_From_Additional_Issuance_Of_Paid-Up_Capital,Medium,0.10,None,2750000,,
+Balance Sheet,Other,Net_Cash_Provided_By_Investing_Financing_Activities,Medium,0.10,None,2750000,,

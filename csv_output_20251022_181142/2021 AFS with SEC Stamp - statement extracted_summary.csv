@@ -1,0 +1,5 @@
+file_name,page_number,statement_type,confidence,template_fields_count,sample_fields
+2021 AFS with SEC Stamp - statement extracted,1,balance_sheet,0.95,15,"Cash and Cash Equivalents, Trade and Other Current Receivables, Current Inventories, Other current non-financial assets, Total Current Assets"
+2021 AFS with SEC Stamp - statement extracted,2,income_statement,0.95,7,"Revenue, Cost of Sales, Gross Profit, Administrative expense, Profit (loss) before tax"
+2021 AFS with SEC Stamp - statement extracted,3,equity_statement,0.95,4,"Issued (share) capital, Retained earnings, Total Equity, Comprehensive / Net income"
+2021 AFS with SEC Stamp - statement extracted,5,cash_flow,0.95,9,"Comprehensive / Net income, Depreciation Expense, Net Cashflow from Operations (per FS), Trade and Other Current Receivables, Current Inventories"

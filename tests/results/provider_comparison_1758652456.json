@@ -1,0 +1,23 @@
+{
+  "total_tests": 4,
+  "successful_tests": 4,
+  "failed_tests": 0,
+  "success_rate": 1.0,
+  "average_processing_time": 193.23504209518433,
+  "min_processing_time": 152.6278223991394,
+  "max_processing_time": 253.24370169639587,
+  "average_extraction_rate": 0.0,
+  "average_format_accuracy": 0.0,
+  "average_overall_score": 0.0,
+  "production_ready_count": 0,
+  "production_ready_rate": 0.0,
+  "provider_results": {
+    "openai": {
+      "total_tests": 4,
+      "successful_tests": 4,
+      "success_rate": 1.0,
+      "average_processing_time": 193.23504209518433,
+      "average_extraction_rate": 0.0
+    }
+  }
+}

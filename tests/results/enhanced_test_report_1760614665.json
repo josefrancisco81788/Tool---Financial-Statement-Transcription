@@ -1,0 +1,353 @@
+{
+  "timestamp": "2025-10-16 12:37:45",
+  "summary": {
+    "total_tests": 1,
+    "successful_tests": 1,
+    "failed_tests": 0,
+    "success_rate": 100.0
+  },
+  "performance": {
+    "average_processing_time": 77.01598310470581,
+    "max_processing_time": 77.01598310470581,
+    "min_processing_time": 77.01598310470581,
+    "total_processing_time": 77.01598310470581
+  },
+  "by_category": {
+    "light": {
+      "total": 1,
+      "successful": 1,
+      "failed": 0
+    }
+  },
+  "results": [
+    {
+      "file": "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "filename": "AFS2024 - statement extracted.pdf",
+      "category": "light",
+      "success": true,
+      "error": null,
+      "processing_time": 77.01598310470581,
+      "response_data": {
+        "success": true,
+        "data": {
+          "template_mappings": {
+            "Cash and Cash Equivalents": {
+              "value": 40506296,
+              "confidence": 0.95,
+              "Value_Year_1": 40506296,
+              "Value_Year_2": 14011556
+            },
+            "Trade and Other Current Receivables": {
+              "value": 93102625,
+              "confidence": 0.95,
+              "Value_Year_1": 93102625,
+              "Value_Year_2": 102434862
+            },
+            "Other current non-financial assets": {
+              "value": 72591698,
+              "confidence": 0.9,
+              "Value_Year_1": 72591698,
+              "Value_Year_2": 22796639
+            },
+            "Total Current Assets": {
+              "value": 206200619,
+              "confidence": 0.95,
+              "Value_Year_1": 206200619,
+              "Value_Year_2": 139243056
+            },
+            "Investments in subsidiaries, joint ventures and associates": {
+              "value": 3000000,
+              "confidence": 0.9,
+              "Value_Year_1": 3000000,
+              "Value_Year_2": 1900000
+            },
+            "Property, Plant and Equipment": {
+              "value": 240617,
+              "confidence": 0.95,
+              "Value_Year_1": 240617,
+              "Value_Year_2": 1992274
+            },
+            "Other non-current non-financial assets": {
+              "value": 57086992,
+              "confidence": 0.9,
+              "Value_Year_1": 57086992,
+              "Value_Year_2": 126866242
+            },
+            "Total Non Current Assets": {
+              "value": 60546713,
+              "confidence": 0.95,
+              "Value_Year_1": 60546713,
+              "Value_Year_2": 130758516
+            },
+            "Total Assets": {
+              "value": 266747332,
+              "confidence": 0.95,
+              "Value_Year_1": 266747332,
+              "Value_Year_2": 270001572
+            },
+            "Trade and other current payables": {
+              "value": 44907778,
+              "confidence": 0.95,
+              "Value_Year_1": 44907778,
+              "Value_Year_2": 23297018
+            },
+            "Current tax liabilities": {
+              "value": 3243704,
+              "confidence": 0.95,
+              "Value_Year_1": 3243704,
+              "Value_Year_2": 3735208
+            },
+            "Other current financial liabilities": {
+              "value": 12172744,
+              "confidence": 0.9,
+              "Value_Year_1": 12172744,
+              "Value_Year_2": 9752679
+            },
+            "Other current non-financial liabilities": {
+              "value": 18394950,
+              "confidence": 0.9,
+              "Value_Year_1": 18394950,
+              "Value_Year_2": 20250238
+            },
+            "Total Current Liabilities": {
+              "value": 78719175,
+              "confidence": 0.95,
+              "Value_Year_1": 78719175,
+              "Value_Year_2": 57035143
+            },
+            "Other non-current financial liabilities": {
+              "value": 34810579,
+              "confidence": 0.9,
+              "Value_Year_1": 34810579,
+              "Value_Year_2": 28927669
+            },
+            "Other long-term financial liabilities": {
+              "value": 7176268,
+              "confidence": 0.9,
+              "Value_Year_1": 7176268,
+              "Value_Year_2": 46018833
+            },
+            "Total Non Current Liabilities": {
+              "value": 41986847,
+              "confidence": 0.95,
+              "Value_Year_1": 41986847,
+              "Value_Year_2": 74946502
+            },
+            "Total Liabilities": {
+              "value": 120706022,
+              "confidence": 0.95,
+              "Value_Year_1": 120706022,
+              "Value_Year_2": 131981645
+            },
+            "Issued (share) capital": {
+              "value": 45667200,
+              "confidence": 0.95,
+              "Value_Year_1": 45667200,
+              "Value_Year_2": 45667200
+            },
+            "Share premium": {
+              "value": 15833600,
+              "confidence": 0.95,
+              "Value_Year_1": 15833600,
+              "Value_Year_2": 15833600
+            },
+            "Other reserves": {
+              "value": 47245911,
+              "confidence": 0.9,
+              "Value_Year_1": 47245911,
+              "Value_Year_2": 77396953
+            },
+            "Treasury shares": {
+              "value": -2705400,
+              "confidence": 0.95,
+              "Value_Year_1": -2705400,
+              "Value_Year_2": -2347826
+            },
+            "Total Equity": {
+              "value": 146041311,
+              "confidence": 0.95,
+              "Value_Year_1": 146041311,
+              "Value_Year_2": 138019927
+            },
+            "Total Liabilities And Equity": {
+              "value": 266747332,
+              "confidence": 0.95,
+              "Value_Year_1": 266747332,
+              "Value_Year_2": 270001572
+            },
+            "Revenue": {
+              "value": 249788478,
+              "confidence": 0.95,
+              "Value_Year_1": 249788478,
+              "Value_Year_2": 292800617
+            },
+            "Cost of Sales": {
+              "value": 202328679,
+              "confidence": 0.95,
+              "Value_Year_1": 202328679,
+              "Value_Year_2": 246283513
+            },
+            "Gross Profit": {
+              "value": 47459800,
+              "confidence": 0.95,
+              "Value_Year_1": 47459800,
+              "Value_Year_2": 46517104
+            },
+            "Administrative expense": {
+              "value": 35409424,
+              "confidence": 0.95,
+              "Value_Year_1": 35409424,
+              "Value_Year_2": 35413180
+            },
+            "Profit (loss) from operating activities": {
+              "value": 12050376,
+              "confidence": 0.95,
+              "Value_Year_1": 12050376,
+              "Value_Year_2": 11103924
+            },
+            "Other income": {
+              "value": -26278,
+              "confidence": 0.9,
+              "Value_Year_1": -26278,
+              "Value_Year_2": 4036523
+            },
+            "Profit (loss) before tax": {
+              "value": 12024098,
+              "confidence": 0.95,
+              "Value_Year_1": 12024098,
+              "Value_Year_2": 15140447
+            },
+            "Income tax expense (from continuing operations)": {
+              "value": 3243704,
+              "confidence": 0.95,
+              "Value_Year_1": 3243704,
+              "Value_Year_2": 3735208
+            },
+            "Profit (loss)": {
+              "value": 8780395,
+              "confidence": 0.95,
+              "Value_Year_1": 8780395,
+              "Value_Year_2": 11405239
+            },
+            "Other comprehensive income": {
+              "value": 1100000,
+              "confidence": 0.9,
+              "Value_Year_1": 1100000,
+              "Value_Year_2": -3515320
+            },
+            "Comprehensive / Net income": {
+              "value": 9880395,
+              "confidence": 0.95,
+              "Value_Year_1": 9880395,
+              "Value_Year_2": 7889919
+            },
+            "Retained earnings": {
+              "value": 84675911,
+              "confidence": 0.9,
+              "Value_Year_1": 84675911,
+              "Value_Year_2": 77396953
+            },
+            "Year": {
+              "value": 2024,
+              "confidence": 0.95,
+              "Value_Year_1": 2024,
+              "Value_Year_2": 2023,
+              "Value_Year_3": null,
+              "Value_Year_4": null,
+              "source": "multi_page_vision_extraction"
+            }
+          },
+          "company_name": "",
+          "period": "",
+          "currency": "",
+          "years_detected": [],
+          "base_year": "",
+          "year_ordering": "",
+          "document_structure": {},
+          "notes": "",
+          "processing_method": "multi_page_vector_database",
+          "ai_provider": "anthropic",
+          "timestamp": 1760614645.2851632,
+          "pages_processed": 3
+        },
+        "template_csv": null,
+        "template_fields_mapped": 0,
+        "processing_time": 74.75965166091919,
+        "pages_processed": 3,
+        "timestamp": "2025-10-16T11:37:45Z"
+      },
+      "file_size": 298456,
+      "status_code": 200
+    }
+  ],
+  "test_state": {
+    "completed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
+    ],
+    "failed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf"
+    ],
+    "last_run": null
+  }
+}

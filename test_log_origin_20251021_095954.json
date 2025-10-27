@@ -1,0 +1,13 @@
+{
+  "test_file": "tests/fixtures/origin/AFS-2022.pdf",
+  "test_time": "2025-10-21T09:55:07.007983",
+  "test_type": "three_score_classification_origin",
+  "results": {
+    "pdf_conversion": {
+      "total_pages": 42,
+      "conversion_time_seconds": 145.9296009540558,
+      "page_info": [
+        {
+          "page_num": 1,
+          "text": "virginia zita <virgie.z@idealmmc.com>\n\nyour bir afs esubmission uploads were received\n1 message\n\neafs@bir.gov.ph <eafs@bir.gov.ph>\nto: virgie@idealmmc.com\ncc: virgie.z@idealmmc.com\n\nsat, apr 29, 2023 at 10:07 am\n\nhi ideal marketing & manufacturing corporation,\n\nvalid files\neafs000369751itrty122022.pdf\neafs000369751afsty122022.pdf\n\ninvalid file\n<none>\n\ntransaction code: afs-0-789lj6k0nzw1vtzzqxm1z43z0pzwxzrvq\nsubmission date/time: apr 29, 2023 10:07 am\ncompany tin: 000-369-751\n\n000-369-751",
+          "image": 

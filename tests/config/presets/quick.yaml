@@ -1,0 +1,29 @@
+name: "Quick Test"
+description: "Fast test for development and CI/CD"
+
+providers: ["anthropic"]
+document_sets: ["light"]
+timeout_seconds: 180
+parallel_workers: 1
+retry_attempts: 2
+
+output_formats: ["json", "csv"]
+baseline_comparison: false
+provider_comparison: false
+
+accuracy_threshold: 0.5
+performance_threshold: 180.0
+use_scoring_framework: true
+production_readiness_check: true
+
+
+
+
+
+
+
+
+
+
+
+

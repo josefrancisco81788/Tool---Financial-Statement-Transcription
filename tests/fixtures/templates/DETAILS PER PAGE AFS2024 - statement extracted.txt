@@ -1,0 +1,69 @@
+Detailed Description of Document Contents per page:
+
+File Name: AFS2024 - statement extracted.pdf
+Page Number: 1
+Company Name: Wireless Services Asia Inc.
+Document Name: Statements of Financial Position
+Years Covered: 2024, 2023
+Cash: 40,506,296, 14,011,556
+Receivables: 93,102,625, 102,434,862
+Other Current Assets: 72,591,698, 22,796,639
+Total Current Assets: 206,200,619, 139,243,056
+Investment in Non-proprietary Shares: 3,000,000, 1,900,000
+Property & Equipment: 240,617, 1,992,274
+Other Non-current Assets: 57,086,992, 126,866,242
+Total Non-Current Assets: 60,546,713, 130,758,516
+Total Assets: 266,747,332, 270,001,572
+Trade Payables: 44,907,778, 23,297,018
+Income Tax Payable: 3,243,704, 3,735,208
+Loans Payable - Current Portion: 12,172,744, 9,752,679
+Other Current Liabilities: 18,394,950, 20,250,238
+Total Current Liabilities: 78,719,175, 57,035,143
+Advances from Stockholder: 21,810,579, 28,927,669
+Long-term Liabilities: 13,000,000, 0
+Other Long-term Liabilities: 7,176,268, 46,018,833
+Total Non-Current Liabilities: 41,986,847, 74,946,502
+Total Liabilities: 120,706,022, 131,981,645
+Share Capital: 45,667,200, 45,667,200
+Additional Paid-in Capital: 15,833,600, 15,833,600
+Cumulative Earnings, Appropriated: 40,000,000, 60,000,000
+Cumulative Earnings (Deficit): 44,675,911, 17,396,953
+Gain (Loss) on Fair Value of Asset Held for Sale: 2,570,000, 1,470,000
+Treasury Shares: (2,705,400), (2,347,826)
+Total Equity (Deficit): 146,041,311, 138,019,927
+Total Liabilities and Equity (Deficit): 266,747,332, 270,001,572
+
+File Name: AFS2024 - statement extracted.pdf
+Page Number: 2
+Company Name: Wireless Services Asia Inc.
+Document Name: Statements of Operations
+Years Covered: 2024, 2023
+Revenue: 249,788,478, 292,800,617
+Cost of Sales: 202,328,679, 246,283,513
+Gross Profit: 47,459,800, 46,517,104
+General & Admin Expenses: 35,409,424, 35,413,180
+Net Operating Income (Loss): 12,050,376, 11,103,924
+Other Income (Expenses): (26,278), 4,036,523
+Net Income (Loss) Before Tax: 12,024,098, 15,140,447
+Income Tax Expense: 3,243,704, 3,735,208
+Net Income (Loss) After Income Tax: 8,780,395, 11,405,239
+Other Comprehensive Income - Gain (Loss) on Fair Value of Asset Held for Sale: 1,100,000, (3,515,320)
+Total Comprehensive Income (Loss): 9,880,395, 7,889,919
+
+File Name: AFS2024 - statement extracted.pdf
+Page Number: 3
+Company Name: Wireless Services Asia Inc.
+Document Name: Statements of Changes in Equity
+Years Covered: 2024, 2023
+Share Capital: 45,667,200, 45,667,200
+Additional Pai-In Capital: 15,833,600, 15,833,600
+Cumulative Earnings, Beg.: 77,396,953, 96,015,096
+Net Income (Loss): 8,780,395, 11,405,239
+Prior Period Adjustments: (1,501,437), (27,523,195)
+Dividends: 0, (2,500,187)
+Cumulative Earnings, End: 84,675,911, 77,396,953
+Cumulative Earnings, Appropriated: (40,000,000), (60,000,000)
+Cumulative Earnings (Deficit): 44,675,911, 17,396,953
+Gain (Loss) on Fair Value of Asset Held for Sale: 2,570,000, 1,470,000
+Treasury Shares: (2,705,400), (2,347,826)
+Total Equity (Deficit): 146,041,311, 138,019,927

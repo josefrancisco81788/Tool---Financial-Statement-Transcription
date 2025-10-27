@@ -65,11 +65,11 @@ class PDFProcessor:
             if self._backends["pymupdf"]:
                 self.pdf_library = "pymupdf"
                 self.pdf_processing_available = True
-                print("✅ Using PyMuPDF for PDF processing (reliable)")
+                print("[INFO] Using PyMuPDF for PDF processing (reliable)")
             elif self._backends["pdf2image"]:
                 self.pdf_library = "pdf2image"
                 self.pdf_processing_available = True
-                print("✅ Using pdf2image for PDF processing (optimal performance)")
+                print("[INFO] Using pdf2image for PDF processing (optimal performance)")
             else:
                 self.pdf_error_message = "No usable PDF processing library available"
                 self.pdf_processing_available = False
@@ -119,7 +119,7 @@ class PDFProcessor:
                         dpi=200,
                         poppler_path=self._backends.get("poppler_path")
                     )
-                images = self._with_timeout(_convert_with_pdf2image, timeout=30)
+                images = self._with_timeout(_convert_with_pdf2image, timeout=120)
                 
             elif self.pdf_library == "pymupdf":
                 def _convert_with_pymupdf():
@@ -137,7 +137,7 @@ class PDFProcessor:
                         images.append(Image.open(io.BytesIO(img_data)))
                     doc.close()
                     return images
-                images = self._with_timeout(_convert_with_pymupdf, timeout=30)
+                images = self._with_timeout(_convert_with_pymupdf, timeout=120)
                 
             else:
                 raise Exception("No PDF processing library available")
@@ -587,12 +587,12 @@ class PDFProcessor:
                     # Simple binary classification
                     if "yes" in result.lower():
                         financial_pages.append((page_num, "financial"))
-                        print(f"✅ Page {page_num + 1}: Contains financial data")
+                        print(f"[INFO] Page {page_num + 1}: Contains financial data")
                     else:
-                        print(f"❌ Page {page_num + 1}: No financial data")
+                        print(f"[INFO] Page {page_num + 1}: No financial data")
                         
                 except Exception as e:
-                    print(f"❌ Error classifying page {page_num + 1}: {e}")
+                    print(f"[ERROR] Error classifying page {page_num + 1}: {e}")
             
             return financial_pages
             
@@ -600,8 +600,208 @@ class PDFProcessor:
             print(f"Batch classification failed: {e}")
             return []
     
+    def classify_pages_with_vision(self, page_images: List[Image.Image]) -> List[Dict[str, Any]]:
+        """
+        Classify pages using four-score vision-based system (Balance Sheet, Income Statement, Cash Flow, Equity Statement)
+        
+        Args:
+            page_images: List of PIL Image objects for each page
+            
+        Returns:
+            List of financial pages with statement type and confidence scores
+        """
+        print(f"[INFO] Starting four-score vision classification on {len(page_images)} pages...")
+        
+        financial_pages = []
+        
+        for i, page_image in enumerate(page_images):
+            try:
+                # Convert PIL image to base64
+                base64_image = self.extractor.encode_image(page_image)
+                
+                # Get four scores for this page
+                scores = self._classify_page_four_scores(base64_image)
+                
+                # Determine if this page should be included
+                max_score = max(scores['balance_sheet'], scores['income_statement'], scores['cash_flow'], scores['equity_statement'])
+                
+                if max_score >= 70:  # High confidence threshold
+                    # Identify primary statement type
+                    if scores['balance_sheet'] == max_score:
+                        statement_type = "balance_sheet"
+                    elif scores['income_statement'] == max_score:
+                        statement_type = "income_statement"
+                    elif scores['cash_flow'] == max_score:
+                        statement_type = "cash_flow"
+                    else:
+                        statement_type = "equity_statement"
+                    
+                    financial_pages.append({
+                        'page_num': i,
+                        'statement_type': statement_type,
+                        'scores': scores,
+                        'confidence': max_score / 100,
+                        'image': page_image
+                    })
+                    
+                    print(f"[INFO] Page {i + 1}: {statement_type} (BS:{scores['balance_sheet']}, IS:{scores['income_statement']}, CF:{scores['cash_flow']}, ES:{scores['equity_statement']})")
+                else:
+                    print(f"[INFO] Page {i + 1}: Not financial (BS:{scores['balance_sheet']}, IS:{scores['income_statement']}, CF:{scores['cash_flow']}, ES:{scores['equity_statement']})")
+                    
+            except Exception as e:
+                print(f"[ERROR] Error classifying page {i + 1}: {e}")
+                continue
+        
+        print(f"[INFO] Four-score classification complete: {len(financial_pages)} financial pages identified")
+        return financial_pages
+    
+    def _classify_page_four_scores(self, base64_image: str) -> Dict[str, int]:
+        """
+        Classify a single page and return four scores (Balance Sheet, Income Statement, Cash Flow, Equity Statement)
+        
+        Args:
+            base64_image: Base64-encoded page image
+            
+        Returns:
+            Dict with balance_sheet, income_statement, cash_flow, equity_statement scores (0-100)
+        """
+        prompt = self._build_four_score_classification_prompt()
+        
+        try:
+            result = self.extractor._call_anthropic_api(base64_image, prompt)
+            
+            # Debug: Show raw API response
+            print(f"[DEBUG] Raw API response: '{result[:200]}...' (length: {len(result)})")
+            
+            if not result or result.strip() == "":
+                print(f"[WARN] Empty API response")
+                return {'balance_sheet': 0, 'income_statement': 0, 'cash_flow': 0, 'equity_statement': 0}
+            
+            # Parse the JSON response
+            import json
+            scores = json.loads(result)
+            
+            # Validate scores are in range 0-100
+            for key in ['balance_sheet', 'income_statement', 'cash_flow', 'equity_statement']:
+                if key not in scores:
+                    scores[key] = 0
+                else:
+                    scores[key] = max(0, min(100, int(scores[key])))
+            
+            return scores
+            
+        except json.JSONDecodeError as e:
+            print(f"[WARN] JSON decode error: {e}")
+            print(f"[WARN] Raw response: '{result[:500]}'")
+            return {'balance_sheet': 0, 'income_statement': 0, 'cash_flow': 0, 'equity_statement': 0}
+        except Exception as e:
+            print(f"[WARN] Failed to parse classification scores: {e}")
+            print(f"[WARN] Raw response: '{result[:500] if 'result' in locals() else 'No response'}'")
+            return {'balance_sheet': 0, 'income_statement': 0, 'cash_flow': 0, 'equity_statement': 0}
+    
+    def _build_four_score_classification_prompt(self) -> str:
+        """Build four-score classification prompt for Balance Sheet, Income Statement, Cash Flow, Equity Statement"""
+        return """You must respond with ONLY a valid JSON object. Do not include any explanation or analysis.
+
+Score this page 0-100 for each financial statement type:
+
+1. Balance Sheet likelihood (0-100):
+   - Contains: Assets, Liabilities, Equity
+   - Structure: Current/Non-current categorization
+   - Equation: Assets = Liabilities + Equity
+   - Examples: "Total Assets", "Current Liabilities", "Shareholders' Equity"
+
+2. Income Statement likelihood (0-100):
+   - Contains: Revenue, Expenses, Profit/Loss
+   - Structure: Operating/Non-operating sections
+   - Shows: Performance over a period
+   - Examples: "Total Revenue", "Operating Expenses", "Net Income"
+
+3. Cash Flow Statement likelihood (0-100):
+   - Contains: Operating/Investing/Financing activities
+   - Structure: Cash inflows/outflows
+   - Shows: Cash movement over period
+   - Examples: "Cash from Operations", "Capital Expenditures", "Dividends Paid"
+
+4. Equity Statement likelihood (0-100):
+   - Contains: Share capital movements, Retained earnings changes
+   - Structure: Beginning balance, adjustments, ending balance
+   - Shows: Equity changes over period
+   - Examples: "Retained Earnings Beginning", "Prior Year Adjustment", "Appropriation", "Share Capital"
+
+Scoring guide:
+0-20: Not this statement type
+20-50: Minor mentions (likely notes/appendix)
+50-70: Partial statement or summary
+70-100: Primary statement page
+
+RESPOND WITH ONLY THIS JSON FORMAT (no other text):
+{
+    "balance_sheet": X,
+    "income_statement": Y,
+    "cash_flow": Z,
+    "equity_statement": W
+}"""
+    
+    def _extract_years_from_financial_pages(self, page_images: List[Image.Image], financial_pages: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Extract years from identified financial pages (not hardcoded pages)
+        
+        Args:
+            page_images: All page images
+            financial_pages: List of identified financial pages with statement types
+            
+        Returns:
+            Dict with years, confidence, and source
+        """
+        all_years = set()
+        
+        if not financial_pages:
+            print("[WARN] No financial pages identified - cannot extract years")
+            return {"years": [], "confidence": 0.0, "source": "vision_extraction"}
+        
+        try:
+            # Extract years from first few financial pages (up to 3 pages to avoid too many API calls)
+            pages_to_check = financial_pages[:3]
+            
+            for page_info in pages_to_check:
+                page_num = page_info['page_num']
+                statement_type = page_info['statement_type']
+                
+                print(f"[INFO] Extracting years from page {page_num + 1} ({statement_type})...")
+                
+                try:
+                    # Convert PIL image to base64 for year extraction
+                    base64_image = self.extractor.encode_image(page_images[page_num])
+                    page_years = self.extractor.extract_years_from_image(page_images[page_num])
+                    if page_years.get('years'):
+                        all_years.update(page_years['years'])
+                        print(f"[INFO] Page {page_num + 1} years: {page_years['years']}")
+                except Exception as e:
+                    print(f"[WARN] Year extraction error: {e}")
+                    continue
+            
+            # Sort years descending (most recent first) and convert to list
+            years_list = sorted(list(all_years), reverse=True)
+            
+            if years_list:
+                year_data = {
+                    "years": years_list[:4],  # Limit to 4 years max
+                    "confidence": 0.95,
+                    "source": "financial_pages_vision_extraction"
+                }
+                print(f"[INFO] Complete year set extracted: {years_list} ({len(years_list)} years)")
+                return year_data
+            else:
+                print(f"[WARN] No years extracted from financial pages")
+                return {"years": [], "confidence": 0.0, "source": "vision_extraction"}
+                
+        except Exception as e:
+            print(f"[WARN] Year extraction from financial pages failed: {e}")
+            return {"years": [], "confidence": 0.0, "source": "vision_extraction"}
+
     def _build_simple_classification_prompt(self) -> str:
-        """Build simple binary classification prompt"""
+        """Build simple binary classification prompt (legacy method)"""
         return """
         Does this page contain financial tables with numbers?
         
@@ -837,6 +1037,7 @@ class PDFProcessor:
         Returns:
             Dictionary containing extracted financial data
         """
+        print("[DEBUG] process_pdf_with_vector_db called - using corrected version")
         try:
             # Ensure backends are detected (lazy initialization)
             self._ensure_backends()
@@ -855,38 +1056,33 @@ class PDFProcessor:
                     page_images.append(base64_image)
             
             if not page_images:
-                print("❌ No images extracted from PDF - cannot process scanned document")
+                print("[ERROR] No images extracted from PDF - cannot process scanned document")
                 return None
             
-            # SIMPLIFIED APPROACH: Process all pages as financial pages (bypass classification)
-            financial_pages = []
+            # FOUR-SCORE VISION CLASSIFICATION: Identify financial pages with statement types
+            financial_pages = self.classify_pages_with_vision(page_images)
             
-            for i, page in enumerate(page_info):
-                if page['success']:
-                    financial_pages.append({
-                        'page_num': page['page_num'],
-                        'statement_type': 'Financial Statement',
-                        'confidence': 0.9,
-                        'image': page['image'],
-                        'text': page['text'],
-                        'number_density': 0.8,
-                        'financial_numbers_count': 10,
-                        'number_density_score': 0.8
-                    })
+            # ===== PHASE 3: Extract years from identified financial pages =====
+            # For multi-year documents, years may appear on different pages
+            # Example: Page 1 has [2022, 2021], Page 5 has [2021, 2020] = [2022, 2021, 2020]
+            year_data = self._extract_years_from_financial_pages(page_images, financial_pages)
+            # ==================================================
             
-            print(f"🔍 Processing all {len(financial_pages)} pages as financial pages (classification bypassed)")
+            print(f"[INFO] Four-score classification identified {len(financial_pages)} financial pages")
             
             if not financial_pages:
-                print("❌ No financial statement pages detected by vision classification.")
+                print("[ERROR] No financial statement pages detected by vision classification.")
                 print("   This indicates either:")
                 print("   1. Document contains no financial statements")
                 print("   2. Vision classification needs improvement")
                 print("   3. Document format is not supported")
                 return None
             
-            # Select top pages for processing (copy Streamlit logic exactly)
-            max_pages_to_process = min(10, len(financial_pages))  # Streamlit uses 10, not config limit
+            # Process ALL identified financial pages (no arbitrary limit)
+            max_pages_to_process = min(self.config.MAX_PAGES_TO_PROCESS, len(financial_pages))
             selected_pages = financial_pages[:max_pages_to_process]
+            
+            print(f"[INFO] Processing {len(selected_pages)} financial pages (max limit: {self.config.MAX_PAGES_TO_PROCESS})")
             
             # Process selected pages with statement-specific extraction
             results = []
@@ -896,21 +1092,24 @@ class PDFProcessor:
                     base64_image = self.extractor.encode_image(page['image'])
                     statement_type = page['statement_type']
                     
+                    print(f"[INFO] Extracting from page {page['page_num'] + 1} ({statement_type})...")
+                    
                     # Use the existing extraction method for proper integration
                     extracted_data = self.extractor.extract_comprehensive_financial_data(
                         base64_image, 
                         statement_type, 
-                        page['text']
+                        ""  # No text extraction needed for vision-based approach
                     )
                     
                     if extracted_data and 'error' not in extracted_data:
                         # Debug: Show what was extracted from this page
-                        line_items = extracted_data.get('line_items', {})
-                        total_items = sum(len(items) if isinstance(items, dict) else 0 for items in line_items.values())
-                        print(f"✅ Page {page['page_num'] + 1}: Extracted {total_items} line items")
-                        for category, items in line_items.items():
-                            if isinstance(items, dict):
-                                print(f"   {category}: {list(items.keys())}")
+                        template_mappings = extracted_data.get('template_mappings', {})
+                        total_items = len(template_mappings)
+                        print(f"[INFO] Page {page['page_num'] + 1}: Extracted {total_items} template mappings")
+                        if total_items > 0:
+                            print(f"   Sample fields: {list(template_mappings.keys())[:5]}")
+                        else:
+                            print(f"   [WARN] No template mappings found on this page")
                         
                         results.append({
                             'page_num': page['page_num'],
@@ -918,11 +1117,11 @@ class PDFProcessor:
                             'confidence': page['confidence']
                         })
                     else:
-                        print(f"❌ Failed to extract data from page {page['page_num'] + 1}")
+                        print(f"[ERROR] Failed to extract data from page {page['page_num'] + 1}")
                         continue
                     
                 except Exception as e:
-                    print(f"❌ Error processing page {page['page_num'] + 1}: {str(e)}")
+                    print(f"[ERROR] Error processing page {page['page_num'] + 1}: {str(e)}")
                     continue
             
             if not results:
@@ -930,6 +1129,29 @@ class PDFProcessor:
             
             # Combine results from multiple pages
             combined_data = self._combine_page_results(results)
+            
+            # ===== PHASE 1: Add year data to combined results =====
+            if year_data and year_data.get('years'):
+                years = year_data['years']
+                # Add Year field with all year values
+                combined_data['template_mappings']['Year'] = {
+                    'value': years[0] if years else None,
+                    'confidence': year_data.get('confidence', 0.95),
+                    'Value_Year_1': years[0] if len(years) > 0 else None,
+                    'Value_Year_2': years[1] if len(years) > 1 else None,
+                    'Value_Year_3': years[2] if len(years) > 2 else None,
+                    'Value_Year_4': years[3] if len(years) > 3 else None,
+                    'source': year_data.get('source', 'vision_extraction')
+                }
+                print(f"[INFO] Year field populated: {years}")
+            else:
+                print(f"[WARN] No year data to add to results")
+            # ====================================================
+            
+            # Debug: Check what format we're returning
+            print(f"[DEBUG] Returning combined_data with keys: {list(combined_data.keys())}")
+            print(f"[DEBUG] Template mappings: {len(combined_data.get('template_mappings', {}))}")
+            print(f"[DEBUG] Line items: {len(combined_data.get('line_items', {}))}")
             
             return combined_data
             
@@ -948,6 +1170,7 @@ class PDFProcessor:
             Combined financial data with template_mappings
         """
         if len(results) == 1:
+            # Single result - return as is (should already be in template_mappings format)
             return results[0]['data']
         
         # Combine template_mappings from all pages

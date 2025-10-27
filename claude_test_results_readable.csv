@@ -1,0 +1,45 @@
+Test Summary
+Field,Value
+
+TEST INFORMATION
+PDF Path,tests/fixtures/light/AFS2024 - statement extracted.pdf
+Provider,anthropic
+Model,claude-sonnet-4-20250514
+Processing Time (seconds),116.17
+Timestamp,1758628187.3671324
+
+EXTRACTED DATA SUMMARY
+Statement Type,STATEMENTS OF FINANCIAL POSITION
+Company Name,WIRELESS SERVICES ASIA INC.
+Period,March 31
+Currency,PHP
+Years Detected,"2024, 2023"
+Base Year,2024
+Processing Method,multi_page_vector_database
+
+LINE ITEMS
+Category,Subcategory,Field,Value (2024),Value (2023),Confidence
+Current Assets,Cash,Cash,40506296,14011556,0.95
+Current Assets,Receivables,Receivables,93102625,102434862,0.95
+Current Assets,Other Current Assets,Other Current Assets,72591698,22796639,0.95
+Current Assets,Total Current Assets,Total Current Assets,206200619,139243056,0.95
+Non Current Assets,Investment In Non Proprietary Shares,Investment In Non Proprietary Shares,3000000,1900000,0.95
+Non Current Assets,Property And Equipment,Property And Equipment,240617,1992274,0.95
+Non Current Assets,Other Non Current Assets,Other Non Current Assets,57086992,126866242,0.95
+Non Current Assets,Total Non Current Assets,Total Non Current Assets,60546713,130758516,0.95
+Current Liabilities,Trade Payables,Trade Payables,44907778,23297018,0.95
+Current Liabilities,Income Tax Payable,Income Tax Payable,3243704,3735208,0.95
+Current Liabilities,Loans Payable Current Portion,Loans Payable Current Portion,12172744,9752679,0.95
+Current Liabilities,Other Current Liabilities,Other Current Liabilities,18394950,20250238,0.95
+Current Liabilities,Total Current Liabilities,Total Current Liabilities,78719175,57035143,0.95
+Non Current Liabilities,Advances From Stockholder,Advances From Stockholder,21810579,28927669,0.95
+Non Current Liabilities,Long Term Liabilities,Long Term Liabilities,13000000,,0.95
+Non Current Liabilities,Other Long Term Liabilities,Other Long Term Liabilities,7176268,46018833,0.95
+Non Current Liabilities,Total Non Current Liabilities,Total Non Current Liabilities,41986847,74946502,0.95
+Equity,Share Capital,Share Capital,45667200,45667200,0.95
+Equity,Additional Paid In Capital,Additional Paid In Capital,15833600,15833600,0.95
+Equity,Cumulative Earnings Appropriated,Cumulative Earnings Appropriated,40000000,60000000,0.95
+Equity,Cumulative Earnings Deficit,Cumulative Earnings Deficit,44675911,17396953,0.95
+Equity,Gain Loss On Fair Value Of Asset Held For Sale,Gain Loss On Fair Value Of Asset Held For Sale,2570000,1470000,0.95
+Equity,Treasury Shares,Treasury Shares,-2705400,-2347826,0.95
+Equity,Total Equity Deficit,Total Equity Deficit,146041311,138019927,0.95

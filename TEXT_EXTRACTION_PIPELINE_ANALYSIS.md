@@ -1,5 +1,10 @@
 # 📊 Financial Statement Text Extraction Pipeline Analysis
 
+> **⚠️ PRIMARY USE CASE REMINDER**  
+> This tool processes **30-80 page annual reports** where financial statements appear at **unpredictable locations**. PDFs are **non-OCR scanned images** with no extractable text. All processing must use vision-based AI analysis. See [USE_CASE.md](USE_CASE.md) for details.
+
+---
+
 ## 🏗️ **Complete Pipeline Architecture**
 
 ```
