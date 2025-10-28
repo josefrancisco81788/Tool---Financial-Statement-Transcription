@@ -203,6 +203,243 @@ python tests/run_extraction_test.py tests/fixtures/origin/AFS2024.pdf
 
 ---
 
+## 🚨 Critical Issues & Fixes Required
+
+### **Implementation Status After Review**
+
+**Current State**: ⚠️ **NEEDS CRITICAL FIXES**
+- ✅ Ready for light files (≤4 pages)
+- ❌ **NOT ready for origin files** (54+ pages)
+- 🕐 **2-3 hours to production-ready**
+
+### **🔴 Priority 1: Classification Rate Limiting (CRITICAL)**
+
+**Issue**: Classification uses 12 workers without rate limiting on 54-page documents
+**Risk**: API failures (429 errors), potential account throttling
+**Impact**: Complete processing failure on large documents
+
+**Fix Required**:
+```python
+# File: core/pdf_processor.py lines 515-530
+# BEFORE (Current - Missing Rate Limiting):
+with ThreadPoolExecutor(max_workers=optimal_workers) as executor:
+    # No rate limiting - 12 workers hit API simultaneously
+
+# AFTER (Required Fix):
+if len(page_info) > 10:  # Use rate-limited parallel for large docs
+    from .parallel_extractor import ParallelClassifier
+    classifier = ParallelClassifier(
+        extractor=self.extractor,
+        max_workers=optimal_workers,
+        rate_limit=120  # Conservative for classification
+    )
+    return classifier.classify_pages_with_rate_limiting(page_info)
+```
+
+**Implementation Steps**:
+1. Add `classify_pages_with_rate_limiting()` method to `ParallelClassifier`
+2. Integrate rate limiter into existing classification loop
+3. Add automatic fallback to sequential on rate limit errors
+
+**Time Estimate**: 1 hour
+**Testing**: Required before any 54-page document testing
+
+### **🟡 Priority 2: Data Format Conversion (IMPORTANT)**
+
+**Issue**: Results use array indexing instead of page_num mapping
+**Risk**: Pages processed out of order, incorrect data mapping
+**Impact**: Wrong data attributed to wrong pages
+
+**Fix Required**:
+```python
+# File: core/pdf_processor.py lines 1100-1118
+# BEFORE (Current - Index Matching):
+for i, extracted_data in enumerate(parallel_results):
+    page = selected_pages[i]  # Assumes same order
+
+# AFTER (Required Fix):
+# Convert results to page_num mapping
+page_results = {}
+for result in parallel_results:
+    if hasattr(result, 'page_num'):
+        page_results[result.page_num] = result
+    elif 'page_num' in result:
+        page_results[result['page_num']] = result
+
+# Process in original page order
+for page in selected_pages:
+    page_num = page['page_num']
+    if page_num in page_results:
+        extracted_data = page_results[page_num]
+        # ... process result
+```
+
+**Implementation Steps**:
+1. Modify `ParallelExtractor.extract_parallel()` to return page_num mapping
+2. Update result processing to use page_num instead of array index
+3. Add validation to ensure all pages are processed
+
+**Time Estimate**: 30 minutes
+**Testing**: Verify page order consistency
+
+### **🟡 Priority 3: Enhanced Rate Limiter (PERFORMANCE)**
+
+**Issue**: Inefficient polling-based rate limiting with fixed 100ms sleep
+**Risk**: Unnecessary performance degradation
+**Impact**: Slower processing than needed
+
+**Fix Required**:
+```python
+# File: core/parallel_extractor.py RateLimiter class
+# BEFORE (Current - Polling):
+def wait_if_needed(self):
+    while not self.can_make_request():
+        time.sleep(0.1)  # Fixed polling
+
+# AFTER (Enhanced):
+def wait_if_needed(self):
+    backoff = 0.05  # Start smaller
+    max_backoff = 1.0
+
+    while not self.can_make_request():
+        time.sleep(backoff)
+        backoff = min(backoff * 1.2, max_backoff)  # Exponential backoff
+
+def smart_wait_calculation(self):
+    """Calculate optimal wait time based on request history"""
+    if not self.requests:
+        return 0
+
+    # Calculate time until oldest request expires
+    oldest_request = min(self.requests)
+    time_to_expire = 60 - (time.time() - oldest_request)
+
+    if time_to_expire > 0:
+        return time_to_expire / len(self.requests)  # Distribute wait time
+    return 0
+```
+
+**Implementation Steps**:
+1. Replace polling with calculated wait times
+2. Add exponential backoff for repeated waiting
+3. Optimize based on request history
+
+**Time Estimate**: 45 minutes
+**Testing**: Performance benchmarking
+
+### **🟡 Priority 4: Error Recovery & Fallback (RELIABILITY)**
+
+**Issue**: No automatic fallback if parallel module fails to import/initialize
+**Risk**: Complete system failure instead of graceful degradation
+**Impact**: Reduced system reliability
+
+**Fix Required**:
+```python
+# File: core/pdf_processor.py lines 1093-1098
+# BEFORE (Current - No Error Handling):
+from .parallel_extractor import replace_sequential_extraction
+parallel_results = replace_sequential_extraction(self, selected_pages)
+
+# AFTER (Enhanced Error Handling):
+try:
+    from .parallel_extractor import replace_sequential_extraction
+    parallel_results = replace_sequential_extraction(self, selected_pages)
+    print("[INFO] ✅ Parallel extraction completed successfully")
+
+except ImportError as e:
+    print(f"[WARN] Parallel module not available: {e}")
+    print("[INFO] 🔄 Falling back to sequential processing")
+    enable_parallel_extraction = False  # Trigger sequential fallback
+
+except Exception as e:
+    print(f"[ERROR] Parallel extraction failed: {e}")
+    print("[INFO] 🔄 Falling back to sequential processing")
+    enable_parallel_extraction = False  # Trigger sequential fallback
+```
+
+**Implementation Steps**:
+1. Add try/catch around parallel module imports
+2. Add error handling for parallel processing failures
+3. Ensure seamless fallback to sequential processing
+4. Add logging for troubleshooting
+
+**Time Estimate**: 30 minutes
+**Testing**: Error injection testing
+
+### **📋 Complete Fix Implementation Plan**
+
+#### **Phase A: Critical Fixes (1.5 hours)**
+```bash
+# Step 1: Classification Rate Limiting (1 hour)
+1. Enhance ParallelClassifier in core/parallel_extractor.py
+2. Add classify_pages_with_rate_limiting() method
+3. Integrate into pdf_processor.py classification
+4. Test with medium documents (20-40 pages)
+
+# Step 2: Data Format Conversion (30 minutes)
+1. Modify extract_parallel() return format
+2. Update result processing logic
+3. Add page_num validation
+4. Test page order consistency
+```
+
+#### **Phase B: Enhancement Fixes (1.25 hours)**
+```bash
+# Step 3: Enhanced Rate Limiter (45 minutes)
+1. Replace polling with smart wait calculation
+2. Add exponential backoff
+3. Optimize based on request patterns
+4. Performance benchmark testing
+
+# Step 4: Error Recovery (30 minutes)
+1. Add import error handling
+2. Add runtime error recovery
+3. Ensure graceful fallback
+4. Error injection testing
+```
+
+#### **Phase C: Validation Testing (30 minutes)**
+```bash
+# Step 5: Comprehensive Testing
+1. Test light files (should work unchanged)
+2. Test medium documents (20-40 pages)
+3. Test origin files (54+ pages)
+4. Validate 2-minute target achievement
+```
+
+### **🎯 Production Readiness Checklist**
+
+**Before Large Document Testing**:
+- [ ] Classification rate limiting implemented
+- [ ] Data format conversion fixed
+- [ ] Error recovery mechanisms in place
+- [ ] Enhanced rate limiter deployed
+
+**Before Production Deployment**:
+- [ ] All critical fixes implemented
+- [ ] 54-page document testing successful
+- [ ] Performance targets met (≤2 minutes)
+- [ ] Error handling validated
+- [ ] Monitoring and alerting configured
+
+### **⚠️ Testing Strategy During Fixes**
+
+**Phase A Testing**:
+- Test only light files (≤4 pages) - safe with current implementation
+- Test medium documents (20-40 pages) after classification rate limiting
+
+**Phase B Testing**:
+- Test origin files (54+ pages) only after all critical fixes
+- Monitor API rate limits and error rates closely
+
+**Risk Mitigation**:
+- Always test with monitoring enabled
+- Have sequential fallback ready
+- Start with conservative worker counts
+- Gradually increase load after validation
+
+---
+
 ## 🎯 Next Steps
 
 ### **Phase 4: Further Optimization (Optional)**
@@ -269,21 +506,33 @@ If 2-minute target not met, consider:
 
 ## ✅ Implementation Status
 
-**Overall Progress**: 🟢 **COMPLETE**
+**Overall Progress**: 🟡 **PARTIAL - NEEDS CRITICAL FIXES**
 
+**Initial Implementation**:
 - [x] Analyze current bottlenecks
 - [x] Design parallel architecture
-- [x] Implement parallel extraction
-- [x] Optimize classification workers
-- [x] Add rate limiting & error handling
+- [x] Implement parallel extraction (basic)
+- [x] Optimize classification workers (basic)
+- [x] Add rate limiting & error handling (extraction only)
 - [x] Create performance testing
 - [x] Document implementation
 
-**Ready for Testing**: ✅ Yes
-**Ready for Production**: ✅ Yes (with monitoring)
-**Expected Impact**: **6x speedup, 85% time reduction**
+**Critical Fixes Required**:
+- [ ] **Priority 1**: Classification rate limiting (1 hour)
+- [ ] **Priority 2**: Data format conversion (30 minutes)
+- [ ] **Priority 3**: Enhanced rate limiter (45 minutes)
+- [ ] **Priority 4**: Error recovery & fallback (30 minutes)
+
+**Current Readiness**:
+- **Light Files (≤4 pages)**: ✅ Ready for testing
+- **Medium Files (20-40 pages)**: ⚠️ Ready after Priority 1 fix
+- **Origin Files (54+ pages)**: ❌ **NOT READY** - requires all critical fixes
+
+**Production Readiness**: ❌ **2-3 hours of fixes needed**
+**Expected Impact After Fixes**: **6x speedup, 85% time reduction**
 
 ---
 
-*Implementation completed on simplify-testing-pipeline branch*
-*Next: Performance validation and production deployment*
+*Initial implementation completed on simplify-testing-pipeline branch*
+*Next: Address critical issues before large document testing*
+*Target: Production-ready within 2-3 hours of focused development*
