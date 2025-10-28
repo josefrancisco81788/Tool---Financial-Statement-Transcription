@@ -1,6 +1,6 @@
 # 📊 API Testing Scoring Framework
 
-This document defines the standardized scoring methodology for evaluating the Financial Statement Transcription API performance.
+This document defines the standardized scoring methodology for evaluating the Financial Statement Transcription API performance. When reviewing the metrics below recall that the core business use case involves scanning non-OCR scanned PDFs, extracting data, and placing that data into a fixed template.
 
 ## 🎯 Primary Metrics
 

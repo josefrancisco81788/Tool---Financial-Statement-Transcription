@@ -22,7 +22,8 @@ class TestCoreExtractor:
     def test_init(self):
         """Test extractor initialization"""
         extractor = FinancialDataExtractor()
-        assert extractor.client is not None
+        # Check that at least one client is available
+        assert extractor.anthropic_client is not None or extractor.openai_client is not None
         assert extractor.config is not None
         assert isinstance(extractor.config, Config)
     
@@ -49,8 +50,8 @@ class TestCoreExtractor:
         # Test balance sheet prompt
         prompt = self.extractor._build_extraction_prompt("balance_sheet")
         assert "balance_sheet" in prompt
-        assert "CORE EXTRACTION RULE" in prompt
-        assert "JSON STRUCTURE" in prompt
+        assert "EXTRACTION RULES" in prompt
+        assert "template fields" in prompt
         
         # Test income statement prompt
         prompt = self.extractor._build_extraction_prompt("income_statement")
@@ -60,13 +61,11 @@ class TestCoreExtractor:
         prompt = self.extractor._build_extraction_prompt("cash_flow")
         assert "cash_flow" in prompt
     
-    @patch('core.extractor.FinancialDataExtractor.exponential_backoff_retry')
-    def test_extract_comprehensive_financial_data_success(self, mock_retry):
+    @patch('core.extractor.FinancialDataExtractor._call_anthropic_api')
+    def test_extract_comprehensive_financial_data_success(self, mock_api):
         """Test successful financial data extraction"""
-        # Mock API response
-        mock_response = Mock()
-        mock_response.choices = [Mock()]
-        mock_response.choices[0].message.content = json.dumps({
+        # Mock API response - return a JSON string directly
+        mock_api.return_value = json.dumps({
             "statement_type": "Balance Sheet",
             "company_name": "Test Company",
             "years_detected": ["2024", "2023"],
@@ -76,8 +75,6 @@ class TestCoreExtractor:
                 }
             }
         })
-        
-        mock_retry.return_value = mock_response
         
         result = self.extractor.extract_comprehensive_financial_data(
             self.sample_base64, "balance_sheet"
@@ -89,28 +86,20 @@ class TestCoreExtractor:
         assert "processing_method" in result
         assert "timestamp" in result
     
-    @patch('core.extractor.FinancialDataExtractor.exponential_backoff_retry')
-    def test_extract_comprehensive_financial_data_empty_response(self, mock_retry):
+    @patch('core.extractor.FinancialDataExtractor._call_anthropic_api')
+    def test_extract_comprehensive_financial_data_empty_response(self, mock_api):
         """Test handling of empty API response"""
-        mock_response = Mock()
-        mock_response.choices = [Mock()]
-        mock_response.choices[0].message.content = ""
-        
-        mock_retry.return_value = mock_response
+        mock_api.return_value = ""
         
         with pytest.raises(Exception, match="Empty response from AI model"):
             self.extractor.extract_comprehensive_financial_data(
                 self.sample_base64, "balance_sheet"
             )
     
-    @patch('core.extractor.FinancialDataExtractor.exponential_backoff_retry')
-    def test_extract_comprehensive_financial_data_invalid_json(self, mock_retry):
+    @patch('core.extractor.FinancialDataExtractor._call_anthropic_api')
+    def test_extract_comprehensive_financial_data_invalid_json(self, mock_api):
         """Test handling of invalid JSON response"""
-        mock_response = Mock()
-        mock_response.choices = [Mock()]
-        mock_response.choices[0].message.content = "Invalid JSON response"
-        
-        mock_retry.return_value = mock_response
+        mock_api.return_value = "Invalid JSON response"
         
         with pytest.raises(Exception, match="No valid JSON found in AI response"):
             self.extractor.extract_comprehensive_financial_data(

@@ -9,7 +9,10 @@ import os
 import time
 import json
 from datetime import datetime
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+# Add the project root to the Python path
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, project_root)
 
 from core.pdf_processor import PDFProcessor
 from core.extractor import FinancialDataExtractor
@@ -146,9 +149,9 @@ def test_core_application_baseline():
                             'sample_fields': list(template_mappings.keys())[:5] if template_mappings else []
                         })
                         
-                        print(f"    ✅ Extracted {len(template_mappings)} template fields")
+                        print(f"    [SUCCESS] Extracted {len(template_mappings)} template fields")
                     else:
-                        print(f"    ❌ Extraction failed")
+                        print(f"    [FAILED] Extraction failed")
                         extraction_results.append({
                             'page_num': page['page_num'],
                             'statement_type': statement_type,
@@ -158,7 +161,7 @@ def test_core_application_baseline():
                         })
                         
                 except Exception as e:
-                    print(f"    ❌ Extraction error: {e}")
+                    print(f"    [ERROR] Extraction error: {e}")
                     extraction_results.append({
                         'page_num': page['page_num'],
                         'statement_type': statement_type,

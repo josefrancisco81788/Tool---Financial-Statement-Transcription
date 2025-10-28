@@ -1,0 +1,267 @@
+{
+  "test_time": "2025-10-28T17:34:10.729285",
+  "pdf_path": "tests/fixtures/light/2021 AFS with SEC Stamp - statement extracted.pdf",
+  "pdf_name": "2021 AFS with SEC Stamp - statement extracted.pdf",
+  "status": "started",
+  "pdf_info": {
+    "total_pages": 5,
+    "conversion_time": 21.957996129989624
+  },
+  "classification": {
+    "financial_pages": 4,
+    "processing_time": 19.446242809295654,
+    "statement_counts": {
+      "balance_sheet": 1,
+      "income_statement": 1,
+      "cash_flow": 1,
+      "equity_statement": 1
+    }
+  },
+  "extraction": {
+    "pages_processed": 4,
+    "pages_with_data": 4,
+    "processing_time": 41.277132749557495,
+    "extractions": [
+      {
+        "page_num": 0,
+        "statement_type": "balance_sheet",
+        "fields_extracted": 15,
+        "data": {
+          "Cash and Cash Equivalents": {
+            "value": 2557457,
+            "confidence": 0.95,
+            "Value_Year_1": 2557457,
+            "Value_Year_2": 1778716
+          },
+          "Trade and Other Current Receivables": {
+            "value": 26274253,
+            "confidence": 0.95,
+            "Value_Year_1": 26274253,
+            "Value_Year_2": 27409240
+          },
+          "Current Inventories": {
+            "value": 10190218,
+            "confidence": 0.95,
+            "Value_Year_1": 10190218,
+            "Value_Year_2": 13984772
+          },
+          "Other current non-financial assets": {
+            "value": 542778,
+            "confidence": 0.9,
+            "Value_Year_1": 542778,
+            "Value_Year_2": 2131849
+          },
+          "Total Current Assets": {
+            "value": 39564706,
+            "confidence": 0.95,
+            "Value_Year_1": 39564706,
+            "Value_Year_2": 45304577
+          },
+          "Property, Plant and Equipment": {
+            "value": 7059947,
+            "confidence": 0.95,
+            "Value_Year_1": 7059947,
+            "Value_Year_2": 8170659
+          },
+          "Total Non Current Assets": {
+            "value": 7059947,
+            "confidence": 0.95,
+            "Value_Year_1": 7059947,
+            "Value_Year_2": 8170659
+          },
+          "Total Assets": {
+            "value": 46624653,
+            "confidence": 0.95,
+            "Value_Year_1": 46624653,
+            "Value_Year_2": 53475236
+          },
+          "Other current financial liabilities": {
+            "value": 394471,
+            "confidence": 0.9,
+            "Value_Year_1": 394471,
+            "Value_Year_2": 185171
+          },
+          "Current tax liabilities, current": {
+            "value": 497148,
+            "confidence": 0.9,
+            "Value_Year_1": 497148,
+            "Value_Year_2": 109612
+          },
+          "Total Current Liabilities": {
+            "value": 891619,
+            "confidence": 0.95,
+            "Value_Year_1": 891619,
+            "Value_Year_2": 13945542
+          },
+          "Issued (share) capital": {
+            "value": 27000000,
+            "confidence": 0.95,
+            "Value_Year_1": 27000000,
+            "Value_Year_2": 27000000
+          },
+          "Retained earnings": {
+            "value": 18733034,
+            "confidence": 0.95,
+            "Value_Year_1": 18733034,
+            "Value_Year_2": 12529695
+          },
+          "Total Equity": {
+            "value": 45733034,
+            "confidence": 0.95,
+            "Value_Year_1": 45733034,
+            "Value_Year_2": 39529695
+          },
+          "Total Liabilities And Equity": {
+            "value": 46624653,
+            "confidence": 0.95,
+            "Value_Year_1": 46624653,
+            "Value_Year_2": 53475236
+          }
+        }
+      },
+      {
+        "page_num": 1,
+        "statement_type": "income_statement",
+        "fields_extracted": 7,
+        "data": {
+          "Revenue": {
+            "value": 173582385,
+            "confidence": 0.95,
+            "Value_Year_1": 173582385,
+            "Value_Year_2": 130786452
+          },
+          "Cost of Sales": {
+            "value": 155025195,
+            "confidence": 0.95,
+            "Value_Year_1": 155025195,
+            "Value_Year_2": 120662197
+          },
+          "Gross Profit": {
+            "value": 18557190,
+            "confidence": 0.95,
+            "Value_Year_1": 18557190,
+            "Value_Year_2": 10124256
+          },
+          "Administrative expense": {
+            "value": 10803016,
+            "confidence": 0.9,
+            "Value_Year_1": 10803016,
+            "Value_Year_2": 6958247
+          },
+          "Profit (loss) before tax": {
+            "value": 7754174,
+            "confidence": 0.95,
+            "Value_Year_1": 7754174,
+            "Value_Year_2": 3166008
+          },
+          "Income tax expense (from continuing operations)": {
+            "value": 1550835,
+            "confidence": 0.9,
+            "Value_Year_1": 1550835,
+            "Value_Year_2": 949803
+          },
+          "Comprehensive / Net income": {
+            "value": 6203339,
+            "confidence": 0.95,
+            "Value_Year_1": 6203339,
+            "Value_Year_2": 2216206
+          }
+        }
+      },
+      {
+        "page_num": 2,
+        "statement_type": "equity_statement",
+        "fields_extracted": 4,
+        "data": {
+          "Issued (share) capital": {
+            "value": 27000000,
+            "confidence": 0.95,
+            "Value_Year_1": 27000000,
+            "Value_Year_2": 27000000
+          },
+          "Retained earnings": {
+            "value": 18733034,
+            "confidence": 0.95,
+            "Value_Year_1": 18733034,
+            "Value_Year_2": 12529695
+          },
+          "Total Equity": {
+            "value": 45733034,
+            "confidence": 0.95,
+            "Value_Year_1": 45733034,
+            "Value_Year_2": 39529695
+          },
+          "Comprehensive / Net income": {
+            "value": 6203339,
+            "confidence": 0.9,
+            "Value_Year_1": 6203339,
+            "Value_Year_2": 2216206
+          }
+        }
+      },
+      {
+        "page_num": 4,
+        "statement_type": "cash_flow",
+        "fields_extracted": 9,
+        "data": {
+          "Comprehensive / Net income": {
+            "value": 6203339,
+            "confidence": 0.95,
+            "Value_Year_1": 6203339,
+            "Value_Year_2": 2216206
+          },
+          "Depreciation Expense": {
+            "value": 1110712,
+            "confidence": 0.95,
+            "Value_Year_1": 1110712,
+            "Value_Year_2": 1148023
+          },
+          "Net Cashflow from Operations (per FS)": {
+            "value": 7314051,
+            "confidence": 0.95,
+            "Value_Year_1": 7314051,
+            "Value_Year_2": 3114226
+          },
+          "Trade and Other Current Receivables": {
+            "value": 1134987,
+            "confidence": 0.9,
+            "Value_Year_1": 1134987,
+            "Value_Year_2": 14367700
+          },
+          "Current Inventories": {
+            "value": 3794555,
+            "confidence": 0.9,
+            "Value_Year_1": 3794555,
+            "Value_Year_2": -6079772
+          },
+          "Other current non-financial assets": {
+            "value": 1589071,
+            "confidence": 0.85,
+            "Value_Year_1": 1589071,
+            "Value_Year_2": 480761
+          },
+          "Other current financial liabilities": {
+            "value": -13650759,
+            "confidence": 0.9,
+            "Value_Year_1": -13650759,
+            "Value_Year_2": -5736801
+          },
+          "Other current non-financial liabilities": {
+            "value": 596836,
+            "confidence": 0.9,
+            "Value_Year_1": 596836,
+            "Value_Year_2": -1279439
+          },
+          "Cash and Cash Equivalents": {
+            "value": 2557457,
+            "confidence": 0.95,
+            "Value_Year_1": 2557457,
+            "Value_Year_2": 1778716
+          }
+        }
+      }
+    ],
+    "combined_fields": 25
+  },
+  "csv_file": "tests/outputs\\2021 AFS with SEC Stamp - statement extracted_template_export.csv"
+}

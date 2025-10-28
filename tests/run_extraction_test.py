@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.pdf_processor import PDFProcessor
 from core.extractor import FinancialDataExtractor
+from tests.core.csv_exporter import CSVExporter
 
 def run_extraction_test(pdf_path: str, output_dir: str = None):
     """
@@ -102,22 +103,31 @@ def run_extraction_test(pdf_path: str, output_dir: str = None):
         start_time = time.time()
         
         all_extractions = []
+        combined_template_mappings = {}
+        
         for idx, page in enumerate(financial_pages, 1):
             print(f"  Processing page {idx}/{len(financial_pages)} ({page['statement_type']})...")
             
             try:
-                template_mappings = extractor.extract_template_fields_from_image(
-                    page['image_base64'],
-                    page['statement_type']
+                base64_image = extractor.encode_image(page['image'])
+                
+                extracted_data = extractor.extract_comprehensive_financial_data(
+                    base64_image,
+                    page['statement_type'],
+                    ""
                 )
                 
-                if template_mappings:
+                if extracted_data and 'template_mappings' in extracted_data:
+                    template_mappings = extracted_data['template_mappings']
                     all_extractions.append({
                         "page_num": page['page_num'],
                         "statement_type": page['statement_type'],
                         "fields_extracted": len(template_mappings),
                         "data": template_mappings
                     })
+                    
+                    # Combine all template mappings
+                    combined_template_mappings.update(template_mappings)
                     print(f"    Extracted {len(template_mappings)} fields")
                 else:
                     print(f"    No fields extracted")
@@ -132,17 +142,44 @@ def run_extraction_test(pdf_path: str, output_dir: str = None):
             "pages_processed": len(financial_pages),
             "pages_with_data": len(all_extractions),
             "processing_time": extraction_time,
-            "extractions": all_extractions
+            "extractions": all_extractions,
+            "combined_fields": len(combined_template_mappings)
         }
         
-        # Save results
+        # Generate CSV export
         base_name = os.path.splitext(os.path.basename(pdf_path))[0]
+        
+        if combined_template_mappings:
+            print(f"\n[STEP 4] Generating CSV export...")
+            csv_exporter = CSVExporter()
+            
+            # Save CSV file using the correct method
+            csv_file = os.path.join(output_dir, f"{base_name}_template_export.csv")
+            
+            # Convert template_mappings to the expected format
+            formatted_data = {
+                "template_mappings": combined_template_mappings,
+                "statement_type": "combined",
+                "years_detected": ["2024", "2023"]
+            }
+            
+            success = csv_exporter.export_to_template_csv(formatted_data, csv_file)
+            
+            if success:
+                print(f"[OK] CSV saved to: {csv_file}")
+                results["csv_file"] = csv_file
+            else:
+                print(f"[WARNING] CSV export failed")
+        else:
+            print(f"\n[WARNING] No template fields extracted - skipping CSV generation")
+        
+        # Save JSON results
         results_file = os.path.join(output_dir, f"{base_name}_extraction_results.json")
         
         with open(results_file, 'w') as f:
             json.dump(results, f, indent=2, default=str)
             
-        print(f"\n[OK] Results saved to: {results_file}")
+        print(f"\n[OK] JSON results saved to: {results_file}")
         results["results_file"] = results_file
         results["status"] = "success"
         

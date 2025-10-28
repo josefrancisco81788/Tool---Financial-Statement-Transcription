@@ -149,6 +149,95 @@ But they are **NOT representative of production** and should never be the primar
 
 ## 📚 Documentation References
 
+### 🎯 **Core Documentation (Essential)**
+| File | Purpose | Status |
+|------|---------|--------|
+| `USE_CASE.md` | Primary use case definition - single source of truth | ✅ Keep |
+| `docs/API_GUIDE.md` | API documentation | ✅ Keep |
+| `docs/README.md` | Main project README | ✅ Keep |
+| `tests/SCORING_FRAMEWORK.md` | Scoring methodology | ✅ Keep |
+
+### 📊 **Baseline & Results (Reference)**
+| File | Purpose | Status |
+|------|---------|--------|
+| `BASELINE_TEST_RESULTS_PRE_REFACTOR.md` | Baseline before testing pipeline simplification | ✅ Keep |
+| `test_results_comparison_table.md` | Test results comparison | ✅ Keep |
+
+### 🗑️ **Agentic Garbage (Delete - Created by agents)**
+| File | Purpose | Status |
+|------|---------|--------|
+| `AGENT_CRASH_RECOVERY_SUMMARY.md` | Agent crash recovery summary | ❌ Delete |
+| `ANTHROPIC_API_FIX_SUMMARY.md` | Agentic fix summary | ❌ Delete |
+| `ANTHROPIC_API_IMPLEMENTATION_ANALYSIS.md` | Agentic analysis | ❌ Delete |
+| `cleanup_summary.md` | Agentic cleanup | ❌ Delete |
+| `documentation_update_plan.md` | Agentic plan | ❌ Delete |
+| `DOCUMENTATION_UPDATE_SUMMARY.md` | Agentic summary | ❌ Delete |
+| `immediate_actions_plan.md` | Agentic plan | ❌ Delete |
+| `OPENAI_BASELINE_REPORT.md` | Agentic report | ❌ Delete |
+| `ORIGIN_FILE_SUPPORT_ANALYSIS.md` | Agentic analysis | ❌ Delete |
+| `PRIORITY1_ENVIRONMENT_FIX_PLAN.md` | Agentic plan | ❌ Delete |
+
+### 📋 **Phase Documentation (Review - May keep some)**
+| File | Purpose | Status |
+|------|---------|--------|
+| `PHASE1_COMPLETE_SUMMARY.md` | Phase 1 summary | 🔍 Review |
+| `PHASE1_COMPLETION_AND_CSV_EXPORT_PLAN.md` | Phase 1 plan | 🔍 Review |
+| `PHASE1_YEAR_EXTRACTION_RESULTS.md` | Phase 1 results | 🔍 Review |
+| `PHASE2_ASSESSMENT.md` | Phase 2 assessment | 🔍 Review |
+| `PHASED_EXTRACTION_MIGRATION_PLAN.md` | Migration plan | 🔍 Review |
+
+### 🧪 **Testing Documentation (Review - Consolidate)**
+| File | Purpose | Status |
+|------|---------|--------|
+| `TESTING_GUIDE.md` | Testing guide | 🔍 Review |
+| `TESTING_INFRASTRUCTURE_ASSESSMENT.md` | Testing assessment | 🔍 Review |
+| `tests/TEST_PLAN.md` | Test plan | 🔍 Review |
+| `tests/fixtures/TESTING_GUIDE.md` | Duplicate testing guide | ❌ Delete |
+
+### 🚫 **Unified Pipeline (Archive - Was good but became garbage)**
+| File | Purpose | Status |
+|------|---------|--------|
+| `tests/UNIFIED_TESTING_PIPELINE_PLAN.md` | The "good" plan that became garbage | ❌ Delete |
+| `tests/archive/UNIFIED_TESTING_PIPELINE_PLAN.md` | Archived version | ✅ Keep archived |
+
+### 🔧 **Specific Features (Review - Keep if still relevant)**
+| File | Purpose | Status |
+|------|---------|--------|
+| `CLAUDE_MIGRATION_PLAN.md` | Claude migration | 🔍 Review |
+| `POPPLER_INTEGRATION_PLAN.md` | Poppler integration | 🔍 Review |
+| `TEXT_EXTRACTION_PIPELINE_ANALYSIS.md` | Text extraction analysis | 🔍 Review |
+| `YEAR_FIELD_EXTRACTION_ANALYSIS.md` | Year extraction analysis | 🔍 Review |
+| `YEAR_FIELD_EXTRACTION_REVISED_PLAN.md` | Year extraction plan | 🔍 Review |
+
+### 🚨 **Agent Guidelines**
+
+#### **BEFORE Creating New MD Files:**
+1. **Check this list first** - does a similar file already exist?
+2. **Ask yourself**: Is this really needed or just agentic bloat?
+3. **Consider**: Can this information go in an existing file instead?
+
+#### **WHEN Updating MD Files:**
+1. **Reference this list** to understand file purposes
+2. **Don't create duplicates** - update existing files instead
+3. **Keep it focused** - don't add unnecessary sections
+
+#### **WHEN Deleting MD Files:**
+1. **Check git history** - was this file actually used?
+2. **Look for references** - is it linked from other files?
+3. **Archive instead of delete** - move to `tests/archive/` if unsure
+
+### 📈 **Target State**
+**Goal**: Reduce from 37 MD files to ~10 essential files
+
+**Essential Files Only:**
+- `USE_CASE.md` - Primary use case
+- `docs/API_GUIDE.md` - API docs
+- `docs/README.md` - Project README
+- `tests/SCORING_FRAMEWORK.md` - Scoring
+- `BASELINE_TEST_RESULTS_PRE_REFACTOR.md` - Baseline
+- `test_results_comparison_table.md` - Results
+- Plus 2-3 feature-specific files that are still relevant
+
 ### Related Documents
 - `tests/fixtures/TESTING_GUIDE.md` - Test file organization and distinction
 - `TESTING_GUIDE.md` - Comprehensive testing methodology
@@ -186,6 +275,7 @@ If you're new to this project:
 
 **Last Updated**: January 2025  
 **Applies To**: All development, testing, and architectural decisions
+
 
 
 
