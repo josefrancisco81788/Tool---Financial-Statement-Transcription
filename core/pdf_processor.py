@@ -513,17 +513,58 @@ class PDFProcessor:
                 if result.get('classified', False):
                     financial_pages.append(result)
         else:
-            # Parallel processing - OPTIMIZED for large documents
-            # Dynamic worker count based on document size for optimal performance
+            # Parallel processing - OPTIMIZED for large documents with RATE LIMITING
             page_count = len(page_info)
+
+            # Use rate-limited parallel classification for large documents
+            if page_count > 10:
+                print(f"[INFO] ⚡ Using RATE-LIMITED parallel classification: {page_count} pages")
+
+                try:
+                    from .parallel_extractor import ParallelClassifier
+
+                    # Dynamic worker count based on document size
+                    if page_count <= 20:
+                        optimal_workers = 6
+                    elif page_count <= 40:
+                        optimal_workers = 8
+                    else:
+                        optimal_workers = 12  # For 54-page documents
+
+                    classifier = ParallelClassifier(
+                        extractor=self.extractor,
+                        max_workers=optimal_workers,
+                        rate_limit=120  # Conservative rate limit for classification
+                    )
+
+                    # Use rate-limited classification
+                    financial_pages = classifier.classify_pages_with_rate_limiting(page_info)
+                    print(f"[SUCCESS] ✅ Rate-limited classification completed: {len(financial_pages)} financial pages found")
+
+                except ImportError as e:
+                    print(f"[WARN] ParallelClassifier not available: {e}")
+                    print("[INFO] 🔄 Falling back to basic parallel classification")
+                    # Fall back to basic parallel processing
+                    optimal_workers = min(8, page_count)  # Conservative fallback
+
+                except Exception as e:
+                    print(f"[ERROR] Rate-limited classification failed: {e}")
+                    print("[INFO] 🔄 Falling back to basic parallel classification")
+                    # Fall back to basic parallel processing
+                    optimal_workers = min(8, page_count)  # Conservative fallback
+                else:
+                    # Rate-limited classification succeeded, return results
+                    return financial_pages
+
+            # Basic parallel processing (fallback or small documents)
             if page_count <= 20:
                 optimal_workers = 6
             elif page_count <= 40:
                 optimal_workers = 8
             else:
-                optimal_workers = 12  # Increased for 54-page documents
+                optimal_workers = 10  # Reduced from 12 for safety
 
-            print(f"[INFO] ⚡ Optimized classification: {page_count} pages, {optimal_workers} workers")
+            print(f"[INFO] ⚡ Basic parallel classification: {page_count} pages, {optimal_workers} workers")
 
             with ThreadPoolExecutor(max_workers=optimal_workers) as executor:
                 # Prepare page data with indices
@@ -1059,12 +1100,11 @@ RESPOND WITH ONLY THIS JSON FORMAT (no other text):
                 return None
             
             # VISION-ONLY CLASSIFICATION for scanned documents
-            # Convert all pages to base64 images for vision classification
+            # Use PIL Image objects for vision classification
             page_images = []
             for page in page_info:
                 if page['success'] and 'image' in page:
-                    base64_image = self.extractor.encode_image(page['image'])
-                    page_images.append(base64_image)
+                    page_images.append(page['image'])  # Use PIL Image directly
             
             if not page_images:
                 print("[ERROR] No images extracted from PDF - cannot process scanned document")
@@ -1103,30 +1143,75 @@ RESPOND WITH ONLY THIS JSON FORMAT (no other text):
 
             if enable_parallel_extraction:
                 print(f"[INFO] ⚡ Using PARALLEL extraction for {len(selected_pages)} pages (6 workers)")
-                from .parallel_extractor import replace_sequential_extraction
 
-                # Parallel extraction with rate limiting and error handling
-                parallel_results = replace_sequential_extraction(self, selected_pages)
+                try:
+                    from .parallel_extractor import replace_sequential_extraction
 
-                # Convert parallel results to original format
-                results = []
-                for i, extracted_data in enumerate(parallel_results):
-                    if extracted_data and 'error' not in extracted_data:
-                        page = selected_pages[i]
-                        template_mappings = extracted_data.get('template_mappings', {})
-                        total_items = len(template_mappings)
+                    # Parallel extraction with rate limiting and error handling
+                    parallel_results = replace_sequential_extraction(self, selected_pages)
+                    print("[INFO] ✅ Parallel extraction completed successfully")
 
-                        if total_items > 0:
-                            print(f"   Sample fields: {list(template_mappings.keys())[:5]}")
+                except ImportError as e:
+                    print(f"[WARN] Parallel extraction module not available: {e}")
+                    print("[INFO] 🔄 Falling back to sequential processing")
+                    enable_parallel_extraction = False  # Trigger sequential fallback
 
-                        results.append({
-                            'page_num': page['page_num'],
-                            'data': extracted_data,
-                            'confidence': page['confidence']
-                        })
-                    else:
-                        print(f"[ERROR] Failed to extract data from page {selected_pages[i]['page_num'] + 1}")
-                        continue
+                except Exception as e:
+                    print(f"[ERROR] Parallel extraction failed: {e}")
+                    print("[INFO] 🔄 Falling back to sequential processing")
+                    enable_parallel_extraction = False  # Trigger sequential fallback
+                    parallel_results = None
+
+                # Validate parallel results and handle failures
+                if enable_parallel_extraction:
+                    if parallel_results is None:
+                        print("[ERROR] Parallel extraction returned None - complete failure")
+                        print("[INFO] 🔄 Falling back to sequential processing")
+                        enable_parallel_extraction = False
+                    elif not isinstance(parallel_results, list):
+                        print(f"[ERROR] Parallel extraction returned invalid type: {type(parallel_results)}")
+                        print("[INFO] 🔄 Falling back to sequential processing")
+                        enable_parallel_extraction = False
+
+                if enable_parallel_extraction and parallel_results is not None:
+                    # Convert parallel results to original format using page_num mapping
+                    # This fixes the critical data format conversion issue
+                    results = []
+
+                    # Create mapping of page_num to original page data for confidence lookup
+                    page_confidence_map = {page['page_num']: page.get('confidence', 0.8) for page in selected_pages}
+
+                    for extracted_data in parallel_results:
+                        if extracted_data and 'error' not in extracted_data:
+                            # Get page_num from the extracted data (should be added by parallel extractor)
+                            page_num = extracted_data.get('page_num')
+                            if page_num is None:
+                                print("[WARN] Page number missing from parallel extraction result")
+                                continue
+
+                            template_mappings = extracted_data.get('template_mappings', {})
+                            total_items = len(template_mappings)
+
+                            if total_items > 0:
+                                print(f"   Page {page_num + 1} sample fields: {list(template_mappings.keys())[:5]}")
+
+                            results.append({
+                                'page_num': page_num,
+                                'data': extracted_data,
+                                'confidence': page_confidence_map.get(page_num, 0.8)  # Safe lookup
+                            })
+                        else:
+                            # Handle error results
+                            page_num = extracted_data.get('page_num', 'Unknown')
+                            error_msg = extracted_data.get('error', 'Unknown error')
+                            print(f"[ERROR] Failed to extract data from page {page_num + 1}: {error_msg}")
+                            # Don't add error results to results list - let them be filtered out
+
+                    # Validate parallel results
+                    if not results:
+                        print("[WARN] Parallel extraction returned no valid results")
+                        print("[INFO] 🔄 Falling back to sequential processing")
+                        enable_parallel_extraction = False
 
             else:
                 # Sequential processing fallback for small documents or when parallel fails

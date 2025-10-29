@@ -6,7 +6,7 @@
 
 ## 📋 Fundamental Facts
 
-**FUNDAMENTAL FACT**: Financial statement documents are typically **30-80 pages long**, containing multiple sections including cover pages, management discussion, auditor reports, notes, and appendices. The actual financial statements (Balance Sheet, Income Statement, Cash Flow Statement) can appear **ANYWHERE** within this document bundle. 
+**FUNDAMENTAL FACT**: Financial statement documents are typically **30-80 pages long**, containing multiple sections including cover pages, management discussion, auditor reports, notes, and appendices. The actual financial statements (Balance Sheet, Income Statement, Cash Flow Statement) can appear **ANYWHERE** within this document bundle. Documents are scanned PDFs only; OCR libraries underperform; Vision models required; No page-dropping.
 
 **CRITICAL**: These PDFs are **non-OCR scanned documents** - they contain only images, not extractable text.
 
@@ -119,6 +119,7 @@
 3. **Unpredictable Locations**: Handle statements anywhere in document
 4. **Non-Deterministic Matching**: Use AI vision, not pattern matching
 5. **Intelligent Page Selection**: Find best pages by confidence, not position
+6. **Cost Constraint**: Processing cost per document should not exceed $3
 
 ---
 

@@ -6,6 +6,16 @@ This document outlines the **simplified testing strategy** for the Financial Sta
 
 ## 🎯 Testing Objectives
 
+### Business Use Case
+ - Scan 30-90+ page non-OCR PDFs, save all financial statement data
+ - Transcribe financial statement data to fixed template
+
+### CRITICAL CONSTRAINTS:
+- PDFs are scanned images (non-selectable text)
+- Traditional OCR (Tesseract, PyMuPDF OCR, PaddleOCR) has been tested and FAILS
+- ONLY vision model LLMs (GPT-4V, Claude, Gemini Vision) are acceptable
+- Do NOT suggest OCR libraries
+
 ### Primary Goals
 1. **Validate Core Functionality** - Ensure extraction and classification work correctly
 2. **Verify Extraction Accuracy** - Confirm data extraction meets production thresholds
@@ -74,21 +84,27 @@ python tests/compare_results_vs_expected.py         # Secondary metric
 
 #### **Light Files (Primary Testing)**
 - **Purpose**: Fast, focused testing
-- **Files**: 4 extracted statement pages in `tests/fixtures/light/`
+- **Files**: 4 extracted statement pages (e.g.`AFS-2022 - statement extracted.pdf`) in `tests/fixtures/light/`
 - **Expected**: 20-30 rows, 2-3 years each
 - **Use Case**: Regular testing, baseline establishment
 
 #### **Origin Files (Comprehensive Testing)**
 - **Purpose**: Full document processing
-- **Files**: 4 complete annual reports in `tests/fixtures/origin/`
+- **Files**: 4 complete annual reports (e.g.`AFS-2022.pdf`) in `tests/fixtures/origin/`
 - **Expected**: 30+ rows, all years present
 - **Use Case**: Performance testing, accuracy validation
 
 #### **Template Validation**
 - **Purpose**: Output format validation
-- **Files**: 5 CSV templates in `tests/fixtures/templates/`
+- **Files**: 5 CSV templates (e.g. `FS_Input_Template_Fields_AFS-2022.csv`) in `tests/fixtures/templates/`
 - **Expected**: Match API output structure
 - **Use Case**: Data format validation
+
+#### **Page-Specific Validation**
+- **Purpose**: Verify each page of the Light Files
+- **Files**: 4 Text Documents (e.g. `DETAILS PER PAGE AFS-2022 - statement extracted.txt`) in `tests/fixtures/templates/`
+- **Expected**: Adhoc Inspection check
+- **Use Case**: Page-specific analysis of Light Files
 
 ## 🧪 Detailed Test Cases
 
