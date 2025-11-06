@@ -15,8 +15,8 @@ class Config:
     
     def __init__(self):
         """Initialize configuration by reading current environment variables"""
-        # AI Provider Configuration
-        self.AI_PROVIDER: str = os.getenv("AI_PROVIDER", "openai")
+        # AI Provider Configuration - Claude (Anthropic) is the default
+        self.AI_PROVIDER: str = os.getenv("AI_PROVIDER", "anthropic")
         
         # OpenAI Configuration
         self.OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")

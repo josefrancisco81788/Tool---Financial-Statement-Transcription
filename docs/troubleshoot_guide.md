@@ -29,8 +29,8 @@
 
 #### **🔐 API Issues**
 - **Rate Limits**: Wait 2-3 minutes between attempts
-- **Credits**: Check your OpenAI account has sufficient credits
-- **Key**: Verify API key is correctly entered in sidebar
+- **Credits**: Check your AI provider account (Claude/Anthropic by default) has sufficient credits
+- **Key**: Verify API key is correctly entered in sidebar (ANTHROPIC_API_KEY for Claude, or OPENAI_API_KEY if using OpenAI)
 
 #### **📋 Document Quality Issues**
 - **Password Protection**: Remove password protection first
@@ -39,7 +39,7 @@
 
 #### **🌐 Network Issues**
 - **Connection**: Verify stable internet connection
-- **Firewall**: Ensure OpenAI API access isn't blocked
+- **Firewall**: Ensure AI provider API access (Anthropic/Claude by default) isn't blocked
 - **VPN**: Try disabling VPN if connection issues persist
 
 ### **Advanced Troubleshooting:**

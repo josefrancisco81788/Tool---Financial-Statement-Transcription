@@ -25,6 +25,8 @@ def test_core_application_baseline():
     print("=" * 80)
     
     # Initialize components
+    # Note: FinancialDataExtractor defaults to Claude (Anthropic) provider
+    # Set AI_PROVIDER environment variable to use a different provider
     extractor = FinancialDataExtractor()
     processor = PDFProcessor(extractor)
     

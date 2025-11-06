@@ -19,6 +19,7 @@ print(f"Expected: {expected_years}")
 print()
 
 # Test with both providers
+# Note: Claude (Anthropic) is the default provider, but this test explicitly compares both
 for provider in ['openai', 'anthropic']:
     os.environ['AI_PROVIDER'] = provider
     print(f"Provider: {provider.upper()}")
@@ -39,6 +40,10 @@ for provider in ['openai', 'anthropic']:
     print()
 
 print("Done!")
+
+
+
+
 
 
 

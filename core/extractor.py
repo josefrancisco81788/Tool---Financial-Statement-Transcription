@@ -422,5 +422,158 @@ IMPORTANT: Return years in descending order (newest to oldest). Extract ALL year
                 return response.content[0].text if isinstance(response.content, list) else response.content
             else:
                 raise Exception(f"Unexpected response format: {type(response)}")
+
+        return self.exponential_backoff_retry(api_call)
+
+    def _call_text_only_api(self, prompt: str, system_message: str = None, temperature: float = 0.1, max_tokens: int = 4000) -> str:
+        """
+        Make a text-only API call (no images) - provider-agnostic.
         
+        Args:
+            prompt: User prompt text
+            system_message: Optional system message
+            temperature: Temperature setting (default: 0.1)
+            max_tokens: Maximum tokens (default: 4000)
+            
+        Returns:
+            Response text from AI model
+        """
+        def api_call():
+            if self.provider == "openai":
+                messages = []
+                if system_message:
+                    messages.append({"role": "system", "content": system_message})
+                messages.append({"role": "user", "content": prompt})
+                
+                response = self.openai_client.chat.completions.create(
+                    model=self.config.OPENAI_MODEL,
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens
+                )
+                return response.choices[0].message.content
+            elif self.provider == "anthropic":
+                messages = []
+                if system_message:
+                    messages.append({"role": "user", "content": f"{system_message}\n\n{prompt}"})
+                else:
+                    messages.append({"role": "user", "content": prompt})
+                
+                response = self.anthropic_client.messages.create(
+                    model=self.config.ANTHROPIC_MODEL,
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens
+                )
+                return response.content[0].text if isinstance(response.content, list) else response.content
+            else:
+                raise ValueError(f"Unknown provider: {self.provider}")
+        
+        return self.exponential_backoff_retry(api_call)
+
+    def extract_financial_data_batch(self, pages_data: list, enhanced_prompt: str) -> str:
+        """Extract financial data from multiple pages in single API call"""
+
+        # Prepare multiple images for single API call
+        page_images = []
+        for page_data in pages_data:
+            page_num = page_data.get('page_num', 0)
+            image_obj = page_data.get('image', '')
+            
+            # Convert PIL Image to base64 if needed
+            if hasattr(image_obj, 'save'):
+                # PIL Image object - convert to base64
+                base64_image = self.encode_image(image_obj)
+            elif isinstance(image_obj, str) and image_obj:
+                # Already base64 string
+                base64_image = image_obj
+            else:
+                # Convert bytes or other format to base64
+                base64_image = self.encode_image(image_obj)
+            
+            page_images.append({
+                'page_num': page_num,
+                'image': base64_image
+            })
+
+        # Create multi-image prompt
+        multi_image_prompt = f"""
+{enhanced_prompt}
+
+Processing {len(page_images)} related pages from financial statement.
+
+For each extracted data point, include:
+- page_num: Which page the data was found on
+- field_name: The template field name
+- value: The extracted value
+- confidence: Confidence score (0.0-1.0)
+- year: The year this data represents (CRITICAL: extract from document context)
+
+Return as JSON with extracted_data array containing objects with these fields.
+"""
+
+        if self.provider == "anthropic":
+            return self._call_anthropic_api_batch(page_images, multi_image_prompt)
+        else:
+            return self._call_openai_api_batch(page_images, multi_image_prompt)
+
+    def _call_anthropic_api_batch(self, page_images: list, prompt: str) -> str:
+        """Make batch API call to Anthropic with multiple images"""
+
+        def api_call():
+            # Track cost for this batch call
+            estimated_cost = len(page_images) * 0.15  # $0.15 per page estimate
+            print(f"[COST] Anthropic batch call: {len(page_images)} pages, estimated ${estimated_cost:.2f}")
+
+            # Prepare content with multiple images
+            content = [{"type": "text", "text": prompt}]
+
+            for page_img in page_images:
+                content.append({
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": "image/png",
+                        "data": page_img['image']
+                    }
+                })
+
+            response = self.anthropic_client.messages.create(
+                model=self.config.ANTHROPIC_MODEL,
+                max_tokens=self.config.ANTHROPIC_MAX_TOKENS,
+                messages=[{"role": "user", "content": content}]
+            )
+
+            # Handle response from 2025 v4.2 API
+            if hasattr(response, 'content') and response.content:
+                return response.content[0].text if isinstance(response.content, list) else response.content
+            else:
+                raise Exception(f"Unexpected response format: {type(response)}")
+
+        return self.exponential_backoff_retry(api_call)
+
+    def _call_openai_api_batch(self, page_images: list, prompt: str) -> str:
+        """Make batch API call to OpenAI with multiple images"""
+
+        def api_call():
+            # Track cost for this batch call
+            estimated_cost = len(page_images) * 0.12  # $0.12 per page estimate for OpenAI
+            print(f"[COST] OpenAI batch call: {len(page_images)} pages, estimated ${estimated_cost:.2f}")
+
+            # Prepare content with multiple images
+            content = [{"type": "text", "text": prompt}]
+
+            for page_img in page_images:
+                content.append({
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/png;base64,{page_img['image']}"}
+                })
+
+            response = self.openai_client.chat.completions.create(
+                model=self.config.OPENAI_MODEL,
+                messages=[{"role": "user", "content": content}],
+                max_tokens=self.config.OPENAI_MAX_TOKENS
+            )
+            return response.choices[0].message.content or ""
+
         return self.exponential_backoff_retry(api_call)

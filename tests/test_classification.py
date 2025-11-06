@@ -30,6 +30,8 @@ def test_classification_single_file(pdf_path):
         return None
     
     # Initialize components
+    # Note: FinancialDataExtractor defaults to Claude (Anthropic) provider
+    # Set AI_PROVIDER environment variable to use a different provider
     extractor = FinancialDataExtractor()
     processor = PDFProcessor(extractor)
     

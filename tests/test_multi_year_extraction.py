@@ -52,6 +52,7 @@ def test_multi_year_extraction():
     ]
     
     # Test with both providers
+    # Note: Claude (Anthropic) is the default provider, but this test explicitly compares both
     providers = ['openai', 'anthropic']
     
     overall_results = []
@@ -235,6 +236,10 @@ def test_multi_year_extraction():
 if __name__ == "__main__":
     success = test_multi_year_extraction()
     sys.exit(0 if success else 1)
+
+
+
+
 
 
 

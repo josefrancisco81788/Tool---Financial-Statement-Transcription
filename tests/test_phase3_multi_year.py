@@ -18,6 +18,8 @@ print("Testing Phase 3: Multi-page year extraction")
 print(f"Expected: {expected_years}")
 print()
 
+# Explicitly set provider to Anthropic (Claude is also the default)
+# This test explicitly sets it to ensure consistent behavior
 os.environ['AI_PROVIDER'] = 'anthropic'  # Faster
 
 extractor = FinancialDataExtractor()
@@ -41,6 +43,10 @@ if result:
     print(f"Total fields: {len(result.get('template_mappings', {}))}")
 else:
     print("No result!")
+
+
+
+
 
 
 

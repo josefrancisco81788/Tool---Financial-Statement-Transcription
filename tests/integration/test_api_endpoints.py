@@ -76,17 +76,17 @@ class TestAPIEndpoints:
         assert "error" in error_data
         assert "File too large" in error_data["error"]["message"]
     
-    @pytest.mark.skip(reason="Requires OpenAI API key and actual file processing")
+    @pytest.mark.skip(reason="Requires AI provider API key and actual file processing")
     def test_extract_endpoint_success_pdf(self):
         """Test successful PDF extraction (requires API key)"""
-        # This test would require actual PDF files and OpenAI API key
+        # This test would require actual PDF files and AI provider API key (Anthropic or OpenAI)
         # Skip in unit tests, run in integration tests with real data
         pass
     
-    @pytest.mark.skip(reason="Requires OpenAI API key and actual file processing")
+    @pytest.mark.skip(reason="Requires AI provider API key and actual file processing")
     def test_extract_endpoint_success_image(self):
         """Test successful image extraction (requires API key)"""
-        # This test would require actual image files and OpenAI API key
+        # This test would require actual image files and AI provider API key (Anthropic or OpenAI)
         # Skip in unit tests, run in integration tests with real data
         pass
     

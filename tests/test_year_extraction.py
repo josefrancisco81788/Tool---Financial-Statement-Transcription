@@ -52,6 +52,7 @@ def test_year_extraction_only():
     ]
     
     # Test with both providers
+    # Note: Claude (Anthropic) is the default provider, but this test explicitly compares both
     providers = ['openai', 'anthropic']
     
     overall_results = []
