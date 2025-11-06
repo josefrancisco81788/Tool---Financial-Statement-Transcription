@@ -1,0 +1,21 @@
+[
+  {
+    "provider": "openai",
+    "success": true,
+    "processing_time": 55.642489433288574,
+    "line_items_count": 36,
+    "ai_provider": "openai",
+    "statement_type": "STATEMENTS OF FINANCIAL POSITION",
+    "company_name": "WIRELESS SERVICES ASIA INC.",
+    "currency": "PHP",
+    "years_detected": [
+      "2024",
+      "2023"
+    ]
+  },
+  {
+    "provider": "anthropic",
+    "success": false,
+    "error": "Error extracting from image: Error in comprehensive extraction: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '\"claude-sonnet-4-20250514\" is not supported on this API. Please use the Messages API instead.'}, 'request_id': 'req_011CTRGLMkGaWuYWxXGjtwNe'}"
+  }
+]

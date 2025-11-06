@@ -1,0 +1,9 @@
+file_name,page_number,statement_type,confidence,template_fields_count,sample_fields
+afs-2021-2023 - statement extracted,1,balance_sheet,0.95,6,"Total Current Assets, Total Assets, Total Current Liabilities, Total Non Current Liabilities, Total Equity"
+afs-2021-2023 - statement extracted,2,income_statement,0.95,7,"Revenue, Cost of Sales, Gross Profit, Administrative expense, Profit (loss) before tax"
+afs-2021-2023 - statement extracted,3,equity_statement,0.95,4,"Issued (share) capital, Retained earnings, Comprehensive / Net income, Total Equity"
+afs-2021-2023 - statement extracted,4,cash_flow,0.95,5,"Comprehensive / Net income, Depreciation Expense, Amortization Expense, Net Cashflow from Operations (per FS), Cash and Cash Equivalents"
+afs-2021-2023 - statement extracted,5,balance_sheet,0.95,6,"Total Current Assets, Total Assets, Total Current Liabilities, Total Non Current Liabilities, Total Equity"
+afs-2021-2023 - statement extracted,6,income_statement,0.95,7,"Revenue, Cost of Sales, Gross Profit, Administrative expense, Profit (loss) before tax"
+afs-2021-2023 - statement extracted,7,equity_statement,0.95,4,"Issued (share) capital, Retained earnings, Profit (loss), Total Equity"
+afs-2021-2023 - statement extracted,8,cash_flow,0.95,3,"Comprehensive / Net income, Net Cashflow from Operations (per FS), Cash and Cash Equivalents"

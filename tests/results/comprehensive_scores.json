@@ -1,0 +1,43 @@
+{
+  "overall_extraction_rate": 60.0,
+  "overall_format_accuracy": 67.0,
+  "overall_score": 62.099999999999994,
+  "overall_status": "⚠️ ACCEPTABLE",
+  "production_ready": false,
+  "per_file_scores": [
+    {
+      "name": "AFS2024 - statement extracted.pdf",
+      "extraction_rate": 78.125,
+      "format_accuracy": 88.0,
+      "overall_score": 81.0875,
+      "status": "⚠️ GOOD"
+    },
+    {
+      "name": "2021 AFS with SEC Stamp - statement extracted.pdf",
+      "extraction_rate": 42.30769230769231,
+      "format_accuracy": 80.0,
+      "overall_score": 53.61538461538461,
+      "status": "❌ NEEDS IMPROVEMENT"
+    },
+    {
+      "name": "afs-2021-2023 - statement extracted.pdf",
+      "extraction_rate": 64.70588235294117,
+      "format_accuracy": 100.0,
+      "overall_score": 75.29411764705881,
+      "status": "⚠️ GOOD"
+    },
+    {
+      "name": "AFS-2022 - statement extracted.pdf",
+      "extraction_rate": 52.0,
+      "format_accuracy": 0.0,
+      "overall_score": 36.4,
+      "status": "❌ NEEDS IMPROVEMENT"
+    }
+  ],
+  "requirements_check": {
+    "extraction_rate_ready": true,
+    "format_accuracy_ready": false,
+    "success_rate_ready": true,
+    "overall_score_ready": false
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "statement_type": "STATEMENTS OF CHANGES IN EQUITY",
+  "company_name": "WIRELESS SERVICES ASIA INC.",
+  "period": "For the years ended March 31",
+  "currency": "PHP",
+  "years_detected": [
+    "2024",
+    "2023"
+  ],
+  "base_year": "2024",
+  "year_ordering": "most_recent_first",
+  "line_items": {
+    "equity": {
+      "share_capital": {
+        "value": 45667200,
+        "confidence": 0.95,
+        "base_year": 45667200,
+        "year_1": 45667200
+      },
+      "additional_paid_in_capital": {
+        "value": 15833600,
+        "confidence": 0.95,
+        "base_year": 15833600,
+        "year_1": 15833600
+      },
+      "cumulative_earnings_beg": {
+        "value": 77396953,
+        "confidence": 0.95,
+        "base_year": 77396953,
+        "year_1": 96015096
+      },
+      "net_income_loss": {
+        "value": 8780395,
+        "confidence": 0.95,
+        "base_year": 8780395,
+        "year_1": 11405239
+      },
+      "prior_period_adjustments": {
+        "value": -1501437,
+        "confidence": 0.95,
+        "base_year": -1501437,
+        "year_1": -27523195
+      },
+      "dividends": {
+        "value": null,
+        "confidence": 0.1,
+        "base_year": null,
+        "year_1": -2500187
+      },
+      "cumulative_earnings_end": {
+        "value": 84675911,
+        "confidence": 0.95,
+        "base_year": 84675911,
+        "year_1": 77396953
+      },
+      "cumulative_earnings_appropriated": {
+        "value": -40000000,
+        "confidence": 0.95,
+        "base_year": -40000000,
+        "year_1": -60000000
+      },
+      "cumulative_earnings_deficit": {
+        "value": 44675911,
+        "confidence": 0.95,
+        "base_year": 44675911,
+        "year_1": 17396953
+      },
+      "gain_loss_on_fair_value_of_asset_held_for_sale": {
+        "value": 2570000,
+        "confidence": 0.95,
+        "base_year": 2570000,
+        "year_1": 1470000
+      },
+      "treasury_shares": {
+        "value": -2705400,
+        "confidence": 0.95,
+        "base_year": -2705400,
+        "year_1": -2347826
+      },
+      "total_equity_deficit": {
+        "value": 146041311,
+        "confidence": 0.95,
+        "base_year": 146041311,
+        "year_1": 138019927
+      }
+    }
+  },
+  "summary_metrics": {
+    "total_equity_deficit": {
+      "value": 146041311,
+      "confidence": 0.95
+    }
+  },
+  "document_structure": {
+    "main_sections": [
+      "Equity"
+    ],
+    "line_item_count": 12,
+    "has_multi_year_data": true,
+    "special_notes": "Dividends for the base year is not clearly listed."
+  },
+  "notes": "The document provides a statement of changes in equity with details for two years. Some entries like dividends for 2024 are not numerically clear.",
+  "processing_method": "comprehensive_extraction",
+  "timestamp": 1757275757.6472077
+}

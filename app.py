@@ -8,7 +8,7 @@ import sqlite3
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-from openai import OpenAI
+# from openai import OpenAI  # No longer needed - using FinancialDataExtractor
 import time
 import chromadb
 from chromadb.config import Settings
@@ -18,6 +18,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 import random
 import re
+from core.extractor import FinancialDataExtractor
+from core.pdf_processor import PDFProcessor
 
 
 # Rate limiting and retry utilities
@@ -172,8 +174,28 @@ except Exception as e:
 # Load environment variables
 load_dotenv()
 
-# Initialize OpenAI client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Validate provider configuration - Claude (Anthropic) is the default
+provider = os.getenv("AI_PROVIDER", "anthropic").lower()
+
+# Default to Claude - only require OpenAI if explicitly set
+if provider == "anthropic":
+    if not os.getenv("ANTHROPIC_API_KEY"):
+        st.error("❌ ANTHROPIC_API_KEY not found. Claude (Anthropic) is the default provider.")
+        st.error("   Please set ANTHROPIC_API_KEY in your .env file")
+        st.stop()
+    # Don't require OpenAI key if using Anthropic
+elif provider == "openai":
+    if not os.getenv("OPENAI_API_KEY"):
+        st.error("❌ AI_PROVIDER=openai but OPENAI_API_KEY not found")
+        st.error("   Please set OPENAI_API_KEY in your .env file, or remove AI_PROVIDER to use Claude (default)")
+        st.stop()
+else:
+    st.error(f"❌ Invalid AI_PROVIDER: {provider}. Must be 'anthropic' (default) or 'openai'")
+    st.stop()
+
+# Initialize financial data extractor and PDF processor (provider-agnostic)
+extractor = FinancialDataExtractor()
+pdf_processor = PDFProcessor(extractor)
 
 # Custom CSS for better styling
 st.markdown("""
@@ -234,250 +256,70 @@ def init_database():
         pass
 
 def encode_image(image_file):
-    """Encode image to base64 for OpenAI API"""
+    """Encode image to base64 for AI Vision API"""
     return base64.b64encode(image_file.getvalue()).decode('utf-8')
 
 def convert_pdf_to_images(pdf_file, enable_parallel=True):
-    """Convert PDF to images and extract text using Vision API"""
-    if not pdf_processing_available:
-        error_msg = pdf_error_message or "PDF processing not available"
-        st.error(f"❌ {error_msg}")
-        
-        # Show installation instructions
-        with st.expander("📋 How to fix PDF processing", expanded=True):
-            st.markdown("""
-            **Option 1: Install Poppler for pdf2image (Recommended)**
-            
-            On Windows:
-            1. Download Poppler from: https://github.com/oschwartz10612/poppler-windows/releases/
-            2. Extract to `C:\\poppler-xx.xx.x`
-            3. Add `C:\\poppler-xx.xx.x\\Library\\bin` to your PATH environment variable
-            4. Restart your terminal/IDE
-            
-            **Option 2: Install PyMuPDF as fallback**
-            ```bash
-            pip install PyMuPDF
-            ```
-            
-            **Option 3: Convert PDF to images manually**
-            - Use any PDF to image converter
-            - Upload the resulting images instead
-            """)
-        return None, None
-        
+    """Convert PDF to images and extract text using AI Vision API - provider-agnostic"""
     try:
-        if pdf_library == "pdf2image":
-            # Use pdf2image
-            from pdf2image import convert_from_bytes
-            images = convert_from_bytes(pdf_file.getvalue(), dpi=200)
-        elif pdf_library == "pymupdf":
-            # Use PyMuPDF as fallback
-            import fitz
-            doc = fitz.Document(stream=pdf_file.getvalue(), filetype="pdf")
-            images = []
-            for page_num in range(len(doc)):
-                page = doc.load_page(page_num)
-                pix = page.get_pixmap(matrix=fitz.Matrix(200/72, 200/72))  # 200 DPI
-                img_data = pix.tobytes("png")
-                images.append(Image.open(io.BytesIO(img_data)))
-            doc.close()
-        else:
-            st.error("❌ No PDF processing library available")
-            return None, None
+        st.info("📄 Converting PDF to images and extracting text with AI...")
         
-        page_info = []
+        # Use PDFProcessor's convert_pdf_to_images method
+        images, page_info = pdf_processor.convert_pdf_to_images(
+            pdf_file=pdf_file,
+            enable_parallel=enable_parallel
+        )
         
-        st.info(f"📄 Converting {len(images)} page(s) to images and extracting text with AI...")
-        
-        # Parallel text extraction with 5 workers
-        def extract_text_for_page(page_data):
-            """Extract text from a single page - designed for parallel execution"""
-            page_num, image = page_data
-            try:
-                page_text = extract_text_with_vision_api(image, page_num + 1)
-                return {
-                    'page_num': page_num + 1,
-                    'text': page_text.lower(),
-                    'image': image,
-                    'success': True,
-                    'error': None
-                }
-            except Exception as e:
-                return {
-                    'page_num': page_num + 1,
-                    'text': '',
-                    'image': image,
-                    'success': False,
-                    'error': str(e)
-                }
-        
-        # Create progress tracking
-        progress_bar = st.progress(0)
-        status_text = st.empty()
-        completed_count = 0
-        total_pages = len(images)
-        
-        # Use ThreadPoolExecutor for parallel processing
-        with ThreadPoolExecutor(max_workers=5) as executor:
-            # Submit all pages for processing
-            page_data_list = [(page_num, image) for page_num, image in enumerate(images)]
-            future_to_page = {executor.submit(extract_text_for_page, page_data): page_data[0] 
-                             for page_data in page_data_list}
-            
-            # Collect results as they complete
-            results = {}
-            failed_pages = []
-            
-            for future in as_completed(future_to_page):
-                page_num = future_to_page[future]
-                try:
-                    result = future.result()
-                    results[result['page_num']] = result
-                    
-                    if result['success']:
-                        completed_count += 1
-                        progress = completed_count / total_pages
-                        progress_bar.progress(progress)
-                        status_text.text(f"✅ Completed page {result['page_num']}/{total_pages} ({completed_count} successful)")
-                    else:
-                        failed_pages.append(result['page_num'])
-                        st.warning(f"⚠️ Failed to extract text from page {result['page_num']}: {result['error']}")
-                        
-                except Exception as e:
-                    failed_pages.append(page_num + 1)
-                    st.error(f"❌ Unexpected error processing page {page_num + 1}: {str(e)}")
-        
-        # Sort results by page number and create page_info list
-        for page_num in sorted(results.keys()):
-            result = results[page_num]
-            if result['success']:
-                page_info.append({
-                    'page_num': result['page_num'],
-                    'text': result['text'],
-                    'image': result['image']
-                })
-        
-        # Final status update
-        progress_bar.progress(1.0)
-        if failed_pages:
-            st.warning(f"⚠️ Processing completed with {len(failed_pages)} failed pages: {failed_pages}")
-            st.info(f"✅ Successfully processed {len(page_info)}/{total_pages} pages with parallel AI text extraction")
-        else:
-            st.success(f"✅ Successfully processed all {len(page_info)} pages with parallel AI text extraction")
-        
-        # Clear progress indicators
-        progress_bar.empty()
-        status_text.empty()
+        if images and page_info:
+            st.success(f"✅ Successfully converted {len(images)} pages and extracted text")
         
         return images, page_info
         
     except Exception as e:
         st.error(f"Error converting PDF: {str(e)}")
-        if "poppler" in str(e).lower():
-            st.error("💡 This looks like a Poppler installation issue. Please see the instructions above.")
+        if "poppler" in str(e).lower() or "pdf2image" in str(e).lower():
+            st.error("💡 This looks like a PDF processing library issue. Please ensure Poppler or PyMuPDF is installed.")
         return None, None
 
 def extract_text_with_vision_api(pil_image, page_num):
-    """Extract text from image using OpenAI Vision API - thread-safe version"""
+    """Extract text from image using AI Vision API - provider-agnostic"""
     try:
-        # Encode image
-        base64_image = encode_pil_image(pil_image)
-        
-        # Optimized prompt for text extraction and classification
-        prompt = """
-        Extract all visible text from this financial document page. Focus on:
-        - Headings and titles
-        - Financial statement names (Balance Sheet, Income Statement, Cash Flow, etc.)
-        - Key financial terms and line items
-        - Company names and dates
-        
-        Return only the extracted text, preserving the general structure but without special formatting.
-        """
-        
-        response = exponential_backoff_retry(
-            lambda: client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text": prompt},
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": f"data:image/png;base64,{base64_image}"
-                                }
-                            }
-                        ]
-                    }
-                ],
-                max_tokens=4000
-            )
-        )
-        
-        extracted_text = response.choices[0].message.content or ""
-        
-        # Return just the text - progress tracking handled by caller
-        return extracted_text
+        # Use PDFProcessor's text extraction method (which uses extractor)
+        text = pdf_processor._extract_text_with_vision_api(pil_image, page_num)
+        return text
         
     except Exception as e:
-        # Re-raise exception to be handled by parallel coordinator
         raise Exception(f"Error extracting text from page {page_num}: {str(e)}")
 
 def encode_pil_image(pil_image):
-    """Encode PIL Image to base64 for OpenAI API"""
+    """Encode PIL Image to base64 for AI Vision API"""
     buffer = io.BytesIO()
     pil_image.save(buffer, format='PNG')
     buffer.seek(0)
     return base64.b64encode(buffer.getvalue()).decode('utf-8')
 
 def extract_financial_data(image_file, file_type):
-    """Extract financial data using OpenAI GPT-4 Vision with vector database enhancement"""
+    """Extract financial data using AI Vision - provider-agnostic"""
     try:
         # Handle PDF files with vector database approach
         if file_type == 'pdf':
             st.info("🔍 Processing PDF with AI-powered semantic analysis...")
-            return process_pdf_with_vector_db(image_file, client)
+            return process_pdf_with_vector_db(image_file, enable_parallel=True)
         
         # Handle single image files
         else:
             st.info("🔍 Analyzing image with AI...")
             base64_image = encode_image(image_file)
             
-            # Extract financial data from single image
-            response = exponential_backoff_retry(
-                lambda: client.chat.completions.create(
-                    model="gpt-4o",
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": [
-                                {
-                                    "type": "text",
-                                    "text": """Extract financial data from this image. Return the data in JSON format with:
-                                    {
-                                        "statement_type": "type of financial statement",
-                                        "period": "period covered",
-                                        "currency": "currency used",
-                                        "line_items": [
-                                            {"item": "line item name", "value": "numerical value", "category": "category"}
-                                        ]
-                                    }"""
-                                },
-                                {
-                                    "type": "image_url",
-                                    "image_url": {
-                                        "url": f"data:image/jpeg;base64,{base64_image}"
-                                    }
-                                }
-                            ]
-                        }
-                    ],
-                    max_tokens=4000
-                )
+            # Use extractor's comprehensive extraction method
+            extracted_data = extractor.extract_comprehensive_financial_data(
+                base64_image=base64_image,
+                statement_type_hint="financial statement",
+                page_text=""
             )
             
-            return response.choices[0].message.content
+            # Return as string (for compatibility with existing code)
+            return json.dumps(extracted_data, indent=2)
             
     except Exception as e:
         st.error(f"Error extracting financial data: {str(e)}")
@@ -499,13 +341,31 @@ def log_processing(filename, processing_time, accuracy_score, status):
         pass
 
 def get_confidence_class(confidence):
-    """Get CSS class based on confidence score"""
-    if confidence >= 0.8:
-        return "confidence-high"
+    """Get CSS class for confidence score styling"""
+    if confidence >= 0.9:
+        return "high-confidence"
+    elif confidence >= 0.7:
+        return "medium-confidence"
     elif confidence >= 0.5:
-        return "confidence-medium"
+        return "low-confidence"
     else:
-        return "confidence-low"
+        return "very-low-confidence"
+
+def ensure_confidence_score(confidence_value):
+    """Ensure confidence score is always a float between 0.0 and 1.0"""
+    if isinstance(confidence_value, (int, float)):
+        return float(max(0.0, min(1.0, confidence_value)))
+    elif isinstance(confidence_value, str):
+        try:
+            # Handle percentage strings like "85%"
+            if '%' in confidence_value:
+                return float(confidence_value.replace('%', '')) / 100.0
+            # Handle decimal strings
+            return float(max(0.0, min(1.0, float(confidence_value))))
+        except (ValueError, TypeError):
+            return 0.0
+    else:
+        return 0.0
 
 def display_extracted_data(data):
     """Display extracted financial data in a user-friendly format"""
@@ -702,7 +562,7 @@ def display_single_page_data(data):
                                     "Field": field.replace("_", " ").title(),
                                     "Value": info["value"],
                                     "Confidence": f"{info['confidence']:.1%}",
-                                    "Confidence_Score": info["confidence"],
+                                    "Confidence_Score": ensure_confidence_score(info["confidence"]),
                                     "Year_Data": year_data
                                 })
                                 
@@ -762,7 +622,7 @@ def display_single_page_data(data):
                             "Field": subcategory.replace("_", " ").title(),
                             "Value": subcategory_data["value"],
                             "Confidence": f"{subcategory_data['confidence']:.1%}",
-                            "Confidence_Score": subcategory_data["confidence"],
+                            "Confidence_Score": ensure_confidence_score(subcategory_data["confidence"]),
                             "Year_Data": year_data
                         })
                         
@@ -871,11 +731,14 @@ def display_single_page_data(data):
             st.metric("Total Line Items", total_fields)
         
         with col2:
-            high_confidence = len([item for item in all_line_items if item["Confidence_Score"] >= 0.8])
+            # Use helper function to ensure consistent confidence score handling
+            high_confidence = len([item for item in all_line_items if ensure_confidence_score(item.get("Confidence_Score", 0)) >= 0.8])
             st.metric("High Confidence Items", f"{high_confidence}/{total_fields}")
         
         with col3:
-            avg_confidence = sum(item["Confidence_Score"] for item in all_line_items) / len(all_line_items)
+            # Use helper function to ensure consistent confidence score handling
+            confidence_scores = [ensure_confidence_score(item.get("Confidence_Score", 0)) for item in all_line_items]
+            avg_confidence = sum(confidence_scores) / len(confidence_scores) if confidence_scores else 0.0
             st.metric("Average Confidence", f"{avg_confidence:.1%}")
         
         st.markdown('</div>', unsafe_allow_html=True)
@@ -1330,223 +1193,22 @@ def calculate_number_density_score(page_text):
     return density_score, number_density_pct, unique_financial_numbers
 
 def extract_comprehensive_financial_data(base64_image, statement_type_hint, page_text=""):
-    """Guided adaptive financial data extraction that balances structure with flexibility - thread-safe version"""
-    content = ""  # Initialize content variable
+    """
+    Extract comprehensive financial data using extractor (provider-agnostic).
+    """
     try:
-        # Revised prompt with clear guidance but flexible implementation
-        prompt = f"""
-        You are a financial data extraction expert. Analyze this {statement_type_hint} and extract ALL visible financial line items.
-
-        CORE EXTRACTION RULE: Extract every line that has both a LABEL and a NUMERICAL VALUE.
-
-        STEP-BY-STEP PROCESS:
-        1. SCAN the entire document for lines with labels and numbers
-        2. IDENTIFY the document's own section headers and organization
-        3. EXTRACT using the exact terminology from the document
-        4. ORGANIZE into logical categories based on the document's structure
-        5. FORMAT using the JSON structure below
-
-        CURRENCY AND NUMBER HANDLING:
-        - Handle all currency symbols (₱, $, €, £, ¥, etc.)
-        - Parse parentheses as NEGATIVE numbers: ₱(26,278) = -26278
-        - Handle comma-separated numbers: ₱249,788,478 = 249788478
-        - Remove currency symbols and return just numeric values
-        - If no clear number, set value to null and confidence to 0.1
-
-        YEAR HANDLING (RELATIVE APPROACH):
-        - Identify ALL years present in columns
-        - Use relative positioning: base_year (leftmost/primary), year_1, year_2, year_3
-        - Record actual years found for reference
-        - Only include year fields that have actual data
-
-        REQUIRED JSON STRUCTURE (adapt field names to match document):
-        {{
-            "statement_type": "exact statement title from document",
-            "company_name": "extracted company name",
-            "period": "extracted period/date", 
-            "currency": "extracted currency (PHP, USD, etc.)",
-            "years_detected": ["2024", "2023", "2022"],  // actual years found
-            "base_year": "2024",  // leftmost/primary year
-            "year_ordering": "most_recent_first" or "chronological",
-            
-            "line_items": {{
-                // ADAPT these category names to match the document's structure
-                // Examples for different statement types:
-                
-                // FOR BALANCE SHEETS - use document's section names:
-                "current_assets": {{
-                    "cash_and_equivalents": {{"value": 1000000, "confidence": 0.95, "base_year": 1000000, "year_1": 950000}},
-                    "accounts_receivable": {{"value": 500000, "confidence": 0.90, "base_year": 500000, "year_1": 480000}},
-                    "inventory": {{"value": 300000, "confidence": 0.85, "base_year": 300000, "year_1": 290000}}
-                }},
-                "non_current_assets": {{
-                    "property_plant_equipment": {{"value": 2000000, "confidence": 0.92, "base_year": 2000000, "year_1": 1900000}}
-                }},
-                "current_liabilities": {{
-                    "accounts_payable": {{"value": 400000, "confidence": 0.88, "base_year": 400000, "year_1": 380000}}
-                }},
-                "equity": {{
-                    "share_capital": {{"value": 1000000, "confidence": 0.95, "base_year": 1000000, "year_1": 1000000}},
-                    "retained_earnings": {{"value": 800000, "confidence": 0.90, "base_year": 800000, "year_1": 750000}}
-                }},
-                
-                // FOR INCOME STATEMENTS - use document's section names:
-                "revenues": {{
-                    "net_sales": {{"value": 5000000, "confidence": 0.95, "base_year": 5000000, "year_1": 4800000}},
-                    "other_income": {{"value": 100000, "confidence": 0.80, "base_year": 100000, "year_1": 95000}}
-                }},
-                "cost_of_sales": {{
-                    "cost_of_goods_sold": {{"value": 3000000, "confidence": 0.92, "base_year": 3000000, "year_1": 2900000}}
-                }},
-                "operating_expenses": {{
-                    "selling_expenses": {{"value": 500000, "confidence": 0.88, "base_year": 500000, "year_1": 480000}},
-                    "administrative_expenses": {{"value": 300000, "confidence": 0.85, "base_year": 300000, "year_1": 290000}}
-                }},
-                
-                // FOR CASH FLOW STATEMENTS - use document's section names:
-                "operating_activities": {{
-                    "net_income": {{"value": 1200000, "confidence": 0.95, "base_year": 1200000, "year_1": 1100000}},
-                    "depreciation": {{"value": 200000, "confidence": 0.90, "base_year": 200000, "year_1": 190000}}
-                }},
-                "investing_activities": {{
-                    "capital_expenditures": {{"value": -500000, "confidence": 0.88, "base_year": -500000, "year_1": -450000}}
-                }},
-                "financing_activities": {{
-                    "dividends_paid": {{"value": -100000, "confidence": 0.85, "base_year": -100000, "year_1": -95000}}
-                }}
-            }},
-            
-            "summary_metrics": {{
-                // Key totals for quick overview
-                "total_assets": {{"value": 3000000, "confidence": 0.95}},
-                "total_liabilities": {{"value": 1200000, "confidence": 0.90}},
-                "total_equity": {{"value": 1800000, "confidence": 0.92}},
-                "total_revenue": {{"value": 5100000, "confidence": 0.95}},
-                "net_income": {{"value": 1200000, "confidence": 0.93}},
-                "operating_cash_flow": {{"value": 1400000, "confidence": 0.88}}
-            }},
-            
-            "document_structure": {{
-                "main_sections": ["Assets", "Liabilities", "Equity"],  // actual section headers found
-                "line_item_count": 15,  // total line items extracted
-                "has_multi_year_data": true,
-                "special_notes": "any unique aspects of this document"
-            }},
-            
-            "notes": "observations about document structure, data quality, assumptions made"
-        }}
-
-        CRITICAL EXTRACTION GUIDELINES:
-
-        1. **EXTRACT EVERYTHING**: Every line with a label and number should be captured
-        2. **USE EXACT NAMES**: Convert document terminology to snake_case for JSON keys
-           - "Cash and Cash Equivalents" → "cash_and_cash_equivalents"
-           - "Accounts Receivable - Net" → "accounts_receivable_net"
-           - "Property, Plant & Equipment" → "property_plant_equipment"
-        
-        3. **ADAPT CATEGORIES**: Use the document's own section organization
-           - If document has "Current Assets" and "Non-Current Assets", use those
-           - If document has "Operating Revenue" and "Non-Operating Revenue", use those
-           - Don't force items into predefined categories if they don't fit
-        
-        4. **HANDLE TOTALS**: Always extract subtotals and grand totals
-           - "Total Current Assets", "Total Assets", "Total Revenue", etc.
-        
-        5. **CONFIDENCE SCORING**:
-           - 0.9-1.0: Crystal clear, unambiguous values
-           - 0.7-0.9: Clear values with minor formatting complexity  
-           - 0.5-0.7: Somewhat unclear but reasonable interpretation
-           - 0.3-0.5: Uncertain, multiple possible interpretations
-           - 0.1-0.3: Very uncertain or barely visible
-
-        6. **MULTI-YEAR DATA**: If multiple years are present:
-           - **CRITICAL**: Year headers (like "2024", "2023", "2022") are COLUMN HEADERS, not financial values
-           - **DO NOT** extract year numbers as financial data values
-           - Look for the actual financial amounts under each year column
-           - Identify the base year (usually leftmost or most recent year column)
-           - Extract the actual financial values for base_year, year_1, year_2, year_3 as available
-           - **EXAMPLE**: If you see "Cash  2024: $1,000,000  2023: $950,000", extract:
-             * base_year: 1000000 (the amount under 2024, not "2024" itself)
-             * year_1: 950000 (the amount under 2023, not "2023" itself)
-           - Only include year fields that have actual financial data (not the year labels)
-
-        7. **FALLBACK APPROACH**: If document structure is unusual:
-           - Create a "miscellaneous" or "other_items" category
-           - Still extract all visible line items
-           - Note the unusual structure in the "notes" field
-
-        EXAMPLES OF ADAPTIVE EXTRACTION:
-
-        Document shows: "Cash and Bank Deposits    ₱1,000,000    ₱950,000"
-        Extract as: "cash_and_bank_deposits": {{"value": 1000000, "confidence": 0.95, "base_year": 1000000, "year_1": 950000}}
-
-        Document shows: "Total Stockholders' Equity    $5,000,000"  
-        Extract as: "total_stockholders_equity": {{"value": 5000000, "confidence": 0.95, "base_year": 5000000}}
-
-        Document shows: "Cost of Sales    (2,000,000)"
-        Extract as: "cost_of_sales": {{"value": -2000000, "confidence": 0.95, "base_year": -2000000}}
-
-        **MULTI-YEAR EXAMPLE** - Document shows:
-        "                    2024        2023        2022
-        Cash                40,506,296  14,011,556  12,500,000
-        Accounts Receivable 93,102,625  102,434,862 95,000,000"
-        
-        Extract as:
-        "cash": {{"value": 40506296, "confidence": 0.95, "base_year": 40506296, "year_1": 14011556, "year_2": 12500000}}
-        "accounts_receivable": {{"value": 93102625, "confidence": 0.95, "base_year": 93102625, "year_1": 102434862, "year_2": 95000000}}
-        
-        **WRONG**: Do NOT extract "2024": {{"value": 2024}} - years are headers, not data!
-
-        REMEMBER: Your goal is to capture ALL financial data visible in the document while preserving the document's own terminology and organization. Be thorough but accurate.
-        """
-
-        response = exponential_backoff_retry(
-            lambda: client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text": prompt},
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": f"data:image/png;base64,{base64_image}"
-                                }
-                            }
-                        ]
-                    }
-                ],
-                max_tokens=4000
-            )
+        # Use extractor's comprehensive extraction method
+        extracted_data = extractor.extract_comprehensive_financial_data(
+            base64_image=base64_image,
+            statement_type_hint=statement_type_hint,
+            page_text=page_text
         )
-        
-        # Parse the JSON response
-        content = response.choices[0].message.content or ""
-        
-        if not content:
-            raise Exception("Empty response from AI model")
-        
-        # Extract JSON from the response
-        start_idx = content.find('{')
-        end_idx = content.rfind('}') + 1
-        
-        if start_idx == -1 or end_idx == 0:
-            raise Exception("No valid JSON found in AI response")
-            
-        json_str = content[start_idx:end_idx]
-        extracted_data = json.loads(json_str)
-        
-        # Add processing metadata
-        extracted_data['processing_method'] = 'vector_database_analysis'
         
         return extracted_data
         
-    except json.JSONDecodeError as e:
-        raise Exception(f"JSON parsing error: {str(e)}")
-        
     except Exception as e:
         raise Exception(f"Error in comprehensive extraction: {str(e)}")
+
 
 # Initialize ChromaDB client
 @st.cache_resource
@@ -1783,263 +1445,35 @@ def analyze_page_content_semantically(collection, page_text, page_num, threshold
         is_financial = confidence > threshold
         return is_financial, confidence, "Unknown"
 
-def process_pdf_with_vector_db(uploaded_file, client, enable_parallel=True):
-    """Process PDF using comprehensive vector database approach for large documents"""
+def process_pdf_with_vector_db(uploaded_file, enable_parallel=True):
+    """
+    Process PDF using comprehensive vector database approach for large documents.
+    Now uses PDFProcessor which is provider-agnostic.
+    """
     try:
-        st.info("🔍 Starting comprehensive PDF analysis with enhanced classification...")
+        st.info("🔍 Processing PDF with AI-powered semantic analysis...")
         
-        # Convert PDF to images and extract text from ALL pages
-        images, page_info = convert_pdf_to_images(uploaded_file, enable_parallel)
-        if not images or not page_info:
+        # Use PDFProcessor's method (already provider-agnostic)
+        # Note: This replaces the old implementation but preserves Streamlit UI feedback
+        extracted_data = pdf_processor.process_pdf_with_vector_db(
+            pdf_file=uploaded_file,
+            enable_parallel=enable_parallel
+        )
+        
+        if not extracted_data:
+            st.warning("⚠️ No data extracted from PDF")
             return None
-
-        st.info(f"📊 Analyzing {len(page_info)} pages with enhanced classification system...")
         
-        # Use the NEW enhanced classification system instead of old semantic search
-        financial_pages = classify_financial_statement_pages(page_info, enable_parallel)
+        # Check if we need to transform the format
+        # PDFProcessor returns data in template_mappings format
+        # Compare with expected format and transform if needed
         
-        if not financial_pages:
-            st.warning("⚠️ No financial statement pages detected. Processing first page as fallback.")
-            financial_pages = [{
-                'page_num': 1,
-                'statement_type': 'Unknown',
-                'confidence': 0.1,
-                'image': images[0],
-                'text': page_info[0]['text'] if page_info else "",
-                'number_density': 0,
-                'financial_numbers_count': 0,
-                'number_density_score': 0
-            }]
-
-        # Sort by confidence and select top pages for processing
-        def get_confidence_score(page_dict):
-            confidence = page_dict.get('confidence', 0)
-            if isinstance(confidence, (int, float)):
-                return float(confidence)
-            return 0.0
-
-        financial_pages.sort(key=get_confidence_score, reverse=True)
-
-        # Select top 10 pages for processing (optimization)
-        max_pages_to_process = min(10, len(financial_pages))
-        selected_pages = financial_pages[:max_pages_to_process]
-
-        st.success(f"✅ Found {len(financial_pages)} financial statement pages using enhanced classification")
-
-        # Show preview of selected pages before processing
-        with st.expander(f"📋 Preview: Top {max_pages_to_process} Pages Selected for Processing", expanded=True):
-            st.info(f"🚀 **Optimization**: Processing top {max_pages_to_process} highest-scoring pages instead of all {len(financial_pages)} pages for faster extraction.")
-            
-            preview_data = []
-            for i, page in enumerate(selected_pages):
-                preview_data.append({
-                    "Rank": str(i + 1),
-                    "Page": str(page['page_num']),
-                    "Statement Type": page['statement_type'],
-                    "Confidence": f"{page['confidence']:.3f}",
-                    "Status": "✅ Will Process"
-                })
-            
-            # Show skipped pages if any
-            skipped_pages = financial_pages[max_pages_to_process:]
-            for page in skipped_pages[:5]:  # Show first 5 skipped pages
-                preview_data.append({
-                    "Rank": "-",
-                    "Page": str(page['page_num']),
-                    "Statement Type": page['statement_type'],
-                    "Confidence": f"{page['confidence']:.3f}",
-                    "Status": "⏭️ Skipped"
-                })
-            
-            if len(skipped_pages) > 5:
-                preview_data.append({
-                    "Rank": "-",
-                    "Page": "More pages...",
-                    "Statement Type": f"({len(skipped_pages) - 5} more)",
-                    "Confidence": "...",
-                    "Status": "⏭️ Skipped"
-                })
-            
-            preview_df = pd.DataFrame(preview_data)
-            st.dataframe(preview_df, use_container_width=True)
-            
-            # Show processing time estimate
-            estimated_time = max_pages_to_process * 0.5  # Rough estimate: 30 seconds per page
-            st.info(f"⏱️ **Estimated processing time**: ~{estimated_time:.1f} minutes (vs ~{len(financial_pages) * 0.5:.1f} minutes for all pages)")
-
-        # Process selected pages for comprehensive extraction
-        st.info("🚀 Starting parallel financial data extraction with 5 workers...")
-
-        def extract_financial_data_for_page(page_data):
-            """Extract financial data from a single page - designed for parallel execution"""
-            page, page_index, total_pages = page_data
-            try:
-                # Enhanced debugging information
-                page_num = page['page_num']
-                page_text_length = len(page.get('text', ''))
-                statement_type = page.get('statement_type', 'Unknown')
-                confidence = page.get('confidence', 0)
-                
-                # Debug: Log what we're processing
-                debug_info = {
-                    'page_num': page_num,
-                    'statement_type': statement_type,
-                    'confidence': confidence,
-                    'text_length': page_text_length,
-                    'has_image': 'image' in page and page['image'] is not None,
-                    'has_text': page_text_length > 0
-                }
-                
-                # Validate inputs before processing
-                if not page.get('image'):
-                    return {
-                        'page_num': str(page_num),
-                        'data': None,
-                        'success': False,
-                        'error': 'No image data available',
-                        'debug_info': debug_info,
-                        'index': page_index
-                    }
-                
-                if page_text_length < 10:
-                    return {
-                        'page_num': str(page_num),
-                        'data': None,
-                        'success': False,
-                        'error': f'Insufficient text content ({page_text_length} chars)',
-                        'debug_info': debug_info,
-                        'index': page_index
-                    }
-                
-                # Encode image for API call
-                base64_image = encode_pil_image(page['image'])
-                if not base64_image:
-                    return {
-                        'page_num': str(page_num),
-                        'data': None,
-                        'success': False,
-                        'error': 'Failed to encode image',
-                        'debug_info': debug_info,
-                        'index': page_index
-                    }
-                
-                # Make the API call with enhanced error handling
-                page_result = extract_comprehensive_financial_data(
-                    base64_image, 
-                    statement_type, 
-                    str(page.get('text', ''))
-                )
-                
-                if page_result:
-                    # Add metadata to successful result
-                    page_result['page_number'] = str(page_num)
-                    page_result['confidence_score'] = confidence
-                    page_result['processing_debug'] = debug_info
-                    
-                    return {
-                        'page_num': str(page_num),
-                        'data': page_result,
-                        'success': True,
-                        'error': None,
-                        'debug_info': debug_info,
-                        'index': page_index
-                    }
-                else:
-                    return {
-                        'page_num': str(page_num),
-                        'data': None,
-                        'success': False,
-                        'error': 'LLM returned empty/null result',
-                        'debug_info': debug_info,
-                        'index': page_index
-                    }
-                    
-            except Exception as e:
-                # Enhanced error reporting
-                error_details = {
-                    'error_type': type(e).__name__,
-                    'error_message': str(e),
-                    'page_info': {
-                        'page_num': page.get('page_num', 'Unknown'),
-                        'has_image': 'image' in page,
-                        'has_text': len(page.get('text', '')) > 0,
-                        'text_preview': page.get('text', '')[:100] + '...' if len(page.get('text', '')) > 100 else page.get('text', '')
-                    }
-                }
-                
-                return {
-                    'page_num': str(page.get('page_num', page_index + 1)),
-                    'data': None,
-                    'success': False,
-                    'error': f"{type(e).__name__}: {str(e)}",
-                    'error_details': error_details,
-                    'index': page_index
-                }
-        
-        # Create progress tracking
-        extraction_progress = st.progress(0)
-        extraction_status = st.empty()
-        completed_count = 0
-        total_pages = len(selected_pages)
-        
-        # Use ThreadPoolExecutor for parallel processing
-        with ThreadPoolExecutor(max_workers=5) as executor:
-            # Submit all pages for processing
-            future_to_page = {executor.submit(extract_financial_data_for_page, page_data): page_data[0] 
-                             for page_data in enumerate(selected_pages)}
-            
-            # Collect results as they complete
-            results = {}
-            failed_pages = []
-            
-            for future in as_completed(future_to_page):
-                page_num = future_to_page[future]
-                try:
-                    result = future.result()
-                    results[result['page_num']] = result
-                    
-                    if result['success']:
-                        completed_count += 1
-                        progress = completed_count / total_pages
-                        extraction_progress.progress(progress)
-                        extraction_status.text(f"✅ Completed page {result['page_num']}/{total_pages} ({completed_count} successful)")
-                    else:
-                        failed_pages.append(result['page_num'])
-                        st.warning(f"⚠️ Failed to extract data from page {result['page_num']}: {result['error']}")
-                        
-                except Exception as e:
-                    failed_pages.append(page_num + 1)
-                    st.error(f"❌ Unexpected error processing page {page_num + 1}: {str(e)}")
-        
-        # Sort results by page number and create page_info list
-        for page_num in sorted(results.keys()):
-            result = results[page_num]
-            if result['success']:
-                page_info.append({
-                    'page_num': result['page_num'],
-                    'text': result['text'],
-                    'image': result['image']
-                })
-        
-        # Final status update
-        extraction_progress.progress(1.0)
-        if failed_pages:
-            st.warning(f"⚠️ Processing completed with {len(failed_pages)} failed pages: {failed_pages}")
-            st.info(f"✅ Successfully processed {len(page_info)}/{total_pages} pages with parallel AI text extraction")
-        else:
-            st.success(f"✅ Successfully processed all {len(page_info)} pages with parallel AI text extraction")
-        
-        # Clear progress indicators
-        extraction_progress.empty()
-        extraction_status.empty()
-        
-        return images, page_info
+        st.success(f"✅ Successfully processed PDF")
+        return extracted_data
         
     except Exception as e:
         st.error(f"Error processing PDF: {str(e)}")
-        if "poppler" in str(e).lower():
-            st.error("💡 This looks like a Poppler installation issue. Please see the instructions above.")
-        return None, None
+        return None
 
 def create_ifrs_csv_export(data):
     """Create comprehensive CSV export for IFRS financial statements"""
@@ -2100,7 +1534,7 @@ def consolidate_financial_data(extracted_results):
     try:
         st.info(f"🧠 Consolidating data from {len(extracted_results)} pages using AI analysis...")
         
-        # Prepare the consolidation prompt
+        # Prepare the consolidation prompt to match Whole Document format
         consolidation_prompt = f"""
         You are a financial analysis expert tasked with consolidating multiple financial statement extractions into a single, accurate, and comprehensive financial statement.
 
@@ -2136,95 +1570,155 @@ def consolidate_financial_data(extracted_results):
         {json.dumps(extracted_results, indent=2)}
 
         **REQUIRED OUTPUT FORMAT:**
-        Return a single JSON object with the same structure as the individual extractions, but consolidated and validated:
+        Return a single JSON object matching the comprehensive financial analysis format:
 
         {{
-            "statement_type": "Consolidated Financial Statements",
-            "company_name": "extracted company name",
-            "period": "extracted period/date",
-            "currency": "extracted currency",
-            "years_detected": ["list of all years found"],
-            "base_year": "primary year",
-            "year_ordering": "most_recent_first or chronological",
+            "processing_method": "vector_database_analysis",
+            "document_analysis": {{
+                "total_pages": {len(extracted_results)},
+                "company_name": "extracted company name",
+                "reporting_period": "extracted period",
+                "currency": "extracted currency",
+                "statements_present": ["list of statement types found"],
+                "document_structure": "description of how document is organized",
+                "multi_year_data": true/false,
+                "years_covered": ["list of years if multi-year"]
+            }},
             
-            "line_items": {{
-                // Consolidated line items organized by statement type
+            "consolidated_financial_data": {{
                 "balance_sheet": {{
-                    "current_assets": {{ ... }},
-                    "non_current_assets": {{ ... }},
-                    "current_liabilities": {{ ... }},
-                    "non_current_liabilities": {{ ... }},
-                    "equity": {{ ... }}
+                    "current_assets": {{
+                        "cash_and_equivalents": {{"value": X, "confidence": 0.95, "source_pages": [1,2], "base_year": X, "year_1": Y}},
+                        "accounts_receivable": {{"value": X, "confidence": 0.90, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "inventory": {{"value": X, "confidence": 0.85, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "other_current_assets": {{"value": X, "confidence": 0.80, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_current_assets": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }},
+                    "non_current_assets": {{
+                        "property_plant_equipment": {{"value": X, "confidence": 0.92, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "intangible_assets": {{"value": X, "confidence": 0.88, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "other_non_current_assets": {{"value": X, "confidence": 0.85, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_non_current_assets": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }},
+                    "current_liabilities": {{
+                        "accounts_payable": {{"value": X, "confidence": 0.88, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "short_term_debt": {{"value": X, "confidence": 0.90, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "other_current_liabilities": {{"value": X, "confidence": 0.85, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_current_liabilities": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }},
+                    "non_current_liabilities": {{
+                        "long_term_debt": {{"value": X, "confidence": 0.92, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "other_long_term_liabilities": {{"value": X, "confidence": 0.88, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_non_current_liabilities": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }},
+                    "equity": {{
+                        "share_capital": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "retained_earnings": {{"value": X, "confidence": 0.90, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "other_equity": {{"value": X, "confidence": 0.85, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_equity": {{"value": X, "confidence": 0.95, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }},
+                    "totals": {{
+                        "total_assets": {{"value": X, "confidence": 0.98, "source_pages": [1], "base_year": X, "year_1": Y}},
+                        "total_liabilities_and_equity": {{"value": X, "confidence": 0.98, "source_pages": [1], "base_year": X, "year_1": Y}}
+                    }}
                 }},
+                
                 "income_statement": {{
-                    "revenues": {{ ... }},
-                    "cost_of_sales": {{ ... }},
-                    "operating_expenses": {{ ... }},
-                    "other_income_expenses": {{ ... }}
+                    "revenues": {{
+                        "net_sales": {{"value": X, "confidence": 0.95, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "other_income": {{"value": X, "confidence": 0.80, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "total_revenue": {{"value": X, "confidence": 0.95, "source_pages": [2], "base_year": X, "year_1": Y}}
+                    }},
+                    "cost_of_sales": {{
+                        "cost_of_goods_sold": {{"value": X, "confidence": 0.92, "source_pages": [2], "base_year": X, "year_1": Y}}
+                    }},
+                    "operating_expenses": {{
+                        "selling_expenses": {{"value": X, "confidence": 0.88, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "administrative_expenses": {{"value": X, "confidence": 0.85, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "other_operating_expenses": {{"value": X, "confidence": 0.80, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "total_operating_expenses": {{"value": X, "confidence": 0.90, "source_pages": [2], "base_year": X, "year_1": Y}}
+                    }},
+                    "profitability": {{
+                        "gross_profit": {{"value": X, "confidence": 0.95, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "operating_income": {{"value": X, "confidence": 0.93, "source_pages": [2], "base_year": X, "year_1": Y}},
+                        "net_income": {{"value": X, "confidence": 0.95, "source_pages": [2], "base_year": X, "year_1": Y}}
+                    }}
                 }},
+                
                 "cash_flow_statement": {{
-                    "operating_activities": {{ ... }},
-                    "investing_activities": {{ ... }},
-                    "financing_activities": {{ ... }}
+                    "operating_activities": {{
+                        "net_income": {{"value": X, "confidence": 0.95, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "depreciation": {{"value": X, "confidence": 0.90, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "working_capital_changes": {{"value": X, "confidence": 0.85, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "net_cash_from_operations": {{"value": X, "confidence": 0.95, "source_pages": [3], "base_year": X, "year_1": Y}}
+                    }},
+                    "investing_activities": {{
+                        "capital_expenditures": {{"value": X, "confidence": 0.88, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "net_cash_from_investing": {{"value": X, "confidence": 0.90, "source_pages": [3], "base_year": X, "year_1": Y}}
+                    }},
+                    "financing_activities": {{
+                        "dividends_paid": {{"value": X, "confidence": 0.85, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "debt_proceeds": {{"value": X, "confidence": 0.88, "source_pages": [3], "base_year": X, "year_1": Y}},
+                        "net_cash_from_financing": {{"value": X, "confidence": 0.90, "source_pages": [3], "base_year": X, "year_1": Y}}
+                    }}
                 }}
             }},
             
             "summary_metrics": {{
-                "total_assets": {{"value": X, "confidence": Y}},
-                "total_liabilities": {{"value": X, "confidence": Y}},
-                "total_equity": {{"value": X, "confidence": Y}},
-                "total_revenue": {{"value": X, "confidence": Y}},
-                "net_income": {{"value": X, "confidence": Y}},
-                "operating_cash_flow": {{"value": X, "confidence": Y}}
+                "total_assets": {{"value": X, "confidence": 0.95}},
+                "total_revenue": {{"value": X, "confidence": 0.95}},
+                "net_income": {{"value": X, "confidence": 0.95}},
+                "operating_cash_flow": {{"value": X, "confidence": 0.88}},
+                "total_equity": {{"value": X, "confidence": 0.92}}
+            }},
+            
+            "validation_results": {{
+                "balance_sheet_balances": true/false,
+                "net_income_consistency": true/false,
+                "cross_statement_checks": ["list of validation results"],
+                "data_quality_score": 0.0-1.0,
+                "completeness_score": 0.0-1.0
             }},
             
             "consolidation_info": {{
                 "source_pages": [list of page numbers processed],
                 "duplicates_removed": number,
                 "conflicts_resolved": number,
-                "data_quality_score": 0.0-1.0,
-                "validation_results": {{
-                    "balance_sheet_balances": true/false,
-                    "income_statement_consistent": true/false,
-                    "cash_flow_consistent": true/false
-                }},
+                "consolidation_method": "vector_database_ai_consolidation",
                 "consolidation_notes": "detailed notes about the consolidation process"
             }},
             
-            "notes": "overall observations about the consolidated financial statements"
+            "comprehensive_analysis": {{
+                "key_insights": ["list of key financial insights"],
+                "unusual_items": ["list of any unusual or noteworthy items"],
+                "data_gaps": ["list of any missing or unclear data"],
+                "recommendations": ["recommendations for data verification"]
+            }},
+            
+            "notes": "comprehensive observations about the consolidated financial statements"
         }}
 
         **CRITICAL INSTRUCTIONS:**
+        - Use STANDARD FINANCIAL TERMINOLOGY: "cash_and_equivalents", "accounts_receivable", "net_sales", "administrative_expenses", etc.
         - Preserve all unique financial line items found across all pages
         - Maintain proper financial statement structure and relationships
         - Include detailed consolidation_info for transparency
+        - **MULTI-YEAR DATA**: Year headers (2024, 2023, etc.) are COLUMN HEADERS, not financial values. Extract the actual amounts under each year column, not the year numbers themselves.
         - If validation fails, note the issues but still provide best consolidated result
         - Use the highest confidence scores and most complete data available
+        - Organize by statement type first, then by category, then by specific line items
         """
 
-        # Make API call to consolidate the data
-        client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        
-        response = exponential_backoff_retry(
-            lambda: client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are a financial data consolidation expert. Analyze multiple financial statement extractions and create a single, accurate, consolidated financial statement."
-                    },
-                    {
-                        "role": "user", 
-                        "content": consolidation_prompt
-                    }
-                ],
-                temperature=0.1,
-                max_tokens=4000
-            )
+        # Use extractor's text-only API call method
+        response_text = extractor._call_text_only_api(
+            prompt=consolidation_prompt,
+            system_message="You are a financial data consolidation expert. Analyze multiple financial statement extractions and create a single, accurate, consolidated financial statement using standard financial terminology and hierarchical organization.",
+            temperature=0.1,
+            max_tokens=4000
         )
         
         # Parse the response
-        content = response.choices[0].message.content
+        content = response_text
         if not content:
             raise ValueError("Empty response from API")
         content = content.strip()
@@ -2247,42 +1741,59 @@ def consolidate_financial_data(extracted_results):
         
         consolidated_data = json.loads(json_content)
         
-        # Add metadata about the consolidation process
-        consolidated_data['consolidation_metadata'] = {
-            'source_extractions': len(extracted_results),
-            'consolidation_timestamp': datetime.now().isoformat(),
-            'consolidation_method': 'LLM_GPT4'
-        }
-        
-        st.success(f"✅ Successfully consolidated data from {len(extracted_results)} pages")
-        
-        # Show consolidation summary
-        if 'consolidation_info' in consolidated_data:
-            info = consolidated_data['consolidation_info']
-            with st.expander("📋 Consolidation Summary", expanded=True):
-                col1, col2, col3 = st.columns(3)
-                with col1:
-                    st.metric("Source Pages", len(info.get('source_pages', [])))
-                with col2:
-                    st.metric("Duplicates Removed", info.get('duplicates_removed', 0))
-                with col3:
-                    st.metric("Conflicts Resolved", info.get('conflicts_resolved', 0))
-                
-                if 'data_quality_score' in info:
-                    st.metric("Data Quality Score", f"{info['data_quality_score']:.2f}")
-                
-                if 'validation_results' in info:
-                    validation = info['validation_results']
-                    st.write("**Validation Results:**")
-                    for check, result in validation.items():
-                        status = "✅" if result else "⚠️"
-                        st.write(f"{status} {check.replace('_', ' ').title()}: {result}")
-                
-                if 'consolidation_notes' in info:
-                    st.write("**Consolidation Notes:**")
-                    st.write(info['consolidation_notes'])
-        
-        return consolidated_data
+        # Transform the data to match the expected format for display (same as Whole Document approach)
+        if 'consolidated_financial_data' in consolidated_data:
+            # Create a unified result that matches the Whole Document format exactly
+            unified_result = {
+                "statement_type": "Comprehensive Financial Statements",
+                "company_name": consolidated_data.get("document_analysis", {}).get("company_name", "Unknown"),
+                "period": consolidated_data.get("document_analysis", {}).get("reporting_period", "Unknown"),
+                "currency": consolidated_data.get("document_analysis", {}).get("currency", "Unknown"),
+                "years_detected": consolidated_data.get("document_analysis", {}).get("years_covered", []),
+                "base_year": consolidated_data.get("document_analysis", {}).get("years_covered", ["Unknown"])[0] if consolidated_data.get("document_analysis", {}).get("years_covered") else "Unknown",
+                "processing_method": "vector_database_analysis",
+                "line_items": consolidated_data["consolidated_financial_data"],
+                "summary_metrics": consolidated_data.get("summary_metrics", {}),
+                "validation_results": consolidated_data.get("validation_results", {}),
+                "comprehensive_analysis": consolidated_data.get("comprehensive_analysis", {}),
+                "consolidation_info": consolidated_data.get("consolidation_info", {}),
+                "document_analysis": consolidated_data.get("document_analysis", {}),
+                "notes": consolidated_data.get("notes", "")
+            }
+
+            st.success(f"✅ Successfully consolidated data from {len(extracted_results)} pages")
+            
+            # Show consolidation summary
+            if 'consolidation_info' in consolidated_data:
+                info = consolidated_data['consolidation_info']
+                with st.expander("📋 Consolidation Summary", expanded=True):
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.metric("Source Pages", len(info.get('source_pages', [])))
+                    with col2:
+                        st.metric("Duplicates Removed", info.get('duplicates_removed', 0))
+                    with col3:
+                        st.metric("Conflicts Resolved", info.get('conflicts_resolved', 0))
+                    
+                    if 'data_quality_score' in consolidated_data.get('validation_results', {}):
+                        st.metric("Data Quality Score", f"{consolidated_data['validation_results']['data_quality_score']:.2f}")
+                    
+                    if 'validation_results' in consolidated_data:
+                        validation = consolidated_data['validation_results']
+                        st.write("**Validation Results:**")
+                        for check, result in validation.items():
+                            if isinstance(result, bool):
+                                status = "✅" if result else "⚠️"
+                                st.write(f"{status} {check.replace('_', ' ').title()}: {result}")
+                    
+                    if 'consolidation_notes' in info:
+                        st.write("**Consolidation Notes:**")
+                        st.write(info['consolidation_notes'])
+
+            return unified_result
+        else:
+            st.warning("⚠️ Unexpected response format from consolidation analysis")
+            return consolidated_data
         
     except Exception as e:
         st.error(f"❌ Consolidation failed: {str(e)}")
@@ -2357,8 +1868,11 @@ def merge_equity_into_balance_sheet(balance_sheet_data, equity_statement_data):
     
     return balance_sheet_data
 
-def process_pdf_with_whole_document_context(uploaded_file, client):
-    """Process PDF using whole document context approach for comprehensive analysis"""
+def process_pdf_with_whole_document_context(uploaded_file):
+    """
+    Process PDF using whole document context approach for comprehensive analysis.
+    Now provider-agnostic.
+    """
     try:
         st.info("🌐 Starting Whole Document Context analysis...")
         
@@ -2555,27 +2069,16 @@ def process_pdf_with_whole_document_context(uploaded_file, client):
         - Note any discrepancies or unusual items
         """
 
-        # Make the comprehensive API call
-        response = exponential_backoff_retry(
-            lambda: client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are a comprehensive financial analysis expert. Analyze the entire document context to extract complete, validated financial data with cross-statement verification."
-                    },
-                    {
-                        "role": "user",
-                        "content": comprehensive_prompt
-                    }
-                ],
-                temperature=0.1,
-                max_tokens=4000
-            )
+        # Use extractor's text-only API call method instead of direct client call
+        response_text = extractor._call_text_only_api(
+            prompt=comprehensive_prompt,
+            system_message="You are a comprehensive financial analysis expert. Analyze the entire document context to extract complete, validated financial data with cross-statement verification.",
+            temperature=0.1,
+            max_tokens=4000
         )
 
         # Parse the response
-        content = response.choices[0].message.content
+        content = response_text
         if not content:
             raise ValueError("Empty response from API")
         content = content.strip()
@@ -2683,7 +2186,7 @@ def transform_to_analysis_ready_format(all_line_items):
         "Subcategory": "Year", 
         "Field": "Year",
         "Confidence": "",
-        "Confidence_Score": ""
+        "Confidence_Score": 0.0  # Use float instead of string for consistency
     }
     
     # Add year values to header row - these show which year each Value_Year_X represents
@@ -2698,12 +2201,20 @@ def transform_to_analysis_ready_format(all_line_items):
     transformed_rows = [header_row]  # Start with header row
     
     for item in all_line_items:
+        # Ensure Confidence_Score is always a float
+        confidence_score = item.get("Confidence_Score", 0.0)
+        if isinstance(confidence_score, str):
+            try:
+                confidence_score = float(confidence_score)
+            except (ValueError, TypeError):
+                confidence_score = 0.0
+        
         base_row = {
             "Category": item.get("Category", ""),
             "Subcategory": item.get("Subcategory", ""),
             "Field": item.get("Field", ""),
             "Confidence": item.get("Confidence", ""),
-            "Confidence_Score": item.get("Confidence_Score", 0)
+            "Confidence_Score": confidence_score  # Now guaranteed to be float
         }
         
         # Add fixed Value_Year_X columns with financial amounts
@@ -2737,8 +2248,119 @@ def transform_to_analysis_ready_format(all_line_items):
         
         transformed_rows.append(base_row)
     
-    return pd.DataFrame(transformed_rows)
+    # Create DataFrame and ensure proper data types
+    df = pd.DataFrame(transformed_rows)
+    
+    # Explicitly set data types to prevent Arrow serialization issues
+    if not df.empty:
+        # Ensure Confidence_Score is float
+        df['Confidence_Score'] = pd.to_numeric(df['Confidence_Score'], errors='coerce').fillna(0.0)
+        
+        # Ensure Value_Year_X columns are numeric where possible
+        for i in range(1, 5):
+            col_name = f"Value_Year_{i}"
+            if col_name in df.columns:
+                # Convert to numeric, but keep non-numeric values as strings
+                df[col_name] = pd.to_numeric(df[col_name], errors='ignore')
+    
+    return df
 
+# Enhanced error handling and user feedback utilities
+def show_user_friendly_error(error, context=""):
+    """Display user-friendly error messages with actionable guidance"""
+    error_str = str(error).lower()
+    
+    # API-related errors
+    if '429' in error_str or 'rate limit' in error_str:
+        st.error("🚫 **Rate Limit Exceeded**")
+        st.info("""
+        **What happened:** Your AI provider's API is temporarily limiting requests.
+        
+        **Solutions:**
+        - ⏳ Wait 2-3 minutes and try again
+        - 📊 Try with a smaller document
+        - 🔄 Switch to a different processing approach
+        - 🔄 Try switching providers (set AI_PROVIDER in .env)
+        """)
+    elif '401' in error_str or 'invalid api key' in error_str:
+        st.error("🔑 **API Key Issue**")
+        provider = os.getenv("AI_PROVIDER", "anthropic").lower()
+        provider_name = "Anthropic" if provider == "anthropic" else "OpenAI"
+        st.info(f"""
+        **What happened:** Your {provider_name} API key is invalid or missing.
+        
+        **Solutions:**
+        - ✅ Check your API key in the sidebar
+        - 🔧 Verify the key is active in your {provider_name} account
+        - 📝 Ensure the key has sufficient credits
+        - 🔄 Try switching providers (change AI_PROVIDER in .env)
+        """)
+    elif 'timeout' in error_str or 'connection' in error_str:
+        st.error("🌐 **Connection Issue**")
+        st.info("""
+        **What happened:** Network connection or timeout error.
+        
+        **Solutions:**
+        - 🔄 Check your internet connection
+        - ⏱️ Try again in a few moments
+        - 📄 Try with a smaller document
+        """)
+    elif 'file' in error_str and ('corrupt' in error_str or 'invalid' in error_str):
+        st.error("📄 **File Issue**")
+        st.info("""
+        **What happened:** The uploaded file appears to be corrupted or invalid.
+        
+        **Solutions:**
+        - 📁 Try uploading the file again
+        - 🔄 Convert to a different format (PDF → PNG)
+        - 📝 Ensure the file isn't password-protected
+        """)
+    else:
+        # Generic error with context
+        st.error(f"❌ **Processing Error** {context}")
+        st.info(f"""
+        **What happened:** An unexpected error occurred: {str(error)[:100]}...
+        
+        **Solutions:**
+        - 🔄 Try again with the same document
+        - 📊 Try a different processing approach
+        - 📄 Try with a different document
+        - 🐛 Report this issue if it persists
+        """)
+
+def handle_processing_error(error, uploaded_file, processing_approach):
+    """Centralized error handling for processing failures"""
+    # Log the error for debugging
+    st.error(f"❌ Processing failed: {str(error)}")
+    
+    # Show user-friendly error message
+    show_user_friendly_error(error, f"while processing {uploaded_file.name}")
+    
+    # Log failed processing
+    try:
+        log_processing(uploaded_file.name, 0, 0, f"failed: {str(error)[:100]}")
+    except:
+        pass  # Don't let logging errors compound the issue
+    
+    # Reset session state to allow retry
+    st.session_state.processing_complete = False
+    st.session_state.extracted_data = None
+
+def validate_file_upload(uploaded_file):
+    """Validate uploaded file before processing"""
+    if uploaded_file is None:
+        return False, "No file uploaded"
+    
+    # Check file size (10MB limit)
+    if uploaded_file.size > 10 * 1024 * 1024:  # 10MB
+        return False, "File too large (max 10MB)"
+    
+    # Check file type
+    allowed_types = ["application/pdf", "image/jpeg", "image/jpg", "image/png"]
+    if uploaded_file.type not in allowed_types:
+        return False, f"Unsupported file type: {uploaded_file.type}"
+    
+    return True, "File is valid"
 
 def main():
     """Main application function with enhanced processing approaches"""
@@ -2754,6 +2376,10 @@ def main():
         st.session_state.processing_approach = None
     if 'selected_processing_approach' not in st.session_state:
         st.session_state.selected_processing_approach = None
+    if 'debug_mode' not in st.session_state:
+        st.session_state.debug_mode = False
+    if 'show_onboarding' not in st.session_state:
+        st.session_state.show_onboarding = True
     
     # Initialize database
     init_database()
@@ -2761,6 +2387,39 @@ def main():
     # Header
     st.markdown('<h1 class="main-header">📊 Financial Statement Transcription Tool</h1>', 
                 unsafe_allow_html=True)
+    
+    # Onboarding for new users
+    if st.session_state.show_onboarding:
+        with st.expander("🎯 Welcome! Quick Start Guide", expanded=True):
+            st.markdown("""
+            **Welcome to the Financial Statement Transcription Tool!** 
+            
+            This AI-powered tool automatically extracts financial data from your documents.
+            
+            **📋 How to use:**
+            1. **Upload** your financial statement (PDF, JPG, or PNG)
+            2. **Choose** a processing approach (for PDFs)
+            3. **Extract** data with one click
+            4. **Review** and export your results
+            
+            **💡 Tips for best results:**
+            - Use clear, high-quality documents
+            - Ensure text is readable (not just scanned images)
+            - For large PDFs, try the "Vector Database" approach
+            - For complex layouts, try the "Whole Document" approach
+            
+            **⚠️ Important:** Always verify extracted data before use in financial analysis.
+            """)
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button("✅ Got it!", type="primary"):
+                    st.session_state.show_onboarding = False
+                    st.rerun()
+            with col2:
+                if st.button("📖 Show me more"):
+                    st.session_state.show_onboarding = False
+                    st.rerun()
     
     st.markdown("""
     **Upload your financial statement (PDF or image) and let AI extract the key financial data automatically.**
@@ -2774,12 +2433,40 @@ def main():
     with st.sidebar:
         st.header("⚙️ Settings")
         
-        # API Key check
-        if not os.getenv("OPENAI_API_KEY"):
-            st.error("⚠️ OpenAI API key not found. Please set OPENAI_API_KEY in your .env file.")
+        # API Key check - Claude is default
+        provider = os.getenv("AI_PROVIDER", "anthropic").lower()
+        if provider == "anthropic":
+            api_key_name = "ANTHROPIC_API_KEY"
+            api_key = os.getenv("ANTHROPIC_API_KEY")
+            provider_name = "Claude (Anthropic)"
+            provider_note = "Default provider"
+        else:
+            api_key_name = "OPENAI_API_KEY"
+            api_key = os.getenv("OPENAI_API_KEY")
+            provider_name = "OpenAI"
+            provider_note = "Optional - Claude is default"
+        
+        if not api_key:
+            st.error(f"⚠️ {provider_name} API key not found. Please set {api_key_name} in your .env file.")
+            if provider == "anthropic":
+                st.info("💡 Claude (Anthropic) is the default provider - you only need ANTHROPIC_API_KEY")
+            else:
+                st.info("💡 To use Claude (default), remove AI_PROVIDER or set AI_PROVIDER=anthropic")
             st.stop()
         else:
-            st.success("✅ OpenAI API key configured")
+            st.success(f"✅ {provider_name} API key configured ({provider_note})")
+        
+        # Provider verification (for debugging)
+        with st.expander("🔍 Provider Verification"):
+            st.write(f"**Active Provider**: `{extractor.provider}`")
+            st.write(f"**Anthropic Client**: {'✅ Initialized' if extractor.anthropic_client else '❌ Not initialized'}")
+            st.write(f"**OpenAI Client**: {'✅ Initialized' if extractor.openai_client else '❌ Not initialized'}")
+            if extractor.provider == "anthropic" and extractor.anthropic_client and not extractor.openai_client:
+                st.success("✅ Verified: Claude (Anthropic) is active")
+            elif extractor.provider == "openai" and extractor.openai_client and not extractor.anthropic_client:
+                st.info("ℹ️ OpenAI is active")
+            else:
+                st.warning("⚠️ Provider configuration may be incorrect")
         
         # PDF Processing status
         st.subheader("📄 PDF Processing")
@@ -2832,6 +2519,68 @@ def main():
                 st.session_state.processing_approach = None
                 st.session_state.selected_processing_approach = None
                 st.rerun()
+        
+        # Help and Support Section
+        st.header("❓ Help & Support")
+        
+        with st.expander("📖 How to Use"):
+            st.markdown("""
+            **Step-by-step guide:**
+            
+            1. **Upload** your financial statement
+            2. **Select** processing approach (PDFs only)
+            3. **Click** "Extract Financial Data"
+            4. **Review** extracted data
+            5. **Export** results if needed
+            
+            **Processing Approaches:**
+            - **Whole Document**: Best for small-medium PDFs, comprehensive analysis
+            - **Vector Database**: Best for large PDFs, faster processing
+            """)
+        
+        with st.expander("🔧 Troubleshooting"):
+            st.markdown("""
+            **Common Issues:**
+            
+            **❌ Rate Limit Error:**
+            - Wait 2-3 minutes and try again
+            - Try with a smaller document
+            
+            **❌ API Key Error:**
+            - Check your AI provider API key in settings (set AI_PROVIDER and corresponding API key)
+            - Ensure you have sufficient credits
+            
+            **❌ File Upload Error:**
+            - Check file size (max 10MB)
+            - Ensure file is PDF, JPG, or PNG
+            - Remove password protection if PDF
+            
+            **❌ Processing Fails:**
+            - Try a different processing approach
+            - Use a clearer image/document
+            - Check document quality
+            """)
+        
+        with st.expander("📞 Contact & Feedback"):
+            st.markdown("""
+            **Need help?**
+            
+            - 📧 Report bugs or issues
+            - 💡 Suggest improvements
+            - ⭐ Rate your experience
+            
+            **For technical support:**
+            - Check the troubleshooting guide above
+            - Try different processing approaches
+            - Verify your API key and credits
+            """)
+        
+        # Developer Mode Toggle
+        st.markdown("---")
+        debug_mode = st.checkbox("🔧 Developer Mode", value=st.session_state.debug_mode)
+        if debug_mode != st.session_state.debug_mode:
+            st.session_state.debug_mode = debug_mode
+            st.rerun()
         
         st.header("📈 Usage Statistics")
         # Get basic stats from database
@@ -2903,6 +2652,14 @@ def main():
                         other_statements.append(result)
             else:
                 # Single result - categorize it
+                # Add defensive programming to handle unexpected data types
+                if not isinstance(st.session_state.extracted_data, dict):
+                    st.error(f"❌ Unexpected data type: {type(st.session_state.extracted_data)}. Expected dictionary.")
+                    st.error("🔧 This is likely a bug in the vector database processing. Please try the Whole Document approach or report this issue.")
+                    st.session_state.extracted_data = None
+                    st.session_state.processing_complete = False
+                    return
+                
                 statement_type = st.session_state.extracted_data.get("statement_type", "").lower()
                 if any(bs_term in statement_type for bs_term in ["balance sheet", "financial position", "assets and liabilities"]):
                     balance_sheet_data = st.session_state.extracted_data
@@ -3124,11 +2881,6 @@ def main():
             # For PDF files, check if user has selected an approach
             processing_approach = st.session_state.selected_processing_approach
             show_button = processing_approach is not None
-            
-            # DEBUG: Force show button if approach is selected (temporary fix)
-            if st.session_state.selected_processing_approach is not None:
-                show_button = True
-                processing_approach = st.session_state.selected_processing_approach
         
         # Show process button if approach is selected or it's a single image
         if show_button:
@@ -3143,28 +2895,35 @@ def main():
             if button_disabled:
                 button_label = "✅ Already Processed"
             
-            # Debug info
-            with st.expander("🔧 Debug Info", expanded=False):
-                st.write(f"**File:** {uploaded_file.name}")
-                st.write(f"**Is new file:** {is_new_file}")
-                st.write(f"**Processing complete:** {st.session_state.processing_complete}")
-                st.write(f"**Selected approach:** {st.session_state.selected_processing_approach}")
-                st.write(f"**Processing approach:** {processing_approach}")
-                st.write(f"**Show button:** {show_button}")
-                st.write(f"**Button disabled:** {button_disabled}")
-                st.write(f"**Session state keys:** {list(st.session_state.keys())}")
-                
-                # Reset session state button for debugging
-                if st.button("🔄 Reset Session State", key="reset_session"):
-                    st.session_state.extracted_data = None
-                    st.session_state.processing_complete = False
-                    st.session_state.uploaded_file_name = None
-                    st.session_state.processing_approach = None
-                    st.session_state.selected_processing_approach = None
-                    st.success("Session state reset!")
-                    st.rerun()
+            # Developer mode debug info (only show if explicitly enabled)
+            if st.session_state.get('debug_mode', False):
+                with st.expander("🔧 Debug Info", expanded=False):
+                    st.write(f"**File:** {uploaded_file.name}")
+                    st.write(f"**Is new file:** {is_new_file}")
+                    st.write(f"**Processing complete:** {st.session_state.processing_complete}")
+                    st.write(f"**Selected approach:** {st.session_state.selected_processing_approach}")
+                    st.write(f"**Processing approach:** {processing_approach}")
+                    st.write(f"**Show button:** {show_button}")
+                    st.write(f"**Button disabled:** {button_disabled}")
+                    st.write(f"**Session state keys:** {list(st.session_state.keys())}")
+                    
+                    # Reset session state button for debugging
+                    if st.button("🔄 Reset Session State", key="reset_session"):
+                        st.session_state.extracted_data = None
+                        st.session_state.processing_complete = False
+                        st.session_state.uploaded_file_name = None
+                        st.session_state.processing_approach = None
+                        st.session_state.selected_processing_approach = None
+                        st.success("Session state reset!")
+                        st.rerun()
             
             if st.button(button_label, type="primary", disabled=button_disabled):
+                # Validate file before processing
+                is_valid, validation_message = validate_file_upload(uploaded_file)
+                if not is_valid:
+                    st.error(f"❌ {validation_message}")
+                    return
+                
                 # Clear previous results for new file or new approach
                 if is_new_file or st.session_state.processing_approach != str(processing_approach or "Unknown").replace('_', ' ').title():
                     st.session_state.extracted_data = None
@@ -3172,77 +2931,106 @@ def main():
                     
                     start_time = datetime.now()
                     
+                    # Progress tracking
+                    progress_bar = st.progress(0)
+                    status_text = st.empty()
+                    
+                    def update_progress(progress, message):
+                        progress_bar.progress(progress)
+                        status_text.text(message)
+                    
+                    update_progress(10, "🤖 Initializing AI analysis...")
+                    
                     with st.spinner("🤖 AI is analyzing your financial statement..."):
-                        # Determine file type and processing approach
-                        if uploaded_file.type == "application/pdf":
-                            if not pdf_processing_available:
-                                st.error("❌ PDF processing is not available. Please install pdf2image for PDF support.")
+                        try:
+                            # Determine file type and processing approach
+                            if uploaded_file.type == "application/pdf":
+                                if not pdf_processing_available:
+                                    st.error("❌ PDF processing is not available. Please install pdf2image for PDF support.")
+                                    return
+                                
+                                if processing_approach == "whole_document":
+                                    # Use whole document context approach
+                                    update_progress(20, "🌐 Using Whole Document Context approach...")
+                                    extracted_data = process_pdf_with_whole_document_context(uploaded_file)
+                                else:
+                                    # Use vector database approach
+                                    update_progress(20, "🗄️ Using Vector Database approach...")
+                                    extracted_data = process_pdf_with_vector_db(uploaded_file, enable_parallel=True)
+                            
+                            elif uploaded_file.type in ["image/jpeg", "image/jpg"]:
+                                processing_approach = "single_image"
+                                update_progress(30, "📷 Processing JPEG image...")
+                                extracted_data = extract_financial_data(uploaded_file, "jpeg")
+                            elif uploaded_file.type == "image/png":
+                                processing_approach = "single_image"
+                                update_progress(30, "📷 Processing PNG image...")
+                                extracted_data = extract_financial_data(uploaded_file, "png")
+                            else:
+                                st.error("Unsupported file type. Please upload a PDF, JPG, or PNG file.")
                                 return
                             
-                            if processing_approach == "whole_document":
-                                # Use whole document context approach
-                                st.info("🌐 Using Whole Document Context approach...")
-                                extracted_data = process_pdf_with_whole_document_context(uploaded_file, client)
+                            update_progress(80, "📊 Finalizing results...")
+                            processing_time = (datetime.now() - start_time).total_seconds()
+                            
+                            if extracted_data:
+                                update_progress(100, "✅ Processing complete!")
+                                # Store results in session state
+                                st.session_state.extracted_data = extracted_data
+                                st.session_state.processing_complete = True
+                                st.session_state.uploaded_file_name = uploaded_file.name
+                                st.session_state.processing_approach = str(processing_approach or "Unknown").replace('_', ' ').title()
+                                
+                                # Calculate confidence
+                                if isinstance(extracted_data, list):
+                                    # Multiple pages
+                                    all_confidences = []
+                                    for page_data in extracted_data:
+                                        if isinstance(page_data, dict):
+                                            line_items = page_data.get("line_items", {})
+                                            for category in line_items.values():
+                                                if isinstance(category, dict):
+                                                    for item in category.values():
+                                                        if isinstance(item, dict) and "confidence" in item:
+                                                            all_confidences.append(item["confidence"])
+                                    avg_confidence = sum(all_confidences) / len(all_confidences) if all_confidences else 0.8
+                                else:
+                                    # Single result
+                                    avg_confidence = 0.8  # Default confidence
+                                
+                                # Log processing
+                                log_processing(uploaded_file.name, processing_time, avg_confidence, "success")
+                                
+                                st.success(f"✅ Data extracted successfully in {processing_time:.1f} seconds using {str(processing_approach or 'Unknown').replace('_', ' ').title()} approach!")
+                                
+                                # Feedback collection
+                                st.markdown("---")
+                                st.subheader("📝 How was your experience?")
+                                col1, col2, col3 = st.columns(3)
+                                with col1:
+                                    if st.button("😊 Great!", key="feedback_great"):
+                                        st.success("Thank you for your feedback!")
+                                with col2:
+                                    if st.button("😐 Okay", key="feedback_okay"):
+                                        st.info("Thanks! We're working to improve.")
+                                with col3:
+                                    if st.button("😞 Needs work", key="feedback_poor"):
+                                        st.warning("We're sorry! Please use the help section to report issues.")
                             else:
-                                # Use vector database approach
-                                st.info("🗄️ Using Vector Database approach...")
-                                extracted_data = process_pdf_with_vector_db(uploaded_file, client)
-                        
-                        elif uploaded_file.type in ["image/jpeg", "image/jpg"]:
-                            processing_approach = "single_image"
-                            extracted_data = extract_financial_data(uploaded_file, "jpeg")
-                        elif uploaded_file.type == "image/png":
-                            processing_approach = "single_image"
-                            extracted_data = extract_financial_data(uploaded_file, "png")
-                        else:
-                            st.error("Unsupported file type. Please upload a PDF, JPG, or PNG file.")
-                            return
-                        
-                        processing_time = (datetime.now() - start_time).total_seconds()
-                        
-                        if extracted_data:
-                            # Store results in session state
-                            st.session_state.extracted_data = extracted_data
-                            st.session_state.processing_complete = True
-                            st.session_state.uploaded_file_name = uploaded_file.name
-                            st.session_state.processing_approach = str(processing_approach or "Unknown").replace('_', ' ').title()
+                                log_processing(uploaded_file.name, processing_time, 0, "failed")
+                                st.error("❌ Failed to extract data from the document. Please try with a clearer image or different document.")
                             
-                            # Calculate confidence
-                            if isinstance(extracted_data, list):
-                                # Multiple pages
-                                all_confidences = []
-                                for page_data in extracted_data:
-                                    if isinstance(page_data, dict):
-                                        line_items = page_data.get("line_items", {})
-                                        for category in line_items.values():
-                                            if isinstance(category, dict):
-                                                for item in category.values():
-                                                    if isinstance(item, dict) and "confidence" in item:
-                                                        all_confidences.append(item["confidence"])
-                                avg_confidence = sum(all_confidences) / len(all_confidences) if all_confidences else 0.8
-                            else:
-                                # Single result
-                                avg_confidence = 0.8  # Default confidence
-                            
-                            # Log processing
-                            log_processing(uploaded_file.name, processing_time, avg_confidence, "success")
-                            
-                            st.success(f"✅ Data extracted successfully in {processing_time:.1f} seconds using {str(processing_approach or 'Unknown').replace('_', ' ').title()} approach!")
                             st.rerun()  # Refresh to show results
-                            
-                        else:
-                            log_processing(uploaded_file.name, processing_time, 0, "failed")
-                            st.error("❌ Failed to extract data from the document. Please try with a clearer image or different document.")
+                        
+                        except Exception as e:
+                            # Enhanced error handling
+                            handle_processing_error(e, uploaded_file, processing_approach)
             else:
                 st.info("👆 Please select a processing approach above to continue.")
         else:
             # For PDFs, show message to select approach; for other cases, this shouldn't happen
             if uploaded_file.type == "application/pdf":
                 st.info("👆 Please select a processing approach above to continue.")
-                # DEBUG: Show what's actually happening
-                st.write(f"**DEBUG:** selected_processing_approach = {st.session_state.selected_processing_approach}")
-                st.write(f"**DEBUG:** processing_approach = {processing_approach}")
-                st.write(f"**DEBUG:** show_button = {show_button}")
             else:
                 st.error("❌ Unexpected state: Non-PDF file should always show button")
 
@@ -3250,7 +3038,7 @@ def main():
     st.markdown("---")
     st.markdown("""
     <div style='text-align: center; color: #666;'>
-        <p>Financial Statement Transcription Tool | Powered by OpenAI GPT-4 Vision</p>
+        <p>Financial Statement Transcription Tool | Powered by AI Vision Models (OpenAI GPT-4 / Anthropic Claude)</p>
         <p>⚠️ Enhanced with parallel processing and intelligent classification. Please verify all extracted data before use.</p>
     </div>
     """, unsafe_allow_html=True)

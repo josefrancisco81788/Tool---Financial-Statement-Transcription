@@ -1,0 +1,15 @@
+# Copy this file to .env and fill in your actual API keys
+# AI Provider Configuration - Claude (Anthropic) is the DEFAULT
+# You only need ANTHROPIC_API_KEY unless you want to use OpenAI
+# AI_PROVIDER=anthropic  # Default - Claude (Anthropic). Omit this line to use Claude.
+# AI_PROVIDER=openai     # Optional - Only set if you want to use OpenAI instead
+
+# Anthropic Configuration (REQUIRED - Default Provider)
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+ANTHROPIC_MODEL=claude-sonnet-4-20250514
+ANTHROPIC_MAX_TOKENS=4096
+
+# OpenAI Configuration (OPTIONAL - Only needed if AI_PROVIDER=openai)
+# OPENAI_API_KEY=your_openai_api_key_here
+# OPENAI_MODEL=gpt-4o
+# OPENAI_MAX_TOKENS=4000

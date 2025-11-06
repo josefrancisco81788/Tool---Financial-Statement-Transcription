@@ -1,0 +1,14 @@
+{
+  "years_detected": [
+    "2024",
+    "2023"
+  ],
+  "total_raw_items": 51,
+  "total_consolidated_items": 0,
+  "consolidated_items": [],
+  "consolidation_metadata": {
+    "phase": "2b_year_consolidation",
+    "approach": "ai_semantic_understanding",
+    "interpretation_level": "semantic_consolidation"
+  }
+}

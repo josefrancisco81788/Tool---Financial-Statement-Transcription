@@ -1,0 +1,30 @@
+{
+  "total_tests": 16,
+  "successful_tests": 4,
+  "failed_tests": 12,
+  "success_rate": 0.25,
+  "average_processing_time": 117.50551307201385,
+  "min_processing_time": 91.15379762649536,
+  "max_processing_time": 154.02726864814758,
+  "average_extraction_rate": 0.0,
+  "average_format_accuracy": 0.0,
+  "average_overall_score": 0.0,
+  "production_ready_count": 0,
+  "production_ready_rate": 0.0,
+  "provider_results": {
+    "anthropic": {
+      "total_tests": 8,
+      "successful_tests": 4,
+      "success_rate": 0.5,
+      "average_processing_time": 117.50551307201385,
+      "average_extraction_rate": 0.0
+    },
+    "openai": {
+      "total_tests": 8,
+      "successful_tests": 0,
+      "success_rate": 0.0,
+      "average_processing_time": 0.0,
+      "average_extraction_rate": 0.0
+    }
+  }
+}

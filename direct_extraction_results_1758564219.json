@@ -1,0 +1,12 @@
+[
+  {
+    "provider": "openai",
+    "success": false,
+    "error": "Error extracting from image: Error in comprehensive extraction: No valid JSON found in AI response"
+  },
+  {
+    "provider": "anthropic",
+    "success": false,
+    "error": "Error extracting from image: Error in comprehensive extraction: No valid JSON found in AI response"
+  }
+]

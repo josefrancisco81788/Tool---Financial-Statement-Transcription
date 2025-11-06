@@ -1,0 +1,15 @@
+{
+  "test_time": "2025-10-22T18:04:45.767657",
+  "test_type": "core_application_baseline",
+  "files": {
+    "AFS2024 - statement extracted.pdf": {
+      "file_path": "tests/fixtures/light/AFS2024 - statement extracted.pdf",
+      "file_name": "AFS2024 - statement extracted.pdf",
+      "processing": {
+        "total_pages": 3,
+        "processing_time_seconds": 21.416484355926514,
+        "page_info": [
+          {
+            "page_num": 1,
+            "text": "wireless services asia inc.\nstatements of financial position\n\nassets\ncurrent assets\ncash\nreceivables\nother current assets\ntotal current assets\n\nnon-current assets\ninvestment in non-proprietary shares\nproperty & equipment\nother non-current assets\ntotal non-current assets\n\ntotal assets\n\nliabilities and owner's capital\nliabilities\ncurrent liabilities\ntrade payables\nincome tax payable\nloans payable - current portion\nother current liabilities\ntotal current liabilities\n\nnon-current liabilities\nadvances from stockholder\nlong-term liabilities\nother long-term liabilities\ntotal non-current liabilities\n\ntotal liabilities\n\nequity\n\nshare capital\nadditional paid-in capital\ncummulative earnings, appropriated\ncummulative earnings (deficit)\ngain (loss) on fair value of asset held for sale\ntreasury shares\ntotal equity (deficit)\n\ntotal liabilities and equity (deficit)\n\nnotes\n\n4\n5,6\n7\n\n9\n8\n7,14\n\n10\n17\n11\n10,17\n\n6\n11\n12\n\n13\n13\n13\n13\n13\n13\n\nmarch 31\n2024                    2023\n\n40,506,296          14,011,556\n93,102,625         102,434,862\n72,591,698          22,796,639\n206,200,619        139,243,056\n\n3,000,000            1,900,000\n240,617               1,992,274\n57,086,992         126,866,242\n60,546,713         130,758,516\n\n266,747,332        270,001,572\n\n44,907,778          23,297,018\n3,243,704            3,735,208\n12,172,744           9,752,679\n18,394,950          20,250,238\n78,719,175          57,035,143\n\n21,810,579          28,927,669\n13,000,000\n7,176,268           46,018,833\n41,986,847          74,946,502\n\n120,706,022        131,981,645\n\n45,667,200          45,667,200\n15,833,600          15,833,600\n40,000,000          60,000,000\n44,675,911          17,396,953\n2,570,000            1,470,000\n(2,705,400)          (2,347,826)\n146,041,311        138,019,927\n\n266,747,332        270,001,572",
+            "image": 

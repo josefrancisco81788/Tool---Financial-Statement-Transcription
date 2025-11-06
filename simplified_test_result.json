@@ -1,0 +1,120 @@
+{
+  "success": true,
+  "data": {
+    "statement_type": "Statement of Cash Flows",
+    "company_name": "GBS Concept Advertising Inc.",
+    "period": "For the year ended December 31, 2021",
+    "currency": "PHP",
+    "years_detected": [
+      "2021",
+      "2020"
+    ],
+    "base_year": "2021",
+    "year_ordering": "most_recent_first",
+    "line_items": {
+      "operating_activities": {
+        "net_income_for_the_year": {
+          "value": 925386,
+          "confidence": 0.95,
+          "base_year": 925386,
+          "year_1": 207192
+        },
+        "total_cash_applied_to_provided_by_operating_activities": {
+          "value": 925386,
+          "confidence": 0.95,
+          "base_year": 925386,
+          "year_1": 207192
+        },
+        "increase_decrease_in_current_assets": {
+          "value": -186855,
+          "confidence": 0.95,
+          "base_year": -186855,
+          "year_1": 76362
+        },
+        "increase_decrease_in_current_liabilities": {
+          "value": -435694,
+          "confidence": 0.95,
+          "base_year": -435694,
+          "year_1": 1139070
+        },
+        "increase_decrease_in_non_current_liabilities": {
+          "value": null,
+          "confidence": 0.1,
+          "base_year": null,
+          "year_1": -1102310
+        },
+        "cash_paid_for_income_taxes": {
+          "value": -231347,
+          "confidence": 0.95,
+          "base_year": -231347,
+          "year_1": -62158
+        },
+        "net_cash_applied_operating_activities": {
+          "value": 71491,
+          "confidence": 0.95,
+          "base_year": 71491,
+          "year_1": 258156
+        }
+      },
+      "investing_financing_activities": {
+        "proceeds_from_additional_issuance_of_paid_up_capital": {
+          "value": 2750000,
+          "confidence": 0.95,
+          "base_year": 2750000,
+          "year_1": 250000
+        },
+        "increase_decrease_in_non_current_liabilities_investing": {
+          "value": null,
+          "confidence": 0.1,
+          "base_year": null,
+          "year_1": -1600000
+        },
+        "net_cash_provided_by_investing_financing_activities": {
+          "value": 2750000,
+          "confidence": 0.95,
+          "base_year": 2750000,
+          "year_1": -1350000
+        }
+      },
+      "summary_metrics": {
+        "net_increase_decrease_in_cash": {
+          "value": 2821491,
+          "confidence": 0.95,
+          "base_year": 2821491,
+          "year_1": -1091844
+        },
+        "cash_balance_beginning": {
+          "value": 1561500,
+          "confidence": 0.95,
+          "base_year": 1561500,
+          "year_1": 2653344
+        },
+        "cash_balance_end": {
+          "value": 4382991,
+          "confidence": 0.95,
+          "base_year": 4382991,
+          "year_1": 1561500
+        }
+      }
+    },
+    "document_structure": {
+      "main_sections": [
+        "Operating Activities",
+        "Investing/Financing Activities"
+      ],
+      "line_item_count": 10,
+      "has_multi_year_data": true,
+      "special_notes": ""
+    },
+    "notes": "The document provides a multi-year cash flow comparison with detailed activity breakdowns. Certain sections contain N/A values for some years.",
+    "processing_method": "multi_page_vector_database",
+    "ai_provider": "openai",
+    "timestamp": 1758880531.4662936,
+    "pages_processed": 8
+  },
+  "template_csv": "Q2F0ZWdvcnksU3ViY2F0ZWdvcnksRmllbGQsQ29uZmlkZW5jZSxDb25maWRlbmNlX1Njb3JlLFZhbHVlX1llYXJfMSxWYWx1ZV9ZZWFyXzIsVmFsdWVfWWVhcl8zLFZhbHVlX1llYXJfNApNZXRhLFJlZmVyZW5jZSxDb21wYW55LEhpZ2gsMC45NSxHQlMgQ29uY2VwdCBBZHZlcnRpc2luZyBJbmMuLCwsCk1ldGEsUmVmZXJlbmNlLFBlcmlvZCxIaWdoLDAuOTUsIkZvciB0aGUgeWVhciBlbmRlZCBEZWNlbWJlciAzMSwgMjAyMSIsLCwKTWV0YSxSZWZlcmVuY2UsQ3VycmVuY3ksSGlnaCwwLjk1LFBIUCwsLApCYWxhbmNlIFNoZWV0LE90aGVyLE5ldF9JbmNvbWVfRm9yX1RoZV9ZZWFyLEhpZ2gsMC45NSw5MjUzODYsMjA3MTkyLCwKQmFsYW5jZSBTaGVldCxPdGhlcixUb3RhbF9DYXNoX0FwcGxpZWRfVG9fUHJvdmlkZWRfQnlfT3BlcmF0aW5nX0FjdGl2aXRpZXMsSGlnaCwwLjk1LDkyNTM4NiwyMDcxOTIsLApCYWxhbmNlIFNoZWV0LE90aGVyLEluY3JlYXNlX0RlY3JlYXNlX0luX0N1cnJlbnRfQXNzZXRzLEhpZ2gsMC45NSwtMTg2ODU1LDc2MzYyLCwKQmFsYW5jZSBTaGVldCxPdGhlcixJbmNyZWFzZV9EZWNyZWFzZV9Jbl9DdXJyZW50X0xpYWJpbGl0aWVzLEhpZ2gsMC45NSwtNDM1Njk0LDExMzkwNzAsLApCYWxhbmNlIFNoZWV0LE90aGVyLEluY3JlYXNlX0RlY3JlYXNlX0luX05vbl9DdXJyZW50X0xpYWJpbGl0aWVzLE1lZGl1bSwwLjEwLE5vbmUsLTExMDIzMTAsLApCYWxhbmNlIFNoZWV0LE90aGVyLENhc2hfUGFpZF9Gb3JfSW5jb21lX1RheGVzLEhpZ2gsMC45NSwtMjMxMzQ3LC02MjE1OCwsCkJhbGFuY2UgU2hlZXQsT3RoZXIsTmV0X0Nhc2hfQXBwbGllZF9PcGVyYXRpbmdfQWN0aXZpdGllcyxIaWdoLDAuOTUsNzE0OTEsMjU4MTU2LCwKQmFsYW5jZSBTaGVldCxPdGhlcixQcm9jZWVkc19Gcm9tX0FkZGl0aW9uYWxfSXNzdWFuY2VfT2ZfUGFpZF9VcF9DYXBpdGFsLEhpZ2gsMC45NSwyNzUwMDAwLDI1MDAwMCwsCkJhbGFuY2UgU2hlZXQsT3RoZXIsSW5jcmVhc2VfRGVjcmVhc2VfSW5fTm9uX0N1cnJlbnRfTGlhYmlsaXRpZXNfSW52ZXN0aW5nLE1lZGl1bSwwLjEwLE5vbmUsLTE2MDAwMDAsLApCYWxhbmNlIFNoZWV0LE90aGVyLE5ldF9DYXNoX1Byb3ZpZGVkX0J5X0ludmVzdGluZ19GaW5hbmNpbmdfQWN0aXZpdGllcyxIaWdoLDAuOTUsMjc1MDAwMCwtMTM1MDAwMCwsCkJhbGFuY2UgU2hlZXQsT3RoZXIsTmV0X0luY3JlYXNlX0RlY3JlYXNlX0luX0Nhc2gsSGlnaCwwLjk1LDI4MjE0OTEsLTEwOTE4NDQsLApCYWxhbmNlIFNoZWV0LE90aGVyLENhc2hfQmFsYW5jZV9CZWdpbm5pbmcsSGlnaCwwLjk1LDE1NjE1MDAsMjY1MzM0NCwsCkJhbGFuY2UgU2hlZXQsT3RoZXIsQ2FzaF9CYWxhbmNlX0VuZCxIaWdoLDAuOTUsNDM4Mjk5MSwxNTYxNTAwLCwK",
+  "template_fields_mapped": 29,
+  "processing_time": 255.3906533718109,
+  "pages_processed": 8,
+  "timestamp": "2025-09-26T09:58:16Z"
+}

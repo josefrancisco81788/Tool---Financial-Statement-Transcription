@@ -1,0 +1,762 @@
+{
+  "years_detected": [
+    "2024",
+    "2023"
+  ],
+  "total_raw_items": 51,
+  "total_consolidated_items": 39,
+  "consolidated_items": [
+    {
+      "consolidated_label": "Cash",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "₱ 40,506,296",
+        "₱ 14,011,556"
+      ],
+      "source_labels": [
+        "Cash"
+      ],
+      "consolidation_reasoning": "Consolidated cash values from the most recent and complete data available.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Receivables",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "93,102,625",
+        "102,434,862"
+      ],
+      "source_labels": [
+        "Receivables"
+      ],
+      "consolidation_reasoning": "Receivables data is consistent across years, no conflict resolution needed.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Other Current Assets",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "72,591,698",
+        "22,796,639"
+      ],
+      "source_labels": [
+        "Other current assets"
+      ],
+      "consolidation_reasoning": "Consolidated based on the most recent and complete data.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Total Current Assets",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "206,200,619",
+        "139,243,056"
+      ],
+      "source_labels": [
+        "TOTAL CURRENT ASSETS"
+      ],
+      "consolidation_reasoning": "Total current assets calculated from individual components.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Investment in Non-Proprietary Shares",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "3,000,000",
+        "1,900,000"
+      ],
+      "source_labels": [
+        "Investment in non-proprietary shares"
+      ],
+      "consolidation_reasoning": "Investment values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Property and Equipment",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "240,617",
+        "1,992,274"
+      ],
+      "source_labels": [
+        "Property & Equipment"
+      ],
+      "consolidation_reasoning": "Property and equipment values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Other Non-Current Assets",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "57,306,992",
+        "126,866,242"
+      ],
+      "source_labels": [
+        "Other non-current assets"
+      ],
+      "consolidation_reasoning": "Consolidated based on the most recent and complete data.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Total Non-Current Assets",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "60,546,713",
+        "130,758,516"
+      ],
+      "source_labels": [
+        "TOTAL NON-CURRENT ASSETS"
+      ],
+      "consolidation_reasoning": "Total non-current assets calculated from individual components.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Total Assets",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "₱ 266,747,332",
+        "₱ 270,001,572"
+      ],
+      "source_labels": [
+        "TOTAL ASSETS"
+      ],
+      "consolidation_reasoning": "Total assets values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Trade Payables",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "44,907,778",
+        "23,297,018"
+      ],
+      "source_labels": [
+        "Trade payables"
+      ],
+      "consolidation_reasoning": "Trade payables values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Income Tax Payable",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "3,243,704",
+        "3,735,208"
+      ],
+      "source_labels": [
+        "Income tax payable"
+      ],
+      "consolidation_reasoning": "Income tax payable values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Loans Payable - Current Portion",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "12,172,744",
+        "9,752,679"
+      ],
+      "source_labels": [
+        "Loans payable - current portion"
+      ],
+      "consolidation_reasoning": "Loans payable values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Other Current Liabilities",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "18,394,950",
+        "20,250,238"
+      ],
+      "source_labels": [
+        "Other current liabilities"
+      ],
+      "consolidation_reasoning": "Other current liabilities values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Total Current Liabilities",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "78,719,175",
+        "57,035,143"
+      ],
+      "source_labels": [
+        "TOTAL CURRENT LIABILITIES"
+      ],
+      "consolidation_reasoning": "Total current liabilities calculated from individual components.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Advances from Stockholder",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "21,810,579",
+        "28,927,669"
+      ],
+      "source_labels": [
+        "Advances from Stockholder"
+      ],
+      "consolidation_reasoning": "Advances from stockholder values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Long-Term Liabilities",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "13,000,000",
+        ""
+      ],
+      "source_labels": [
+        "Long-term liabilities"
+      ],
+      "consolidation_reasoning": "Long-term liabilities values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Other Long-Term Liabilities",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "7,176,268",
+        "46,018,833"
+      ],
+      "source_labels": [
+        "Other long-term liabilities"
+      ],
+      "consolidation_reasoning": "Other long-term liabilities values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Total Non-Current Liabilities",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "41,986,847",
+        "74,946,502"
+      ],
+      "source_labels": [
+        "TOTAL NON-CURRENT LIABILITIES"
+      ],
+      "consolidation_reasoning": "Total non-current liabilities calculated from individual components.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Total Liabilities",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "120,706,022",
+        "131,981,645"
+      ],
+      "source_labels": [
+        "TOTAL LIABILITIES"
+      ],
+      "consolidation_reasoning": "Total liabilities values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Share Capital",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "45,667,200",
+        "45,667,200"
+      ],
+      "source_labels": [
+        "Share capital"
+      ],
+      "consolidation_reasoning": "Share capital values are consistent and complete.",
+      "source_pages": [
+        1,
+        3
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Additional Paid-In Capital",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "15,833,600",
+        "15,833,600"
+      ],
+      "source_labels": [
+        "Additional paid-in capital"
+      ],
+      "consolidation_reasoning": "Additional paid-in capital values are consistent and complete.",
+      "source_pages": [
+        1,
+        3
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Cumulative Earnings, Appropriated",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "40,000,000",
+        "60,000,000"
+      ],
+      "source_labels": [
+        "Cummulative earnings, appropriated"
+      ],
+      "consolidation_reasoning": "Cumulative earnings appropriated values are consistent and complete.",
+      "source_pages": [
+        1,
+        3
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Cumulative Earnings (Deficit)",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "44,675,911",
+        "17,396,953"
+      ],
+      "source_labels": [
+        "Cummulative earnings (deficit)"
+      ],
+      "consolidation_reasoning": "Cumulative earnings (deficit) values are consistent and complete.",
+      "source_pages": [
+        1,
+        3
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Gain (Loss) on Fair Value of Asset Held for Sale",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "2,570,000",
+        "1,470,000"
+      ],
+      "source_labels": [
+        "Gain (Loss) on fair value of Asset held for sale"
+      ],
+      "consolidation_reasoning": "Gain (loss) on fair value of asset held for sale values are consistent and complete.",
+      "source_pages": [
+        1,
+        3
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Treasury Shares",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "(2,705,400)",
+        "(2,347,826)"
+      ],
+      "source_labels": [
+        "Treasury Shares"
+      ],
+      "consolidation_reasoning": "Treasury shares values are consistent and complete.",
+      "source_pages": [
+        1,
+        3
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Total Equity (Deficit)",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "146,041,311",
+        "138,019,927"
+      ],
+      "source_labels": [
+        "TOTAL EQUITY (DEFICIT)"
+      ],
+      "consolidation_reasoning": "Total equity (deficit) values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Total Liabilities and Equity (Deficit)",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "₱ 266,747,332",
+        "₱ 270,001,572"
+      ],
+      "source_labels": [
+        "TOTAL LIABILITIES AND EQUITY (DEFICIT)"
+      ],
+      "consolidation_reasoning": "Total liabilities and equity (deficit) values are consistent and complete.",
+      "source_pages": [
+        1
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Revenue",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "₱ 249,788,478",
+        "₱ 292,800,617"
+      ],
+      "source_labels": [
+        "REVENUE"
+      ],
+      "consolidation_reasoning": "Revenue values are consistent and complete.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Cost of Sales",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "202,328,679",
+        "246,283,513"
+      ],
+      "source_labels": [
+        "COST OF SALES"
+      ],
+      "consolidation_reasoning": "Cost of sales values are consistent and complete.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Gross Profit",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "47,459,800",
+        "46,517,104"
+      ],
+      "source_labels": [
+        "GROSS PROFIT"
+      ],
+      "consolidation_reasoning": "Gross profit values are consistent and complete.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "General and Administrative Expenses",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "35,409,424",
+        "35,413,180"
+      ],
+      "source_labels": [
+        "GENERAL & ADMIN EXPENSES"
+      ],
+      "consolidation_reasoning": "General and administrative expenses values are consistent and complete.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Net Operating Income (Loss)",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "12,050,376",
+        "11,103,924"
+      ],
+      "source_labels": [
+        "NET OPERATING INCOME (LOSS)"
+      ],
+      "consolidation_reasoning": "Net operating income (loss) values are consistent and complete.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Other Income (Expenses)",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "(26,278)",
+        "4,036,523"
+      ],
+      "source_labels": [
+        "OTHER INCOME (EXPENSES)"
+      ],
+      "consolidation_reasoning": "Other income (expenses) values are consistent and complete.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Net Income (Loss) Before Tax",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "12,024,098",
+        "15,140,447"
+      ],
+      "source_labels": [
+        "NET INCOME (LOSS) BEFORE TAX"
+      ],
+      "consolidation_reasoning": "Net income (loss) before tax values are consistent and complete.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Income Tax Expense",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "3,243,704",
+        "3,735,208"
+      ],
+      "source_labels": [
+        "INCOME TAX EXPENSE"
+      ],
+      "consolidation_reasoning": "Income tax expense values are consistent and complete.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Net Income (Loss) After Income Tax",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "8,780,395",
+        "11,405,239"
+      ],
+      "source_labels": [
+        "NET INCOME (LOSS) AFTER INCOME TAX"
+      ],
+      "consolidation_reasoning": "Net income (loss) after income tax values are consistent and complete.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Other Comprehensive Income",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "",
+        ""
+      ],
+      "source_labels": [
+        "OTHER COMPREHENSIVE INCOME"
+      ],
+      "consolidation_reasoning": "No data available for other comprehensive income.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Gain (Loss) on Fair Value of Asset Held for Sale",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "1,100,000",
+        "(3,515,320)"
+      ],
+      "source_labels": [
+        "GAIN (LOSS) ON FAIR VALUE OF ASSET HELD FOR SALE"
+      ],
+      "consolidation_reasoning": "Gain (loss) on fair value of asset held for sale values are consistent and complete.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    },
+    {
+      "consolidated_label": "Total Comprehensive Income (Loss)",
+      "years": [
+        "2024",
+        "2023"
+      ],
+      "values": [
+        "₱ 9,880,395",
+        "₱ 7,889,919"
+      ],
+      "source_labels": [
+        "TOTAL COMPREHENSIVE INCOME (LOSS)"
+      ],
+      "consolidation_reasoning": "Total comprehensive income (loss) values are consistent and complete.",
+      "source_pages": [
+        2
+      ],
+      "confidence": 0.95
+    }
+  ],
+  "consolidation_metadata": {
+    "phase": "2b_year_consolidation",
+    "approach": "ai_semantic_understanding",
+    "interpretation_level": "semantic_consolidation"
+  }
+}

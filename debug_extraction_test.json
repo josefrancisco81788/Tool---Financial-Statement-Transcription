@@ -1,0 +1,1 @@
+{"success":false,"error":{"code":"HTTP_ERROR","message":{"success":false,"error":{"code":"PROCESSING_ERROR","message":"Failed to extract financial data from document","details":"Error processing PDF: name 'result' is not defined"},"timestamp":"2025-09-25T15:33:21Z"},"details":"HTTP 500 error"},"timestamp":"2025-09-25T15:33:21Z"}

@@ -1,0 +1,2 @@
+File,Company,Statement Type,Years,Processing Time (s),Pages Processed,Line Items Count,Total Assets,Total Liabilities,Total Equity,Success,Status Code,Error Message
+AFS-2022 - statement extracted.pdf,ideal_marketing_manufacturing_corporation,statements_of_financial_position,"2022, 2021",143.9,4,12,297466784,178874377,118592407,True,200,

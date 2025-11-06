@@ -1,0 +1,5 @@
+Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3,Value_Year_4
+Meta,Reference,Company,High,0.95,Test Company,,,
+Meta,Reference,Period,High,0.95,"December 31, 2024",,,
+Meta,Reference,Currency,High,0.95,USD,,,
+Balance Sheet,Current Assets,Cash and Cash Equivalents,High,0.95,1000000,950000,,

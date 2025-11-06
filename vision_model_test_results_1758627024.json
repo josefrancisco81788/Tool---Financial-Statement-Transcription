@@ -1,0 +1,21 @@
+[
+  {
+    "provider": "openai",
+    "success": true,
+    "processing_time": 42.469236612319946,
+    "line_items_count": 18,
+    "ai_provider": "openai",
+    "statement_type": "STATEMENTS OF FINANCIAL POSITION",
+    "company_name": "WIRELESS SERVICES ASIA INC.",
+    "currency": "PHP",
+    "years_detected": [
+      "2024",
+      "2023"
+    ]
+  },
+  {
+    "provider": "anthropic",
+    "success": false,
+    "error": "Error extracting from image: Error in comprehensive extraction: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CTRFpGKWRikghKhYLHHYh'}"
+  }
+]

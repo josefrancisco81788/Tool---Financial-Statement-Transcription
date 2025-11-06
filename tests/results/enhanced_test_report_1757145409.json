@@ -1,0 +1,77 @@
+{
+  "timestamp": "2025-09-06 08:56:49",
+  "summary": {
+    "total_tests": 4,
+    "successful_tests": 0,
+    "failed_tests": 4,
+    "success_rate": 0.0
+  },
+  "performance": {
+    "average_processing_time": 21.52366352081299,
+    "max_processing_time": 22.064931631088257,
+    "min_processing_time": 19.943010568618774,
+    "total_processing_time": 86.09465408325195
+  },
+  "by_category": {
+    "light": {
+      "total": 4,
+      "successful": 0,
+      "failed": 4
+    }
+  },
+  "results": [
+    {
+      "file": "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "filename": "2021 AFS with SEC Stamp - statement extracted.pdf",
+      "category": "light",
+      "success": false,
+      "error": "Timeout after 20 seconds",
+      "processing_time": 22.0324969291687,
+      "response_data": null,
+      "file_size": 2073591
+    },
+    {
+      "file": "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "filename": "afs-2021-2023 - statement extracted.pdf",
+      "category": "light",
+      "success": false,
+      "error": "Timeout after 20 seconds",
+      "processing_time": 22.064931631088257,
+      "response_data": null,
+      "file_size": 718732
+    },
+    {
+      "file": "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "filename": "AFS-2022 - statement extracted.pdf",
+      "category": "light",
+      "success": false,
+      "error": "HTTP 422: {\"success\":false,\"error\":{\"code\":\"HTTP_ERROR\",\"message\":\"No financial data could be extracted from the document\",\"details\":\"HTTP 422 error\"},\"timestamp\":\"2025-09-06T07:56:27Z\"}",
+      "processing_time": 19.943010568618774,
+      "response_data": null,
+      "file_size": 56925,
+      "status_code": 422
+    },
+    {
+      "file": "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "filename": "AFS2024 - statement extracted.pdf",
+      "category": "light",
+      "success": false,
+      "error": "Timeout after 20 seconds",
+      "processing_time": 22.05421495437622,
+      "response_data": null,
+      "file_size": 298456
+    }
+  ],
+  "test_state": {
+    "completed_tests": [],
+    "failed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
+    ],
+    "last_run": null
+  }
+}

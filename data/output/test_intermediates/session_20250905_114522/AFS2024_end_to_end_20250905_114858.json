@@ -1,0 +1,77 @@
+{
+  "pipeline_version": "1.0",
+  "input_file": "data/input/samples/AFS2024 - statement extracted.pdf",
+  "start_time": "2025-09-05T11:45:22.499645",
+  "phases": {
+    "phase1": {
+      "name": "Year Detection",
+      "status": "COMPLETED",
+      "duration": 40.053059,
+      "years_detected": [
+        "2024",
+        "2023"
+      ],
+      "pages_processed": 3
+    },
+    "phase2a": {
+      "name": "RAW Table Read",
+      "status": "COMPLETED",
+      "duration": 51.081185,
+      "tables_extracted": 3
+    },
+    "phase2b": {
+      "name": "AI Year Consolidation",
+      "status": "COMPLETED",
+      "duration": 106.613986,
+      "consolidated_items": 39
+    },
+    "phase2c": {
+      "name": "AI Template Mapping",
+      "status": "COMPLETED",
+      "duration": 18.121689,
+      "mapped_fields": 17
+    },
+    "phase2d": {
+      "name": "Schema Formatting",
+      "status": "COMPLETED",
+      "duration": 0.0,
+      "formatted_fields": 17
+    },
+    "phase3": {
+      "name": "Rigorous Validation",
+      "status": "FAILED",
+      "duration": 0.183115,
+      "overall_passed": false,
+      "validation_metrics": {
+        "key_presence": false,
+        "rightmost_column_completeness": 0.0,
+        "year_guard": true,
+        "confidence_format_valid": true,
+        "complete_year_rows": 0.0,
+        "accounting_identity_check": false,
+        "field_coverage": 0.14285714285714285
+      }
+    },
+    "phase7": {
+      "status": "FAILED",
+      "error": "name 'normalized_data' is not defined"
+    }
+  },
+  "final_status": "FAILED",
+  "final_csv": "data/output/AFS2024 - statement extracted_production_ready_results.csv",
+  "performance_metrics": {
+    "total_duration_seconds": 216.496846,
+    "total_duration_minutes": 3.6082807666666668,
+    "phase_durations": {
+      "phase1": 40.053059,
+      "phase2a": 51.081185,
+      "phase2b": 106.613986,
+      "phase2c": 18.121689,
+      "phase2d": 0.0,
+      "phase3": 0.183115
+    },
+    "throughput_fields_per_second": 0.07852308388825212
+  },
+  "error": "name 'normalized_data' is not defined",
+  "end_time": "2025-09-05T11:48:58.998479"
+}

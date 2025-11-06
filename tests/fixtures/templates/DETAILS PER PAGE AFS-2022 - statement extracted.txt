@@ -1,0 +1,75 @@
+Detailed Description of Document Contents per page:
+
+File Name: AFS-2022 - statement extracted.pdf
+Page Number: 1
+Company Name: Ideal Marketing & Manufacturing Corporation
+Document Name: Statements of Financial Position
+Years Covered: 2022, 2021
+Cash: 10,041,673, 11,237,376
+Receivables: 6,965,863, 9,085,459
+Inventories: 216,357,523, 181,220,353
+Total Current Assets: 233,365,059, 201,543,188
+Property and Equipments: 58,663,112, 59,868,152
+Other Assets: 5,438,613, 2,314,137
+Total Non-Current Assets: 64,101,725, 62,182,289
+Total Assets: 297,466,784, 263,725,477
+Trade and Other Payables: 178,874,377, 151,497,735
+Total Current Liabilities: 178,874,377, 151,497,735
+Total Non-Current Liabilities: 0, 0
+Share Capital: 46,000,000, 46,000,000
+Retained Earnings: 72,592,407, 66,227,742
+Total Shareholders' Equity: 118,592,407, 112,227,742
+Total Liabilities and Equity: 297,466,784, 263,725,477
+
+File Name: AFS-2022 - statement extracted.pdf
+Page Number: 2
+Company Name: Ideal Marketing & Manufacturing Corporation
+Document Name: Statements of Changes in Equity
+Years Covered: 2022, 2021
+Share Capital: 46,000,000, 46,000,000
+Total Share Capital: 46,000,000, 46,000,000
+Retained Earnings Unappropriated - Beginning Balance: 45,927,742, 51,406,025
+Prior Year's Adjustment: 0, (2,099,882)
+Net Income for the Period: 6,364,665, 6,621,599
+Net Unappropriated Retained Earnings: 52,292,407, 55,927,742
+Less: Appropriation for Capital Expansion: (25,000,000), (10,000,000)
+Total Unappropriated Retained Earnings: 27,292,407, 45,927,742
+Appropriated - Beginning Balance: 20,300,000, 10,300,000
+Add: Appropriation for Capital Expansion: 25,000,000, 10,000,000
+Total Appropriated Retained Earnings: 45,300,000, 20,300,000
+Total Retained Earnings: 72,592,407, 66,227,742
+Shareholders' Equity, Ending: 118,592,407, 112,227,742
+
+File Name: AFS-2022 - statement extracted.pdf
+Page Number: 3
+Company Name: Ideal Marketing & Manufacturing Corporation
+Document Name: Statements of Cash Flows
+Years Covered: 2022, 2021
+Income Before Income Tax: 6,364,665, 6,621,599
+Adjustment from Non-cash Income & Expenses - Depreciation: 1,205,040, 1,218,229
+Net Cash Income (Loss): 7,569,705, 7,839,828
+Prior Year Adjustment: 0, (2,099,882)
+Working Capital Effect - Decrease (Increase) in Trade and Other Receivables: 2,119,596, 1,391,625
+Working Capital Effect - Inventories: (35,137,170), (23,879,372)
+Working Capital Effect - Other Current Assets: (3,124,476), (2,064,137)
+Working Capital Effect - Increase (Decrease) in Trade and Other Payables: 27,376,642, 20,696,799
+Net Cash from Operating Activities: (8,765,408), (3,855,085)
+Cash Flow from Investing Activity - Acquisition of Property and Equipment: 0, (47,537)
+Cash Flow from Investing Activity Total: 0, (47,537)
+Cash Flows from Financing Activities: 0, 0
+Net Increase (Decrease) in Cash: (1,195,704), 1,837,324
+Cash Balance at Beginning of Year: 11,237,376, 9,400,052
+Cash Balance at End of Year: 10,041,673, 11,237,376
+
+File Name: AFS-2022 - statement extracted.pdf
+Page Number: 4
+Company Name: Ideal Marketing & Manufacturing Corporation
+Document Name: Statements of Income
+Years Covered: 2022, 2021
+Revenue: 485,192,483, 487,225,599
+Direct Costs: 439,318,810, 440,879,641
+Gross Profit: 45,873,673, 46,345,958
+General and Administrative Expense: 37,387,453, 37,517,159
+Net Income Before Income Tax: 8,486,219, 8,828,798
+Provision for Income Tax: 2,121,555, 2,207,200
+Net Income: 6,364,665, 6,621,599

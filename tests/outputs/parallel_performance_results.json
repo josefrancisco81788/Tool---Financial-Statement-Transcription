@@ -1,0 +1,27 @@
+{
+  "timestamp": 1761740292.537635,
+  "target_time_seconds": 120.0,
+  "overall_success": false,
+  "results": {
+    "afs-2021-2023.pdf": {
+      "times": {
+        "pdf_conversion": 0.0,
+        "classification": 0.0,
+        "extraction": 0.0,
+        "total": 0.0
+      },
+      "success": false,
+      "improvement": 1.4667481445020758,
+      "target_met": false,
+      "performance_success": false,
+      "accuracy_success": true,
+      "accuracy_validation": null
+    }
+  },
+  "config": {
+    "mock_mode": false,
+    "low_credit_mode": false,
+    "max_cost_limit": 25.0,
+    "max_api_calls": 50
+  }
+}

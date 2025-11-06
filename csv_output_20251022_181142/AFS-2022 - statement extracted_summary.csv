@@ -1,0 +1,5 @@
+file_name,page_number,statement_type,confidence,template_fields_count,sample_fields
+AFS-2022 - statement extracted,1,balance_sheet,0.95,15,"Cash and Cash Equivalents, Trade and Other Current Receivables, Current Inventories, Total Current Assets, Property, Plant and Equipment"
+AFS-2022 - statement extracted,2,equity_statement,0.95,4,"Issued (share) capital, Retained earnings, Total Equity, Comprehensive / Net income"
+AFS-2022 - statement extracted,3,cash_flow,0.95,9,"Profit (loss) before tax, Depreciation Expense, Comprehensive / Net income, Trade and Other Current Receivables, Current Inventories"
+AFS-2022 - statement extracted,4,income_statement,0.95,7,"Revenue, Cost of Sales, Gross Profit, Administrative expense, Profit (loss) before tax"

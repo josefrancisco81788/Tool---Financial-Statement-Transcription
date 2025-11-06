@@ -5,5 +5,7 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: streamlit run app.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true --server.fileWatcherType=none
     envVars:
-      - key: OPENAI_API_KEY
-        sync: false 
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: AI_PROVIDER
+        value: anthropic 

@@ -1,0 +1,12 @@
+Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3,Value_Year_4
+Meta,Reference,Year,,,2021,2020,,
+Balance Sheet,Current Assets,Cash In Bank,95.00%,0.95,2557457,1778716,,
+Balance Sheet,Current Assets,Trade Receivables,95.00%,0.95,26274253,27409240,,
+Balance Sheet,Current Assets,Inventories,95.00%,0.95,10190218,13984772,,
+Balance Sheet,Current Assets,Other current non-financial assets,95.00%,0.95,542778,2131849,,
+Balance Sheet,Non Current Assets,Property Plant Equipment,95.00%,0.95,7059947,8170659,,
+Balance Sheet,Current Liabilities,Loans Payable,95.00%,0.95,0,13650759,,
+Balance Sheet,Current Liabilities,Other current non-financial liabilities,95.00%,0.95,394471,185171,,
+Balance Sheet,Current Liabilities,"Current tax liabilities, current",95.00%,0.95,497148,109612,,
+Balance Sheet,Equity,Issued (share) capital,95.00%,0.95,27000000,27000000,,
+Balance Sheet,Equity,Retained Earnings End,95.00%,0.95,18733034,12529695,,

@@ -1,0 +1,155 @@
+{
+  "document": "afs-2021-2023",
+  "timestamp": "20250903_114354",
+  "phase1_result": {
+    "status": "success",
+    "pages_processed": 8,
+    "total_text_length": 7676,
+    "method": "whole_document_llm_vision"
+  },
+  "years_analysis": {
+    "expected_years": [
+      "2022",
+      "2021",
+      "2020"
+    ],
+    "detected_years": [
+      "2022",
+      "2021",
+      "2020"
+    ],
+    "missing_years": [],
+    "extra_years": []
+  },
+  "text_analysis": {
+    "text_length": 7908,
+    "year_counts": {
+      "2020": 8,
+      "2021": 18,
+      "2022": 10,
+      "2023": 0,
+      "2024": 0
+    },
+    "financial_keywords": {
+      "balance sheet": 0,
+      "income statement": 0,
+      "cash flow": 6,
+      "total assets": 2,
+      "total liabilities": 2,
+      "revenue": 0,
+      "net income": 4
+    },
+    "lines_with_2020": 8,
+    "has_2020_data": true
+  },
+  "page_analysis": {
+    "total_pages": 8,
+    "pages_with_2020": 4,
+    "pages_with_financial": 0,
+    "page_details": [
+      {
+        "page_num": 1,
+        "method": "ai_vision",
+        "text_length": 633,
+        "years_found": [
+          "2021",
+          "2022"
+        ],
+        "has_financial_content": false,
+        "number_count": 19,
+        "has_2020": false
+      },
+      {
+        "page_num": 2,
+        "method": "ai_vision",
+        "text_length": 1268,
+        "years_found": [
+          "2021",
+          "2022"
+        ],
+        "has_financial_content": false,
+        "number_count": 23,
+        "has_2020": false
+      },
+      {
+        "page_num": 3,
+        "method": "ai_vision",
+        "text_length": 1072,
+        "years_found": [
+          "2021",
+          "2022"
+        ],
+        "has_financial_content": false,
+        "number_count": 18,
+        "has_2020": false
+      },
+      {
+        "page_num": 4,
+        "method": "ai_vision",
+        "text_length": 1157,
+        "years_found": [
+          "2021",
+          "2022"
+        ],
+        "has_financial_content": false,
+        "number_count": 33,
+        "has_2020": false
+      },
+      {
+        "page_num": 5,
+        "method": "ai_vision",
+        "text_length": 723,
+        "years_found": [
+          "2020",
+          "2021"
+        ],
+        "has_financial_content": false,
+        "number_count": 19,
+        "has_2020": true
+      },
+      {
+        "page_num": 6,
+        "method": "ai_vision",
+        "text_length": 694,
+        "years_found": [
+          "2020",
+          "2021"
+        ],
+        "has_financial_content": false,
+        "number_count": 23,
+        "has_2020": true
+      },
+      {
+        "page_num": 7,
+        "method": "ai_vision",
+        "text_length": 766,
+        "years_found": [
+          "2020",
+          "2021"
+        ],
+        "has_financial_content": false,
+        "number_count": 18,
+        "has_2020": true
+      },
+      {
+        "page_num": 8,
+        "method": "ai_vision",
+        "text_length": 1363,
+        "years_found": [
+          "2020",
+          "2021"
+        ],
+        "has_financial_content": false,
+        "number_count": 36,
+        "has_2020": true
+      }
+    ]
+  },
+  "diagnostic_summary": {
+    "phase1_successful": true,
+    "all_years_detected": true,
+    "2020_in_text": true,
+    "2020_pages_found": 4,
+    "issue_location": "later_phases"
+  }
+}

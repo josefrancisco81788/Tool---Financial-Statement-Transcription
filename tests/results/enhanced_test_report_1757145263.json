@@ -1,0 +1,41 @@
+{
+  "timestamp": "2025-09-06 08:54:23",
+  "summary": {
+    "total_tests": 1,
+    "successful_tests": 0,
+    "failed_tests": 1,
+    "success_rate": 0.0
+  },
+  "performance": {
+    "average_processing_time": 0.0009999275207519531,
+    "max_processing_time": 0.0009999275207519531,
+    "min_processing_time": 0.0009999275207519531,
+    "total_processing_time": 0.0009999275207519531
+  },
+  "by_category": {
+    "light": {
+      "total": 1,
+      "successful": 0,
+      "failed": 1
+    }
+  },
+  "results": [
+    {
+      "file": "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "filename": "AFS2024 - statement extracted.pdf",
+      "category": "light",
+      "success": false,
+      "error": "module 'signal' has no attribute 'SIGALRM'",
+      "processing_time": 0.0009999275207519531,
+      "response_data": null,
+      "file_size": 298456
+    }
+  ],
+  "test_state": {
+    "completed_tests": [],
+    "failed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf"
+    ],
+    "last_run": null
+  }
+}

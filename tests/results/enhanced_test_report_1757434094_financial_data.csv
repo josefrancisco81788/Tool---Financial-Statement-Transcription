@@ -1,0 +1,12 @@
+Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3,Value_Year_4
+Meta,Reference,Year,,,2022,2021,,
+Cash Flow Statement,Operating Activities,Net Income For The Year,95.00%,0.95,374628,925386,,
+Cash Flow Statement,Operating Activities,Amortization Depreciation Of Fixed Assets,95.00%,0.95,374,0,,
+Cash Flow Statement,Operating Activities,Increase Decrease In Current Assets,95.00%,0.95,101320,-186855,,
+Cash Flow Statement,Operating Activities,Increase Decrease In Current Liabilities,95.00%,0.95,-495624,-435694,,
+Cash Flow Statement,Operating Activities,Cash Paid For Income Taxes,95.00%,0.95,-93657,-231347,,
+Cash Flow Statement,Operating Activities,Net Cash Applied Operating Activities,95.00%,0.95,-113333,71491,,
+Balance Sheet,Current Assets,Net Cash Provided By Investing Financing Activities,95.00%,0.95,0,2750000,,
+Balance Sheet,Current Assets,Net Increase Decrease In Cash,95.00%,0.95,-113333,2821491,,
+Balance Sheet,Current Assets,Beginning Balance,95.00%,0.95,4382991,1561500,,
+Balance Sheet,Current Assets,Cash Balance End,95.00%,0.95,4269658,4382991,,

@@ -1,0 +1,143 @@
+{
+  "timestamp": "2025-09-06 08:08:06",
+  "test_duration": 0.07308840751647949,
+  "file_structure": {
+    "2021 AFS with SEC Stamp - statement extracted.pdf": {
+      "exists": true,
+      "size_bytes": 2073591,
+      "size_mb": 1.9775304794311523
+    },
+    "afs-2021-2023 - statement extracted.pdf": {
+      "exists": true,
+      "size_bytes": 718732,
+      "size_mb": 0.6854362487792969
+    },
+    "AFS-2022 - statement extracted.pdf": {
+      "exists": true,
+      "size_bytes": 56925,
+      "size_mb": 0.05428791046142578
+    },
+    "AFS2024 - statement extracted.pdf": {
+      "exists": true,
+      "size_bytes": 298456,
+      "size_mb": 0.28462982177734375
+    }
+  },
+  "pdf_processing": {
+    "2021 AFS with SEC Stamp - statement extracted.pdf": {
+      "page_count": 5,
+      "file_size": 2073591,
+      "pdf_valid": true
+    },
+    "afs-2021-2023 - statement extracted.pdf": {
+      "page_count": 8,
+      "file_size": 718732,
+      "pdf_valid": true
+    },
+    "AFS-2022 - statement extracted.pdf": {
+      "page_count": 4,
+      "file_size": 56925,
+      "pdf_valid": true
+    },
+    "AFS2024 - statement extracted.pdf": {
+      "page_count": 3,
+      "file_size": 298456,
+      "pdf_valid": true
+    }
+  },
+  "extraction_prompts": {
+    "balance_sheet": {
+      "prompt_length": 9449,
+      "has_core_rule": true,
+      "has_json_structure": true,
+      "has_year_handling": true,
+      "has_currency_handling": true,
+      "valid": true
+    },
+    "income_statement": {
+      "prompt_length": 9452,
+      "has_core_rule": true,
+      "has_json_structure": true,
+      "has_year_handling": true,
+      "has_currency_handling": true,
+      "valid": true
+    },
+    "cash_flow": {
+      "prompt_length": 9445,
+      "has_core_rule": true,
+      "has_json_structure": true,
+      "has_year_handling": true,
+      "has_currency_handling": true,
+      "valid": true
+    },
+    "financial_statement": {
+      "prompt_length": 9455,
+      "has_core_rule": true,
+      "has_json_structure": true,
+      "has_year_handling": true,
+      "has_currency_handling": true,
+      "valid": true
+    }
+  },
+  "years_validation": {
+    "AFS2024 - statement extracted.pdf": {
+      "expected_years": [
+        "2024",
+        "2023"
+      ],
+      "year_count": 2,
+      "is_list": true,
+      "has_min_years": true,
+      "all_strings": true,
+      "valid": true
+    },
+    "AFS-2022 - statement extracted.pdf": {
+      "expected_years": [
+        "2022",
+        "2021"
+      ],
+      "year_count": 2,
+      "is_list": true,
+      "has_min_years": true,
+      "all_strings": true,
+      "valid": true
+    },
+    "afs-2021-2023 - statement extracted.pdf": {
+      "expected_years": [
+        "2022",
+        "2021",
+        "2020"
+      ],
+      "year_count": 3,
+      "is_list": true,
+      "has_min_years": true,
+      "all_strings": true,
+      "valid": true
+    },
+    "2021 AFS with SEC Stamp - statement extracted.pdf": {
+      "expected_years": [
+        "2021",
+        "2020"
+      ],
+      "year_count": 2,
+      "is_list": true,
+      "has_min_years": true,
+      "all_strings": true,
+      "valid": true
+    }
+  },
+  "configuration": {
+    "api_key_set": false,
+    "model": "gpt-4o",
+    "max_tokens": 4000,
+    "max_file_size": 52428800,
+    "supported_types": [
+      ".pdf",
+      ".png",
+      ".jpg",
+      ".jpeg"
+    ],
+    "max_pages": 10,
+    "parallel_workers": 5
+  }
+}

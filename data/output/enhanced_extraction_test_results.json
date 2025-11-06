@@ -1,0 +1,332 @@
+{
+  "status": "success",
+  "data": {
+    "statement_type": "Comprehensive Financial Statements",
+    "company_name": "GBS Concept Advertising Inc.",
+    "period": "as of December 31, 2022",
+    "currency": "Philippine Peso",
+    "years_detected": [
+      "2022",
+      "2021",
+      "2020"
+    ],
+    "base_year": "2022",
+    "processing_method": "whole_document_context",
+    "line_items": {
+      "balance_sheet": {
+        "current_assets": {
+          "total_current_assets": {
+            "value": 4563148,
+            "confidence": 0.95,
+            "source_pages": [
+              1,
+              5
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          }
+        },
+        "non_current_assets": {
+          "total_non_current_assets": {
+            "value": 0,
+            "confidence": 0.95,
+            "source_pages": [
+              1,
+              5
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          }
+        },
+        "current_liabilities": {
+          "total_current_liabilities": {
+            "value": 306391,
+            "confidence": 0.95,
+            "source_pages": [
+              1,
+              5
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          }
+        },
+        "non_current_liabilities": {
+          "total_non_current_liabilities": {
+            "value": 0,
+            "confidence": 0.95,
+            "source_pages": [
+              1,
+              5
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          }
+        },
+        "equity": {
+          "share_capital": {
+            "value": 3062500,
+            "confidence": 0.95,
+            "source_pages": [
+              3,
+              7
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          },
+          "retained_earnings": {
+            "value": 1194256,
+            "confidence": 0.9,
+            "source_pages": [
+              3,
+              7
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          },
+          "total_equity": {
+            "value": 4256756,
+            "confidence": 0.95,
+            "source_pages": [
+              1,
+              5
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          }
+        },
+        "totals": {
+          "total_assets": {
+            "value": 4563148,
+            "confidence": 0.98,
+            "source_pages": [
+              1,
+              5
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          },
+          "total_liabilities_and_equity": {
+            "value": 4563148,
+            "confidence": 0.98,
+            "source_pages": [
+              1,
+              5
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          }
+        }
+      },
+      "income_statement": {
+        "revenues": {
+          "total_revenue": {
+            "value": 20406722,
+            "confidence": 0.95,
+            "source_pages": [
+              6
+            ],
+            "base_year": 2021,
+            "year_1": 2020
+          }
+        },
+        "cost_of_sales": {
+          "cost_of_goods_sold": {
+            "value": 18690375,
+            "confidence": 0.92,
+            "source_pages": [
+              6
+            ],
+            "base_year": 2021,
+            "year_1": 2020
+          }
+        },
+        "operating_expenses": {
+          "administrative_expenses": {
+            "value": 790961,
+            "confidence": 0.85,
+            "source_pages": [
+              6
+            ],
+            "base_year": 2021,
+            "year_1": 2020
+          }
+        },
+        "profitability": {
+          "gross_profit": {
+            "value": 1716347,
+            "confidence": 0.95,
+            "source_pages": [
+              6
+            ],
+            "base_year": 2021,
+            "year_1": 2020
+          },
+          "net_income": {
+            "value": 694040,
+            "confidence": 0.95,
+            "source_pages": [
+              6
+            ],
+            "base_year": 2021,
+            "year_1": 2020
+          }
+        }
+      },
+      "cash_flow_statement": {
+        "operating_activities": {
+          "net_income": {
+            "value": 374628,
+            "confidence": 0.95,
+            "source_pages": [
+              4,
+              8
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          },
+          "working_capital_changes": {
+            "value": -394304,
+            "confidence": 0.85,
+            "source_pages": [
+              4,
+              8
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          },
+          "net_cash_from_operations": {
+            "value": -113333,
+            "confidence": 0.95,
+            "source_pages": [
+              4,
+              8
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          }
+        },
+        "investing_activities": {
+          "net_cash_from_investing": {
+            "value": 0,
+            "confidence": 0.9,
+            "source_pages": [
+              4,
+              8
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          }
+        },
+        "financing_activities": {
+          "net_cash_from_financing": {
+            "value": 0,
+            "confidence": 0.9,
+            "source_pages": [
+              4,
+              8
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          }
+        }
+      }
+    },
+    "summary_metrics": {
+      "total_assets": {
+        "value": 4563148,
+        "confidence": 0.95
+      },
+      "total_revenue": {
+        "value": 20406722,
+        "confidence": 0.95
+      },
+      "net_income": {
+        "value": 374628,
+        "confidence": 0.95
+      },
+      "operating_cash_flow": {
+        "value": -113333,
+        "confidence": 0.88
+      },
+      "total_equity": {
+        "value": 4256756,
+        "confidence": 0.92
+      }
+    },
+    "validation_results": {
+      "balance_sheet_balances": true,
+      "net_income_consistency": false,
+      "cross_statement_checks": [
+        "Net income in cash flow statement does not match net income in income statement for 2022."
+      ],
+      "data_quality_score": 0.9,
+      "completeness_score": 0.95
+    },
+    "comprehensive_analysis": {
+      "key_insights": [
+        "The company has maintained a stable equity position with no non-current liabilities.",
+        "Significant cash inflow from financing activities in 2021 due to capital issuance."
+      ],
+      "unusual_items": [
+        "Discrepancy in net income figures between income statement and cash flow statement for 2022."
+      ],
+      "data_gaps": [
+        "Lack of detailed breakdown for revenues and expenses in 2022."
+      ],
+      "recommendations": [
+        "Verify the net income figures for 2022 across statements.",
+        "Provide a detailed breakdown of revenue and expenses for 2022."
+      ]
+    },
+    "document_analysis": {
+      "total_pages": 8,
+      "company_name": "GBS Concept Advertising Inc.",
+      "reporting_period": "as of December 31, 2022",
+      "currency": "Philippine Peso",
+      "statements_present": [
+        "Statement of Financial Position",
+        "Statement of Comprehensive Income",
+        "Statements of Changes in Equity",
+        "Statement of Cash Flows"
+      ],
+      "document_structure": "The document is organized into separate pages for each financial statement, with comparative figures for the previous year included.",
+      "multi_year_data": true,
+      "years_covered": [
+        "2022",
+        "2021",
+        "2020"
+      ]
+    },
+    "notes": "The financial statements provide a comprehensive view of the company's financial position and performance over the past three years. However, there is a notable discrepancy in the net income figures for 2022, which requires further investigation. The company appears to have a strong equity base with no long-term debt, indicating a conservative financial strategy."
+  },
+  "pages_processed": "all",
+  "extraction_method": "whole_document",
+  "processing_time": 90.66504549980164,
+  "requested_processing_approach": "auto",
+  "effective_processing_approach": "whole_document",
+  "processing_approach": "whole_document",
+  "document_characteristics": {
+    "page_count": 8,
+    "file_size_mb": 0.6854362487792969,
+    "recommendation": "whole_document",
+    "reason": "Small document (8 pages, 0.7MB) - Whole Document Context recommended for comprehensive analysis",
+    "confidence": "high"
+  },
+  "csv_data": "Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3,Value_Year_4\r\nDate,Year,Year,,0.0,2022,2021,2020,\r\nBalance Sheet,Current Assets,Total Current Assets,95.0%,0.95,4563148,2021,,\r\nBalance Sheet,Non Current Assets,Total Non Current Assets,95.0%,0.95,0,2021,,\r\nBalance Sheet,Current Liabilities,Total Current Liabilities,95.0%,0.95,306391,2021,,\r\nBalance Sheet,Non Current Liabilities,Total Non Current Liabilities,95.0%,0.95,0,2021,,\r\nBalance Sheet,Equity,Share Capital,95.0%,0.95,3062500,2021,,\r\nBalance Sheet,Equity,Retained Earnings,90.0%,0.9,1194256,2021,,\r\nBalance Sheet,Equity,Total Equity,95.0%,0.95,4256756,2021,,\r\nBalance Sheet,Totals,Total Assets,98.0%,0.98,4563148,2021,,\r\nBalance Sheet,Totals,Total Liabilities And Equity,98.0%,0.98,4563148,2021,,\r\nIncome Statement,Revenues,Total Revenue,95.0%,0.95,20406722,2020,,\r\nIncome Statement,Cost Of Sales,Cost Of Goods Sold,92.0%,0.92,18690375,2020,,\r\nIncome Statement,Operating Expenses,Administrative Expenses,85.0%,0.85,790961,2020,,\r\nIncome Statement,Profitability,Gross Profit,95.0%,0.95,1716347,2020,,\r\nIncome Statement,Profitability,Net Income,95.0%,0.95,694040,2020,,\r\nCash Flow Statement,Operating Activities,Net Income,95.0%,0.95,374628,2021,,\r\nCash Flow Statement,Operating Activities,Working Capital Changes,85.0%,0.85,-394304,2021,,\r\nCash Flow Statement,Operating Activities,Net Cash From Operations,95.0%,0.95,-113333,2021,,\r\nCash Flow Statement,Investing Activities,Net Cash From Investing,90.0%,0.9,0,2021,,\r\nCash Flow Statement,Financing Activities,Net Cash From Financing,90.0%,0.9,0,2021,,\r\n",
+  "output_format": "csv",
+  "csv_format_version": "1.0",
+  "csv_validation": {
+    "valid": false,
+    "errors": [
+      "Extra columns found: ['Confidence_Score']",
+      "Found 1 empty row(s)"
+    ],
+    "format_version": "1.0",
+    "column_structure_valid": false,
+    "year_mapping_valid": true,
+    "no_empty_rows": false
+  },
+  "csv_mapping_version": "1.0.0-legacy",
+  "mapping_mode": "legacy",
+  "csv_shadow": null
+}

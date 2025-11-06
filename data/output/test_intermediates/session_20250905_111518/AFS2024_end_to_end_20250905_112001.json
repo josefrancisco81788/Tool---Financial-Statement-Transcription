@@ -1,0 +1,57 @@
+{
+  "pipeline_version": "1.0",
+  "input_file": "data/input/samples/AFS2024 - statement extracted.pdf",
+  "start_time": "2025-09-05T11:15:19.013260",
+  "phases": {
+    "phase1": {
+      "name": "Year Detection",
+      "status": "COMPLETED",
+      "duration": 51.965403,
+      "years_detected": [
+        "2024",
+        "2023"
+      ],
+      "pages_processed": 3
+    },
+    "phase2a": {
+      "name": "RAW Table Read",
+      "status": "COMPLETED",
+      "duration": 57.274735,
+      "tables_extracted": 3
+    },
+    "phase2b": {
+      "name": "AI Year Consolidation",
+      "status": "COMPLETED",
+      "duration": 150.523388,
+      "consolidated_items": 44
+    },
+    "phase2c": {
+      "name": "AI Template Mapping",
+      "status": "COMPLETED",
+      "duration": 22.70109,
+      "mapped_fields": 16
+    },
+    "phase2d": {
+      "name": "Schema Formatting",
+      "status": "COMPLETED",
+      "duration": 0.000999,
+      "formatted_fields": 16
+    },
+    "phase3": {
+      "name": "Rigorous Validation",
+      "status": "FAILED",
+      "duration": 0.006078,
+      "overall_passed": false,
+      "validation_metrics": {}
+    },
+    "phase7": {
+      "status": "FAILED",
+      "error": "'list' object has no attribute 'get'"
+    }
+  },
+  "final_status": "FAILED",
+  "final_csv": null,
+  "performance_metrics": {},
+  "error": "'list' object has no attribute 'get'",
+  "end_time": "2025-09-05T11:20:01.948766"
+}

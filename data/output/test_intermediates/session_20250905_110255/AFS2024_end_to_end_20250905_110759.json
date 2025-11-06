@@ -1,0 +1,51 @@
+{
+  "pipeline_version": "1.0",
+  "input_file": "data/input/samples/AFS2024 - statement extracted.pdf",
+  "start_time": "2025-09-05T11:02:56.248817",
+  "phases": {
+    "phase1": {
+      "name": "Year Detection",
+      "status": "COMPLETED",
+      "duration": 64.323378,
+      "years_detected": [
+        "2024",
+        "2023"
+      ],
+      "pages_processed": 3
+    },
+    "phase2a": {
+      "name": "RAW Table Read",
+      "status": "COMPLETED",
+      "duration": 78.677111,
+      "tables_extracted": 3
+    },
+    "phase2b": {
+      "name": "AI Year Consolidation",
+      "status": "COMPLETED",
+      "duration": 151.642033,
+      "consolidated_items": 0
+    },
+    "phase2c": {
+      "name": "AI Template Mapping",
+      "status": "COMPLETED",
+      "duration": 8.512768,
+      "mapped_fields": 10
+    },
+    "phase3": {
+      "name": "Rigorous Validation",
+      "status": "FAILED",
+      "duration": 0.001,
+      "overall_passed": false,
+      "validation_metrics": {}
+    },
+    "phase6": {
+      "status": "FAILED",
+      "error": "name 'schema_data' is not defined"
+    }
+  },
+  "final_status": "FAILED",
+  "final_csv": null,
+  "performance_metrics": {},
+  "error": "name 'schema_data' is not defined",
+  "end_time": "2025-09-05T11:07:59.802470"
+}

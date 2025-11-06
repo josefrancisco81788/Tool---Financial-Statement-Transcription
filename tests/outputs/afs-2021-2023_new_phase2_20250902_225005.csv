@@ -1,0 +1,22 @@
+Document,Field,Field_Category,Field_Subcategory,Confidence,Value_Year_1,Value_Year_2,Value_Year_3
+,,,,,2022,2021,2020
+afs-2021-2023,Cash and Cash Equivalents,Balance Sheet,Current Assets,0.9,not applicable,not applicable,not applicable
+afs-2021-2023,Trade and Other Current Receivables,Balance Sheet,Current Assets,0.9,not applicable,not applicable,not applicable
+afs-2021-2023,Current Inventories,Balance Sheet,Current Assets,0.9,not applicable,not applicable,not applicable
+afs-2021-2023,Total Current Assets,Balance Sheet,Current Assets,0.9,4563148,4777801,not applicable
+afs-2021-2023,Total Assets,Balance Sheet,Totals,0.9,4563148,4777801,not applicable
+afs-2021-2023,Total Liabilities And Equity,Balance Sheet,Totals,0.9,4563148,4777801,not applicable
+afs-2021-2023,Current Liabilities,Balance Sheet,Current Liabilities,0.9,306391,802015,not applicable
+afs-2021-2023,Non Current Liabilities,Balance Sheet,Non Current Liabilities,0.9,0,0,not applicable
+afs-2021-2023,Total Equity,Balance Sheet,Equity,0.9,4256756,3975785,not applicable
+afs-2021-2023,Revenue,Income Statement,Revenue,0.9,9843009,20406722,not applicable
+afs-2021-2023,Cost of Sales,Income Statement,Revenue,0.9,8632290,18690375,not applicable
+afs-2021-2023,Gross Profit,Income Statement,Revenue,0.9,1210719,1716347,not applicable
+afs-2021-2023,Administrative expense,Income Statement,Revenue,0.9,836091,790961,not applicable
+afs-2021-2023,Profit (loss) before tax,Income Statement,Before Tax,0.9,374628,925386,not applicable
+afs-2021-2023,Income tax expense (from continuing operations),Income Statement,After Tax,0.9,93657,231347,not applicable
+afs-2021-2023,Profit (loss),Income Statement,After Tax,0.9,280971,694040,not applicable
+afs-2021-2023,Issued (share) capital,Balance Sheet,Equity,0.9,3062500,3062500,not applicable
+afs-2021-2023,Retained earnings,Balance Sheet,Equity,0.9,1194256,913285,not applicable
+afs-2021-2023,Net Cashflow from Operations (per FS),Cash Flow Statement,Operating Activities,0.9,374628,925386,not applicable
+afs-2021-2023,Amortization Expense,Cash Flow Statement,Operating Activities,0.9,374,0,not applicable

@@ -1,0 +1,9 @@
+{
+  "test_name": "Phase2a_Enhancement",
+  "timestamp": "2025-09-04T17:54:14.417566",
+  "error_data": {
+    "test_function": "test_phase2a_raw_table_read_enhanced",
+    "enhancement_type": "rightmost_column_bias_compensation",
+    "error": "assert 'status' in {'extraction_metadata': {'approach': 'pure_transcription', 'interpretation_level': 'none', 'phase': '2a_raw_table_read'}, 'raw_tables': [], 'total_pages_processed': 1220, 'total_tables_found': 0, ...}"
+  }
+}

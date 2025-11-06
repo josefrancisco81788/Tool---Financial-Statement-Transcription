@@ -1,0 +1,136 @@
+{
+  "statement_type": "statements_of_financial_position",
+  "company_name": "Ideal Marketing & Manufacturing Corporation",
+  "period": "as_of_december_31",
+  "currency": "PHP",
+  "years_detected": [
+    "2022",
+    "2021"
+  ],
+  "base_year": "2022",
+  "year_ordering": "most_recent_first",
+  "line_items": {
+    "current_assets": {
+      "cash": {
+        "value": 10041673,
+        "confidence": 0.95,
+        "base_year": 10041673,
+        "year_1": 11237376
+      },
+      "receivables": {
+        "value": 6965863,
+        "confidence": 0.95,
+        "base_year": 6965863,
+        "year_1": 9085459
+      },
+      "inventories": {
+        "value": 216357523,
+        "confidence": 0.95,
+        "base_year": 216357523,
+        "year_1": 181220353
+      },
+      "total_current_assets": {
+        "value": 233365059,
+        "confidence": 0.95,
+        "base_year": 233365059,
+        "year_1": 201543188
+      }
+    },
+    "non_current_assets": {
+      "property_and_equipments": {
+        "value": 58663112,
+        "confidence": 0.95,
+        "base_year": 58663112,
+        "year_1": 59868152
+      },
+      "other_assets": {
+        "value": 5438613,
+        "confidence": 0.95,
+        "base_year": 5438613,
+        "year_1": 2314137
+      },
+      "total_non_current_assets": {
+        "value": 64101725,
+        "confidence": 0.95,
+        "base_year": 64101725,
+        "year_1": 62182289
+      }
+    },
+    "total": {
+      "total_assets": {
+        "value": 297466784,
+        "confidence": 0.95,
+        "base_year": 297466784,
+        "year_1": 263725477
+      }
+    },
+    "current_liabilities": {
+      "trade_and_other_payables": {
+        "value": 178874377,
+        "confidence": 0.95,
+        "base_year": 178874377,
+        "year_1": 151497735
+      },
+      "total_current_liabilities": {
+        "value": 178874377,
+        "confidence": 0.95,
+        "base_year": 178874377,
+        "year_1": 151497735
+      }
+    },
+    "non_current_liabilities": {
+      "total_non_current_liabilities": {
+        "value": 0,
+        "confidence": 0.95,
+        "base_year": null,
+        "year_1": null
+      }
+    },
+    "shareholders_equity": {
+      "share_capital": {
+        "value": 46000000,
+        "confidence": 0.95,
+        "base_year": 46000000,
+        "year_1": 46000000
+      },
+      "retained_earnings": {
+        "value": 72592407,
+        "confidence": 0.95,
+        "base_year": 72592407,
+        "year_1": 66227742
+      },
+      "total_shareholders_equity": {
+        "value": 118592407,
+        "confidence": 0.95,
+        "base_year": 118592407,
+        "year_1": 112227742
+      }
+    }
+  },
+  "summary_metrics": {
+    "total_assets": {
+      "value": 297466784,
+      "confidence": 0.95
+    },
+    "total_liabilities": {
+      "value": 178874377,
+      "confidence": 0.9
+    },
+    "total_equity": {
+      "value": 118592407,
+      "confidence": 0.92
+    }
+  },
+  "document_structure": {
+    "main_sections": [
+      "Assets",
+      "Liabilities and Shareholders' Equity"
+    ],
+    "line_item_count": 11,
+    "has_multi_year_data": true,
+    "special_notes": "No Non-Current Liabilities recorded."
+  },
+  "notes": "This document follows a standard balance sheet format with clear separation between current and non-current sections for both assets and liabilities. All financial numbers appear clearly reported.",
+  "processing_method": "comprehensive_extraction",
+  "timestamp": 1757283497.5139081
+}

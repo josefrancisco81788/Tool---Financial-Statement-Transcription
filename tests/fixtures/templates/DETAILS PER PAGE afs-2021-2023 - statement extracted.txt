@@ -1,0 +1,117 @@
+Detailed Description of Document Contents per page:
+
+File Name: afs-2021-2023 - statement extracted.pdf
+Page Number: 1
+Company Name: GBS Concept Advertising Inc.
+Document Name: Statement of Financial Position
+Years Covered: 2022, 2021
+Current Assets: 4,563,148, 4,777,801
+Total Assets: 4,563,148, 4,777,801
+Current Liabilities: 306,391, 802,015
+Non Current Liabilities: 0, 0
+Equity: 4,256,756, 3,975,785
+Total Liabilities and Equity: 4,563,148, 4,777,801
+
+File Name: afs-2021-2023 - statement extracted.pdf
+Page Number: 2
+Company Name: GBS Concept Advertising Inc.
+Document Name: Statement of Comprehensive Income
+Years Covered: 2022, 2021
+Revenues: 9,843,009, 20,406,722
+Cost of Sales: 8,632,290, 18,690,375
+Gross Profit: 1,210,719, 1,716,347
+General and Administrative Expenses: 836,091, 790,961
+Income Before Tax: 374,628, 925,386
+Tax Expense: 93,657, 231,347
+Net Income After Tax: 280,971, 694,040
+
+File Name: afs-2021-2023 - statement extracted.pdf
+Page Number: 3
+Company Name: GBS Concept Advertising Inc.
+Document Name: Statements of Changes in Equity
+Years Covered: 2022, 2021
+Capital Stock: 3,062,500, 3,062,500
+Retained Earnings - Appropriated: 0, 0
+Retained Earnings - Unappropriated (Beginning): 913,285, 219,245
+Net Profit/Loss During the Year: 280,971, 694,040
+Transferred to Appropriated Retained Earnings: 0, 0
+Retained Earnings - Unappropriated (End): 1,194,256, 913,285
+Total Equity: 4,256,756, 3,975,785
+
+File Name: afs-2021-2023 - statement extracted.pdf
+Page Number: 4
+Company Name: GBS Concept Advertising Inc.
+Document Name: Statement of Cash Flows
+Years Covered: 2022, 2021
+Net Income for the Year: 374,628, 925,386
+Add Back: Amortization/Depreciation: 0, 0
+Total Cash Applied to Operating Activities: 374,628, 925,386
+Changes in Current Assets: 101,320, (186,855)
+Changes in Current Liabilities: (495,624), (435,694)
+Changes in Non-Current Liabilities: 0, 0
+Cash Paid for Income Taxes: (93,657), (231,347)
+Net Cash Applied Operating Activities: (113,333), 71,491
+Cash from Additional Issuance of Capital: 0, 2,750,000
+Changes in Non Current Liabilities: 0, 0
+Net Cash from Investing/Financing Activities: 0, 2,750,000
+Net Increase (Decrease) in Cash: (113,333), 2,821,491
+Beginning Cash Balance: 4,382,991, 1,561,500
+Cash Balance End: 4,269,658, 4,382,991
+
+File Name: afs-2021-2023 - statement extracted.pdf
+Page Number: 5
+Company Name: GBS Concept Advertising Inc.
+Document Name: Statement of Financial Position
+Years Covered: 2021, 2020
+Current Assets: 4,777,801, 1,769,455
+Total Assets: 4,777,801, 1,769,455
+Current Liabilities: 802,015, 1,237,709
+Non Current Liabilities: 0, 0
+Equity: 3,975,785, 531,745
+Total Liabilities and Equity: 4,777,801, 1,769,455
+
+File Name: afs-2021-2023 - statement extracted.pdf
+Page Number: 6
+Company Name: GBS Concept Advertising Inc.
+Document Name: Statement of Comprehensive Income
+Years Covered: 2021, 2020
+Revenues: 20,406,722, 7,944,185
+Cost of Sales: 18,690,375, 7,153,194
+Gross Profit: 1,716,347, 790,990
+General and Administrative Expenses: 790,961, 583,798
+Income Before Tax: 925,386, 207,192
+Tax Expense: 231,347, 62,158
+Net Income After Tax: 694,040, 145,034
+
+File Name: afs-2021-2023 - statement extracted.pdf
+Page Number: 7
+Company Name: GBS Concept Advertising Inc.
+Document Name: Statements of Changes in Equity
+Years Covered: 2021, 2020
+Capital Stock: 3,062,500, 312,500
+Retained Earnings - Appropriated: 0, 0
+Retained Earnings - Unappropriated (Beginning): 219,245, 74,211
+Net Profit/Loss During the Year: 694,040, 145,034
+Transferred to Appropriated Retained Earnings: 0, 0
+Retained Earnings - Unappropriated (End): 913,285, 219,245
+Total Equity: 3,975,785, 531,745
+
+File Name: afs-2021-2023 - statement extracted.pdf
+Page Number: 8
+Company Name: GBS Concept Advertising Inc.
+Document Name: Statement of Cash Flows
+Years Covered: 2021, 2020
+Net Income for the Year: 925,386, 207,192
+Add Back: Amortization/Depreciation: 0, 0
+Total Cash Applied to Operating Activities: 925,386, 207,192
+Changes in Current Assets: (186,855), 76,362
+Changes in Current Liabilities: (435,694), 1,139,070
+Changes in Non-Current Liabilities: 0, (1,102,310)
+Cash Paid for Income Taxes: (231,347), (62,158)
+Net Cash Applied Operating Activities: 71,491, 258,156
+Cash from Additional Issuance of Capital: 2,750,000, 250,000
+Changes in Non Current Liabilities: 0, (1,600,000)
+Net Cash from Investing/Financing Activities: 2,750,000, (1,350,000)
+Net Increase (Decrease) in Cash: 2,821,491, (1,091,844)
+Beginning Cash Balance: 1,561,500, 2,653,344
+Cash Balance End: 4,382,991, 1,561,500

@@ -1,0 +1,283 @@
+{
+  "test_time": "2025-10-27T18:47:26.955250",
+  "test_type": "core_application_baseline",
+  "files": {
+    "AFS2024 - statement extracted.pdf": {
+      "file_name": "AFS2024 - statement extracted.pdf",
+      "processing_time": 83.00959944725037,
+      "pages_processed": 3,
+      "total_fields_extracted": 41,
+      "extraction_results": [
+        {
+          "page_num": 0,
+          "statement_type": "balance_sheet",
+          "template_fields_count": 24,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Cash and Cash Equivalents",
+            "Trade and Other Current Receivables",
+            "Other current non-financial assets",
+            "Total Current Assets",
+            "Investments in subsidiaries, joint ventures and associates"
+          ]
+        },
+        {
+          "page_num": 1,
+          "statement_type": "income_statement",
+          "template_fields_count": 11,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Revenue",
+            "Cost of Sales",
+            "Gross Profit",
+            "Administrative expense",
+            "Profit (loss) from operating activities"
+          ]
+        },
+        {
+          "page_num": 2,
+          "statement_type": "equity_statement",
+          "template_fields_count": 6,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Issued (share) capital",
+            "Share premium",
+            "Retained earnings",
+            "Comprehensive / Net income",
+            "Treasury shares"
+          ]
+        }
+      ],
+      "status": "SUCCESS"
+    },
+    "AFS-2022 - statement extracted.pdf": {
+      "file_name": "AFS-2022 - statement extracted.pdf",
+      "processing_time": 66.25336146354675,
+      "pages_processed": 4,
+      "total_fields_extracted": 35,
+      "extraction_results": [
+        {
+          "page_num": 0,
+          "statement_type": "balance_sheet",
+          "template_fields_count": 15,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Cash and Cash Equivalents",
+            "Trade and Other Current Receivables",
+            "Current Inventories",
+            "Total Current Assets",
+            "Property, Plant and Equipment"
+          ]
+        },
+        {
+          "page_num": 1,
+          "statement_type": "equity_statement",
+          "template_fields_count": 4,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Issued (share) capital",
+            "Retained earnings",
+            "Total Equity",
+            "Comprehensive / Net income"
+          ]
+        },
+        {
+          "page_num": 2,
+          "statement_type": "cash_flow",
+          "template_fields_count": 9,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Profit (loss) before tax",
+            "Depreciation Expense",
+            "Comprehensive / Net income",
+            "Trade and Other Current Receivables",
+            "Current Inventories"
+          ]
+        },
+        {
+          "page_num": 3,
+          "statement_type": "income_statement",
+          "template_fields_count": 7,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Revenue",
+            "Cost of Sales",
+            "Gross Profit",
+            "Administrative expense",
+            "Profit (loss) before tax"
+          ]
+        }
+      ],
+      "status": "SUCCESS"
+    },
+    "2021 AFS with SEC Stamp - statement extracted.pdf": {
+      "file_name": "2021 AFS with SEC Stamp - statement extracted.pdf",
+      "processing_time": 182.36089706420898,
+      "pages_processed": 4,
+      "total_fields_extracted": 35,
+      "extraction_results": [
+        {
+          "page_num": 0,
+          "statement_type": "balance_sheet",
+          "template_fields_count": 15,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Cash and Cash Equivalents",
+            "Trade and Other Current Receivables",
+            "Current Inventories",
+            "Other current non-financial assets",
+            "Total Current Assets"
+          ]
+        },
+        {
+          "page_num": 1,
+          "statement_type": "income_statement",
+          "template_fields_count": 7,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Revenue",
+            "Cost of Sales",
+            "Gross Profit",
+            "Administrative expense",
+            "Profit (loss) before tax"
+          ]
+        },
+        {
+          "page_num": 2,
+          "statement_type": "equity_statement",
+          "template_fields_count": 4,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Issued (share) capital",
+            "Retained earnings",
+            "Total Equity",
+            "Comprehensive / Net income"
+          ]
+        },
+        {
+          "page_num": 4,
+          "statement_type": "cash_flow",
+          "template_fields_count": 9,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Comprehensive / Net income",
+            "Depreciation Expense",
+            "Net Cashflow from Operations (per FS)",
+            "Trade and Other Current Receivables",
+            "Current Inventories"
+          ]
+        }
+      ],
+      "status": "SUCCESS"
+    },
+    "afs-2021-2023 - statement extracted.pdf": {
+      "file_name": "afs-2021-2023 - statement extracted.pdf",
+      "processing_time": 121.08418130874634,
+      "pages_processed": 8,
+      "total_fields_extracted": 42,
+      "extraction_results": [
+        {
+          "page_num": 0,
+          "statement_type": "balance_sheet",
+          "template_fields_count": 6,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Total Current Assets",
+            "Total Assets",
+            "Total Current Liabilities",
+            "Total Non Current Liabilities",
+            "Total Equity"
+          ]
+        },
+        {
+          "page_num": 1,
+          "statement_type": "income_statement",
+          "template_fields_count": 7,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Revenue",
+            "Cost of Sales",
+            "Gross Profit",
+            "Administrative expense",
+            "Profit (loss) before tax"
+          ]
+        },
+        {
+          "page_num": 2,
+          "statement_type": "equity_statement",
+          "template_fields_count": 4,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Issued (share) capital",
+            "Retained earnings",
+            "Profit (loss)",
+            "Total Equity"
+          ]
+        },
+        {
+          "page_num": 3,
+          "statement_type": "cash_flow",
+          "template_fields_count": 5,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Comprehensive / Net income",
+            "Depreciation Expense",
+            "Amortization Expense",
+            "Net Cashflow from Operations (per FS)",
+            "Cash and Cash Equivalents"
+          ]
+        },
+        {
+          "page_num": 4,
+          "statement_type": "balance_sheet",
+          "template_fields_count": 6,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Total Current Assets",
+            "Total Assets",
+            "Total Current Liabilities",
+            "Total Non Current Liabilities",
+            "Total Equity"
+          ]
+        },
+        {
+          "page_num": 5,
+          "statement_type": "income_statement",
+          "template_fields_count": 7,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Revenue",
+            "Cost of Sales",
+            "Gross Profit",
+            "Administrative expense",
+            "Profit (loss) before tax"
+          ]
+        },
+        {
+          "page_num": 6,
+          "statement_type": "equity_statement",
+          "template_fields_count": 4,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Issued (share) capital",
+            "Retained earnings",
+            "Profit (loss)",
+            "Total Equity"
+          ]
+        },
+        {
+          "page_num": 7,
+          "statement_type": "cash_flow",
+          "template_fields_count": 3,
+          "confidence": 0.95,
+          "sample_fields": [
+            "Comprehensive / Net income",
+            "Net Cashflow from Operations (per FS)",
+            "Cash and Cash Equivalents"
+          ]
+        }
+      ],
+      "status": "SUCCESS"
+    }
+  }
+}

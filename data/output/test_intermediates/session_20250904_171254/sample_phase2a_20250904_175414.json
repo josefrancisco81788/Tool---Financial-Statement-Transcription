@@ -1,0 +1,15 @@
+{
+  "total_pages_processed": 1220,
+  "total_tables_found": 0,
+  "years_detected": [
+    "2024",
+    "2023",
+    "2022"
+  ],
+  "raw_tables": [],
+  "extraction_metadata": {
+    "phase": "2a_raw_table_read",
+    "approach": "pure_transcription",
+    "interpretation_level": "none"
+  }
+}

@@ -1,0 +1,2 @@
+Provider,Document,Success,Error,Timestamp,Processing_Time_Seconds,Extraction_Rate,Format_Accuracy,Overall_Score,API_Calls_Made,Pages_Processed,Total_Fields_Extracted,Total_Template_Fields,Missing_Fields_Count,Field_Accuracy_Average,Extracted_Fields_JSON,Template_Fields_JSON,Missing_Fields_JSON,Field_Accuracy_JSON,Confidence_Scores_JSON
+anthropic,light,False,Document not found: light,2025-09-24T10:44:08.551048,0.3026430606842041,0.0,0.0,0.0,0,0,0,0,0,0.0,{},[],[],{},{}

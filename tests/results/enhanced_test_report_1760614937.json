@@ -1,0 +1,138 @@
+{
+  "timestamp": "2025-10-16 12:42:17",
+  "summary": {
+    "total_tests": 1,
+    "successful_tests": 1,
+    "failed_tests": 0,
+    "success_rate": 100.0
+  },
+  "performance": {
+    "average_processing_time": 260.3749737739563,
+    "max_processing_time": 260.3749737739563,
+    "min_processing_time": 260.3749737739563,
+    "total_processing_time": 260.3749737739563
+  },
+  "by_category": {
+    "origin": {
+      "total": 1,
+      "successful": 1,
+      "failed": 0
+    }
+  },
+  "results": [
+    {
+      "file": "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "filename": "AFS-2022.pdf",
+      "category": "origin",
+      "success": true,
+      "error": null,
+      "processing_time": 260.3749737739563,
+      "response_data": {
+        "success": true,
+        "data": {
+          "template_mappings": {
+            "Year": {
+              "value": 2023,
+              "confidence": 0.95,
+              "Value_Year_1": 2023,
+              "Value_Year_2": 2022,
+              "Value_Year_3": 2021,
+              "Value_Year_4": null,
+              "source": "multi_page_vision_extraction"
+            }
+          },
+          "company_name": "",
+          "period": "",
+          "currency": "",
+          "years_detected": [],
+          "base_year": "",
+          "year_ordering": "",
+          "document_structure": {},
+          "notes": "",
+          "processing_method": "multi_page_vector_database",
+          "ai_provider": "anthropic",
+          "timestamp": 1760614859.596215,
+          "pages_processed": 10
+        },
+        "template_csv": null,
+        "template_fields_mapped": 0,
+        "processing_time": 258.1252303123474,
+        "pages_processed": 10,
+        "timestamp": "2025-10-16T11:42:17Z"
+      },
+      "file_size": 2153991,
+      "status_code": 200
+    }
+  ],
+  "test_state": {
+    "completed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf"
+    ],
+    "failed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf"
+    ],
+    "last_run": null
+  }
+}

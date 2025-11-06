@@ -1,0 +1,4 @@
+file_name,page_number,statement_type,confidence,template_fields_count,sample_fields
+AFS2024 - statement extracted,1,balance_sheet,0.95,24,"Cash and Cash Equivalents, Trade and Other Current Receivables, Other current non-financial assets, Total Current Assets, Investments in subsidiaries, joint ventures and associates"
+AFS2024 - statement extracted,2,income_statement,0.95,11,"Revenue, Cost of Sales, Gross Profit, Administrative expense, Profit (loss) from operating activities"
+AFS2024 - statement extracted,3,equity_statement,0.95,6,"Issued (share) capital, Share premium, Retained earnings, Profit (loss), Treasury shares"

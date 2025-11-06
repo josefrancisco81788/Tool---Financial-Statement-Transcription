@@ -1,0 +1,14 @@
+[
+  {
+    "provider": "openai",
+    "success": false,
+    "processing_time": 1.3268067836761475,
+    "error": "No data extracted"
+  },
+  {
+    "provider": "anthropic",
+    "success": false,
+    "processing_time": 1.3776917457580566,
+    "error": "No data extracted"
+  }
+]

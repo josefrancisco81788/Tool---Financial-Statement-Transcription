@@ -1,0 +1,121 @@
+{
+  "status": "success",
+  "data": {
+    "statement_type": "Comprehensive Financial Statements",
+    "company_name": "GBS Concept Advertising Inc.",
+    "period": "For the period ended December 31, 2022",
+    "currency": "Philippine Peso",
+    "years_detected": [
+      "2022",
+      "2021"
+    ],
+    "base_year": "2022",
+    "processing_method": "whole_document_context",
+    "line_items": {
+      "balance_sheet": {
+        "equity": {
+          "share_capital": {
+            "value": 3062500,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2022,
+            "year_1": 2021
+          },
+          "retained_earnings": {
+            "value": 1194256,
+            "confidence": 0.9,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2022,
+            "year_1": 913285
+          },
+          "total_equity": {
+            "value": 4256756,
+            "confidence": 0.95,
+            "source_pages": [
+              1
+            ],
+            "base_year": 2022,
+            "year_1": 3975785
+          }
+        }
+      }
+    },
+    "summary_metrics": {
+      "total_equity": {
+        "value": 4256756,
+        "confidence": 0.92
+      }
+    },
+    "validation_results": {
+      "balance_sheet_balances": true,
+      "net_income_consistency": true,
+      "cross_statement_checks": [
+        "Retained earnings changes match net profit figures"
+      ],
+      "data_quality_score": 0.95,
+      "completeness_score": 0.9
+    },
+    "comprehensive_analysis": {
+      "key_insights": [
+        "The company maintained the same capital stock value over the two years.",
+        "Retained earnings increased significantly from 2021 to 2022 due to net profit."
+      ],
+      "unusual_items": [
+        "No appropriated retained earnings were noted."
+      ],
+      "data_gaps": [
+        "Details on appropriated retained earnings are missing."
+      ],
+      "recommendations": [
+        "Verify the absence of appropriated retained earnings and check for any missing notes."
+      ]
+    },
+    "document_analysis": {
+      "total_pages": 1,
+      "company_name": "GBS Concept Advertising Inc.",
+      "reporting_period": "For the period ended December 31, 2022",
+      "currency": "Philippine Peso",
+      "statements_present": [
+        "Statements of Changes in Equity"
+      ],
+      "document_structure": "The document is organized with a title, followed by a table showing changes in equity for two years, and notes references.",
+      "multi_year_data": true,
+      "years_covered": [
+        "2022",
+        "2021"
+      ]
+    },
+    "notes": "The document provides a clear view of changes in equity but lacks detailed notes on appropriated retained earnings. The net profit figures align with changes in retained earnings, indicating consistency."
+  },
+  "pages_processed": "all",
+  "extraction_method": "whole_document",
+  "processing_time": 21.625791311264038,
+  "requested_processing_approach": "auto",
+  "effective_processing_approach": "whole_document",
+  "processing_approach": "whole_document",
+  "document_characteristics": {
+    "page_count": 1,
+    "file_size_mb": 0.07975959777832031,
+    "recommendation": "whole_document",
+    "reason": "Small document (1 pages, 0.1MB) - Whole Document Context recommended for comprehensive analysis",
+    "confidence": "high"
+  },
+  "csv_data": "Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3,Value_Year_4\r\nDate,Year,Year,,0.0,2022,2021,,\r\nBalance Sheet,Equity,Share Capital,95.0%,0.95,3062500,2021,,\r\nBalance Sheet,Equity,Retained Earnings,90.0%,0.9,1194256,913285,,\r\nBalance Sheet,Equity,Total Equity,95.0%,0.95,4256756,3975785,,\r\n",
+  "output_format": "csv",
+  "csv_format_version": "1.0",
+  "csv_validation": {
+    "valid": false,
+    "errors": [
+      "Extra columns found: ['Confidence_Score']",
+      "Found 1 empty row(s)"
+    ],
+    "format_version": "1.0",
+    "column_structure_valid": false,
+    "year_mapping_valid": true,
+    "no_empty_rows": false
+  }
+}

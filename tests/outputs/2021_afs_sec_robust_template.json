@@ -1,0 +1,143 @@
+{
+  "statement_type": "comparative_statement_of_financial_position",
+  "company_name": "metechs_industrial_corporation",
+  "period": "as_of_december_31_2021_&_2020",
+  "currency": "PHP",
+  "years_detected": [
+    "2021",
+    "2020"
+  ],
+  "base_year": "2021",
+  "year_ordering": "most_recent_first",
+  "line_items": {
+    "assets": {
+      "cash_in_bank": {
+        "value": 2557457,
+        "confidence": 0.95,
+        "base_year": 2557457,
+        "year_1": 1778716
+      },
+      "trade_receivables": {
+        "value": 26274253,
+        "confidence": 0.95,
+        "base_year": 26274253,
+        "year_1": 27409240
+      },
+      "inventories": {
+        "value": 10190218,
+        "confidence": 0.95,
+        "base_year": 10190218,
+        "year_1": 13984772
+      },
+      "other_current_assets": {
+        "value": 542778,
+        "confidence": 0.95,
+        "base_year": 542778,
+        "year_1": 2131849
+      },
+      "total_current_assets": {
+        "value": 39564706,
+        "confidence": 0.95,
+        "base_year": 39564706,
+        "year_1": 45304577
+      },
+      "property_plant_equipment": {
+        "value": 7059947,
+        "confidence": 0.95,
+        "base_year": 7059947,
+        "year_1": 8170659
+      },
+      "total_non_current_assets": {
+        "value": 7059947,
+        "confidence": 0.95,
+        "base_year": 7059947,
+        "year_1": 8170659
+      },
+      "total_assets": {
+        "value": 46624653,
+        "confidence": 0.95,
+        "base_year": 46624653,
+        "year_1": 53475236
+      }
+    },
+    "liabilities": {
+      "loans_payable": {
+        "value": 0,
+        "confidence": 0.95,
+        "base_year": 0,
+        "year_1": 13650759
+      },
+      "other_current_liabilities": {
+        "value": 394471,
+        "confidence": 0.95,
+        "base_year": 394471,
+        "year_1": 185171
+      },
+      "income_tax_payable": {
+        "value": 497148,
+        "confidence": 0.95,
+        "base_year": 497148,
+        "year_1": 109612
+      },
+      "total_liabilities": {
+        "value": 891619,
+        "confidence": 0.95,
+        "base_year": 891619,
+        "year_1": 13945542
+      }
+    },
+    "equity": {
+      "share_capital": {
+        "value": 27000000,
+        "confidence": 0.95,
+        "base_year": 27000000,
+        "year_1": 27000000
+      },
+      "retained_earnings_end": {
+        "value": 18733034,
+        "confidence": 0.95,
+        "base_year": 18733034,
+        "year_1": 12529695
+      },
+      "total_stockholders_equity": {
+        "value": 45733034,
+        "confidence": 0.95,
+        "base_year": 45733034,
+        "year_1": 39529695
+      }
+    },
+    "total_liabilities_and_equity": {
+      "value": 46624653,
+      "confidence": 0.95,
+      "base_year": 46624653,
+      "year_1": 53475236
+    }
+  },
+  "summary_metrics": {
+    "total_assets": {
+      "value": 46624653,
+      "confidence": 0.95
+    },
+    "total_liabilities": {
+      "value": 891619,
+      "confidence": 0.95
+    },
+    "total_equity": {
+      "value": 45733034,
+      "confidence": 0.95
+    }
+  },
+  "document_structure": {
+    "main_sections": [
+      "assets",
+      "liabilities",
+      "equity"
+    ],
+    "line_item_count": 13,
+    "has_multi_year_data": true,
+    "special_notes": "N/A"
+  },
+  "notes": "All financial data extracted using exact terminology and structure from the document.",
+  "processing_method": "comprehensive_extraction",
+  "timestamp": 1757283645.7117014
+}

@@ -1,0 +1,2393 @@
+{
+  "test_timestamp": "20250903_000553",
+  "test_summary": {
+    "orchestrator_test": true,
+    "real_documents_tested": 2,
+    "overall_success": true
+  },
+  "orchestrator_result": {
+    "status": "success",
+    "discovery_method": "multipass",
+    "phase_results": {
+      "phase_2a": {
+        "status": "success",
+        "raw_data": [
+          {
+            "field_name": "Cash and cash equivalents",
+            "years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "values": [
+              "150,000",
+              "140,000",
+              "132,000"
+            ],
+            "context": "Current Assets",
+            "section": "balance sheet"
+          },
+          {
+            "field_name": "Trade and other receivables",
+            "years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "values": [
+              "200,000",
+              "180,000",
+              "170,000"
+            ],
+            "context": "Current Assets",
+            "section": "balance sheet"
+          },
+          {
+            "field_name": "Inventories",
+            "years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "values": [
+              "75,000",
+              "70,000",
+              "65,000"
+            ],
+            "context": "Current Assets",
+            "section": "balance sheet"
+          },
+          {
+            "field_name": "Total Current Assets",
+            "years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "values": [
+              "425,000",
+              "390,000",
+              "367,000"
+            ],
+            "context": "Current Assets",
+            "section": "balance sheet"
+          },
+          {
+            "field_name": "Total Assets",
+            "years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "values": [
+              "850,000",
+              "780,000",
+              "734,000"
+            ],
+            "context": "Overall Assets",
+            "section": "balance sheet"
+          },
+          {
+            "field_name": "Current Liabilities",
+            "years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "values": [
+              "125,000",
+              "115,000",
+              "108,000"
+            ],
+            "context": "Liabilities",
+            "section": "balance sheet"
+          },
+          {
+            "field_name": "Total Equity",
+            "years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "values": [
+              "725,000",
+              "665,000",
+              "626,000"
+            ],
+            "context": "Equity",
+            "section": "balance sheet"
+          },
+          {
+            "field_name": "Revenue",
+            "years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "values": [
+              "2,500,000",
+              "2,300,000",
+              "2,100,000"
+            ],
+            "context": "Income",
+            "section": "income statement"
+          },
+          {
+            "field_name": "Cost of sales",
+            "years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "values": [
+              "1,500,000",
+              "1,380,000",
+              "1,260,000"
+            ],
+            "context": "Expenses",
+            "section": "income statement"
+          },
+          {
+            "field_name": "Gross profit",
+            "years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "values": [
+              "1,000,000",
+              "920,000",
+              "840,000"
+            ],
+            "context": "Profit",
+            "section": "income statement"
+          }
+        ],
+        "extraction_method": "simple_ai_prompt",
+        "years_context": [
+          "2024",
+          "2023",
+          "2022"
+        ],
+        "extraction_stats": {
+          "total_items": 10,
+          "sections_found": 2,
+          "unique_years": 3
+        }
+      },
+      "phase_2b": {
+        "status": "success",
+        "consolidated_data": [
+          {
+            "field_name": "Cash and cash equivalents",
+            "consolidated_years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "consolidated_values": [
+              "150,000",
+              "140,000",
+              "132,000"
+            ],
+            "deduplication_notes": "No duplicates found for this field.",
+            "confidence": "high",
+            "original_sources": []
+          },
+          {
+            "field_name": "Trade and other receivables",
+            "consolidated_years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "consolidated_values": [
+              "200,000",
+              "180,000",
+              "170,000"
+            ],
+            "deduplication_notes": "No duplicates found for this field.",
+            "confidence": "high",
+            "original_sources": []
+          },
+          {
+            "field_name": "Inventories",
+            "consolidated_years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "consolidated_values": [
+              "75,000",
+              "70,000",
+              "65,000"
+            ],
+            "deduplication_notes": "No duplicates found for this field.",
+            "confidence": "high",
+            "original_sources": []
+          },
+          {
+            "field_name": "Total Current Assets",
+            "consolidated_years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "consolidated_values": [
+              "425,000",
+              "390,000",
+              "367,000"
+            ],
+            "deduplication_notes": "No duplicates found for this field.",
+            "confidence": "high",
+            "original_sources": []
+          },
+          {
+            "field_name": "Total Assets",
+            "consolidated_years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "consolidated_values": [
+              "850,000",
+              "780,000",
+              "734,000"
+            ],
+            "deduplication_notes": "No duplicates found for this field.",
+            "confidence": "high",
+            "original_sources": []
+          },
+          {
+            "field_name": "Current Liabilities",
+            "consolidated_years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "consolidated_values": [
+              "125,000",
+              "115,000",
+              "108,000"
+            ],
+            "deduplication_notes": "No duplicates found for this field.",
+            "confidence": "high",
+            "original_sources": []
+          },
+          {
+            "field_name": "Total Equity",
+            "consolidated_years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "consolidated_values": [
+              "725,000",
+              "665,000",
+              "626,000"
+            ],
+            "deduplication_notes": "No duplicates found for this field.",
+            "confidence": "high",
+            "original_sources": []
+          },
+          {
+            "field_name": "Revenue",
+            "consolidated_years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "consolidated_values": [
+              "2,500,000",
+              "2,300,000",
+              "2,100,000"
+            ],
+            "deduplication_notes": "No duplicates found for this field.",
+            "confidence": "high",
+            "original_sources": []
+          },
+          {
+            "field_name": "Cost of sales",
+            "consolidated_years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "consolidated_values": [
+              "1,500,000",
+              "1,380,000",
+              "1,260,000"
+            ],
+            "deduplication_notes": "No duplicates found for this field.",
+            "confidence": "high",
+            "original_sources": []
+          },
+          {
+            "field_name": "Gross profit",
+            "consolidated_years": [
+              "2024",
+              "2023",
+              "2022"
+            ],
+            "consolidated_values": [
+              "1,000,000",
+              "920,000",
+              "840,000"
+            ],
+            "deduplication_notes": "No duplicates found for this field.",
+            "confidence": "high",
+            "original_sources": []
+          }
+        ],
+        "consolidation_method": "ai_deduplication",
+        "years_context": [
+          "2024",
+          "2023",
+          "2022"
+        ],
+        "consolidation_stats": {
+          "consolidated_items": 10,
+          "average_years_per_item": 3.0,
+          "high_confidence_items": 10
+        }
+      },
+      "phase_2c": {
+        "status": "success",
+        "populated_template": {
+          "Cash and Cash Equivalents": {
+            "category": "Balance Sheet",
+            "subcategory": "Current Assets",
+            "values": {
+              "year_1": "150,000",
+              "year_2": "140,000",
+              "year_3": "132,000",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Cash and cash equivalents"
+            ],
+            "aggregation_notes": "Direct mapping from 'Cash and cash equivalents'.",
+            "confidence": "high"
+          },
+          "Trade and Other Current Receivables": {
+            "category": "Balance Sheet",
+            "subcategory": "Current Assets",
+            "values": {
+              "year_1": "200,000",
+              "year_2": "180,000",
+              "year_3": "170,000",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Trade and other receivables"
+            ],
+            "aggregation_notes": "Direct mapping from 'Trade and other receivables'.",
+            "confidence": "high"
+          },
+          "Current Inventories": {
+            "category": "Balance Sheet",
+            "subcategory": "Current Assets",
+            "values": {
+              "year_1": "75,000",
+              "year_2": "70,000",
+              "year_3": "65,000",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Inventories"
+            ],
+            "aggregation_notes": "Direct mapping from 'Inventories'.",
+            "confidence": "high"
+          },
+          "Total Assets": {
+            "category": "Balance Sheet",
+            "subcategory": "Totals",
+            "values": {
+              "year_1": "850,000",
+              "year_2": "780,000",
+              "year_3": "734,000",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Total Assets"
+            ],
+            "aggregation_notes": "Direct mapping from 'Total Assets'.",
+            "confidence": "high"
+          },
+          "Total Liabilities And Equity": {
+            "category": "Balance Sheet",
+            "subcategory": "Totals",
+            "values": {
+              "year_1": "850,000",
+              "year_2": "780,000",
+              "year_3": "734,000",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Total Assets"
+            ],
+            "aggregation_notes": "Assumed 'Total Assets' equals 'Total Liabilities And Equity' as per accounting equation.",
+            "confidence": "high"
+          },
+          "Current provisions for employee benefits": {
+            "category": "Balance Sheet",
+            "subcategory": "Current Liabilities",
+            "values": {
+              "year_1": "125,000",
+              "year_2": "115,000",
+              "year_3": "108,000",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Current Liabilities"
+            ],
+            "aggregation_notes": "Mapped 'Current Liabilities' to 'Current provisions for employee benefits' as a placeholder.",
+            "confidence": "medium"
+          },
+          "Issued (share) capital": {
+            "category": "Balance Sheet",
+            "subcategory": "Equity",
+            "values": {
+              "year_1": "725,000",
+              "year_2": "665,000",
+              "year_3": "626,000",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Total Equity"
+            ],
+            "aggregation_notes": "Mapped 'Total Equity' to 'Issued (share) capital' as a placeholder.",
+            "confidence": "medium"
+          },
+          "Revenue": {
+            "category": "Income Statement",
+            "subcategory": "Revenue",
+            "values": {
+              "year_1": "2,500,000",
+              "year_2": "2,300,000",
+              "year_3": "2,100,000",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Revenue"
+            ],
+            "aggregation_notes": "Direct mapping from 'Revenue'.",
+            "confidence": "high"
+          },
+          "Cost of Sales": {
+            "category": "Income Statement",
+            "subcategory": "Revenue",
+            "values": {
+              "year_1": "1,500,000",
+              "year_2": "1,380,000",
+              "year_3": "1,260,000",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Cost of sales"
+            ],
+            "aggregation_notes": "Direct mapping from 'Cost of sales'.",
+            "confidence": "high"
+          },
+          "Gross Profit": {
+            "category": "Income Statement",
+            "subcategory": "Revenue",
+            "values": {
+              "year_1": "1,000,000",
+              "year_2": "920,000",
+              "year_3": "840,000",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Gross profit"
+            ],
+            "aggregation_notes": "Direct mapping from 'Gross profit'.",
+            "confidence": "high"
+          }
+        },
+        "mapping_method": "ai_template_mapping",
+        "years_context": [
+          "2024",
+          "2023",
+          "2022"
+        ],
+        "mapping_stats": {
+          "mapped": 10,
+          "high_confidence": 8,
+          "aggregated": 0
+        }
+      }
+    },
+    "populated_template": {
+      "Cash and Cash Equivalents": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "values": {
+          "year_1": "150,000",
+          "year_2": "140,000",
+          "year_3": "132,000",
+          "year_4": "not applicable"
+        },
+        "source_fields": [
+          "Cash and cash equivalents"
+        ],
+        "aggregation_notes": "Direct mapping from 'Cash and cash equivalents'.",
+        "confidence": "high"
+      },
+      "Trade and Other Current Receivables": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "values": {
+          "year_1": "200,000",
+          "year_2": "180,000",
+          "year_3": "170,000",
+          "year_4": "not applicable"
+        },
+        "source_fields": [
+          "Trade and other receivables"
+        ],
+        "aggregation_notes": "Direct mapping from 'Trade and other receivables'.",
+        "confidence": "high"
+      },
+      "Current Inventories": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "values": {
+          "year_1": "75,000",
+          "year_2": "70,000",
+          "year_3": "65,000",
+          "year_4": "not applicable"
+        },
+        "source_fields": [
+          "Inventories"
+        ],
+        "aggregation_notes": "Direct mapping from 'Inventories'.",
+        "confidence": "high"
+      },
+      "Total Assets": {
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "values": {
+          "year_1": "850,000",
+          "year_2": "780,000",
+          "year_3": "734,000",
+          "year_4": "not applicable"
+        },
+        "source_fields": [
+          "Total Assets"
+        ],
+        "aggregation_notes": "Direct mapping from 'Total Assets'.",
+        "confidence": "high"
+      },
+      "Total Liabilities And Equity": {
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "values": {
+          "year_1": "850,000",
+          "year_2": "780,000",
+          "year_3": "734,000",
+          "year_4": "not applicable"
+        },
+        "source_fields": [
+          "Total Assets"
+        ],
+        "aggregation_notes": "Assumed 'Total Assets' equals 'Total Liabilities And Equity' as per accounting equation.",
+        "confidence": "high"
+      },
+      "Current provisions for employee benefits": {
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "values": {
+          "year_1": "125,000",
+          "year_2": "115,000",
+          "year_3": "108,000",
+          "year_4": "not applicable"
+        },
+        "source_fields": [
+          "Current Liabilities"
+        ],
+        "aggregation_notes": "Mapped 'Current Liabilities' to 'Current provisions for employee benefits' as a placeholder.",
+        "confidence": "medium"
+      },
+      "Issued (share) capital": {
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "values": {
+          "year_1": "725,000",
+          "year_2": "665,000",
+          "year_3": "626,000",
+          "year_4": "not applicable"
+        },
+        "source_fields": [
+          "Total Equity"
+        ],
+        "aggregation_notes": "Mapped 'Total Equity' to 'Issued (share) capital' as a placeholder.",
+        "confidence": "medium"
+      },
+      "Revenue": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "2,500,000",
+          "year_2": "2,300,000",
+          "year_3": "2,100,000",
+          "year_4": "not applicable"
+        },
+        "source_fields": [
+          "Revenue"
+        ],
+        "aggregation_notes": "Direct mapping from 'Revenue'.",
+        "confidence": "high"
+      },
+      "Cost of Sales": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "1,500,000",
+          "year_2": "1,380,000",
+          "year_3": "1,260,000",
+          "year_4": "not applicable"
+        },
+        "source_fields": [
+          "Cost of sales"
+        ],
+        "aggregation_notes": "Direct mapping from 'Cost of sales'.",
+        "confidence": "high"
+      },
+      "Gross Profit": {
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "values": {
+          "year_1": "1,000,000",
+          "year_2": "920,000",
+          "year_3": "840,000",
+          "year_4": "not applicable"
+        },
+        "source_fields": [
+          "Gross profit"
+        ],
+        "aggregation_notes": "Direct mapping from 'Gross profit'.",
+        "confidence": "high"
+      }
+    },
+    "fields_discovered": [
+      {
+        "field_name": "Cash and Cash Equivalents",
+        "template_mapping": "Cash and Cash Equivalents",
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3",
+          "year_4"
+        ],
+        "notes": "Direct mapping from 'Cash and cash equivalents'.",
+        "source_fields": [
+          "Cash and cash equivalents"
+        ]
+      },
+      {
+        "field_name": "Trade and Other Current Receivables",
+        "template_mapping": "Trade and Other Current Receivables",
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3",
+          "year_4"
+        ],
+        "notes": "Direct mapping from 'Trade and other receivables'.",
+        "source_fields": [
+          "Trade and other receivables"
+        ]
+      },
+      {
+        "field_name": "Current Inventories",
+        "template_mapping": "Current Inventories",
+        "category": "Balance Sheet",
+        "subcategory": "Current Assets",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3",
+          "year_4"
+        ],
+        "notes": "Direct mapping from 'Inventories'.",
+        "source_fields": [
+          "Inventories"
+        ]
+      },
+      {
+        "field_name": "Total Assets",
+        "template_mapping": "Total Assets",
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3",
+          "year_4"
+        ],
+        "notes": "Direct mapping from 'Total Assets'.",
+        "source_fields": [
+          "Total Assets"
+        ]
+      },
+      {
+        "field_name": "Total Liabilities And Equity",
+        "template_mapping": "Total Liabilities And Equity",
+        "category": "Balance Sheet",
+        "subcategory": "Totals",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3",
+          "year_4"
+        ],
+        "notes": "Assumed 'Total Assets' equals 'Total Liabilities And Equity' as per accounting equation.",
+        "source_fields": [
+          "Total Assets"
+        ]
+      },
+      {
+        "field_name": "Current provisions for employee benefits",
+        "template_mapping": "Current provisions for employee benefits",
+        "category": "Balance Sheet",
+        "subcategory": "Current Liabilities",
+        "confidence": 0.7,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3",
+          "year_4"
+        ],
+        "notes": "Mapped 'Current Liabilities' to 'Current provisions for employee benefits' as a placeholder.",
+        "source_fields": [
+          "Current Liabilities"
+        ]
+      },
+      {
+        "field_name": "Issued (share) capital",
+        "template_mapping": "Issued (share) capital",
+        "category": "Balance Sheet",
+        "subcategory": "Equity",
+        "confidence": 0.7,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3",
+          "year_4"
+        ],
+        "notes": "Mapped 'Total Equity' to 'Issued (share) capital' as a placeholder.",
+        "source_fields": [
+          "Total Equity"
+        ]
+      },
+      {
+        "field_name": "Revenue",
+        "template_mapping": "Revenue",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3",
+          "year_4"
+        ],
+        "notes": "Direct mapping from 'Revenue'.",
+        "source_fields": [
+          "Revenue"
+        ]
+      },
+      {
+        "field_name": "Cost of Sales",
+        "template_mapping": "Cost of Sales",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3",
+          "year_4"
+        ],
+        "notes": "Direct mapping from 'Cost of sales'.",
+        "source_fields": [
+          "Cost of sales"
+        ]
+      },
+      {
+        "field_name": "Gross Profit",
+        "template_mapping": "Gross Profit",
+        "category": "Income Statement",
+        "subcategory": "Revenue",
+        "confidence": 0.9,
+        "years_present": [
+          "year_1",
+          "year_2",
+          "year_3",
+          "year_4"
+        ],
+        "notes": "Direct mapping from 'Gross profit'.",
+        "source_fields": [
+          "Gross profit"
+        ]
+      }
+    ],
+    "field_mapping": {
+      "Cash and Cash Equivalents": "Cash and Cash Equivalents",
+      "Trade and Other Current Receivables": "Trade and Other Current Receivables",
+      "Current Inventories": "Current Inventories",
+      "Total Assets": "Total Assets",
+      "Total Liabilities And Equity": "Total Liabilities And Equity",
+      "Current provisions for employee benefits": "Current provisions for employee benefits",
+      "Issued (share) capital": "Issued (share) capital",
+      "Revenue": "Revenue",
+      "Cost of Sales": "Cost of Sales",
+      "Gross Profit": "Gross Profit"
+    },
+    "confidence_scores": {
+      "Cash and Cash Equivalents": 0.9,
+      "Trade and Other Current Receivables": 0.9,
+      "Current Inventories": 0.9,
+      "Total Assets": 0.9,
+      "Total Liabilities And Equity": 0.9,
+      "Current provisions for employee benefits": 0.7,
+      "Issued (share) capital": 0.7,
+      "Revenue": 0.9,
+      "Cost of Sales": 0.9,
+      "Gross Profit": 0.9
+    }
+  },
+  "real_document_results": {
+    "AFS2024": {
+      "years_detected": [
+        "2024",
+        "2023"
+      ],
+      "field_result": {
+        "status": "error",
+        "message": "Field discovery failed: name 're' is not defined",
+        "discovery_method": "failed"
+      },
+      "success_checks": {
+        "overall_success": false,
+        "multipass_method": false,
+        "year_completeness": true,
+        "template_populated": false,
+        "no_unknown_categories": true,
+        "all_phases_successful": false
+      }
+    },
+    "afs-2021-2023": {
+      "years_detected": [
+        "2022",
+        "2021",
+        "2020"
+      ],
+      "field_result": {
+        "status": "success",
+        "discovery_method": "multipass",
+        "phase_results": {
+          "phase_2a": {
+            "status": "success",
+            "raw_data": [
+              {
+                "field_name": "Current Assets",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "\u20b1 4,563,148",
+                  "\u20b1 4,777,801"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "TOTAL ASSETS",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "\u20b1 4,563,148",
+                  "\u20b1 4,777,801"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "Current Liabilities",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "\u20b1 306,391",
+                  "\u20b1 802,015"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "Non Current Liabilities",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "-",
+                  "-"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "Equity",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "4,256,756",
+                  "3,975,785"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "TOTAL LIABILITIES AND EQUITY",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "\u20b1 4,563,148",
+                  "\u20b1 4,777,801"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "REVENUES",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "P 9,843,009",
+                  "P 20,406,722"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Comprehensive Income"
+              },
+              {
+                "field_name": "COST OF SALES",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "8,632,290",
+                  "18,690,375"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Comprehensive Income"
+              },
+              {
+                "field_name": "GROSS PROFIT",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "1,210,719",
+                  "1,716,347"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Comprehensive Income"
+              },
+              {
+                "field_name": "GENERAL AND ADMINISTRATIVE EXPENSES",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "836,091",
+                  "790,961"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Comprehensive Income"
+              },
+              {
+                "field_name": "INCOME BEFORE TAX",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "374,628",
+                  "925,386"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Comprehensive Income"
+              },
+              {
+                "field_name": "TAX EXPENSE",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "93,657",
+                  "231,347"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Comprehensive Income"
+              },
+              {
+                "field_name": "NET INCOME AFTER TAX",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "P 280,971",
+                  "P 694,040"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Comprehensive Income"
+              },
+              {
+                "field_name": "CAPITAL STOCK",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "P 3,062,500",
+                  "P 3,062,500"
+                ],
+                "context": "For the period ended December 31",
+                "section": "Statements of Changes in Equity"
+              },
+              {
+                "field_name": "RETAINED EARNINGS Appropriated",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "-",
+                  "-"
+                ],
+                "context": "For the period ended December 31",
+                "section": "Statements of Changes in Equity"
+              },
+              {
+                "field_name": "RETAINED EARNINGS Unappropriated Balance at beginning of the year",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "913,285",
+                  "219,245"
+                ],
+                "context": "For the period ended December 31",
+                "section": "Statements of Changes in Equity"
+              },
+              {
+                "field_name": "Net profit / (loss) during the year",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "280,971",
+                  "694,040"
+                ],
+                "context": "For the period ended December 31",
+                "section": "Statements of Changes in Equity"
+              },
+              {
+                "field_name": "Balance at the end of year",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "1,194,256",
+                  "913,285"
+                ],
+                "context": "For the period ended December 31",
+                "section": "Statements of Changes in Equity"
+              },
+              {
+                "field_name": "TOTAL EQUITY",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "P 4,256,756",
+                  "P 3,975,785"
+                ],
+                "context": "For the period ended December 31",
+                "section": "Statements of Changes in Equity"
+              },
+              {
+                "field_name": "Net income for the year",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "P 374,628",
+                  "P 925,386"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "Amortization/Depreciation of fixed assets",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "374",
+                  "-"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "Total cash applied to (provided by) operating activities",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "374,628",
+                  "925,386"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "(Increase)/Decrease in Current Assets",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "101,320",
+                  "(186,855)"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "Increase/(Decrease) in Current Liabilities",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "(495,624)",
+                  "(435,694)"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "Cash paid for Income Taxes",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "(93,657)",
+                  "(231,347)"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "Net Cash Applied Operating Activities",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "(113,333)",
+                  "71,491"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "Proceeds from additional issuance of paid-up capital",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "-",
+                  "2,750,000"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "Net Cash provided by Investing/financing Activities",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "-",
+                  "2,750,000"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "NET INCREASE (DECREASE) IN CASH",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "(113,333)",
+                  "2,821,491"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "Beg. Balance 01/01/2022",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "4,382,991",
+                  "1,561,500"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "CASH BALANCE, END - 12/31/2022",
+                "years": [
+                  "2022",
+                  "2021"
+                ],
+                "values": [
+                  "P 4,269,658",
+                  "P 4,382,991"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Cash Flows"
+              },
+              {
+                "field_name": "Current Assets",
+                "years": [
+                  "2021",
+                  "2020"
+                ],
+                "values": [
+                  "\u20b1 4,777,801",
+                  "\u20b1 1,769,455"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "TOTAL ASSETS",
+                "years": [
+                  "2021",
+                  "2020"
+                ],
+                "values": [
+                  "\u20b1 4,777,801",
+                  "\u20b1 1,769,455"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "Current Liabilities",
+                "years": [
+                  "2021",
+                  "2020"
+                ],
+                "values": [
+                  "\u20b1 802,015",
+                  "\u20b1 1,237,709"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "Non Current Liabilities",
+                "years": [
+                  "2021",
+                  "2020"
+                ],
+                "values": [
+                  "-",
+                  "-"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "Equity",
+                "years": [
+                  "2021",
+                  "2020"
+                ],
+                "values": [
+                  "3,975,785",
+                  "531,745"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "TOTAL LIABILITIES AND EQUITY",
+                "years": [
+                  "2021",
+                  "2020"
+                ],
+                "values": [
+                  "\u20b1 4,777,801",
+                  "\u20b1 1,769,455"
+                ],
+                "context": "As of December 31",
+                "section": "Statement of Financial Position"
+              },
+              {
+                "field_name": "REVENUES",
+                "years": [
+                  "2021",
+                  "2020"
+                ],
+                "values": [
+                  "P 20,406,722",
+                  "P 7,944,185"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Comprehensive Income"
+              },
+              {
+                "field_name": "COST OF SALES",
+                "years": [
+                  "2021",
+                  "2020"
+                ],
+                "values": [
+                  "18,690,375",
+                  "7,153,194"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Comprehensive Income"
+              },
+              {
+                "field_name": "GROSS PROFIT",
+                "years": [
+                  "2021",
+                  "2020"
+                ],
+                "values": [
+                  "1,716,347",
+                  "790,990"
+                ],
+                "context": "For the year ended December 31",
+                "section": "Statement of Comprehensive Income"
+              }
+            ],
+            "extraction_method": "simple_ai_prompt",
+            "years_context": [
+              "2022",
+              "2021",
+              "2020"
+            ],
+            "extraction_stats": {
+              "total_items": 40,
+              "sections_found": 4,
+              "unique_years": 3
+            }
+          },
+          "phase_2b": {
+            "status": "success",
+            "consolidated_data": [
+              {
+                "field_name": "Current Assets",
+                "consolidated_years": [
+                  "2022",
+                  "2021",
+                  "2020"
+                ],
+                "consolidated_values": [
+                  "\u20b1 4,563,148",
+                  "\u20b1 4,777,801",
+                  "\u20b1 1,769,455"
+                ],
+                "deduplication_notes": "No duplicates found for Current Assets.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Total Assets",
+                "consolidated_years": [
+                  "2022",
+                  "2021",
+                  "2020"
+                ],
+                "consolidated_values": [
+                  "\u20b1 4,563,148",
+                  "\u20b1 4,777,801",
+                  "\u20b1 1,769,455"
+                ],
+                "deduplication_notes": "Merged with TOTAL LIABILITIES AND EQUITY as they have identical values.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Current Liabilities",
+                "consolidated_years": [
+                  "2022",
+                  "2021",
+                  "2020"
+                ],
+                "consolidated_values": [
+                  "\u20b1 306,391",
+                  "\u20b1 802,015",
+                  "\u20b1 1,237,709"
+                ],
+                "deduplication_notes": "No duplicates found for Current Liabilities.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Non Current Liabilities",
+                "consolidated_years": [
+                  "2022",
+                  "2021",
+                  "2020"
+                ],
+                "consolidated_values": [
+                  "-",
+                  "-",
+                  "-"
+                ],
+                "deduplication_notes": "No duplicates found for Non Current Liabilities.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Equity",
+                "consolidated_years": [
+                  "2022",
+                  "2021",
+                  "2020"
+                ],
+                "consolidated_values": [
+                  "4,256,756",
+                  "3,975,785",
+                  "531,745"
+                ],
+                "deduplication_notes": "Merged with TOTAL EQUITY as they have identical values.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Revenues",
+                "consolidated_years": [
+                  "2022",
+                  "2021",
+                  "2020"
+                ],
+                "consolidated_values": [
+                  "P 9,843,009",
+                  "P 20,406,722",
+                  "P 7,944,185"
+                ],
+                "deduplication_notes": "No duplicates found for Revenues.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Cost of Sales",
+                "consolidated_years": [
+                  "2022",
+                  "2021",
+                  "2020"
+                ],
+                "consolidated_values": [
+                  "8,632,290",
+                  "18,690,375",
+                  "7,153,194"
+                ],
+                "deduplication_notes": "No duplicates found for Cost of Sales.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Gross Profit",
+                "consolidated_years": [
+                  "2022",
+                  "2021",
+                  "2020"
+                ],
+                "consolidated_values": [
+                  "1,210,719",
+                  "1,716,347",
+                  "790,990"
+                ],
+                "deduplication_notes": "No duplicates found for Gross Profit.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "General and Administrative Expenses",
+                "consolidated_years": [
+                  "2022",
+                  "2021"
+                ],
+                "consolidated_values": [
+                  "836,091",
+                  "790,961"
+                ],
+                "deduplication_notes": "No duplicates found for General and Administrative Expenses.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Income Before Tax",
+                "consolidated_years": [
+                  "2022",
+                  "2021"
+                ],
+                "consolidated_values": [
+                  "374,628",
+                  "925,386"
+                ],
+                "deduplication_notes": "Merged with Net income for the year as they represent the same concept.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Tax Expense",
+                "consolidated_years": [
+                  "2022",
+                  "2021"
+                ],
+                "consolidated_values": [
+                  "93,657",
+                  "231,347"
+                ],
+                "deduplication_notes": "No duplicates found for Tax Expense.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Net Income After Tax",
+                "consolidated_years": [
+                  "2022",
+                  "2021"
+                ],
+                "consolidated_values": [
+                  "P 280,971",
+                  "P 694,040"
+                ],
+                "deduplication_notes": "Merged with Net profit / (loss) during the year as they represent the same concept.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Capital Stock",
+                "consolidated_years": [
+                  "2022",
+                  "2021"
+                ],
+                "consolidated_values": [
+                  "P 3,062,500",
+                  "P 3,062,500"
+                ],
+                "deduplication_notes": "No duplicates found for Capital Stock.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Retained Earnings Unappropriated",
+                "consolidated_years": [
+                  "2022",
+                  "2021"
+                ],
+                "consolidated_values": [
+                  "913,285",
+                  "219,245"
+                ],
+                "deduplication_notes": "Merged with Balance at the end of year as they represent the same concept.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Net Cash Applied Operating Activities",
+                "consolidated_years": [
+                  "2022",
+                  "2021"
+                ],
+                "consolidated_values": [
+                  "(113,333)",
+                  "71,491"
+                ],
+                "deduplication_notes": "No duplicates found for Net Cash Applied Operating Activities.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Net Cash Provided by Investing/Financing Activities",
+                "consolidated_years": [
+                  "2022",
+                  "2021"
+                ],
+                "consolidated_values": [
+                  "-",
+                  "2,750,000"
+                ],
+                "deduplication_notes": "Merged with Proceeds from additional issuance of paid-up capital as they represent the same concept.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Net Increase (Decrease) in Cash",
+                "consolidated_years": [
+                  "2022",
+                  "2021"
+                ],
+                "consolidated_values": [
+                  "(113,333)",
+                  "2,821,491"
+                ],
+                "deduplication_notes": "No duplicates found for Net Increase (Decrease) in Cash.",
+                "confidence": "high",
+                "original_sources": []
+              },
+              {
+                "field_name": "Cash Balance, End",
+                "consolidated_years": [
+                  "2022",
+                  "2021"
+                ],
+                "consolidated_values": [
+                  "P 4,269,658",
+                  "P 4,382,991"
+                ],
+                "deduplication_notes": "No duplicates found for Cash Balance, End.",
+                "confidence": "high",
+                "original_sources": []
+              }
+            ],
+            "consolidation_method": "ai_deduplication",
+            "years_context": [
+              "2022",
+              "2021",
+              "2020"
+            ],
+            "consolidation_stats": {
+              "consolidated_items": 18,
+              "average_years_per_item": 2.4,
+              "high_confidence_items": 18
+            }
+          },
+          "phase_2c": {
+            "status": "success",
+            "populated_template": {
+              "Cash and Cash Equivalents": {
+                "category": "Balance Sheet",
+                "subcategory": "Current Assets",
+                "values": {
+                  "year_1": "P 4,269,658",
+                  "year_2": "P 4,382,991",
+                  "year_3": "not applicable",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Cash Balance, End"
+                ],
+                "aggregation_notes": "Mapped directly from Cash Balance, End.",
+                "confidence": "high"
+              },
+              "Total Assets": {
+                "category": "Balance Sheet",
+                "subcategory": "Totals",
+                "values": {
+                  "year_1": "\u20b1 4,563,148",
+                  "year_2": "\u20b1 4,777,801",
+                  "year_3": "\u20b1 1,769,455",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Total Assets"
+                ],
+                "aggregation_notes": "Mapped directly from Total Assets.",
+                "confidence": "high"
+              },
+              "Total Liabilities And Equity": {
+                "category": "Balance Sheet",
+                "subcategory": "Totals",
+                "values": {
+                  "year_1": "\u20b1 4,563,148",
+                  "year_2": "\u20b1 4,777,801",
+                  "year_3": "\u20b1 1,769,455",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Total Assets"
+                ],
+                "aggregation_notes": "Mapped directly from Total Assets as they have identical values.",
+                "confidence": "high"
+              },
+              "Trade and other current payables": {
+                "category": "Balance Sheet",
+                "subcategory": "Current Liabilities",
+                "values": {
+                  "year_1": "\u20b1 306,391",
+                  "year_2": "\u20b1 802,015",
+                  "year_3": "\u20b1 1,237,709",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Current Liabilities"
+                ],
+                "aggregation_notes": "Mapped directly from Current Liabilities.",
+                "confidence": "high"
+              },
+              "Issued (share) capital": {
+                "category": "Balance Sheet",
+                "subcategory": "Equity",
+                "values": {
+                  "year_1": "P 3,062,500",
+                  "year_2": "P 3,062,500",
+                  "year_3": "not applicable",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Capital Stock"
+                ],
+                "aggregation_notes": "Mapped directly from Capital Stock.",
+                "confidence": "high"
+              },
+              "Other reserves": {
+                "category": "Balance Sheet",
+                "subcategory": "Equity",
+                "values": {
+                  "year_1": "913,285",
+                  "year_2": "219,245",
+                  "year_3": "not applicable",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Retained Earnings Unappropriated"
+                ],
+                "aggregation_notes": "Mapped directly from Retained Earnings Unappropriated.",
+                "confidence": "high"
+              },
+              "Revenue": {
+                "category": "Income Statement",
+                "subcategory": "Revenue",
+                "values": {
+                  "year_1": "P 9,843,009",
+                  "year_2": "P 20,406,722",
+                  "year_3": "P 7,944,185",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Revenues"
+                ],
+                "aggregation_notes": "Mapped directly from Revenues.",
+                "confidence": "high"
+              },
+              "Cost of Sales": {
+                "category": "Income Statement",
+                "subcategory": "Revenue",
+                "values": {
+                  "year_1": "8,632,290",
+                  "year_2": "18,690,375",
+                  "year_3": "7,153,194",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Cost of Sales"
+                ],
+                "aggregation_notes": "Mapped directly from Cost of Sales.",
+                "confidence": "high"
+              },
+              "Gross Profit": {
+                "category": "Income Statement",
+                "subcategory": "Revenue",
+                "values": {
+                  "year_1": "1,210,719",
+                  "year_2": "1,716,347",
+                  "year_3": "790,990",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Gross Profit"
+                ],
+                "aggregation_notes": "Mapped directly from Gross Profit.",
+                "confidence": "high"
+              },
+              "Finance costs": {
+                "category": "Income Statement",
+                "subcategory": "Before Tax",
+                "values": {
+                  "year_1": "836,091",
+                  "year_2": "790,961",
+                  "year_3": "not applicable",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "General and Administrative Expenses"
+                ],
+                "aggregation_notes": "Mapped directly from General and Administrative Expenses.",
+                "confidence": "medium"
+              },
+              "Profit (loss) from continuing operations": {
+                "category": "Income Statement",
+                "subcategory": "After Tax",
+                "values": {
+                  "year_1": "P 280,971",
+                  "year_2": "P 694,040",
+                  "year_3": "not applicable",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Net Income After Tax"
+                ],
+                "aggregation_notes": "Mapped directly from Net Income After Tax.",
+                "confidence": "high"
+              },
+              "Income tax expense (from continuing operations)": {
+                "category": "Income Statement",
+                "subcategory": "After Tax",
+                "values": {
+                  "year_1": "93,657",
+                  "year_2": "231,347",
+                  "year_3": "not applicable",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Tax Expense"
+                ],
+                "aggregation_notes": "Mapped directly from Tax Expense.",
+                "confidence": "high"
+              },
+              "Net Cashflow from Operations (per FS)": {
+                "category": "Cash Flow Statement",
+                "subcategory": "Operating Activities",
+                "values": {
+                  "year_1": "(113,333)",
+                  "year_2": "71,491",
+                  "year_3": "not applicable",
+                  "year_4": "not applicable"
+                },
+                "source_fields": [
+                  "Net Cash Applied Operating Activities"
+                ],
+                "aggregation_notes": "Mapped directly from Net Cash Applied Operating Activities.",
+                "confidence": "high"
+              }
+            },
+            "mapping_method": "ai_template_mapping",
+            "years_context": [
+              "2022",
+              "2021",
+              "2020"
+            ],
+            "mapping_stats": {
+              "mapped": 13,
+              "high_confidence": 12,
+              "aggregated": 0
+            }
+          }
+        },
+        "populated_template": {
+          "Cash and Cash Equivalents": {
+            "category": "Balance Sheet",
+            "subcategory": "Current Assets",
+            "values": {
+              "year_1": "P 4,269,658",
+              "year_2": "P 4,382,991",
+              "year_3": "not applicable",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Cash Balance, End"
+            ],
+            "aggregation_notes": "Mapped directly from Cash Balance, End.",
+            "confidence": "high"
+          },
+          "Total Assets": {
+            "category": "Balance Sheet",
+            "subcategory": "Totals",
+            "values": {
+              "year_1": "\u20b1 4,563,148",
+              "year_2": "\u20b1 4,777,801",
+              "year_3": "\u20b1 1,769,455",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Total Assets"
+            ],
+            "aggregation_notes": "Mapped directly from Total Assets.",
+            "confidence": "high"
+          },
+          "Total Liabilities And Equity": {
+            "category": "Balance Sheet",
+            "subcategory": "Totals",
+            "values": {
+              "year_1": "\u20b1 4,563,148",
+              "year_2": "\u20b1 4,777,801",
+              "year_3": "\u20b1 1,769,455",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Total Assets"
+            ],
+            "aggregation_notes": "Mapped directly from Total Assets as they have identical values.",
+            "confidence": "high"
+          },
+          "Trade and other current payables": {
+            "category": "Balance Sheet",
+            "subcategory": "Current Liabilities",
+            "values": {
+              "year_1": "\u20b1 306,391",
+              "year_2": "\u20b1 802,015",
+              "year_3": "\u20b1 1,237,709",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Current Liabilities"
+            ],
+            "aggregation_notes": "Mapped directly from Current Liabilities.",
+            "confidence": "high"
+          },
+          "Issued (share) capital": {
+            "category": "Balance Sheet",
+            "subcategory": "Equity",
+            "values": {
+              "year_1": "P 3,062,500",
+              "year_2": "P 3,062,500",
+              "year_3": "not applicable",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Capital Stock"
+            ],
+            "aggregation_notes": "Mapped directly from Capital Stock.",
+            "confidence": "high"
+          },
+          "Other reserves": {
+            "category": "Balance Sheet",
+            "subcategory": "Equity",
+            "values": {
+              "year_1": "913,285",
+              "year_2": "219,245",
+              "year_3": "not applicable",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Retained Earnings Unappropriated"
+            ],
+            "aggregation_notes": "Mapped directly from Retained Earnings Unappropriated.",
+            "confidence": "high"
+          },
+          "Revenue": {
+            "category": "Income Statement",
+            "subcategory": "Revenue",
+            "values": {
+              "year_1": "P 9,843,009",
+              "year_2": "P 20,406,722",
+              "year_3": "P 7,944,185",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Revenues"
+            ],
+            "aggregation_notes": "Mapped directly from Revenues.",
+            "confidence": "high"
+          },
+          "Cost of Sales": {
+            "category": "Income Statement",
+            "subcategory": "Revenue",
+            "values": {
+              "year_1": "8,632,290",
+              "year_2": "18,690,375",
+              "year_3": "7,153,194",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Cost of Sales"
+            ],
+            "aggregation_notes": "Mapped directly from Cost of Sales.",
+            "confidence": "high"
+          },
+          "Gross Profit": {
+            "category": "Income Statement",
+            "subcategory": "Revenue",
+            "values": {
+              "year_1": "1,210,719",
+              "year_2": "1,716,347",
+              "year_3": "790,990",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Gross Profit"
+            ],
+            "aggregation_notes": "Mapped directly from Gross Profit.",
+            "confidence": "high"
+          },
+          "Finance costs": {
+            "category": "Income Statement",
+            "subcategory": "Before Tax",
+            "values": {
+              "year_1": "836,091",
+              "year_2": "790,961",
+              "year_3": "not applicable",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "General and Administrative Expenses"
+            ],
+            "aggregation_notes": "Mapped directly from General and Administrative Expenses.",
+            "confidence": "medium"
+          },
+          "Profit (loss) from continuing operations": {
+            "category": "Income Statement",
+            "subcategory": "After Tax",
+            "values": {
+              "year_1": "P 280,971",
+              "year_2": "P 694,040",
+              "year_3": "not applicable",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Net Income After Tax"
+            ],
+            "aggregation_notes": "Mapped directly from Net Income After Tax.",
+            "confidence": "high"
+          },
+          "Income tax expense (from continuing operations)": {
+            "category": "Income Statement",
+            "subcategory": "After Tax",
+            "values": {
+              "year_1": "93,657",
+              "year_2": "231,347",
+              "year_3": "not applicable",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Tax Expense"
+            ],
+            "aggregation_notes": "Mapped directly from Tax Expense.",
+            "confidence": "high"
+          },
+          "Net Cashflow from Operations (per FS)": {
+            "category": "Cash Flow Statement",
+            "subcategory": "Operating Activities",
+            "values": {
+              "year_1": "(113,333)",
+              "year_2": "71,491",
+              "year_3": "not applicable",
+              "year_4": "not applicable"
+            },
+            "source_fields": [
+              "Net Cash Applied Operating Activities"
+            ],
+            "aggregation_notes": "Mapped directly from Net Cash Applied Operating Activities.",
+            "confidence": "high"
+          }
+        },
+        "fields_discovered": [
+          {
+            "field_name": "Cash and Cash Equivalents",
+            "template_mapping": "Cash and Cash Equivalents",
+            "category": "Balance Sheet",
+            "subcategory": "Current Assets",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Cash Balance, End.",
+            "source_fields": [
+              "Cash Balance, End"
+            ]
+          },
+          {
+            "field_name": "Total Assets",
+            "template_mapping": "Total Assets",
+            "category": "Balance Sheet",
+            "subcategory": "Totals",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Total Assets.",
+            "source_fields": [
+              "Total Assets"
+            ]
+          },
+          {
+            "field_name": "Total Liabilities And Equity",
+            "template_mapping": "Total Liabilities And Equity",
+            "category": "Balance Sheet",
+            "subcategory": "Totals",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Total Assets as they have identical values.",
+            "source_fields": [
+              "Total Assets"
+            ]
+          },
+          {
+            "field_name": "Trade and other current payables",
+            "template_mapping": "Trade and other current payables",
+            "category": "Balance Sheet",
+            "subcategory": "Current Liabilities",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Current Liabilities.",
+            "source_fields": [
+              "Current Liabilities"
+            ]
+          },
+          {
+            "field_name": "Issued (share) capital",
+            "template_mapping": "Issued (share) capital",
+            "category": "Balance Sheet",
+            "subcategory": "Equity",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Capital Stock.",
+            "source_fields": [
+              "Capital Stock"
+            ]
+          },
+          {
+            "field_name": "Other reserves",
+            "template_mapping": "Other reserves",
+            "category": "Balance Sheet",
+            "subcategory": "Equity",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Retained Earnings Unappropriated.",
+            "source_fields": [
+              "Retained Earnings Unappropriated"
+            ]
+          },
+          {
+            "field_name": "Revenue",
+            "template_mapping": "Revenue",
+            "category": "Income Statement",
+            "subcategory": "Revenue",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Revenues.",
+            "source_fields": [
+              "Revenues"
+            ]
+          },
+          {
+            "field_name": "Cost of Sales",
+            "template_mapping": "Cost of Sales",
+            "category": "Income Statement",
+            "subcategory": "Revenue",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Cost of Sales.",
+            "source_fields": [
+              "Cost of Sales"
+            ]
+          },
+          {
+            "field_name": "Gross Profit",
+            "template_mapping": "Gross Profit",
+            "category": "Income Statement",
+            "subcategory": "Revenue",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Gross Profit.",
+            "source_fields": [
+              "Gross Profit"
+            ]
+          },
+          {
+            "field_name": "Finance costs",
+            "template_mapping": "Finance costs",
+            "category": "Income Statement",
+            "subcategory": "Before Tax",
+            "confidence": 0.7,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from General and Administrative Expenses.",
+            "source_fields": [
+              "General and Administrative Expenses"
+            ]
+          },
+          {
+            "field_name": "Profit (loss) from continuing operations",
+            "template_mapping": "Profit (loss) from continuing operations",
+            "category": "Income Statement",
+            "subcategory": "After Tax",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Net Income After Tax.",
+            "source_fields": [
+              "Net Income After Tax"
+            ]
+          },
+          {
+            "field_name": "Income tax expense (from continuing operations)",
+            "template_mapping": "Income tax expense (from continuing operations)",
+            "category": "Income Statement",
+            "subcategory": "After Tax",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Tax Expense.",
+            "source_fields": [
+              "Tax Expense"
+            ]
+          },
+          {
+            "field_name": "Net Cashflow from Operations (per FS)",
+            "template_mapping": "Net Cashflow from Operations (per FS)",
+            "category": "Cash Flow Statement",
+            "subcategory": "Operating Activities",
+            "confidence": 0.9,
+            "years_present": [
+              "year_1",
+              "year_2",
+              "year_3",
+              "year_4"
+            ],
+            "notes": "Mapped directly from Net Cash Applied Operating Activities.",
+            "source_fields": [
+              "Net Cash Applied Operating Activities"
+            ]
+          }
+        ],
+        "field_mapping": {
+          "Cash and Cash Equivalents": "Cash and Cash Equivalents",
+          "Total Assets": "Total Assets",
+          "Total Liabilities And Equity": "Total Liabilities And Equity",
+          "Trade and other current payables": "Trade and other current payables",
+          "Issued (share) capital": "Issued (share) capital",
+          "Other reserves": "Other reserves",
+          "Revenue": "Revenue",
+          "Cost of Sales": "Cost of Sales",
+          "Gross Profit": "Gross Profit",
+          "Finance costs": "Finance costs",
+          "Profit (loss) from continuing operations": "Profit (loss) from continuing operations",
+          "Income tax expense (from continuing operations)": "Income tax expense (from continuing operations)",
+          "Net Cashflow from Operations (per FS)": "Net Cashflow from Operations (per FS)"
+        },
+        "confidence_scores": {
+          "Cash and Cash Equivalents": 0.9,
+          "Total Assets": 0.9,
+          "Total Liabilities And Equity": 0.9,
+          "Trade and other current payables": 0.9,
+          "Issued (share) capital": 0.9,
+          "Other reserves": 0.9,
+          "Revenue": 0.9,
+          "Cost of Sales": 0.9,
+          "Gross Profit": 0.9,
+          "Finance costs": 0.7,
+          "Profit (loss) from continuing operations": 0.9,
+          "Income tax expense (from continuing operations)": 0.9,
+          "Net Cashflow from Operations (per FS)": 0.9
+        }
+      },
+      "success_checks": {
+        "overall_success": true,
+        "multipass_method": true,
+        "year_completeness": true,
+        "template_populated": true,
+        "no_unknown_categories": true,
+        "all_phases_successful": true
+      }
+    }
+  }
+}

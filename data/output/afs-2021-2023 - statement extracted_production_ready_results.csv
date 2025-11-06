@@ -1,0 +1,9 @@
+Category,Subcategory,Field,Confidence,Confidence_Score,Value_Year_1,Value_Year_2,Value_Year_3
+Meta,Reference,Year,,,2022,2021,2020
+Balance Sheet,Current Assets,Current Assets,95.00%,0.95,"₱ 4,777,801","₱ 4,563,148","₱ 1,769,455"
+Balance Sheet,Current Liabilities,Current Liabilities,95.00%,0.95,"₱ 802,015","306,391","₱ 1,237,709"
+Balance Sheet,Equity,Total Equity,90.00%,0.9,"₱ 3,975,785","4,256,756","₱ 531,745"
+Income Statement,Revenue,Revenue,95.00%,0.95,"₱ 20,406,722","₱ 9,843,009","₱ 7,944,185"
+Income Statement,Revenue,Cost of Sales,95.00%,0.95,"18,690,375","8,632,290","7,153,194"
+Income Statement,After Tax,Profit (loss) for the period,90.00%,0.9,"₱ 694,040","₱ 280,971","₱ 694,040"
+Balance Sheet,Current Assets,Cash and Cash Equivalents,90.00%,0.9,"P 4,269,658","P 4,382,991",

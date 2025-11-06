@@ -1,0 +1,35 @@
+name: "Regression Test"
+description: "Compare against established baselines"
+
+providers: ["anthropic"]
+document_sets: ["light"]
+timeout_seconds: 300
+parallel_workers: 1
+retry_attempts: 3
+
+output_formats: ["json", "html"]
+baseline_comparison: true
+provider_comparison: false
+
+accuracy_threshold: 0.6
+performance_threshold: 120.0
+use_scoring_framework: true
+production_readiness_check: true
+regression_threshold: 0.1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,71 @@
+{
+  "years_detected": [],
+  "total_consolidated_items": 3,
+  "total_mapped_fields": 3,
+  "mapped_template": {
+    "Cash and Cash Equivalents": {
+      "template_field": "Cash and Cash Equivalents",
+      "category": "Balance Sheet",
+      "subcategory": "Current Assets",
+      "years": [
+        "2024",
+        "2023",
+        "2022"
+      ],
+      "values": [
+        "50000",
+        "45000",
+        "42000"
+      ],
+      "source_items": [
+        "Cash and cash equivalents"
+      ],
+      "mapping_reasoning": "Direct mapping to cash equivalents as it matches the template field exactly.",
+      "confidence": 0.98
+    },
+    "Trade and Other Current Receivables": {
+      "template_field": "Trade and Other Current Receivables",
+      "category": "Balance Sheet",
+      "subcategory": "Current Assets",
+      "years": [
+        "2024",
+        "2023",
+        "2022"
+      ],
+      "values": [
+        "3500000",
+        "2900000",
+        "2300000"
+      ],
+      "source_items": [
+        "Trade and other receivables"
+      ],
+      "mapping_reasoning": "Mapped to 'Trade and Other Current Receivables' as it represents receivables expected to be collected within a year.",
+      "confidence": 0.97
+    },
+    "Current Inventories": {
+      "template_field": "Current Inventories",
+      "category": "Balance Sheet",
+      "subcategory": "Current Assets",
+      "years": [
+        "2024",
+        "2023",
+        "2022"
+      ],
+      "values": [
+        "1500000",
+        "1200000",
+        "1000000"
+      ],
+      "source_items": [
+        "Merchandise inventory"
+      ],
+      "mapping_reasoning": "Mapped to 'Current Inventories' as merchandise inventory is a component of current assets.",
+      "confidence": 0.96
+    }
+  },
+  "mapping_metadata": {
+    "phase": "2c_template_mapping",
+    "approach": "ai_financial_intelligence"
+  }
+}

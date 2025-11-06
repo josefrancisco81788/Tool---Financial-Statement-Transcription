@@ -1,0 +1,139 @@
+{
+  "timestamp": "2025-10-16 13:14:45",
+  "summary": {
+    "total_tests": 1,
+    "successful_tests": 1,
+    "failed_tests": 0,
+    "success_rate": 100.0
+  },
+  "performance": {
+    "average_processing_time": 302.038006067276,
+    "max_processing_time": 302.038006067276,
+    "min_processing_time": 302.038006067276,
+    "total_processing_time": 302.038006067276
+  },
+  "by_category": {
+    "origin": {
+      "total": 1,
+      "successful": 1,
+      "failed": 0
+    }
+  },
+  "results": [
+    {
+      "file": "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "filename": "AFS-2022.pdf",
+      "category": "origin",
+      "success": true,
+      "error": null,
+      "processing_time": 302.038006067276,
+      "response_data": {
+        "success": true,
+        "data": {
+          "template_mappings": {
+            "Year": {
+              "value": 2022,
+              "confidence": 0.95,
+              "Value_Year_1": 2022,
+              "Value_Year_2": 2021,
+              "Value_Year_3": null,
+              "Value_Year_4": null,
+              "source": "multi_page_vision_extraction"
+            }
+          },
+          "company_name": "",
+          "period": "",
+          "currency": "",
+          "years_detected": [],
+          "base_year": "",
+          "year_ordering": "",
+          "document_structure": {},
+          "notes": "",
+          "processing_method": "multi_page_vector_database",
+          "ai_provider": "anthropic",
+          "timestamp": 1760616808.7826529,
+          "pages_processed": 10
+        },
+        "template_csv": "Q2F0ZWdvcnksU3ViY2F0ZWdvcnksRmllbGQsQ29uZmlkZW5jZSxDb25maWRlbmNlX1Njb3JlLFZhbHVlX1llYXJfMSxWYWx1ZV9ZZWFyXzIsVmFsdWVfWWVhcl8zLFZhbHVlX1llYXJfNApNZXRhLFJlZmVyZW5jZSxZZWFyLEhpZ2gsMC45NSwyMDIyLDIwMjEsLApCYWxhbmNlIFNoZWV0LEN1cnJlbnQgQXNzZXRzLENhc2ggYW5kIENhc2ggRXF1aXZhbGVudHMsLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IEFzc2V0cyxUcmFkZSBhbmQgT3RoZXIgQ3VycmVudCBSZWNlaXZhYmxlcywsLCwsLApCYWxhbmNlIFNoZWV0LEN1cnJlbnQgQXNzZXRzLEN1cnJlbnQgSW52ZW50b3JpZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IEFzc2V0cyxDdXJyZW50IFRheCBBc3NldHMsLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IEFzc2V0cyxDdXJyZW50IGJpb2xvZ2ljYWwgYXNzZXRzLCwsLCwsCkJhbGFuY2UgU2hlZXQsQ3VycmVudCBBc3NldHMsT3RoZXIgY3VycmVudCBmaW5hbmNpYWwgYXNzZXRzLCwsLCwsCkJhbGFuY2UgU2hlZXQsQ3VycmVudCBBc3NldHMsT3RoZXIgY3VycmVudCBub24tZmluYW5jaWFsIGFzc2V0cywsLCwsLApCYWxhbmNlIFNoZWV0LEN1cnJlbnQgQXNzZXRzLEN1cnJlbnQgbm9uLWNhc2ggYXNzZXRzIHBsZWRnZWQgYXMgY29sbGF0ZXJhbCBmb3Igd2hpY2ggdHJhbnNmZXJlZSBoYXMgcmlnaHQgYnkgY29udHJhY3Qgb3IgY3VzdG9tIHRvIHNlbGwgb3IgcmVwbGVkZ2UgY29sbGF0ZXJhbCwsLCwsLApCYWxhbmNlIFNoZWV0LEN1cnJlbnQgQXNzZXRzLE5vbi1jdXJyZW50IGFzc2V0cyBvciBkaXNwb3NhbCBncm91cHMgY2xhc3NpZmllZCBhcyBoZWxkIGZvciBzYWxlIG9yIGFzIGhlbGQgZm9yIGRpc3RyaWJ1dGlvbiB0byBvd25lcnMsLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IEFzc2V0cyxUb3RhbCBDdXJyZW50IEFzc2V0cywsLCwsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IEFzc2V0cywiUHJvcGVydHksIFBsYW50IGFuZCBFcXVpcG1lbnQiLCwsLCwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgQXNzZXRzLEludmVzdG1lbnQgUHJvcGVydHksLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBBc3NldHMsR29vZHdpbGwsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBBc3NldHMsSW50YW5naWJsZSBhc3NldHMgb3RoZXIgdGhhbiBnb29kd2lsbCwsLCwsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IEFzc2V0cyxJbnZlc3RtZW50IGFjY291bnRlZCBmb3IgdXNpbmcgZXF1aXR5IG1ldGhvZCwsLCwsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IEFzc2V0cywiSW52ZXN0bWVudHMgaW4gc3Vic2lkaWFyaWVzLCBqb2ludCB2ZW50dXJlcyBhbmQgYXNzb2NpYXRlcyIsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBBc3NldHMsTm9uLWN1cnJlbnQgYmlvbG9naWNhbCBhc3NldHMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBBc3NldHMsVHJhZGUgYW5kIG90aGVyIG5vbi1jdXJyZW50IHJlY2VpdmFibGVzLCwsLCwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgQXNzZXRzLE5vbi1jdXJyZW50IGludmVudG9yaWVzLCwsLCwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgQXNzZXRzLERlZmVycmVkIHRheCBhc3NldHMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBBc3NldHMsIkN1cnJlbnQgdGF4IGFzc2V0cywgbm9uLWN1cnJlbnQiLCwsLCwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgQXNzZXRzLE90aGVyIG5vbi1jdXJyZW50IGZpbmFuY2lhbCBhc3NldHMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBBc3NldHMsT3RoZXIgbm9uLWN1cnJlbnQgbm9uLWZpbmFuY2lhbCBhc3NldHMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBBc3NldHMsTm9uLWN1cnJlbnQgbm9uLWNhc2ggYXNzZXRzIHBsZWRnZWQgYXMgY29sbGF0ZXJhbCBmb3Igd2hpY2ggdHJhbnNmZXJlZSBoYXMgcmlnaHQgYnkgY29udHJhY3Qgb3IgY3VzdG9tIHRvIHNlbGwgb3IgcmVwbGVkZ2UgY29sbGF0ZXJhbCwsLCwsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IEFzc2V0cyxUb3RhbCBOb24gQ3VycmVudCBBc3NldHMsLCwsLCwKQmFsYW5jZSBTaGVldCxUb3RhbHMsVG90YWwgQXNzZXRzLCwsLCwsCkJhbGFuY2UgU2hlZXQsVG90YWxzLFRvdGFsIExpYWJpbGl0aWVzIEFuZCBFcXVpdHksLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IExpYWJpbGl0aWVzLEN1cnJlbnQgcHJvdmlzaW9ucyBmb3IgZW1wbG95ZWUgYmVuZWZpdHMsLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IExpYWJpbGl0aWVzLE90aGVyIGN1cnJlbnQgcHJvdmlzaW9ucywsLCwsLApCYWxhbmNlIFNoZWV0LEN1cnJlbnQgTGlhYmlsaXRpZXMsVHJhZGUgYW5kIG90aGVyIGN1cnJlbnQgcGF5YWJsZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IExpYWJpbGl0aWVzLCJDdXJyZW50IHRheCBsaWFiaWxpdGllcywgY3VycmVudCIsLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IExpYWJpbGl0aWVzLE90aGVyIGN1cnJlbnQgZmluYW5jaWFsIGxpYWJpbGl0aWVzLCwsLCwsCkJhbGFuY2UgU2hlZXQsQ3VycmVudCBMaWFiaWxpdGllcyxPdGhlciBjdXJyZW50IG5vbi1maW5hbmNpYWwgbGlhYmlsaXRpZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IExpYWJpbGl0aWVzLExpYWJpbGl0aWVzIGluY2x1ZGVkIGluIGRpc3Bvc2FsIGdyb3VwcyBjbGFzc2lmaWVkIGFzIGhlbGQgZm9yIHNhbGUsLCwsLCwKQmFsYW5jZSBTaGVldCxDdXJyZW50IExpYWJpbGl0aWVzLFRvdGFsIEN1cnJlbnQgTGlhYmlsaXRpZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBMaWFiaWxpdGllcyxOb24tY3VycmVudCBwcm92aXNpb25zIGZvciBlbXBsb3llZSBiZW5lZml0cywsLCwsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IExpYWJpbGl0aWVzLE90aGVyIG5vbi1jdXJyZW50IHByb3Zpc2lvbnMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBMaWFiaWxpdGllcyxUcmFkZSBhbmQgb3RoZXIgbm9uLWN1cnJlbnQgcGF5YWJsZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBMaWFiaWxpdGllcyxEZWZlcnJlZCB0YXggbGlhYmlsaXRpZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBMaWFiaWxpdGllcywiQ3VycmVudCB0YXggbGlhYmlsaXRpZXMsIG5vbi1jdXJyZW50IiwsLCwsLApCYWxhbmNlIFNoZWV0LE5vbiBDdXJyZW50IExpYWJpbGl0aWVzLE90aGVyIGxvbmctdGVybSBmaW5hbmNpYWwgbGlhYmlsaXRpZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxOb24gQ3VycmVudCBMaWFiaWxpdGllcyxPdGhlciBub24tY3VycmVudCBub24tZmluYW5jaWFsIGxpYWJpbGl0aWVzLCwsLCwsCkJhbGFuY2UgU2hlZXQsTm9uIEN1cnJlbnQgTGlhYmlsaXRpZXMsVG90YWwgTm9uIEN1cnJlbnQgTGlhYmlsaXRpZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxFcXVpdHksSXNzdWVkIChzaGFyZSkgY2FwaXRhbCwsLCwsLApCYWxhbmNlIFNoZWV0LEVxdWl0eSxTaGFyZSBwcmVtaXVtLCwsLCwsCkJhbGFuY2UgU2hlZXQsRXF1aXR5LFRyZWFzdXJ5IHNoYXJlcywsLCwsLApCYWxhbmNlIFNoZWV0LEVxdWl0eSxPdGhlciBlcXVpdHkgaW50ZXJlc3QsLCwsLCwKQmFsYW5jZSBTaGVldCxFcXVpdHksT3RoZXIgcmVzZXJ2ZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxFcXVpdHksUmV0YWluZWQgZWFybmluZ3MsLCwsLCwKQmFsYW5jZSBTaGVldCxFcXVpdHksTm9uLWNvbnRyb2xsaW5nIGludGVyZXN0cywsLCwsLApCYWxhbmNlIFNoZWV0LEVxdWl0eSxFcXVpdHksLCwsLCwKQmFsYW5jZSBTaGVldCxFcXVpdHksTGlhYmlsaXRpZXMsLCwsLCwKQmFsYW5jZSBTaGVldCxFcXVpdHksVG90YWwgRXF1aXR5LCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxSZXZlbnVlLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxDb3N0IG9mIFNhbGVzLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxHcm9zcyBQcm9maXQsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxSZXZlbnVlLE90aGVyIGluY29tZSwsLCwsLApJbmNvbWUgU3RhdGVtZW50LFJldmVudWUsRGlzdHJpYnV0aW9uIGNvc3RzLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxBZG1pbmlzdHJhdGl2ZSBleHBlbnNlLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxPdGhlciBleHBlbnNlLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxPdGhlciBnYWlucyhsb3NzZXMpLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsUmV2ZW51ZSxQcm9maXQgKGxvc3MpIGZyb20gb3BlcmF0aW5nIGFjdGl2aXRpZXMsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LERpZmZlcmVuY2UgYmV0d2VlbiBjYXJyeWluZyBhbW91bnQgb2YgZGl2aWRlbmRzIHBheWFibGUgYW5kIGNhcnJ5aW5nIGFtb3VudCBvZiBub24tY2FzaCBhc3NldHMgZGlzdHJpYnV0ZWQgMSwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEJlZm9yZSBUYXgsR2FpbnMgKGxvc3Nlcykgb24gbmV0IG1vbmV0YXJ5IHBvc2l0aW9uIDEsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LEdhaW4gKGxvc3MpIGFyaXNpbmcgZnJvbSBkZXJlY29nbml0aW9uIG9mIGZpbmFuY2lhbCBhc3NldHMgbWVhc3VyZWQgYXQgYW1vcnRpc2VkIGNvc3QgMSwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEJlZm9yZSBUYXgsRmluYW5jZSBpbmNvbWUsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LEZpbmFuY2UgY29zdHMsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LEltcGFpcm1lbnQgbG9zcyAoaW1wYWlybWVudCBnYWluIGFuZCByZXZlcnNhbCBvZiBpbXBhaXJtZW50IGxvc3MpIGRldGVybWluZWQgaW4gYWNjb3JkYW5jZSB3aXRoIElGUlMgOSAxLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsQmVmb3JlIFRheCxTaGFyZSBvZiBwcm9maXQobG9zcykgb2YgYXNzb2NpYXRlcyBpbiBqb2ludCB2ZW50dXJlcyBhY2NvdW50ZWQgZm9yIHVzaW5nIGVxdWl0eSBtZXRob2QgMSwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEJlZm9yZSBUYXgsIk90aGVyIGluY29tZSAoZXhwZW5zZSkgZnJvbSBzdWJzaWRpYXJpZXMsIGpvaW50bHkgY29udHJvbGxlZCBlbnRpdGllcyBhbmQgYXNzb2NpYXRlcyAxIiwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEJlZm9yZSBUYXgsR2FpbnMgKGxvc3NlcykgYXJpc2luZyBmb3JtIGRpZmZlcmVuY2UgYmV0d2VlbiBwcmV2aW91cyBjYXJyeWluZyBhbW91bnQgYW5kIGZhaXIgdmFsdWUgb2YgZmluYW5jaWFsIGFzc2V0cyByZWNsYXNzaWZpZWQgYXMgbWVhc3VyZWQgYXQgZmFpciB2YWx1ZTEsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LEN1bXVsYXRpdmUgZ2FpbiAobG9zcykgcHJldmlvdXNseSByZWNvZ25pc2VkIGluIG90aGVyIGNvbXByZWhlbnNpdmUgaW5jb21lIGFyaXNpbmcgZnJvbSByZWNsYXNzaWZpY2F0aW9uIG9mIGZpbmFuY2lhbCBhc3NldHMgb3V0IG9mIGZhaXIgdmFsdWUgdGhyb3VnaCBvdGhlciBjb21wcmVoZW5zaXZlIGluY29tZSBpbnRvIGZhaXIgdmFsdWUgdGhyb3VnaCBwcm9maXQgb3IgbG9zcyBtZWFzdXJlbWVudCBjYXRlZ29yeS4gMSwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEJlZm9yZSBUYXgsSGVkZ2luZyBnYWlucyAobG9zc2VzKSBmb3IgaGVkZ2Ugb2YgZ3JvdXAgb2YgaXRlbXMgd2l0aCBvZmZzZXR0aW5nIHJpc2sgcG9zaXRpb25zIDEsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxCZWZvcmUgVGF4LFByb2ZpdCAobG9zcykgYmVmb3JlIHRheCwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEFmdGVyIFRheCxJbmNvbWUgdGF4IGV4cGVuc2UgKGZyb20gY29udGludWluZyBvcGVyYXRpb25zKSwsLCwsLApJbmNvbWUgU3RhdGVtZW50LEFmdGVyIFRheCxQcm9maXQgKGxvc3MpIGZyb20gY29udGludWluZyBvcGVyYXRpb25zLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsQWZ0ZXIgVGF4LFByb2ZpdCAobG9zcyBmcm9tIGRpc2NvbnRpbnVlZCBvcGVyYXRpb25zLCwsLCwsCkluY29tZSBTdGF0ZW1lbnQsQWZ0ZXIgVGF4LFByb2ZpdCAobG9zcyksLCwsLCwKSW5jb21lIFN0YXRlbWVudCxBZnRlciBUYXgsT3RoZXIgY29tcHJlaGVuc2l2ZSBpbmNvbWUsLCwsLCwKSW5jb21lIFN0YXRlbWVudCxBZnRlciBUYXgsQ29tcHJlaGVuc2l2ZSAvIE5ldCBpbmNvbWUsLCwsLCwKQ2FzaCBGbG93IFN0YXRlbWVudCxPcGVyYXRpbmcgQWN0aXZpdGllcyxBbW9ydGl6YXRpb24gRXhwZW5zZSwsLCwsLApDYXNoIEZsb3cgU3RhdGVtZW50LE9wZXJhdGluZyBBY3Rpdml0aWVzLERlcHJlY2lhdGlvbiBFeHBlbnNlLCwsLCwsCkNhc2ggRmxvdyBTdGF0ZW1lbnQsT3BlcmF0aW5nIEFjdGl2aXRpZXMsTmV0IENhc2hmbG93IGZyb20gT3BlcmF0aW9ucyAocGVyIEZTKSwsLCwsLApDYXNoIEZsb3cgU3RhdGVtZW50LE9wZXJhdGluZyBBY3Rpdml0aWVzLEFtb3J0aXphdGlvbiwsLCwsLApDYXNoIEZsb3cgU3RhdGVtZW50LE9wZXJhdGluZyBBY3Rpdml0aWVzLERlcHJlY2lhdGlvbiwsLCwsLApDYXNoIEZsb3cgU3RhdGVtZW50LE9wZXJhdGluZyBBY3Rpdml0aWVzLEludGVyZXN0IEV4cGVuc2UsLCwsLCwKQ2FzaCBGbG93IFN0YXRlbWVudCxPcGVyYXRpbmcgQWN0aXZpdGllcyxOb24tQ2FzaCBFeHBlbnNlcywsLCwsLApDYXNoIEZsb3cgU3RhdGVtZW50LE9wZXJhdGluZyBBY3Rpdml0aWVzLFByaW5jaXBhbCBQYXltZW50cywsLCwsLApDYXNoIEZsb3cgU3RhdGVtZW50LE9wZXJhdGluZyBBY3Rpdml0aWVzLEludGVyZXN0IFBheW1lbnRzLCwsLCwsCkNhc2ggRmxvdyBTdGF0ZW1lbnQsT3BlcmF0aW5nIEFjdGl2aXRpZXMsTGVhc2UgUGF5bWVudHMsLCwsLCwK",
+        "template_fields_mapped": 2,
+        "processing_time": 246.6908004283905,
+        "pages_processed": 10,
+        "timestamp": "2025-10-16T12:14:45Z"
+      },
+      "file_size": 2153991,
+      "status_code": 200
+    }
+  ],
+  "test_state": {
+    "completed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf"
+    ],
+    "failed_tests": [
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\2021 AFS with SEC Stamp - statement extracted.pdf",
+      "tests\\fixtures\\light\\afs-2021-2023 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS-2022 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS2024.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\light\\AFS2024 - statement extracted.pdf",
+      "tests\\fixtures\\origin\\AFS-2022.pdf"
+    ],
+    "last_run": null
+  }
+}

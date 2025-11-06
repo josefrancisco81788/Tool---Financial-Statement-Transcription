@@ -1,0 +1,9 @@
+{
+  "test_name": "E2E_AFS2021_2023_CRITICAL",
+  "timestamp": "2025-09-05T13:25:04.614579",
+  "error_data": {
+    "test_function": "test_e2e_afs_2021_2023",
+    "critical_requirement": "3_year_rightmost_column_extraction",
+    "error": "assert 'FAILED' == 'PASSED'\n  \n  - PASSED\n  + FAILED"
+  }
+}

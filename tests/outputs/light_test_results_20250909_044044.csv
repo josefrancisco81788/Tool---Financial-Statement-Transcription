@@ -1,0 +1,5 @@
+File,Company,Statement Type,Years,Processing Time (s),Pages Processed,Line Items Count,Total Assets,Total Liabilities,Total Equity,Success,Status Code
+2021 AFS with SEC Stamp - statement extracted.pdf,Metechs Industrial Corporation,Comparative Statement of Financial Position,"2021, 2020",92.9,4,13,46624653,891619,45733034,True,200
+afs-2021-2023 - statement extracted.pdf,GBS Concept Advertising Inc.,Statement of Financial Position,"2022, 2021",170.1,8,5,4563148,306391,4256756,True,200
+AFS-2022 - statement extracted.pdf,Ideal Marketing & Manufacturing Corporation,Statements of Financial Position,"2022, 2021",89.1,4,12,297466784,178874377,118592407,True,200
+AFS2024 - statement extracted.pdf,wireless_services_asia_inc,statements_of_financial_position,"2024, 2023",130.8,3,19,266747332,120706022,N/A,True,200

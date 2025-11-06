@@ -1,0 +1,5 @@
+Provider,Document,Success,Error,Timestamp,Processing_Time_Seconds,Extraction_Rate,Format_Accuracy,Overall_Score,API_Calls_Made,Pages_Processed,Total_Fields_Extracted,Total_Template_Fields,Missing_Fields_Count,Field_Accuracy_Average,Extracted_Fields_JSON,Template_Fields_JSON,Missing_Fields_JSON,Field_Accuracy_JSON,Confidence_Scores_JSON
+anthropic,tests\fixtures\light\2021 AFS with SEC Stamp - statement extracted.pdf,False,No data extracted from document,2025-09-23T19:20:36.388588,5.545382499694824,0.0,0.0,0.0,0,0,0,0,0,0.0,{},[],[],{},{}
+anthropic,tests\fixtures\light\afs-2021-2023 - statement extracted.pdf,False,No data extracted from document,2025-09-23T19:20:49.813500,13.3974289894104,0.0,0.0,0.0,0,0,0,0,0,0.0,{},[],[],{},{}
+anthropic,tests\fixtures\light\AFS-2022 - statement extracted.pdf,False,No data extracted from document,2025-09-23T19:20:52.600430,2.7858781814575195,0.0,0.0,0.0,0,0,0,0,0,0.0,{},[],[],{},{}
+anthropic,tests\fixtures\light\AFS2024 - statement extracted.pdf,False,No data extracted from document,2025-09-23T19:20:58.308503,5.705492973327637,0.0,0.0,0.0,0,0,0,0,0,0.0,{},[],[],{},{}
