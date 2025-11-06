@@ -4,6 +4,7 @@ Copied exactly from alpha-testing-v1 for optimal performance.
 """
 
 import io
+import json
 import fitz  # PyMuPDF
 from PIL import Image
 from typing import List, Dict, Any, Optional, Tuple
@@ -518,7 +519,7 @@ class PDFProcessor:
 
             # Use rate-limited parallel classification for large documents
             if page_count > 10:
-                print(f"[INFO] ⚡ Using RATE-LIMITED parallel classification: {page_count} pages")
+                print(f"[INFO] Using RATE-LIMITED parallel classification: {page_count} pages")
 
                 try:
                     from .parallel_extractor import ParallelClassifier
@@ -539,17 +540,17 @@ class PDFProcessor:
 
                     # Use rate-limited classification
                     financial_pages = classifier.classify_pages_with_rate_limiting(page_info)
-                    print(f"[SUCCESS] ✅ Rate-limited classification completed: {len(financial_pages)} financial pages found")
+                    print(f"[SUCCESS] Rate-limited classification completed: {len(financial_pages)} financial pages found")
 
                 except ImportError as e:
                     print(f"[WARN] ParallelClassifier not available: {e}")
-                    print("[INFO] 🔄 Falling back to basic parallel classification")
+                    print("[INFO] Falling back to basic parallel classification")
                     # Fall back to basic parallel processing
                     optimal_workers = min(8, page_count)  # Conservative fallback
 
                 except Exception as e:
                     print(f"[ERROR] Rate-limited classification failed: {e}")
-                    print("[INFO] 🔄 Falling back to basic parallel classification")
+                    print("[INFO] Falling back to basic parallel classification")
                     # Fall back to basic parallel processing
                     optimal_workers = min(8, page_count)  # Conservative fallback
                 else:
@@ -564,7 +565,7 @@ class PDFProcessor:
             else:
                 optimal_workers = 10  # Reduced from 12 for safety
 
-            print(f"[INFO] ⚡ Basic parallel classification: {page_count} pages, {optimal_workers} workers")
+            print(f"[INFO] Basic parallel classification: {page_count} pages, {optimal_workers} workers")
 
             with ThreadPoolExecutor(max_workers=optimal_workers) as executor:
                 # Prepare page data with indices
@@ -730,7 +731,6 @@ class PDFProcessor:
                 return {'balance_sheet': 0, 'income_statement': 0, 'cash_flow': 0, 'equity_statement': 0}
             
             # Parse the JSON response
-            import json
             scores = json.loads(result)
             
             # Validate scores are in range 0-100
@@ -795,6 +795,226 @@ RESPOND WITH ONLY THIS JSON FORMAT (no other text):
     "equity_statement": W
 }"""
     
+    def _build_four_score_classification_prompt_batch(self, num_images: int) -> str:
+        """Build four-score classification prompt for multiple images in a batch"""
+        return f"""You must respond with ONLY a valid JSON array. Do not include any explanation or analysis.
+
+Analyze each of the {num_images} images provided and score each page 0-100 for each financial statement type.
+
+For EACH image, provide scores for:
+
+1. Balance Sheet likelihood (0-100):
+   - Contains: Assets, Liabilities, Equity
+   - Structure: Current/Non-current categorization
+   - Equation: Assets = Liabilities + Equity
+   - Examples: "Total Assets", "Current Liabilities", "Shareholders' Equity"
+
+2. Income Statement likelihood (0-100):
+   - Contains: Revenue, Expenses, Profit/Loss
+   - Structure: Operating/Non-operating sections
+   - Shows: Performance over a period
+   - Examples: "Total Revenue", "Operating Expenses", "Net Income"
+
+3. Cash Flow Statement likelihood (0-100):
+   - Contains: Operating/Investing/Financing activities
+   - Structure: Cash inflows/outflows
+   - Shows: Cash movement over period
+   - Examples: "Cash from Operations", "Capital Expenditures", "Dividends Paid"
+
+4. Equity Statement likelihood (0-100):
+   - Contains: Share capital movements, Retained earnings changes
+   - Structure: Beginning balance, adjustments, ending balance
+   - Shows: Equity changes over period
+   - Examples: "Retained Earnings Beginning", "Prior Year Adjustment", "Appropriation", "Share Capital"
+
+Scoring guide:
+0-20: Not this statement type
+20-50: Minor mentions (likely notes/appendix)
+50-70: Partial statement or summary
+70-100: Primary statement page
+
+RESPOND WITH ONLY THIS JSON ARRAY FORMAT (one object per image, in order):
+[
+    {{"balance_sheet": X1, "income_statement": Y1, "cash_flow": Z1, "equity_statement": W1}},
+    {{"balance_sheet": X2, "income_statement": Y2, "cash_flow": Z2, "equity_statement": W2}},
+    ...
+    {{"balance_sheet": X{num_images}, "income_statement": Y{num_images}, "cash_flow": Z{num_images}, "equity_statement": W{num_images}}}
+]"""
+    
+    def classify_pages_with_vision_batch(self, page_images: List[Image.Image]) -> List[Dict[str, Any]]:
+        """
+        Classify pages using four-score vision-based system with BATCH processing (4-5 pages per API call)
+        
+        Args:
+            page_images: List of PIL Image objects for each page
+            
+        Returns:
+            List of financial pages with statement type and confidence scores
+        """
+        print(f"[INFO] Starting BATCH four-score vision classification on {len(page_images)} pages...")
+        
+        financial_pages = []
+        page_count = len(page_images)
+        batch_size = 5  # Send 5 pages per API call
+        batches = []
+        
+        # Create batches of page images
+        for i in range(0, page_count, batch_size):
+            batch_pages = page_images[i:i + batch_size]
+            batches.append((i, batch_pages))  # (start_index, page_images)
+        
+        print(f"[INFO] Processing {page_count} pages in {len(batches)} batches (batch size: {batch_size})")
+        
+        # Process batches sequentially (can be parallelized in Phase 3 if needed)
+        for batch_idx, (start_idx, batch_images) in enumerate(batches):
+            try:
+                print(f"[INFO] Processing batch {batch_idx + 1}/{len(batches)} (pages {start_idx + 1}-{start_idx + len(batch_images)})")
+                
+                # Encode batch images
+                encoded_images = []
+                for img in batch_images:
+                    base64_image = self.extractor.encode_image(img)
+                    encoded_images.append({
+                        'image': base64_image
+                    })
+                
+                # Call batch API to classify all images in this batch
+                batch_scores = self._classify_batch_four_scores(encoded_images)
+                
+                # Process scores for each page in batch
+                for page_offset, scores in enumerate(batch_scores):
+                    page_index = start_idx + page_offset
+                    
+                    # Determine if this page should be included (same logic as sequential)
+                    max_score = max(scores['balance_sheet'], scores['income_statement'], scores['cash_flow'], scores['equity_statement'])
+                    
+                    if max_score >= 70:  # High confidence threshold
+                        # Identify primary statement type
+                        if scores['balance_sheet'] == max_score:
+                            statement_type = "balance_sheet"
+                        elif scores['income_statement'] == max_score:
+                            statement_type = "income_statement"
+                        elif scores['cash_flow'] == max_score:
+                            statement_type = "cash_flow"
+                        else:
+                            statement_type = "equity_statement"
+                        
+                        financial_pages.append({
+                            'page_num': page_index,
+                            'statement_type': statement_type,
+                            'scores': scores,
+                            'confidence': max_score / 100,
+                            'image': batch_images[page_offset]
+                        })
+                        
+                        print(f"[INFO] Page {page_index + 1}: {statement_type} (BS:{scores['balance_sheet']}, IS:{scores['income_statement']}, CF:{scores['cash_flow']}, ES:{scores['equity_statement']})")
+                    else:
+                        print(f"[INFO] Page {page_index + 1}: Not financial (BS:{scores['balance_sheet']}, IS:{scores['income_statement']}, CF:{scores['cash_flow']}, ES:{scores['equity_statement']})")
+                        
+            except Exception as e:
+                print(f"[ERROR] Error classifying batch {batch_idx + 1}: {e}")
+                # Fallback: classify pages in batch individually
+                print(f"[WARN] Falling back to individual classification for batch {batch_idx + 1}")
+                for page_offset, img in enumerate(batch_images):
+                    page_index = start_idx + page_offset
+                    try:
+                        base64_image = self.extractor.encode_image(img)
+                        scores = self._classify_page_four_scores(base64_image)
+                        
+                        # Same logic to determine if page is financial
+                        max_score = max(scores['balance_sheet'], scores['income_statement'], scores['cash_flow'], scores['equity_statement'])
+                        
+                        if max_score >= 70:
+                            if scores['balance_sheet'] == max_score:
+                                statement_type = "balance_sheet"
+                            elif scores['income_statement'] == max_score:
+                                statement_type = "income_statement"
+                            elif scores['cash_flow'] == max_score:
+                                statement_type = "cash_flow"
+                            else:
+                                statement_type = "equity_statement"
+                            
+                            financial_pages.append({
+                                'page_num': page_index,
+                                'statement_type': statement_type,
+                                'scores': scores,
+                                'confidence': max_score / 100,
+                                'image': img
+                            })
+                    except Exception as e2:
+                        print(f"[ERROR] Error classifying page {page_index + 1} in fallback: {e2}")
+                        continue
+        
+        print(f"[INFO] BATCH four-score classification complete: {len(financial_pages)} financial pages identified")
+        return financial_pages
+    
+    def _classify_batch_four_scores(self, encoded_images: List[Dict[str, str]]) -> List[Dict[str, int]]:
+        """
+        Classify a batch of pages and return scores for each
+        
+        Args:
+            encoded_images: List of dicts with 'image' key containing base64-encoded images
+            
+        Returns:
+            List of score dicts, one per image, each with balance_sheet, income_statement, cash_flow, equity_statement scores (0-100)
+        """
+        num_images = len(encoded_images)
+        prompt = self._build_four_score_classification_prompt_batch(num_images)
+        
+        try:
+            # Call batch API (extractor handles the API call with multiple images)
+            result = self.extractor._call_anthropic_api_batch(encoded_images, prompt)
+            
+            # Debug: Show raw API response
+            print(f"[DEBUG] Raw batch API response: '{result[:200]}...' (length: {len(result)})")
+            
+            if not result or result.strip() == "":
+                print(f"[WARN] Empty batch API response")
+                # Return default scores for all images
+                return [{'balance_sheet': 0, 'income_statement': 0, 'cash_flow': 0, 'equity_statement': 0} for _ in range(num_images)]
+            
+            # Parse the JSON array response
+            scores_list = json.loads(result)
+            
+            # Validate it's a list
+            if not isinstance(scores_list, list):
+                print(f"[WARN] Batch API response is not a list: {type(scores_list)}")
+                # Try to extract if it's wrapped in an object
+                if isinstance(scores_list, dict) and 'scores' in scores_list:
+                    scores_list = scores_list['scores']
+                else:
+                    raise ValueError("Response is not a list of scores")
+            
+            # Validate we have the right number of scores
+            if len(scores_list) != num_images:
+                print(f"[WARN] Expected {num_images} scores, got {len(scores_list)}")
+                # Pad or truncate as needed
+                if len(scores_list) < num_images:
+                    scores_list.extend([{'balance_sheet': 0, 'income_statement': 0, 'cash_flow': 0, 'equity_statement': 0}] * (num_images - len(scores_list)))
+                else:
+                    scores_list = scores_list[:num_images]
+            
+            # Validate and normalize scores
+            for i, scores in enumerate(scores_list):
+                for key in ['balance_sheet', 'income_statement', 'cash_flow', 'equity_statement']:
+                    if key not in scores:
+                        scores[key] = 0
+                    else:
+                        scores[key] = max(0, min(100, int(scores[key])))
+            
+            return scores_list
+            
+        except json.JSONDecodeError as e:
+            print(f"[WARN] JSON decode error in batch classification: {e}")
+            print(f"[WARN] Raw response: '{result[:500]}'")
+            # Return default scores for all images
+            return [{'balance_sheet': 0, 'income_statement': 0, 'cash_flow': 0, 'equity_statement': 0} for _ in range(num_images)]
+        except Exception as e:
+            print(f"[WARN] Failed to parse batch classification scores: {e}")
+            print(f"[WARN] Raw response: '{result[:500] if 'result' in locals() else 'No response'}'")
+            # Return default scores for all images
+            return [{'balance_sheet': 0, 'income_statement': 0, 'cash_flow': 0, 'equity_statement': 0} for _ in range(num_images)]
+    
     def _extract_years_from_financial_pages(self, page_images: List[Image.Image], financial_pages: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
         Extract years from identified financial pages (not hardcoded pages)
@@ -823,9 +1043,12 @@ RESPOND WITH ONLY THIS JSON FORMAT (no other text):
                 print(f"[INFO] Extracting years from page {page_num + 1} ({statement_type})...")
                 
                 try:
+                    # Skip if page image is None
+                    if page_images[page_num] is None:
+                        continue
                     # Convert PIL image to base64 for year extraction
                     base64_image = self.extractor.encode_image(page_images[page_num])
-                    page_years = self.extractor.extract_years_from_image(page_images[page_num])
+                    page_years = self.extractor.extract_years_from_image(base64_image)
                     if page_years.get('years'):
                         all_years.update(page_years['years'])
                         print(f"[INFO] Page {page_num + 1} years: {page_years['years']}")
@@ -928,7 +1151,6 @@ RESPOND WITH ONLY THIS JSON FORMAT (no other text):
             extracted_data = self.extractor._call_anthropic_api(page_image, enhanced_prompt)
             
             # Parse the JSON response
-            import json
             try:
                 parsed_data = json.loads(extracted_data)
                 return parsed_data
@@ -1110,8 +1332,8 @@ RESPOND WITH ONLY THIS JSON FORMAT (no other text):
                 print("[ERROR] No images extracted from PDF - cannot process scanned document")
                 return None
             
-            # FOUR-SCORE VISION CLASSIFICATION: Identify financial pages with statement types
-            financial_pages = self.classify_pages_with_vision(page_images)
+            # FOUR-SCORE VISION CLASSIFICATION: Identify financial pages with statement types (BATCH MODE)
+            financial_pages = self.classify_pages_with_vision_batch(page_images)
             
             # ===== PHASE 3: Extract years from identified financial pages =====
             # For multi-year documents, years may appear on different pages
@@ -1138,82 +1360,49 @@ RESPOND WITH ONLY THIS JSON FORMAT (no other text):
             # Process selected pages with PARALLEL statement-specific extraction
             # ⚡ OPTIMIZATION: Parallel extraction reduces 220s → ~30s (85% improvement)
 
-            # Check if parallel extraction is enabled (default: True for origin files)
-            enable_parallel_extraction = len(selected_pages) > 3  # Use parallel for 4+ pages
+            # Check if batch extraction is enabled (default: True for 8+ pages)
+            enable_batch_extraction = len(selected_pages) >= 8  # Use batch for larger documents
 
-            if enable_parallel_extraction:
-                print(f"[INFO] ⚡ Using PARALLEL extraction for {len(selected_pages)} pages (6 workers)")
+            # Initialize results to avoid "local variable" error
+            results = []
+
+            if enable_batch_extraction:
+                print(f"[INFO] Using BATCH extraction for {len(selected_pages)} pages")
 
                 try:
-                    from .parallel_extractor import replace_sequential_extraction
+                    # Batch extraction with cost control and error handling
+                    batch_results = self.process_with_batch_extraction(selected_pages)
+                    print("[INFO] Batch extraction completed successfully")
 
-                    # Parallel extraction with rate limiting and error handling
-                    parallel_results = replace_sequential_extraction(self, selected_pages)
-                    print("[INFO] ✅ Parallel extraction completed successfully")
+                    # Display cost summary for batch processing
+                    self.display_cost_summary(batch_results)
+
+                    # Batch processing returns a dict (combined results), not a list
+                    # This is the correct format - it's already combined
+                    if batch_results is not None and isinstance(batch_results, dict):
+                        # Batch processing succeeded - return the combined results directly
+                        # Add year data if needed (already done in process_with_batch_extraction)
+                        return batch_results
+                    elif batch_results is None:
+                        print("[ERROR] Batch extraction returned None - complete failure")
+                        print("[INFO] Falling back to sequential processing")
+                        enable_batch_extraction = False
+                    else:
+                        print(f"[WARN] Batch extraction returned unexpected type: {type(batch_results)}")
+                        print("[INFO] Falling back to sequential processing")
+                        enable_batch_extraction = False
 
                 except ImportError as e:
-                    print(f"[WARN] Parallel extraction module not available: {e}")
-                    print("[INFO] 🔄 Falling back to sequential processing")
-                    enable_parallel_extraction = False  # Trigger sequential fallback
+                    print(f"[WARN] Batch extraction module not available: {e}")
+                    print("[INFO] Falling back to sequential processing")
+                    enable_batch_extraction = False  # Trigger sequential fallback
 
                 except Exception as e:
-                    print(f"[ERROR] Parallel extraction failed: {e}")
-                    print("[INFO] 🔄 Falling back to sequential processing")
-                    enable_parallel_extraction = False  # Trigger sequential fallback
-                    parallel_results = None
+                    print(f"[ERROR] Batch extraction failed: {e}")
+                    print("[INFO] Falling back to sequential processing")
+                    enable_batch_extraction = False  # Trigger sequential fallback
 
-                # Validate parallel results and handle failures
-                if enable_parallel_extraction:
-                    if parallel_results is None:
-                        print("[ERROR] Parallel extraction returned None - complete failure")
-                        print("[INFO] 🔄 Falling back to sequential processing")
-                        enable_parallel_extraction = False
-                    elif not isinstance(parallel_results, list):
-                        print(f"[ERROR] Parallel extraction returned invalid type: {type(parallel_results)}")
-                        print("[INFO] 🔄 Falling back to sequential processing")
-                        enable_parallel_extraction = False
-
-                if enable_parallel_extraction and parallel_results is not None:
-                    # Convert parallel results to original format using page_num mapping
-                    # This fixes the critical data format conversion issue
-                    results = []
-
-                    # Create mapping of page_num to original page data for confidence lookup
-                    page_confidence_map = {page['page_num']: page.get('confidence', 0.8) for page in selected_pages}
-
-                    for extracted_data in parallel_results:
-                        if extracted_data and 'error' not in extracted_data:
-                            # Get page_num from the extracted data (should be added by parallel extractor)
-                            page_num = extracted_data.get('page_num')
-                            if page_num is None:
-                                print("[WARN] Page number missing from parallel extraction result")
-                                continue
-
-                            template_mappings = extracted_data.get('template_mappings', {})
-                            total_items = len(template_mappings)
-
-                            if total_items > 0:
-                                print(f"   Page {page_num + 1} sample fields: {list(template_mappings.keys())[:5]}")
-
-                            results.append({
-                                'page_num': page_num,
-                                'data': extracted_data,
-                                'confidence': page_confidence_map.get(page_num, 0.8)  # Safe lookup
-                            })
-                        else:
-                            # Handle error results
-                            page_num = extracted_data.get('page_num', 'Unknown')
-                            error_msg = extracted_data.get('error', 'Unknown error')
-                            print(f"[ERROR] Failed to extract data from page {page_num + 1}: {error_msg}")
-                            # Don't add error results to results list - let them be filtered out
-
-                    # Validate parallel results
-                    if not results:
-                        print("[WARN] Parallel extraction returned no valid results")
-                        print("[INFO] 🔄 Falling back to sequential processing")
-                        enable_parallel_extraction = False
-
-            else:
+            if not enable_batch_extraction:
                 # Sequential processing fallback for small documents or when parallel fails
                 print(f"[INFO] Using SEQUENTIAL extraction for {len(selected_pages)} pages")
                 results = []
@@ -1306,21 +1495,181 @@ RESPOND WITH ONLY THIS JSON FORMAT (no other text):
         
         # Combine template_mappings from all pages
         combined_mappings = {}
+        print(f"[DEBUG] convert_batch_results_to_standard_format: Processing {len(results)} results")
         
-        for result in results:
+        for idx, result in enumerate(results):
+            if 'data' not in result:
+                print(f"[DEBUG] Result {idx} missing 'data' key: {result.keys()}")
+                continue
             page_data = result['data']
             page_mappings = page_data.get('template_mappings', {})
+            print(f"[DEBUG] Result {idx} (page {result.get('page_num', '?')}): {len(page_mappings)} template_mappings")
             
-            # Merge mappings (use highest confidence for duplicates)
+            # Merge mappings - handle multi-year data properly
             for field_name, mapping in page_mappings.items():
                 if field_name not in combined_mappings:
                     combined_mappings[field_name] = mapping
                 else:
-                    # Keep higher confidence value
-                    existing_confidence = combined_mappings[field_name].get('confidence', 0)
-                    new_confidence = mapping.get('confidence', 0)
-                    if new_confidence > existing_confidence:
-                        combined_mappings[field_name] = mapping
+                    existing = combined_mappings[field_name]
+                    existing_year = str(existing.get('year', '')) if existing.get('year') else ''
+                    new_year = str(mapping.get('year', '')) if mapping.get('year') else ''
+                    
+                    # Check if we already have Value_Year_X keys (multi-year format)
+                    has_multi_year_format = any(key.startswith('Value_Year_') for key in existing.keys())
+                    
+                    # If different years, merge into Value_Year_X columns
+                    if existing_year and new_year and existing_year != new_year:
+                        # Get years_detected to determine column mapping
+                        years_detected = []
+                        if results:
+                            first_data = results[0].get('data', {})
+                            years_detected = first_data.get('years_detected', [])
+                        
+                        # If years_detected not available yet, infer from all results
+                        if not years_detected:
+                            all_years = set()
+                            # Collect all years from all results processed so far
+                            for r in results[:idx+1]:
+                                if 'data' in r:
+                                    for fname, fmap in r['data'].get('template_mappings', {}).items():
+                                        if fmap.get('year'):
+                                            all_years.add(str(fmap['year']))
+                            # Also include current mapping
+                            if new_year:
+                                all_years.add(new_year)
+                            if existing_year:
+                                all_years.add(existing_year)
+                            
+                            if all_years:
+                                years_detected = sorted([int(y) for y in all_years if str(y).isdigit()], reverse=True)
+                                years_detected = [str(y) for y in years_detected]
+                        
+                        if years_detected:
+                            # Sort years (most recent first)
+                            years_detected = sorted([str(y) for y in years_detected], key=lambda x: int(x) if str(x).isdigit() else 0, reverse=True)
+                            
+                            # Start with existing data, preserving any Value_Year_X keys
+                            merged = existing.copy()
+                            
+                            # Map existing year to column
+                            if existing_year in years_detected:
+                                year_index = years_detected.index(existing_year)
+                                existing_value = existing.get('value')
+                                if year_index == 0:
+                                    merged['Value_Year_1'] = existing_value
+                                    if not merged.get('value'):
+                                        merged['value'] = existing_value
+                                    if not merged.get('year'):
+                                        merged['year'] = existing_year
+                                elif year_index == 1:
+                                    merged['Value_Year_2'] = existing_value
+                                elif year_index == 2:
+                                    merged['Value_Year_3'] = existing_value
+                                elif year_index == 3:
+                                    merged['Value_Year_4'] = existing_value
+                            
+                            # Map new year to column
+                            if new_year in years_detected:
+                                year_index = years_detected.index(new_year)
+                                new_value = mapping.get('value')
+                                if year_index == 0:
+                                    merged['Value_Year_1'] = new_value
+                                    merged['value'] = new_value  # Most recent year is the main value
+                                    merged['year'] = new_year  # Most recent year
+                                elif year_index == 1:
+                                    merged['Value_Year_2'] = new_value
+                                elif year_index == 2:
+                                    merged['Value_Year_3'] = new_value
+                                elif year_index == 3:
+                                    merged['Value_Year_4'] = new_value
+                            
+                            # Use higher confidence
+                            merged['confidence'] = max(existing.get('confidence', 0), mapping.get('confidence', 0))
+                            
+                            combined_mappings[field_name] = merged
+                            print(f"[DEBUG] Merged multi-year data for '{field_name}': {existing_year}={existing.get('value')}, {new_year}={mapping.get('value')}")
+                        else:
+                            # No years_detected - fallback to keeping higher confidence
+                            existing_confidence = existing.get('confidence', 0)
+                            new_confidence = mapping.get('confidence', 0)
+                            if new_confidence > existing_confidence:
+                                combined_mappings[field_name] = mapping
+                    elif has_multi_year_format:
+                        # Existing already has Value_Year_X format - merge new year if it's different
+                        # Get years_detected first to understand year-to-column mapping
+                        years_detected = []
+                        if results:
+                            first_data = results[0].get('data', {})
+                            years_detected = first_data.get('years_detected', [])
+                        
+                        # If years_detected not available, infer from all results
+                        if not years_detected:
+                            all_years = set()
+                            # Collect all years from all results processed so far
+                            for r in results[:idx+1]:
+                                if 'data' in r:
+                                    for fname, fmap in r['data'].get('template_mappings', {}).items():
+                                        if fmap.get('year'):
+                                            all_years.add(str(fmap['year']))
+                            # Include existing year and new year
+                            if existing.get('year'):
+                                all_years.add(str(existing.get('year')))
+                            if new_year:
+                                all_years.add(new_year)
+                            
+                            if all_years:
+                                years_detected = sorted([int(y) for y in all_years if str(y).isdigit()], reverse=True)
+                                years_detected = [str(y) for y in years_detected]
+                        
+                        # Check which years are already represented in Value_Year_X columns
+                        existing_years = set()
+                        if years_detected:
+                            for i in range(1, 5):
+                                year_key = f'Value_Year_{i}'
+                                if year_key in existing and existing[year_key] is not None and existing[year_key] != '':
+                                    # Use years_detected to map column index to year
+                                    if i <= len(years_detected):
+                                        existing_years.add(str(years_detected[i-1]))
+                        
+                        # Also check the year field
+                        if existing.get('year'):
+                            existing_years.add(str(existing.get('year')))
+                        
+                        if new_year and new_year not in existing_years:
+                            # Try to add new year to existing multi-year format
+                            # years_detected already computed above
+                            if years_detected and new_year in years_detected:
+                                year_index = years_detected.index(new_year)
+                                new_value = mapping.get('value')
+                                merged = existing.copy()
+                                if year_index == 0:
+                                    merged['Value_Year_1'] = new_value
+                                    merged['value'] = new_value
+                                    merged['year'] = new_year
+                                elif year_index == 1:
+                                    merged['Value_Year_2'] = new_value
+                                elif year_index == 2:
+                                    merged['Value_Year_3'] = new_value
+                                elif year_index == 3:
+                                    merged['Value_Year_4'] = new_value
+                                merged['confidence'] = max(existing.get('confidence', 0), mapping.get('confidence', 0))
+                                combined_mappings[field_name] = merged
+                                print(f"[DEBUG] Added year {new_year} to existing multi-year '{field_name}' at Value_Year_{year_index + 1}")
+                            else:
+                                # Can't determine year position - keep existing
+                                pass
+                        else:
+                            # Same year or no year - keep higher confidence
+                            existing_confidence = existing.get('confidence', 0)
+                            new_confidence = mapping.get('confidence', 0)
+                            if new_confidence > existing_confidence:
+                                combined_mappings[field_name] = mapping
+                    else:
+                        # Same year or no year info - keep higher confidence value
+                        existing_confidence = existing.get('confidence', 0)
+                        new_confidence = mapping.get('confidence', 0)
+                        if new_confidence > existing_confidence:
+                            combined_mappings[field_name] = mapping
         
         # Use metadata from the first result
         combined_data = {
@@ -1353,3 +1702,296 @@ RESPOND WITH ONLY THIS JSON FORMAT (no other text):
             combined_data['timestamp'] = first_data.get('timestamp', '')
         
         return combined_data
+
+
+    def process_with_batch_extraction(self, selected_pages: list) -> Dict[str, Any]:
+        """
+        Process pages using batch extraction instead of parallel processing.
+        
+        Returns:
+            Dict with 'template_mappings' key containing combined field mappings
+            and 'pages_processed' key with count of pages processed.
+        """
+
+        print(f"[INFO] Using BATCH extraction for {len(selected_pages)} pages")
+
+        # Initialize year_data to empty in case extraction fails
+        year_data = {"years": [], "confidence": 0.0, "source": "vision_extraction"}
+
+        try:
+            # Phase 0: Extract years from financial pages (before batch processing)
+            # Build page_images list indexed by page_num for _extract_years_from_financial_pages
+            # Find max page_num to size the array correctly
+            max_page_num = max((page.get('page_num', 0) for page in selected_pages), default=0)
+            page_images = [None] * (max_page_num + 1)
+            
+            for page in selected_pages:
+                page_num = page.get('page_num', 0)
+                if 'image' in page:
+                    page_images[page_num] = page['image']
+            
+            # Extract years from identified financial pages
+            print("[INFO] Extracting years from financial pages...")
+            year_data = self._extract_years_from_financial_pages(page_images, selected_pages)
+            
+            # Phase 1: Analyze document structure
+            from .batch_processor import DocumentStructureAnalyzer, BatchExtractor
+
+            structure_analyzer = DocumentStructureAnalyzer()
+            statement_groups = structure_analyzer.analyze_document_structure(selected_pages)
+            
+            # Load template fields for batch prompt (fixes root cause)
+            template_fields = self.extractor._load_template_fields()
+            processing_batches = structure_analyzer.create_processing_batches(statement_groups, template_fields=template_fields)
+
+            print(f"[INFO] Created {len(processing_batches)} processing batches")
+
+            # Phase 2: Process batches sequentially
+            batch_extractor = BatchExtractor(self.extractor)
+            all_results = []
+            
+            # Collect all unique field names for analysis (no normalization needed - prompt fixed)
+            all_field_names = set()
+
+            for i, batch in enumerate(processing_batches):
+                print(f"[BATCH] Processing batch {i+1}/{len(processing_batches)}: {batch['batch_id']}")
+
+                batch_result = batch_extractor.extract_batch(batch)
+                if batch_result and batch_result.get('extracted_data'):
+                    # Convert batch result format to expected format
+                    batch_extracted_data = batch_result['extracted_data']
+                    statement_type = batch_result.get('statement_type', 'unknown')
+                    print(f"[DEBUG] Batch {batch['batch_id']}: Got {len(batch_extracted_data)} extracted items")
+                    
+                    # Group extracted items by page_num
+                    pages_data = {}
+                    for item in batch_extracted_data:
+                        page_num = item.get('page_num', 0)
+                        if page_num not in pages_data:
+                            pages_data[page_num] = {
+                                'template_mappings': {}
+                            }
+                        
+                        # Convert item to template_mapping format (no normalization - prompt fixed)
+                        field_name = item.get('field_name', '')
+                        if field_name:
+                            # Collect field name for analysis
+                            all_field_names.add(field_name)
+                            
+                            # Use field name directly from batch extraction (LLM should return exact template field names)
+                            value = item.get('value', '')
+                            year = item.get('year', 'N/A')
+                            confidence = item.get('confidence', 0.0)
+                            
+                            print(f"[FIELD_MAP] Page {page_num}: '{field_name}' = {value} (Year: {year}, Confidence: {confidence:.2f})")
+                            
+                            # Use field name directly (should already be template field name from improved prompt)
+                            pages_data[page_num]['template_mappings'][field_name] = {
+                                'value': value,
+                                'confidence': confidence,
+                                'year': year,
+                                'page_num': page_num
+                            }
+                        else:
+                            print(f"[WARN] Item missing 'field_name' on page {page_num}: {list(item.keys())}")
+                    
+                    print(f"[DEBUG] Batch {batch['batch_id']}: Grouped into {len(pages_data)} pages with template_mappings")
+                    
+                    # Convert to expected format for convert_batch_results_to_standard_format
+                    for page_num, page_data in pages_data.items():
+                        all_results.append({
+                            'page_num': page_num,
+                            'statement_type': statement_type,
+                            'data': page_data
+                        })
+                    
+                    print(f"[DEBUG] Batch {batch['batch_id']}: Added {len(pages_data)} results to all_results (total: {len(all_results)})")
+
+                # Cost monitoring
+                total_cost = batch_extractor.total_cost
+                if total_cost > 2.0:  # Cost threshold
+                    print(f"[WARN] Cost threshold reached: ${total_cost:.2f}")
+                    break
+
+            # Phase 3: Structure results for existing pipeline
+            print(f"[DEBUG] Total all_results before conversion: {len(all_results)}")
+            
+            # Log all unique field names found for mapping analysis
+            if all_field_names:
+                print(f"\n[FIELD_MAP] ========================================")
+                print(f"[FIELD_MAP] FIELD NAME MAPPING ANALYSIS")
+                print(f"[FIELD_MAP] ========================================")
+                print(f"[FIELD_MAP] Total unique field names extracted: {len(all_field_names)}")
+                print(f"[FIELD_MAP] Field names (sorted):")
+                for field_name in sorted(all_field_names):
+                    print(f"[FIELD_MAP]   - '{field_name}'")
+                print(f"[FIELD_MAP] ========================================\n")
+            
+            if all_results:
+                print(f"[DEBUG] First result structure: {list(all_results[0].keys()) if isinstance(all_results[0], dict) else type(all_results[0])}")
+                if isinstance(all_results[0], dict) and 'data' in all_results[0]:
+                    print(f"[DEBUG] First result data keys: {list(all_results[0]['data'].keys())}")
+                    if 'template_mappings' in all_results[0]['data']:
+                        print(f"[DEBUG] First result template_mappings count: {len(all_results[0]['data']['template_mappings'])}")
+            
+            # Use _combine_page_results() to combine into single dict with template_mappings
+            converted_results = self._combine_page_results(all_results)
+            print(f"[DEBUG] Conversion complete - return type: {type(converted_results)}")
+            print(f"[DEBUG] Conversion complete - return keys: {list(converted_results.keys()) if isinstance(converted_results, dict) else 'Not a dict'}")
+            if isinstance(converted_results, dict) and 'template_mappings' in converted_results:
+                print(f"[DEBUG] Conversion complete - template_mappings count: {len(converted_results['template_mappings'])}")
+            
+            # Add year data to combined results (matching process_pdf_with_vector_db behavior)
+            if isinstance(converted_results, dict) and year_data and year_data.get('years'):
+                years = year_data['years']
+                # Ensure template_mappings exists
+                if 'template_mappings' not in converted_results:
+                    converted_results['template_mappings'] = {}
+                # Add Year field with all year values
+                converted_results['template_mappings']['Year'] = {
+                    'value': years[0] if years else None,
+                    'confidence': year_data.get('confidence', 0.95),
+                    'Value_Year_1': years[0] if len(years) > 0 else None,
+                    'Value_Year_2': years[1] if len(years) > 1 else None,
+                    'Value_Year_3': years[2] if len(years) > 2 else None,
+                    'Value_Year_4': years[3] if len(years) > 3 else None,
+                    'source': year_data.get('source', 'vision_extraction')
+                }
+                print(f"[INFO] Year field populated: {years}")
+            elif isinstance(converted_results, dict):
+                print(f"[WARN] No year data to add to results (year_data: {year_data})")
+            
+            # Add cost metadata to return value (Phase 2: Cost Tracking)
+            if isinstance(converted_results, dict):
+                # Capture cost information from batch_extractor
+                total_cost = batch_extractor.total_cost if 'batch_extractor' in locals() else 0.0
+                total_batches = len(processing_batches) if 'processing_batches' in locals() else 0
+                total_pages = len(selected_pages)
+                
+                converted_results['batch_processing_metadata'] = {
+                    'total_batches': total_batches,
+                    'total_pages': total_pages,
+                    'total_cost': total_cost,
+                    'cost_per_page': total_cost / total_pages if total_pages > 0 else 0.0,
+                    'api_calls': total_batches,  # Each batch is one API call
+                    'processing_method': 'batch_extraction'
+                }
+                print(f"[INFO] Cost metadata added: ${total_cost:.2f} for {total_batches} batches, {total_pages} pages")
+            
+            return converted_results
+
+        except Exception as e:
+            # Sanitize error message for Windows console encoding
+            error_msg = str(e).encode('ascii', errors='ignore').decode('ascii')
+            print(f"[ERROR] Batch extraction failed: {error_msg}")
+            print("[INFO] Falling back to sequential processing")
+            return self.process_pages_sequentially(selected_pages)
+
+    def display_cost_summary(self, batch_results):
+        """Display cost summary for batch processing - handles both dict and list formats"""
+        try:
+            total_cost = 0
+            total_pages = 0
+            total_batches = 0
+
+            # Handle new dict format (from _combine_page_results)
+            if isinstance(batch_results, dict):
+                # Check for batch_processing_metadata in the dict
+                metadata = batch_results.get('batch_processing_metadata', {})
+                if metadata:
+                    total_cost = metadata.get('total_cost', 0)
+                    total_pages = metadata.get('total_pages', batch_results.get('pages_processed', 0))
+                    total_batches = metadata.get('total_batches', 0)
+                else:
+                    # Fallback: try to get pages_processed from dict
+                    total_pages = batch_results.get('pages_processed', 0)
+                    print(f"[WARN] Cost metadata not found in batch results, showing page count only")
+            
+            # Handle legacy list format
+            elif isinstance(batch_results, list):
+                for result in batch_results:
+                    if isinstance(result, dict) and 'processing_metadata' in result:
+                        metadata = result['processing_metadata']
+                        cost = metadata.get('cost', 0)
+                        pages = metadata.get('pages_processed', [])
+                        total_cost += cost
+                        total_pages += len(pages)
+                        total_batches += 1
+
+            print(f"\n[COST SUMMARY]")
+            print(f"[COST SUMMARY] Batch Processing Results:")
+            print(f"   • Total batches: {total_batches}")
+            print(f"   • Total pages: {total_pages}")
+            print(f"   • Total cost: ${total_cost:.2f}")
+            if total_pages > 0:
+                print(f"   • Cost per page: ${total_cost/total_pages:.3f}")
+                individual_cost = total_pages * 0.15
+                savings = individual_cost - total_cost
+                print(f"   • Estimated savings vs individual: ${savings:.2f}")
+            print()
+
+        except Exception as e:
+            print(f"[WARN] Failed to display cost summary: {e}")
+
+    def convert_batch_results_to_standard_format(self, batch_results: list) -> list:
+        """Convert batch results to match existing pipeline format"""
+        standard_results = []
+
+        for result in batch_results:
+            # Ensure compatibility with existing result processing
+            standard_result = {
+                'page_num': result.get('page_num', 0),
+                'extracted_data': result.get('extracted_data', {}),
+                'confidence': result.get('confidence', 0.0),
+                'statement_type': result.get('statement_type', 'unknown'),
+                'batch_processed': True  # Flag to indicate batch processing
+            }
+            standard_results.append(standard_result)
+
+        return standard_results
+
+    def process_pages_sequentially(self, selected_pages: list) -> list:
+        """Fallback sequential processing for small documents or when batch fails"""
+        print(f"[INFO] 📄 Using sequential extraction for {len(selected_pages)} pages")
+        
+        # Extract years from financial pages before processing
+        max_page_num = max((page.get('page_num', 0) for page in selected_pages), default=0)
+        page_images = [None] * (max_page_num + 1)
+        for page in selected_pages:
+            page_num = page.get('page_num', 0)
+            if 'image' in page:
+                page_images[page_num] = page['image']
+        
+        print("[INFO] Extracting years from financial pages...")
+        year_data = self._extract_years_from_financial_pages(page_images, selected_pages)
+        
+        results = []
+
+        for i, page in enumerate(selected_pages):
+            try:
+                print(f"[INFO] Processing page {i+1}/{len(selected_pages)}: {page.get('page_num', '?')}")
+
+                # Extract from single page
+                page_num = page.get('page_num', i + 1)
+                image_data = page.get('image', '')
+
+                if not image_data:
+                    print(f"[WARN] No image data for page {page_num}")
+                    continue
+
+                # Use existing single-page extraction
+                extracted_data = self.extractor.extract_financial_data(image_data)
+
+                results.append({
+                    'page_num': page_num,
+                    'extracted_data': extracted_data,
+                    'confidence': 0.8,  # Default confidence
+                    'statement_type': 'sequential',
+                    'batch_processed': False
+                })
+
+            except Exception as e:
+                print(f"[ERROR] Failed to process page {page.get('page_num', '?')}: {e}")
+                continue
+
+        return results

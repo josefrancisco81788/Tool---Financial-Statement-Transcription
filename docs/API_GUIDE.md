@@ -21,11 +21,13 @@ The Financial Statement Transcription API provides programmatic access to our AI
 
 ### Key Features
 - **Multi-format Support**: PDF files, PNG, JPG, JPEG images
-- **AI-Powered Extraction**: OpenAI GPT-4 Vision for intelligent data recognition
+- **AI-Powered Extraction**: Anthropic Claude 3.5 Sonnet for intelligent data recognition
 - **Multi-year Support**: Handles comparative financial statements (2024, 2023, 2022, etc.)
 - **Per-Page Classification**: Automatically detects statement types for each page (Balance Sheet, Income Statement, Cash Flow, Equity)
+- **Batch Processing**: Optimized batch classification and extraction for large documents
 - **Standardized Output**: Template CSV format matching `FS_Input_Template_Fields.csv`
-- **Cloud Ready**: Optimized for Google Cloud Run deployment
+- **Cost Control**: Built-in cost tracking with $3.00 per document constraint
+- **Cloud Ready**: Optimized for deployment on Render.com, Railway, or Google Cloud Run
 - **RESTful API**: Simple HTTP endpoints with JSON responses
 
 ### Performance Characteristics
@@ -60,7 +62,7 @@ The API uses a robust processing approach that handles each page individually to
 
 ### Prerequisites
 - API access credentials
-- OpenAI API key (configured on server)
+- Anthropic API key (configured on server)
 - HTTP client (curl, Postman, or your preferred tool)
 
 ### First API Call
@@ -137,10 +139,11 @@ Extract financial data from uploaded documents.
 **Parameters:**
 - `file` (required): PDF or image file
 - `statement_type` (optional): Hint for statement type - **only used for image uploads, ignored for PDFs**
+- `export_csv` (optional, boolean): Generate and return template CSV as base64-encoded string (default: false)
 
 **Note**: For PDF files, the API automatically detects statement types per page using AI classification. The `statement_type` parameter is only used as a hint for single image uploads.
 
-**Response:** JSON with extracted financial data
+**Response:** JSON with extracted financial data and optional CSV
 
 #### 2. Health Check
 **GET** `/health`
@@ -214,41 +217,55 @@ statement_type: "balance_sheet"  # optional - only for images, ignored for PDFs
 {
   "success": true,
   "data": {
-    "statement_type": "string",
+    "template_mappings": {
+      "Year": {
+        "value": "2024",
+        "confidence": 0.95,
+        "Value_Year_1": "2024",
+        "Value_Year_2": "2023"
+      },
+      "Cash and Cash Equivalents": {
+        "value": 40506296,
+        "confidence": 0.95,
+        "year": "2024",
+        "Value_Year_1": 40506296,
+        "Value_Year_2": 14011556
+      },
+      "Total Assets": {
+        "value": 85703741,
+        "confidence": 0.95,
+        "year": "2023",
+        "Value_Year_1": 85703741,
+        "Value_Year_2": 115885523
+      }
+    },
+    "years_detected": ["2024", "2023"],
     "company_name": "string",
     "period": "string",
     "currency": "string",
-    "years_detected": ["string"],
-    "base_year": "string",
-    "year_ordering": "most_recent_first",
-    "line_items": {
-      "category_name": {
-        "line_item_name": {
-          "value": number,
-          "confidence": number,
-          "year_2024": number,
-          "year_2023": number
-        }
-      }
-    },
-    "summary_metrics": {
-      "total_assets": {"value": number, "confidence": number},
-      "total_liabilities": {"value": number, "confidence": number},
-      "total_equity": {"value": number, "confidence": number}
-    },
-    "document_structure": {
-      "main_sections": ["string"],
-      "line_item_count": number,
-      "pages_analyzed": number
+    "pages_processed": 12,
+    "batch_processing_metadata": {
+      "total_cost": 2.10,
+      "total_batches": 3,
+      "total_pages": 14
     }
   },
   "template_csv": "base64_encoded_csv_data",
-  "template_fields_mapped": 20,
-  "processing_time": number,
-  "pages_processed": number,
-  "timestamp": "ISO 8601 timestamp"
+  "template_fields_mapped": 39,
+  "processing_time": 580.4,
+  "pages_processed": 12,
+  "timestamp": "2025-01-06T10:30:00Z"
 }
 ```
+
+**Response Structure Notes:**
+- `template_mappings`: Dictionary where keys are template field names (e.g., "Cash and Cash Equivalents", "Total Assets")
+- Each field mapping contains:
+  - `value`: Primary value (most recent year)
+  - `confidence`: Confidence score (0.0-1.0)
+  - `year`: Year of the primary value
+  - `Value_Year_1`, `Value_Year_2`, `Value_Year_3`, `Value_Year_4`: Multi-year values (most recent first)
+- `batch_processing_metadata`: Cost tracking information (only present when batch processing is used)
 
 #### Error Response
 ```json
@@ -291,6 +308,24 @@ statement_type: "balance_sheet"  # optional - only for images, ignored for PDFs
   "timestamp": "2024-01-15T10:30:00Z"
 }
 ```
+
+## 💰 Cost Constraints
+
+### Per-Document Cost Limit
+- **Maximum Cost**: $3.00 per document
+- **Typical Cost**: $1.50-$2.50 per document
+- **Cost Tracking**: Cost information included in `batch_processing_metadata` when batch processing is used
+
+### Cost Optimization
+- **Batch Processing**: Automatically used for documents with 8+ pages to reduce API calls
+- **Batch Classification**: 5 pages processed per classification API call
+- **Cost Monitoring**: Real-time cost tracking prevents exceeding limits
+
+### Cost Breakdown
+For a typical 50-page document:
+- **Classification**: 11 batches × ~$0.15 per batch = ~$1.65
+- **Extraction**: 3-4 batches × ~$0.50 per batch = ~$1.50-$2.00
+- **Total**: ~$2.10-$2.25 (under $3.00 constraint)
 
 ## 🔐 Authentication
 
@@ -366,9 +401,11 @@ gcloud run deploy financial-api \
 
 ### Environment Variables
 ```bash
-OPENAI_API_KEY=your-openai-key
+ANTHROPIC_API_KEY=your-anthropic-key
+AI_PROVIDER=anthropic
 LOG_LEVEL=INFO
 MAX_FILE_SIZE=52428800  # 50MB
+PROCESSING_TIMEOUT=900  # 15 minutes
 RATE_LIMIT_PER_MINUTE=60
 ```
 
@@ -395,8 +432,10 @@ def extract_financial_data(file_path):
     
     # statement_type parameter is optional and only used for image uploads
     # For PDFs, the API automatically detects statement types per page
+    # export_csv parameter enables CSV generation
     data = {
-        "statement_type": "balance_sheet"  # optional hint for images only
+        "statement_type": "balance_sheet",  # optional hint for images only
+        "export_csv": "true"  # enable CSV export
     }
     
     response = requests.post(url, headers=headers, files=files, data=data)
@@ -461,6 +500,15 @@ def process_multi_page_document(file_path):
         print(f"🏢 Company: {result['data'].get('company_name', 'Unknown')}")
         print(f"📅 Years: {result['data'].get('years_detected', [])}")
         
+        # Access template_mappings
+        template_mappings = result['data'].get('template_mappings', {})
+        print(f"💼 Fields extracted: {len(template_mappings)}")
+        
+        # Access cost information if available
+        if 'batch_processing_metadata' in result['data']:
+            cost = result['data']['batch_processing_metadata'].get('total_cost', 0)
+            print(f"💰 Processing cost: ${cost:.2f}")
+        
         return result
     else:
         raise Exception(f"API Error: {response.status_code} - {response.text}")
@@ -481,6 +529,7 @@ async function extractFinancialData(filePath) {
     // statement_type parameter is optional and only used for image uploads
     // For PDFs, the API automatically detects statement types per page
     form.append('statement_type', 'balance_sheet');
+    form.append('export_csv', 'true');  // enable CSV export
     
     try {
         const response = await axios.post('https://your-api-url.com/extract', form, {
@@ -684,11 +733,13 @@ python tests/test_api_enhanced.py --category light
 ## 🔄 Version History
 
 ### v1.1.0 (Current)
+- **AI Provider**: Anthropic Claude 3.5 Sonnet for intelligent extraction
+- **Batch Processing**: Batch classification (5 pages/batch) and batch extraction for large documents
 - **Standardized CSV Output**: Template format matching `FS_Input_Template_Fields.csv`
-- **Robust Individual Processing**: Page-by-page processing for maximum reliability
+- **Cost Control**: Built-in cost tracking with $3.00 per document constraint
+- **Template Mappings**: Flat dictionary structure with field names as keys
 - **Smart Statement Selection**: Automatic identification of Balance Sheet vs Operations vs Equity
 - **Enhanced Error Handling**: New error codes for JSON parsing, consolidation, and template mapping
-- **Improved Performance**: Optimized processing with real-world benchmarks
 - **Template Compliance**: 91 standardized fields with multi-year support
 - **Fallback Processing**: Graceful handling of PDF library failures (pdf2image → PyMuPDF)
 - **Comprehensive Testing**: Full test suite with performance benchmarks

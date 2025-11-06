@@ -702,6 +702,26 @@ class CSVExporter:
             # Get direct mappings from LLM
             template_mappings = extracted_data.get('template_mappings', {})
             
+            # Get years_detected for year-to-column mapping
+            years_detected = extracted_data.get('years_detected', [])
+            if not years_detected:
+                # Try to infer from Year field
+                if 'Year' in template_mappings:
+                    year_data = template_mappings['Year']
+                    years_detected = []
+                    if year_data.get('Value_Year_1'):
+                        years_detected.append(str(year_data['Value_Year_1']))
+                    if year_data.get('Value_Year_2'):
+                        years_detected.append(str(year_data['Value_Year_2']))
+                    if year_data.get('Value_Year_3'):
+                        years_detected.append(str(year_data['Value_Year_3']))
+                    if year_data.get('Value_Year_4'):
+                        years_detected.append(str(year_data['Value_Year_4']))
+            
+            # Sort years (most recent first) if we have them
+            if years_detected:
+                years_detected = sorted([str(y) for y in years_detected], key=lambda x: int(x) if str(x).isdigit() else 0, reverse=True)
+            
             # Create a copy of the template structure
             filled_template = []
             for template_row in self.template_data:
@@ -711,11 +731,11 @@ class CSVExporter:
                 # Direct lookup - no complex mapping needed
                 if field_name in template_mappings:
                     mapping = template_mappings[field_name]
-                    filled_row['Value_Year_1'] = mapping.get('value')
                     filled_row['Confidence'] = self._convert_confidence(mapping.get('confidence', 0.8))
                     filled_row['Confidence_Score'] = mapping.get('confidence', 0.8)
                     
-                    # Handle multi-year data if available
+                    # Priority 1: Handle multi-year data with Value_Year_X keys (from merged combination)
+                    # This is the preferred format after merging
                     if 'Value_Year_1' in mapping:
                         filled_row['Value_Year_1'] = mapping.get('Value_Year_1')
                     if 'Value_Year_2' in mapping:
@@ -725,15 +745,39 @@ class CSVExporter:
                     if 'Value_Year_4' in mapping:
                         filled_row['Value_Year_4'] = mapping.get('Value_Year_4')
                     
-                    # Also handle old format for backward compatibility
-                    if 'base_year' in mapping:
+                    # Priority 2: Handle year field with years_detected mapping (if Value_Year_X not already set)
+                    # This handles cases where data hasn't been merged yet but has year field
+                    if 'year' in mapping and years_detected and not any(filled_row.get(f'Value_Year_{i}') for i in range(1, 5)):
+                        year_value = str(mapping.get('year', ''))
+                        field_value = mapping.get('value', '')
+                        if year_value in years_detected:
+                            year_index = years_detected.index(year_value)
+                            if year_index == 0:
+                                filled_row['Value_Year_1'] = field_value
+                            elif year_index == 1:
+                                filled_row['Value_Year_2'] = field_value
+                            elif year_index == 2:
+                                filled_row['Value_Year_3'] = field_value
+                            elif year_index == 3:
+                                filled_row['Value_Year_4'] = field_value
+                        else:
+                            # Year not in years_detected - put in Value_Year_1 as fallback
+                            if not filled_row.get('Value_Year_1'):
+                                filled_row['Value_Year_1'] = field_value
+                    
+                    # Priority 3: Handle old format for backward compatibility
+                    if 'base_year' in mapping and not filled_row.get('Value_Year_1'):
                         filled_row['Value_Year_1'] = mapping.get('base_year')
-                    if 'year_1' in mapping:
-                        filled_row['Value_Year_2'] = mapping.get('year_1')
-                    if 'year_2' in mapping:
-                        filled_row['Value_Year_3'] = mapping.get('year_2')
-                    if 'year_3' in mapping:
-                        filled_row['Value_Year_4'] = mapping.get('year_3')
+                        if 'year_1' in mapping:
+                            filled_row['Value_Year_2'] = mapping.get('year_1')
+                        if 'year_2' in mapping:
+                            filled_row['Value_Year_3'] = mapping.get('year_2')
+                        if 'year_3' in mapping:
+                            filled_row['Value_Year_4'] = mapping.get('year_3')
+                    
+                    # Fallback: Use value field (single value) if no year-specific data found
+                    if not any(filled_row.get(f'Value_Year_{i}') for i in range(1, 5)) and 'value' in mapping:
+                        filled_row['Value_Year_1'] = mapping.get('value')
                 
                 filled_template.append(filled_row)
             
