@@ -1,15 +1,15 @@
 {
-  "test_time": "2025-10-28T17:34:10.729285",
+  "test_time": "2025-11-02T04:57:12.566456",
   "pdf_path": "tests/fixtures/light/2021 AFS with SEC Stamp - statement extracted.pdf",
   "pdf_name": "2021 AFS with SEC Stamp - statement extracted.pdf",
   "status": "started",
   "pdf_info": {
     "total_pages": 5,
-    "conversion_time": 21.957996129989624
+    "conversion_time": 37.304447174072266
   },
   "classification": {
     "financial_pages": 4,
-    "processing_time": 19.446242809295654,
+    "processing_time": 24.382911920547485,
     "statement_counts": {
       "balance_sheet": 1,
       "income_statement": 1,
@@ -20,7 +20,7 @@
   "extraction": {
     "pages_processed": 4,
     "pages_with_data": 4,
-    "processing_time": 41.277132749557495,
+    "processing_time": 52.420613050460815,
     "extractions": [
       {
         "page_num": 0,
@@ -87,7 +87,7 @@
             "Value_Year_1": 497148,
             "Value_Year_2": 109612
           },
-          "Total Current Liabilities": {
+          "Total Liabilities": {
             "value": 891619,
             "confidence": 0.95,
             "Value_Year_1": 891619,
@@ -242,13 +242,13 @@
           },
           "Other current financial liabilities": {
             "value": -13650759,
-            "confidence": 0.9,
+            "confidence": 0.85,
             "Value_Year_1": -13650759,
             "Value_Year_2": -5736801
           },
           "Other current non-financial liabilities": {
             "value": 596836,
-            "confidence": 0.9,
+            "confidence": 0.85,
             "Value_Year_1": 596836,
             "Value_Year_2": -1279439
           },

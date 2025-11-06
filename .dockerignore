@@ -1,0 +1,100 @@
+# Git
+.git
+.gitignore
+
+# Tests and test outputs
+tests/
+test_*.py
+*_test.py
+*.test.py
+
+# Test results and outputs
+*.json
+*.csv
+*.log
+*.xml
+tests/outputs/
+tests/results/
+tests/live/
+
+# Documentation (not needed in container)
+*.md
+docs/
+*.txt
+!requirements-api.txt
+
+# Development files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+
+# Environment files
+.env
+*.env
+.env.local
+
+# Database files
+*.db
+*.sqlite3
+chroma_db/
+financial_statements.db
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+nul
+
+# Backups
+backups/
+
+# Data directories
+data/
+
+# Streamlit app (we're deploying API, not Streamlit)
+app.py
+streamlit/
+
+# Scripts (not needed in container)
+scripts/
+
+# API test files
+test_api_*.py
+start_api.py
+
+# Planning and analysis documents
+*_PLAN.md
+*_ANALYSIS.md
+*_RESULTS.md
+*_CHECKLIST.md
+*_GUIDE.md
+*_PROGRESS.md
+
+# Render config (not needed for Cloud Run)
+render.yaml
+
+# Core batch processor (if not used by API)
+core/batch_processor.py
+
+# All markdown files except README
+*.md
+!README.md
+

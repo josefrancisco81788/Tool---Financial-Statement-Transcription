@@ -1,26 +1,26 @@
 {
-  "test_time": "2025-10-28T18:08:44.079889",
+  "test_time": "2025-11-04T19:31:15.187586",
   "pdf_path": "tests/fixtures/origin/AFS2024.pdf",
   "pdf_name": "AFS2024.pdf",
   "status": "started",
   "pdf_info": {
     "total_pages": 54,
-    "conversion_time": 236.25901079177856
+    "conversion_time": 209.4005913734436
   },
   "classification": {
-    "financial_pages": 18,
-    "processing_time": 334.18798828125,
+    "financial_pages": 17,
+    "processing_time": 276.3817436695099,
     "statement_counts": {
       "balance_sheet": 6,
-      "income_statement": 8,
+      "income_statement": 7,
       "cash_flow": 0,
       "equity_statement": 4
     }
   },
   "extraction": {
-    "pages_processed": 18,
-    "pages_with_data": 18,
-    "processing_time": 220.4395785331726,
+    "pages_processed": 17,
+    "pages_with_data": 17,
+    "processing_time": 306.71552324295044,
     "extractions": [
       {
         "page_num": 3,
@@ -33,9 +33,9 @@
             "Value_Year_1": 249784478
           },
           "Cost of Sales": {
-            "value": 202329579,
+            "value": 202328679,
             "confidence": 0.95,
-            "Value_Year_1": 202329579
+            "Value_Year_1": 202328679
           },
           "Gross Profit": {
             "value": 47459799,
@@ -49,7 +49,7 @@
           },
           "Profit (loss) before tax": {
             "value": 47659006,
-            "confidence": 0.9,
+            "confidence": 0.95,
             "Value_Year_1": 47659006
           },
           "Income tax expense (from continuing operations)": {
@@ -57,7 +57,7 @@
             "confidence": 0.9,
             "Value_Year_1": 3243703
           },
-          "Comprehensive / Net income": {
+          "Profit (loss)": {
             "value": 12974813,
             "confidence": 0.85,
             "Value_Year_1": 12974813
@@ -75,9 +75,9 @@
             "Value_Year_1": 1927597
           },
           "Administrative expense": {
-            "value": 34894193,
+            "value": 34884190,
             "confidence": 0.9,
-            "Value_Year_1": 34894193
+            "Value_Year_1": 34884190
           },
           "Interest Expense": {
             "value": 102708,
@@ -89,44 +89,30 @@
       {
         "page_num": 5,
         "statement_type": "income_statement",
-        "fields_extracted": 6,
+        "fields_extracted": 4,
         "data": {
           "Comprehensive / Net income": {
             "value": 12024098,
-            "confidence": 0.95,
-            "Value_Year_1": 12024098
+            "confidence": 0.95
           },
           "Other income": {
             "value": 997189,
-            "confidence": 0.9,
-            "Value_Year_1": 997189
+            "confidence": 0.9
           },
           "Finance income": {
             "value": 46474,
-            "confidence": 0.9,
-            "Value_Year_1": 46474
+            "confidence": 0.85
           },
           "Profit (loss) before tax": {
-            "value": 13021287,
-            "confidence": 0.95,
-            "Value_Year_1": 13021287
-          },
-          "Income tax expense (from continuing operations)": {
-            "value": 46474,
-            "confidence": 0.9,
-            "Value_Year_1": 46474
-          },
-          "Profit (loss)": {
             "value": 12974813,
-            "confidence": 0.95,
-            "Value_Year_1": 12974813
+            "confidence": 0.95
           }
         }
       },
       {
         "page_num": 9,
         "statement_type": "balance_sheet",
-        "fields_extracted": 24,
+        "fields_extracted": 23,
         "data": {
           "Cash and Cash Equivalents": {
             "value": 40506296,
@@ -213,9 +199,9 @@
             "Value_Year_2": 57035143
           },
           "Other long-term financial liabilities": {
-            "value": 34810579,
-            "confidence": 0.9,
-            "Value_Year_1": 34810579,
+            "value": 34816847,
+            "confidence": 0.85,
+            "Value_Year_1": 34816847,
             "Value_Year_2": 74946502
           },
           "Total Non Current Liabilities": {
@@ -243,20 +229,14 @@
             "Value_Year_2": 15833600
           },
           "Other reserves": {
-            "value": 42570000,
-            "confidence": 0.9,
-            "Value_Year_1": 42570000,
-            "Value_Year_2": 61470000
-          },
-          "Retained earnings": {
-            "value": 44675911,
-            "confidence": 0.9,
-            "Value_Year_1": 44675911,
-            "Value_Year_2": 17396953
+            "value": 42105911,
+            "confidence": 0.85,
+            "Value_Year_1": 42105911,
+            "Value_Year_2": 77396953
           },
           "Treasury shares": {
             "value": -2705400,
-            "confidence": 0.9,
+            "confidence": 0.95,
             "Value_Year_1": -2705400,
             "Value_Year_2": -2347826
           },
@@ -350,7 +330,7 @@
       {
         "page_num": 11,
         "statement_type": "equity_statement",
-        "fields_extracted": 7,
+        "fields_extracted": 6,
         "data": {
           "Issued (share) capital": {
             "value": 45667200,
@@ -358,33 +338,21 @@
             "Value_Year_1": 45667200,
             "Value_Year_2": 45667200
           },
-          "Share premium": {
+          "Other reserves": {
             "value": 15833600,
-            "confidence": 0.95,
+            "confidence": 0.9,
             "Value_Year_1": 15833600,
             "Value_Year_2": 15833600
           },
           "Retained earnings": {
-            "value": 77396953,
-            "confidence": 0.95,
-            "Value_Year_1": 77396953,
-            "Value_Year_2": 96015096
-          },
-          "Comprehensive / Net income": {
-            "value": 8780395,
-            "confidence": 0.95,
-            "Value_Year_1": 8780395,
-            "Value_Year_2": 11405239
-          },
-          "Other comprehensive income": {
-            "value": -1501437,
+            "value": 44675911,
             "confidence": 0.9,
-            "Value_Year_1": -1501437,
-            "Value_Year_2": -27523195
+            "Value_Year_1": 44675911,
+            "Value_Year_2": 77396953
           },
           "Treasury shares": {
             "value": -2705400,
-            "confidence": 0.95,
+            "confidence": 0.9,
             "Value_Year_1": -2705400,
             "Value_Year_2": -2347826
           },
@@ -393,6 +361,12 @@
             "confidence": 0.95,
             "Value_Year_1": 146041311,
             "Value_Year_2": 138019927
+          },
+          "Comprehensive / Net income": {
+            "value": 8780395,
+            "confidence": 0.9,
+            "Value_Year_1": 8780395,
+            "Value_Year_2": 11405239
           }
         }
       },
@@ -405,12 +379,6 @@
       {
         "page_num": 21,
         "statement_type": "balance_sheet",
-        "fields_extracted": 0,
-        "data": {}
-      },
-      {
-        "page_num": 25,
-        "statement_type": "income_statement",
         "fields_extracted": 0,
         "data": {}
       },
@@ -516,7 +484,7 @@
       {
         "page_num": 38,
         "statement_type": "equity_statement",
-        "fields_extracted": 2,
+        "fields_extracted": 3,
         "data": {
           "Retained earnings": {
             "value": 84675913,
@@ -524,18 +492,24 @@
             "Value_Year_1": 84675913,
             "Value_Year_2": 77396953
           },
-          "Comprehensive / Net income": {
+          "Profit (loss)": {
             "value": 8780395,
-            "confidence": 0.9,
+            "confidence": 0.95,
             "Value_Year_1": 8780395,
             "Value_Year_2": 11405239
+          },
+          "Other reserves": {
+            "value": -40000000,
+            "confidence": 0.9,
+            "Value_Year_1": -40000000,
+            "Value_Year_2": -60000000
           }
         }
       },
       {
         "page_num": 40,
         "statement_type": "income_statement",
-        "fields_extracted": 5,
+        "fields_extracted": 6,
         "data": {
           "Revenue": {
             "value": 249788478,
@@ -551,7 +525,7 @@
           },
           "Finance income": {
             "value": -46474,
-            "confidence": 0.85,
+            "confidence": 0.9,
             "Value_Year_1": -46474,
             "Value_Year_2": -1066
           },
@@ -566,13 +540,19 @@
             "confidence": 0.95,
             "Value_Year_1": 202328679,
             "Value_Year_2": 246283513
+          },
+          "Other gains(losses)": {
+            "value": -6842,
+            "confidence": 0.85,
+            "Value_Year_1": -6842,
+            "Value_Year_2": 762894
           }
         }
       },
       {
         "page_num": 41,
         "statement_type": "income_statement",
-        "fields_extracted": 6,
+        "fields_extracted": 5,
         "data": {
           "Administrative expense": {
             "value": 35409424,
@@ -586,11 +566,11 @@
             "Value_Year_1": 3243704,
             "Value_Year_2": 3735208
           },
-          "Finance income": {
-            "value": 46474,
-            "confidence": 0.85,
-            "Value_Year_1": 46474,
-            "Value_Year_2": 1066
+          "Profit (loss) before tax": {
+            "value": 12974814,
+            "confidence": 0.9,
+            "Value_Year_1": 12974814,
+            "Value_Year_2": 14940831
           },
           "Gross Profit": {
             "value": 47459800,
@@ -598,17 +578,11 @@
             "Value_Year_1": 47459800,
             "Value_Year_2": 46517104
           },
-          "Profit (loss) before tax": {
-            "value": 12974814,
-            "confidence": 0.9,
-            "Value_Year_1": 12974814,
-            "Value_Year_2": 14940831
-          },
-          "Other expense": {
-            "value": 997191,
+          "Finance income": {
+            "value": -46474,
             "confidence": 0.85,
-            "Value_Year_1": 997191,
-            "Value_Year_2": 1104965
+            "Value_Year_1": -46474,
+            "Value_Year_2": -1066
           }
         }
       },
@@ -649,13 +623,13 @@
           },
           "Other expense": {
             "value": 72752,
-            "confidence": 0.85,
+            "confidence": 0.9,
             "Value_Year_1": 72752,
             "Value_Year_2": -2032519
           },
           "Depreciation Expense": {
             "value": 1927597,
-            "confidence": 0.9,
+            "confidence": 0.95,
             "Value_Year_1": 1927597,
             "Value_Year_2": 3501035
           }
@@ -679,10 +653,10 @@
             "Value_Year_2": 78519947
           },
           "Other current financial assets": {
-            "value": 11831646,
+            "value": 133925920,
             "confidence": 0.9,
-            "Value_Year_1": 11831646,
-            "Value_Year_2": 23914915
+            "Value_Year_1": 133925920,
+            "Value_Year_2": 116763416
           },
           "Trade and other current payables": {
             "value": 44907778,
@@ -691,10 +665,10 @@
             "Value_Year_2": 23297018
           },
           "Other current financial liabilities": {
-            "value": 25172744,
+            "value": 70080521,
             "confidence": 0.9,
-            "Value_Year_1": 25172744,
-            "Value_Year_2": 9752679
+            "Value_Year_1": 70080521,
+            "Value_Year_2": 33049697
           }
         }
       },
@@ -716,13 +690,12 @@
             "confidence": 0.9,
             "Value_Year_1": 8780395,
             "Value_Year_2": 11405239,
-            "Value_Year_3": -44728750,
-            "Value_Year_4": 24412863
+            "Value_Year_3": -44728750
           }
         }
       }
     ],
-    "combined_fields": 42
+    "combined_fields": 45
   },
   "csv_file": "tests/outputs\\AFS2024_template_export.csv"
 }

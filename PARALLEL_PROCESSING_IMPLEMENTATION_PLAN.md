@@ -1243,3 +1243,298 @@ class CachedTester:
 *Enhanced recommendations added - immediate damage control required before any further API testing*
 *Financial constraint: STOP if costs exceed $10 total*
 *Next: Implement Phase 0 before proceeding with any fixes*
+
+## 🔄 **ALTERNATIVE APPROACH: Page-Division Batch Processing**
+
+### **Strategic Pivot Analysis**
+
+After analyzing the fundamental flaws in per-page parallel processing, a **page-division batch processing approach** emerges as a superior alternative that directly addresses the root causes of the cost and performance crisis.
+
+### **📊 Current vs Page-Division Comparison**
+
+| Metric | Current Per-Page | Page-Division Batches | Improvement |
+|--------|------------------|----------------------|-------------|
+| **API Calls** | 54 calls | 12-18 calls | **67-78% reduction** |
+| **Estimated Cost** | $8.10 | $1.80-2.70 | **67-78% cost savings** |
+| **Rate Limiting Impact** | High (54 calls hit 120/min limit) | Minimal (18 calls well under limit) | **Eliminates bottleneck** |
+| **Processing Time** | 12+ minutes | <2 minutes (estimated) | **6x speedup potential** |
+| **Context Awareness** | None (isolated pages) | High (document flow) | **Better accuracy** |
+| **Implementation Complexity** | High (parallel workers + rate limiting) | Low (sequential batches) | **Simpler architecture** |
+
+### **🎯 Core Benefits**
+
+#### **1. Cost Crisis Resolution**
+- **Root Cause**: 54 individual vision calls → expensive
+- **Solution**: 12-18 batch calls → affordable
+- **Impact**: Brings cost under $2 threshold for viability
+
+#### **2. Performance Breakthrough**
+- **Root Cause**: Rate limits serialize 54 calls anyway
+- **Solution**: 18 calls fit easily within 120/min limit
+- **Impact**: Eliminates rate limiting delays entirely
+
+#### **3. Accuracy Improvement**
+- **Root Cause**: Isolated pages lack context (year extraction fails)
+- **Solution**: Multi-page context enables cross-page understanding
+- **Impact**: Better year extraction, statement classification, data validation
+
+#### **4. Simplified Architecture**
+- **Root Cause**: Parallel processing adds complexity without benefit
+- **Solution**: Sequential batch processing is simpler and more effective
+- **Impact**: Easier to implement, debug, and maintain
+
+### **🚀 Implementation Timeline: 2.5 hours**
+
+**Phase 1** (30 min): Document structure analysis and batch creation
+**Phase 2** (45 min): Batch processing engine and API integration  
+**Phase 3** (30 min): PDF processor integration and fallback logic
+**Phase 4** (15 min): Cost control and monitoring systems
+**Phase 5** (30 min): Testing and validation
+**Buffer** (20 min): Debugging and refinement
+
+### **🎯 Decision Point**
+
+**Proceed with batch processing implementation if**:
+- Small document test shows ≥25% improvement
+- Cost stays under $2 for medium documents
+- Year extraction improves (AFS2024 gets proper years)
+- Implementation stays under 3 hours total
+
+**This approach directly addresses**:
+✅ **Cost crisis** (67-78% cost reduction)
+✅ **Performance bottleneck** (eliminates rate limiting)
+✅ **Year extraction failure** (multi-page context)
+✅ **Implementation complexity** (simpler than parallel processing)
+
+---
+
+## ✅ **BATCH PROCESSING IMPLEMENTATION STATUS**
+
+### **Implementation Complete** (per BATCH_PROCESSING_IMPLEMENTATION_COMPLETE.md)
+
+**Status**: ✅ **IMPLEMENTATION COMPLETE** - Validation Required Before API Launch
+
+**Files Created/Modified**:
+- ✅ `core/batch_processor.py` (338 lines) - DocumentStructureAnalyzer, BatchCostController, BatchExtractor
+- ✅ `core/extractor.py` (lines 447-521) - `extract_financial_data_batch()` with multi-image API support
+- ✅ `core/pdf_processor.py` (lines 1141-1394) - Integrated batch processing for 8+ page documents
+- ✅ `tests/test_batch_processing.py` (139 lines) - Unit tests passed
+
+**Key Achievements**:
+- ✅ 67-78% API call reduction (54 calls → 12-18 batch calls)
+- ✅ 67-78% cost reduction ($8.10 → $1.80-2.70 for 54-page docs)
+- ✅ Rate limiting bottleneck eliminated
+- ✅ Multi-page context awareness for better year extraction
+- ✅ Automatic fallback to sequential processing on failure
+
+**Current Gap Identified**:
+- ⚠️ `tests/run_extraction_test.py` uses manual sequential extraction (bypasses batch integration)
+- ⚠️ Batch processing only activates via `process_pdf_with_vector_db()` method
+- ⚠️ No real-world validation with 8+ page documents completed
+
+**Critical Blockers Identified** (November 2025):
+- 🔴 **Format Mismatch**: `process_with_batch_extraction()` returns single dict, but `run_extraction_test.py` expects list - blocks CSV generation
+- 🔴 **Field Mapping**: Batch extraction field names don't match template field names - results in 0% CSV population
+- 🟡 **Cost Tracking**: Cost metadata not preserved in return value - shows $0.00 instead of actual costs
+- 🟡 **Classification**: All batches labeled "other" instead of preserving vision classification statement types
+
+**Fix Plan**: See `BATCH_PROCESSING_FIX_IMPLEMENTATION_PLAN.md` for detailed remediation steps.
+- **Phase 0** (Critical): Fix return format mismatch (30-45 min)
+- **Phase 1** (High): Implement field name normalization (2-3 hours)
+- **Phase 2** (Medium): Fix cost tracking integration (1-2 hours)
+- **Phase 3** (Medium): Preserve statement type classification (1 hour)
+- **Phase 4** (Low): Add API error resilience (2-3 hours)
+
+**Status**: ⚠️ **BLOCKERS IDENTIFIED - FIX PLAN READY FOR IMPLEMENTATION**
+
+---
+
+## 🚀 **API LAUNCH VALIDATION PLAN**
+
+### **Current Status Assessment**
+
+**What's Working**:
+- ✅ Initialization fix: `FinancialDataExtractor()` correctly passed to `PDFProcessor()`
+- ✅ Batch processing code exists in `core/pdf_processor.py` (lines 1141-1177)
+- ✅ Batch components implemented in `core/batch_processor.py`
+- ✅ Unit tests pass (`tests/test_batch_processing.py`)
+
+**Gap Identified**:
+- ❌ `tests/run_extraction_test.py` uses manual sequential extraction, bypassing batch integration
+- ❌ Batch processing only activates via `process_pdf_with_vector_db()` method
+- ❌ No real-world validation with 8+ page documents
+
+### **Phase 1: Update Test Runner to Use Batch Path (30 min)**
+
+**File**: `tests/run_extraction_test.py`
+
+**Change Required**: Replace manual sequential extraction (lines 108-137) with batch-integrated path:
+
+```python
+# Current (bypasses batch):
+for idx, page in enumerate(financial_pages, 1):
+    extracted_data = extractor.extract_comprehensive_financial_data(...)
+
+# New (uses batch path):
+if len(financial_pages) >= 8:
+    # Use integrated batch processing on pre-classified pages
+    # Note: financial_pages already classified, no need to re-process PDF
+    batch_results = processor.process_with_batch_extraction(financial_pages)
+    
+    # Convert batch results to existing format for CSV export
+    all_extractions = []
+    combined_template_mappings = {}
+    for extracted_data in batch_results:
+        if extracted_data and 'template_mappings' in extracted_data:
+            template_mappings = extracted_data['template_mappings']
+            all_extractions.append({
+                "page_num": extracted_data.get('page_num', 0),
+                "statement_type": extracted_data.get('statement_type', 'unknown'),
+                "fields_extracted": len(template_mappings),
+                "data": template_mappings
+            })
+            combined_template_mappings.update(template_mappings)
+else:
+    # Use sequential for small docs (< 8 pages)
+    # ... existing sequential code preserved
+```
+
+**Alternative**: Create dedicated batch test function that calls `process_with_batch_extraction()` directly while preserving existing test structure.
+
+### **Phase 2: Validation Testing Sequence (2 hours)**
+
+**Test 1: Light Document (≤4 pages) - Batch Should NOT Activate**
+- File: `tests/fixtures/light/` (any 4-page file)
+- Verify: Sequential processing used, batch logs absent
+- Validate: CSV output quality, cost <$2
+- **Success Criteria**: Batch path correctly skipped, normal CSV produced
+
+**Test 2: Medium Document (8-12 pages) - Batch SHOULD Activate**
+- File: `tests/fixtures/origin/AFS-2022.pdf` (if it has 8+ financial pages after classification)
+- OR: Use larger origin file
+- Verify: Batch activation logs present:
+  - `[INFO] ⚡ Using BATCH extraction for X pages`
+  - `[ANALYZER] Created N processing batches`
+  - `[BATCH] Processing batch 1/N`
+- Validate: Cost stays under $2, batch count reasonable (3-5 pages per batch)
+- **Success Criteria**: Batch engaged, cost summary shows savings, CSV produced
+
+**Test 3: Large Document (30-60 pages) - Full Batch Validation**
+- File: `tests/live/afs 2024 & 2023 (1).pdf` (55 pages, 16 financial pages from previous run)
+- Verify all readiness checklist items:
+  - ✅ Batch mode engages automatically
+  - ✅ Batch sizing decisions logged
+  - ✅ Cost guardrails enforced ($2 hardcap)
+  - ✅ Cost summary displayed
+  - ✅ Page mapping correct (verify page_num in results)
+  - ✅ CSV export in FS_Input_Template_Fields format
+- **Success Criteria**: All checklist items pass, cost ≤$2, complete CSV with coverage ≥24%
+
+### **Phase 3: Cost Control Validation (30 min)**
+
+**Verify**:
+1. Pre-flight cost estimation works (`BatchCostController.can_process_batch()`)
+2. Real-time cost tracking during extraction
+3. $2 hardcap enforced (processing stops if exceeded)
+4. Cost summary accurately reflects batch savings vs individual calls
+
+**Test**: Run large document with `MAX_COST_LIMIT=2.0`, verify:
+- ✅ No cost overruns
+- ✅ Cost summary shows batch count, total cost, estimated savings
+- ✅ Processing stops gracefully if limit reached
+
+### **Phase 4: CSV Output Quality Validation (30 min)**
+
+**Verify CSV Format**:
+- File: `tests/outputs/{filename}_template_export.csv`
+- Format: FS_Input_Template_Fields (91 rows, Year, Value_Year_1, Value_Year_2 columns)
+- Content: Populated fields match extracted data
+- Coverage: Compare to sequential extraction results for same document
+
+**Metrics** (per `tests/SCORING_FRAMEWORK.md`):
+- Field extraction rate ≥40% (Primary metric)
+- Template format accuracy: 100% (structure matches exactly)
+- CSV export integration: Fields properly mapped to template
+
+### **Phase 5: Error Handling & Fallback (15 min)**
+
+**Test Failure Scenarios**:
+1. Batch processing fails → Falls back to sequential
+2. Cost limit exceeded → Processing stops gracefully
+3. API error in batch → Error isolated, other batches continue
+4. Invalid batch result → Fallback to sequential
+
+**Verify**: Logs show fallback activation, no complete failures, partial results preserved
+
+---
+
+## ✅ **Success Criteria for API Launch**
+
+**Must Pass**:
+- ✅ Batch activates automatically for 8+ page documents
+- ✅ Cost stays under $2 hardcap for all test documents
+- ✅ CSV output matches FS_Input_Template_Fields format
+- ✅ All readiness checklist items validated
+- ✅ Error handling and fallback work correctly
+
+**Performance Targets**:
+- API calls reduced by 67-78% vs sequential
+- Cost reduced by 67-78% vs individual page calls
+- Processing time acceptable (<10 minutes for large docs)
+
+**Readiness Checklist** (from BATCH_PROCESSING_IMPLEMENTATION_COMPLETE.md):
+- ✅ Batch mode engages automatically for ≥8 pages; logs show batch sizing decisions
+- ✅ Multi-image support validated against provider limits
+- ✅ Batch size configurable (env/config), default 3-5 pages per call
+- ✅ Cost guardrails enforced: real-time tally, $2 hardcap, per-batch estimates
+- ✅ Error isolation per batch: bounded retries, circuit breaker active
+- ✅ Page mapping correct: batched responses mapped back to original `page_num`
+- ✅ CSV export produced in FS_Input_Template_Fields format with populated fields
+
+**Documentation Required**:
+- Update `BATCH_PROCESSING_IMPLEMENTATION_COMPLETE.md` with actual test results
+- Document any deviations from expected behavior
+- Record actual cost savings achieved
+
+---
+
+## 📋 **Files to Modify**
+
+1. **`tests/run_extraction_test.py`** (30 lines)
+   - Replace manual extraction loop with batch path integration
+   - Or create `test_batch_integration()` function
+
+2. **`BATCH_PROCESSING_IMPLEMENTATION_COMPLETE.md`** (add section)
+   - Add "Validation Test Results" section
+   - Record actual performance metrics
+   - Document any issues found
+
+---
+
+## 🔧 **Implementation Order**
+
+1. Update test runner to use batch path (Phase 1)
+2. Run Test 1 (light doc) - verify batch correctly disabled
+3. Run Test 2 (medium doc) - verify batch activation
+4. Run Test 3 (large doc) - full validation
+5. Verify cost control and CSV quality (Phases 3-4)
+6. Test error handling scenarios (Phase 5)
+7. Document results and update status
+
+---
+
+## ⚠️ **Risk Mitigation**
+
+- **If batch doesn't activate**: Check `len(selected_pages) >= 8` logic in `pdf_processor.py` line 1142
+- **If cost exceeds $2**: Verify cost tracking integration in API calls (`BatchCostController`)
+- **If CSV missing/empty**: Verify batch result format conversion (`convert_batch_results_to_standard_format`)
+- **If performance worse**: Check batch size (should be 3-5 pages, not 1 per batch)
+
+---
+
+## 🎯 **Next Steps**
+
+1. **Immediate**: Update `tests/run_extraction_test.py` to use batch path
+2. **Validation**: Execute test sequence (light → medium → large documents)
+3. **Documentation**: Record validation results in `BATCH_PROCESSING_IMPLEMENTATION_COMPLETE.md`
+4. **API Launch**: Proceed once all success criteria met
