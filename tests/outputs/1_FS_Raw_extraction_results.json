@@ -1,0 +1,260 @@
+{
+  "test_time": "2025-10-29T23:24:45.111633",
+  "pdf_path": "tests/live/1_FS_Raw.pdf",
+  "pdf_name": "1_FS_Raw.pdf",
+  "status": "started",
+  "pdf_info": {
+    "total_pages": 3,
+    "conversion_time": 14.683456897735596
+  },
+  "classification": {
+    "financial_pages": 3,
+    "processing_time": 13.179625511169434,
+    "statement_counts": {
+      "balance_sheet": 1,
+      "income_statement": 1,
+      "cash_flow": 1,
+      "equity_statement": 0
+    }
+  },
+  "extraction": {
+    "pages_processed": 3,
+    "pages_with_data": 3,
+    "processing_time": 38.97697448730469,
+    "extractions": [
+      {
+        "page_num": 0,
+        "statement_type": "income_statement",
+        "fields_extracted": 9,
+        "data": {
+          "Revenue": {
+            "value": 23781435.0,
+            "confidence": 0.95,
+            "Value_Year_1": 23781435.0,
+            "Value_Year_2": 11588136.0
+          },
+          "Cost of Sales": {
+            "value": 15571287.0,
+            "confidence": 0.95,
+            "Value_Year_1": 15571287.0,
+            "Value_Year_2": 7821619.0
+          },
+          "Gross Profit": {
+            "value": 8210148.0,
+            "confidence": 0.95,
+            "Value_Year_1": 8210148.0,
+            "Value_Year_2": 3766517.0
+          },
+          "Other income": {
+            "value": 0.0,
+            "confidence": 0.95,
+            "Value_Year_1": 0.0,
+            "Value_Year_2": 54536.0
+          },
+          "Distribution costs": {
+            "value": 1051831.0,
+            "confidence": 0.95,
+            "Value_Year_1": 1051831.0,
+            "Value_Year_2": 646012.0
+          },
+          "Administrative expense": {
+            "value": 6022373.0,
+            "confidence": 0.95,
+            "Value_Year_1": 6022373.0,
+            "Value_Year_2": 2838034.0
+          },
+          "Profit (loss) before tax": {
+            "value": 1135944.0,
+            "confidence": 0.95,
+            "Value_Year_1": 1135944.0,
+            "Value_Year_2": 337007.0
+          },
+          "Income tax expense (from continuing operations)": {
+            "value": 227189.0,
+            "confidence": 0.95,
+            "Value_Year_1": 227189.0,
+            "Value_Year_2": 84741.0
+          },
+          "Comprehensive / Net income": {
+            "value": 908755.0,
+            "confidence": 0.95,
+            "Value_Year_1": 908755.0,
+            "Value_Year_2": 252266.0
+          }
+        }
+      },
+      {
+        "page_num": 1,
+        "statement_type": "balance_sheet",
+        "fields_extracted": 16,
+        "data": {
+          "Cash and Cash Equivalents": {
+            "value": 15360687.0,
+            "confidence": 0.95,
+            "Value_Year_1": 15360687.0,
+            "Value_Year_2": 16927079.0
+          },
+          "Trade and Other Current Receivables": {
+            "value": 5082064.0,
+            "confidence": 0.95,
+            "Value_Year_1": 5082064.0,
+            "Value_Year_2": 2290494.0
+          },
+          "Current Inventories": {
+            "value": 106774.0,
+            "confidence": 0.95,
+            "Value_Year_1": 106774.0,
+            "Value_Year_2": 28476.0
+          },
+          "Other current non-financial assets": {
+            "value": 561140.0,
+            "confidence": 0.9,
+            "Value_Year_1": 561140.0,
+            "Value_Year_2": 601200.0
+          },
+          "Total Current Assets": {
+            "value": 21110665.0,
+            "confidence": 0.95,
+            "Value_Year_1": 21110665.0,
+            "Value_Year_2": 19847249.0
+          },
+          "Property, Plant and Equipment": {
+            "value": 391369.0,
+            "confidence": 0.95,
+            "Value_Year_1": 391369.0,
+            "Value_Year_2": 861012.0
+          },
+          "Other non-current non-financial assets": {
+            "value": 0.0,
+            "confidence": 0.9,
+            "Value_Year_1": 0.0,
+            "Value_Year_2": 95807.0
+          },
+          "Total Non Current Assets": {
+            "value": 391369.0,
+            "confidence": 0.9,
+            "Value_Year_1": 391369.0,
+            "Value_Year_2": 956819.0
+          },
+          "Total Assets": {
+            "value": 21502034.0,
+            "confidence": 0.95,
+            "Value_Year_1": 21502034.0,
+            "Value_Year_2": 20804068.0
+          },
+          "Trade and other current payables": {
+            "value": 1217198.0,
+            "confidence": 0.95,
+            "Value_Year_1": 1217198.0,
+            "Value_Year_2": 1401466.0
+          },
+          "Other current non-financial liabilities": {
+            "value": 19821.0,
+            "confidence": 0.9,
+            "Value_Year_1": 19821.0,
+            "Value_Year_2": 46342.0
+          },
+          "Total Current Liabilities": {
+            "value": 1237019.0,
+            "confidence": 0.95,
+            "Value_Year_1": 1237019.0,
+            "Value_Year_2": 1447808.0
+          },
+          "Issued (share) capital": {
+            "value": 5000000.0,
+            "confidence": 0.95,
+            "Value_Year_1": 5000000.0,
+            "Value_Year_2": 5000000.0
+          },
+          "Retained earnings": {
+            "value": 15265015.0,
+            "confidence": 0.95,
+            "Value_Year_1": 15265015.0,
+            "Value_Year_2": 14356260.0
+          },
+          "Total Equity": {
+            "value": 20265015.0,
+            "confidence": 0.95,
+            "Value_Year_1": 20265015.0,
+            "Value_Year_2": 19356260.0
+          },
+          "Total Liabilities And Equity": {
+            "value": 21502034.0,
+            "confidence": 0.95,
+            "Value_Year_1": 21502034.0,
+            "Value_Year_2": 20804068.0
+          }
+        }
+      },
+      {
+        "page_num": 2,
+        "statement_type": "cash_flow",
+        "fields_extracted": 10,
+        "data": {
+          "Comprehensive / Net income": {
+            "value": 908755.0,
+            "confidence": 0.95,
+            "Value_Year_1": 908755.0,
+            "Value_Year_2": 252266.0
+          },
+          "Depreciation Expense": {
+            "value": 469643.0,
+            "confidence": 0.95,
+            "Value_Year_1": 469643.0,
+            "Value_Year_2": 469643.0
+          },
+          "Trade and Other Current Receivables": {
+            "value": -2791570.0,
+            "confidence": 0.9,
+            "Value_Year_1": -2791570.0,
+            "Value_Year_2": 2340320.0
+          },
+          "Current Inventories": {
+            "value": -78298.0,
+            "confidence": 0.9,
+            "Value_Year_1": -78298.0,
+            "Value_Year_2": 25874.0
+          },
+          "Other current non-financial assets": {
+            "value": 40660.0,
+            "confidence": 0.85,
+            "Value_Year_1": 40660.0,
+            "Value_Year_2": 251225.0
+          },
+          "Other non-current non-financial assets": {
+            "value": 95807.0,
+            "confidence": 0.85,
+            "Value_Year_1": 95807.0,
+            "Value_Year_2": 33814.0
+          },
+          "Trade and other current payables": {
+            "value": -210789.0,
+            "confidence": 0.9,
+            "Value_Year_1": -210789.0,
+            "Value_Year_2": -2702588.0
+          },
+          "Net Cashflow from Operations (per FS)": {
+            "value": -1566392.0,
+            "confidence": 0.95,
+            "Value_Year_1": -1566392.0,
+            "Value_Year_2": 168104.0
+          },
+          "Property, Plant and Equipment": {
+            "value": 0.0,
+            "confidence": 0.9,
+            "Value_Year_1": 0.0,
+            "Value_Year_2": 0.0
+          },
+          "Cash and Cash Equivalents": {
+            "value": 15360687.0,
+            "confidence": 0.95,
+            "Value_Year_1": 15360687.0,
+            "Value_Year_2": 16927079.0
+          }
+        }
+      }
+    ],
+    "combined_fields": 27
+  },
+  "csv_file": "tests/outputs\\1_FS_Raw_template_export.csv"
+}

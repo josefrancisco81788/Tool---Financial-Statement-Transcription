@@ -1,0 +1,27 @@
+{
+  "test_time": "2025-11-04T10:41:50.101975",
+  "pdf_path": "tests/live/afs 2024 & 2023 (1).pdf",
+  "pdf_name": "afs 2024 & 2023 (1).pdf",
+  "status": "started",
+  "pdf_info": {
+    "total_pages": 55,
+    "conversion_time": 50.0033905506134
+  },
+  "classification": {
+    "financial_pages": 0,
+    "processing_time": 51.83475613594055,
+    "statement_counts": {
+      "balance_sheet": 0,
+      "income_statement": 0,
+      "cash_flow": 0,
+      "equity_statement": 0
+    }
+  },
+  "extraction": {
+    "pages_processed": 0,
+    "pages_with_data": 0,
+    "processing_time": 0.0,
+    "extractions": [],
+    "combined_fields": 0
+  }
+}

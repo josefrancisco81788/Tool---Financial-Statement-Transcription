@@ -1,0 +1,12 @@
+{
+  "test_file": "tests/live/afs 2024 & 2023 (1).pdf",
+  "pages_processed": 7,
+  "financial_pages_count": 0,
+  "classification_time_seconds": 414.7011225223541,
+  "total_time_seconds": 414.7011225223541,
+  "estimated_cost": 1.05,
+  "cost_constraint_met": true,
+  "classification_time_target_met": false,
+  "total_time_target_met": false,
+  "timestamp": "2025-11-06 01:43:14"
+}
