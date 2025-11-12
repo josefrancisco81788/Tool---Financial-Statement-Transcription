@@ -11,7 +11,7 @@ from typing import Dict, Any, List
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from tests.core.csv_exporter import CSVExporter
+from core.csv_exporter import CSVExporter
 
 
 def convert_json_to_template_csv_core(json_file_path: str, output_csv_path: str = None) -> str:

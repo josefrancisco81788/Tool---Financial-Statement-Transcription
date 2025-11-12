@@ -380,7 +380,7 @@ def test_origin_file_performance():
 
                         # Export CSV in FS_Input_Template_Fields format for manual review
                         try:
-                            from tests.core.csv_exporter import CSVExporter
+                            from core.csv_exporter import CSVExporter
                             base_name = os.path.splitext(file_name)[0]
                             csv_output_dir = os.path.join('tests', 'outputs', 'csv')
                             os.makedirs(csv_output_dir, exist_ok=True)
@@ -405,7 +405,7 @@ def test_origin_file_performance():
                                     print(f"[WARN] CSV validation failed: {validation_e}")
                                 
                                 # Run accuracy validation
-                                expected_csv = f"tests/fixtures/templates/FS_Input_Template_Fields_{base_name}.csv"
+                                expected_csv = Path("core/templates") / f"FS_Input_Template_Fields_{base_name}.csv"
                                 accuracy_results = validate_accuracy(csv_path, expected_csv, file_name)
                                 if accuracy_results:
                                     print(f"\n[ACCURACY VALIDATION]")

@@ -96,7 +96,7 @@ python tests/compare_results_vs_expected.py         # Secondary metric
 
 #### **Template Validation**
 - **Purpose**: Output format validation
-- **Files**: 5 CSV templates (e.g. `FS_Input_Template_Fields_AFS-2022.csv`) in `tests/fixtures/templates/`
+- **Files**: 5 CSV templates (e.g. `FS_Input_Template_Fields_AFS-2022.csv`) in `core/templates/`
 - **Expected**: Match API output structure
 - **Use Case**: Data format validation
 

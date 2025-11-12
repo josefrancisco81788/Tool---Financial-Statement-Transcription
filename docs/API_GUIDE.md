@@ -192,6 +192,8 @@ Balance Sheet,Current Assets,Trade and Other Current Receivables,High,0.95,93102
 - **Income Statement**: Revenue, Expenses, Profit/Loss items
 - **Cash Flow Statement**: Operating, Investing, Financing activities
 
+> **Note:** The canonical template CSVs (`FS_Input_Template_Fields*.csv`) are bundled under `core/templates/` so they’re available in every deployment environment (e.g., Cloud Run).
+
 ### Request Format
 
 #### File Upload
@@ -714,10 +716,7 @@ All test files produce output that:
 
 ### Running Tests
 ```bash
-# Test individual file using core CSV exporter
-python tests/core/csv_exporter.py
-
-# Export financial data to template CSV
+# Export financial data to template CSV using the core exporter
 python tests/export_financial_data_to_csv.py
 
 # Run field extraction analysis (PRIMARY METRIC)

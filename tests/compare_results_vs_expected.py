@@ -183,22 +183,22 @@ def main():
     comparisons = [
         {
             'actual': 'tests/outputs/AFS2024_robust_template.csv',
-            'expected': 'tests/fixtures/templates/FS_Input_Template_Fields_AFS2024.csv',
+            'expected': 'core/templates/FS_Input_Template_Fields_AFS2024.csv',
             'name': 'AFS2024'
         },
         {
             'actual': 'tests/outputs/afs_2022_robust_template.csv',
-            'expected': 'tests/fixtures/templates/FS_Input_Template_Fields_AFS-2022.csv',
+            'expected': 'core/templates/FS_Input_Template_Fields_AFS-2022.csv',
             'name': 'AFS-2022'
         },
         {
             'actual': 'tests/outputs/2021_afs_sec_robust_template.csv',
-            'expected': 'tests/fixtures/templates/FS_Input_Template_Fields_2021_AFS_with_SEC_Stamp.csv',
+            'expected': 'core/templates/FS_Input_Template_Fields_2021_AFS_with_SEC_Stamp.csv',
             'name': '2021 AFS with SEC Stamp'
         },
         {
             'actual': 'tests/outputs/afs_2021_2023_robust_template.csv',
-            'expected': 'tests/fixtures/templates/FS_Input_Template_Fields_afs_2021_2023.csv',
+            'expected': 'core/templates/FS_Input_Template_Fields_afs_2021_2023.csv',
             'name': 'afs-2021-2023'
         }
     ]

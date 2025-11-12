@@ -26,7 +26,7 @@ import threading
 
 # Add project root to path for core CSV exporter
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from tests.core.csv_exporter import CSVExporter
+from core.csv_exporter import CSVExporter
 
 
 class TimeoutError(Exception):

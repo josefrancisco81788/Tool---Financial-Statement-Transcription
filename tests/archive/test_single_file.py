@@ -159,22 +159,22 @@ test_number = int(sys.argv[1]) if len(sys.argv) > 1 else 1
 test_files = [
     {
         'file': 'tests/fixtures/light/2021 AFS with SEC Stamp - statement extracted.pdf',
-        'target': 'tests/fixtures/templates/FS_Input_Template_Fields_2021_AFS_with_SEC_Stamp.csv',
+        'target': 'core/templates/FS_Input_Template_Fields_2021_AFS_with_SEC_Stamp.csv',
         'name': '2021 AFS with SEC Stamp'
     },
     {
         'file': 'tests/fixtures/light/afs-2021-2023 - statement extracted.pdf', 
-        'target': 'tests/fixtures/templates/FS_Input_Template_Fields_afs_2021_2023.csv',
+        'target': 'core/templates/FS_Input_Template_Fields_afs_2021_2023.csv',
         'name': 'afs-2021-2023'
     },
     {
         'file': 'tests/fixtures/light/AFS-2022 - statement extracted.pdf',
-        'target': 'tests/fixtures/templates/FS_Input_Template_Fields_AFS-2022.csv', 
+        'target': 'core/templates/FS_Input_Template_Fields_AFS-2022.csv', 
         'name': 'AFS-2022'
     },
     {
         'file': 'tests/fixtures/light/AFS2024 - statement extracted.pdf',
-        'target': 'tests/fixtures/templates/FS_Input_Template_Fields_AFS2024.csv',
+        'target': 'core/templates/FS_Input_Template_Fields_AFS2024.csv',
         'name': 'AFS2024'
     }
 ]

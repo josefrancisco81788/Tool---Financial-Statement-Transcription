@@ -21,7 +21,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from core import FinancialDataExtractor, PDFProcessor, Config
-from tests.core.csv_exporter import CSVExporter
+from core.csv_exporter import CSVExporter
 
 
 # Initialize configuration

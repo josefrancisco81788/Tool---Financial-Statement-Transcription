@@ -12,6 +12,7 @@ from typing import Dict, Any, Optional, List, Union
 from openai import OpenAI
 import anthropic
 from .config import Config
+from pathlib import Path
 
 
 class FinancialDataExtractor:
@@ -50,10 +51,9 @@ class FinancialDataExtractor:
     def _load_template_fields(self) -> List[str]:
         """Load the 91 template fields for context"""
         try:
-            # Single correct path - remove duplicate
-            template_path = "tests/fixtures/templates/FS_Input_Template_Fields.csv"
+            template_path = Path(__file__).parent / "templates" / "FS_Input_Template_Fields.csv"
             
-            if not os.path.exists(template_path):
+            if not template_path.exists():
                 print(f"[WARN] Template file not found at: {template_path}")
                 print(f"Current working directory: {os.getcwd()}")
                 return self._get_fallback_template_fields()

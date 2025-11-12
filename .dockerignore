@@ -16,6 +16,9 @@ test_*.py
 tests/outputs/
 tests/results/
 tests/live/
+# Allow production templates
+!core/templates/
+!core/templates/*.csv
 
 # Documentation (not needed in container)
 *.md

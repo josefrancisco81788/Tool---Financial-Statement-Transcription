@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.pdf_processor import PDFProcessor
 from core.extractor import FinancialDataExtractor
-from tests.core.csv_exporter import CSVExporter
+from core.csv_exporter import CSVExporter
 
 def run_extraction_test(pdf_path: str, output_dir: str = None):
     """
